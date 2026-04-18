@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Arzly.Api/Arzly.Api.csproj" />
+  <Project Path="Arzly.Client/Arzly.Client.csproj" />
+  <Project Path="Arzly.Shared/Arzly.Shared.csproj" />
+</Solution>
