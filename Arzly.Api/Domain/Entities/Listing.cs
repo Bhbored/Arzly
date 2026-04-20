@@ -1,0 +1,69 @@
+﻿using Arzly.Api.Infrastructure.Identity;
+using Arzly.Shared.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Arzly.Api.Domain.Entities
+{
+    public class Listing
+    {
+        [Key]
+        public Guid Id { get; set; } = Guid.NewGuid();
+
+        [Required]
+        [MaxLength(200)]
+        public string Title { get; set; } = string.Empty;
+
+        [Required]
+        [MaxLength(2000)]
+        public string Description { get; set; } = string.Empty;
+
+        [Range(0, double.MaxValue, ErrorMessage = "Price must be a positive number.")]
+        public double Price { get; set; }
+
+        public ListingStatus Status { get; set; } = ListingStatus.Pending;
+
+        [Url]
+        [MaxLength(2048)]
+        public string? PrimaryImageUrl { get; set; }
+
+        public List<string>? ImagesUrl { get; set; } = new();
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; }
+
+        // Foreign keys
+        [Required]
+        public string OwnerId { get; set; } = string.Empty;
+
+        [Required]
+        public Guid CategoryId { get; set; }
+
+        [Required]
+        public Guid SubcategoryId { get; set; }
+
+        public Guid? SubcategoryOptionsId { get; set; }
+
+        [Required]
+        public Guid PickupLocationId { get; set; }
+
+        // Navigation properties
+        [ForeignKey(nameof(OwnerId))]
+        public virtual AppUser Owner { get; set; } = null!;
+
+        [ForeignKey(nameof(CategoryId))]
+        public virtual Category Category { get; set; } = null!;
+
+        [ForeignKey(nameof(PickupLocationId))]
+        public virtual PickupLocation PickupLocation { get; set; } = null!;
+
+        [ForeignKey(nameof(SubcategoryId))]
+        public virtual SubCategory SubCategory { get; set; } = null!; 
+
+        [ForeignKey(nameof(SubcategoryOptionsId))]
+        public virtual SubCategoryOptions? SubCategoryOptions { get; set; }
+
+        public virtual ICollection<Chat>? RelatedChats { get; set; }
+        public virtual ICollection<SavedListing>? SavedByUsers { get; set; }
+    }
+}

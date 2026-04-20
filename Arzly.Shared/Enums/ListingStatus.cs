@@ -4,6 +4,14 @@ using System.Text;
 
 namespace Arzly.Shared.Enums
 {
-    public enum ListingStatus { Pending, Approved, Rejected, Sold, Archived }
+    public enum ListingStatus
+    {
+        Pending,
+        Active,
+        Sold,
+        Expired,
+        Rejected,
+        Deleted
+    }
 
 }

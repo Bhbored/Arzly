@@ -7,7 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="16.1.1" />
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -15,14 +26,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Application\Validators\" />
+    <Folder Include="Application\Services\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Domain\Contracts\" />
+    <Folder Include="Infrastructure\Data\DbContext\" />
+    <Folder Include="Infrastructure\Data\Configurations\" />
     <Folder Include="Infrastructure\Data\SeedData\" />
+    <Folder Include="Infrastructure\Repositories\" />
     <Folder Include="Infrastructure\Storage\" />
-    <Folder Include="Middleware\" />
+    <Folder Include="Middlewares\" />
     <Folder Include="Hubs\" />
-    <Folder Include="Mappings\" />
     <Folder Include="Filters\" />
-    <Folder Include="Repositories\Contracts\" />
-    <Folder Include="Services\Contracts\" />
   </ItemGroup>
 
 </Project>

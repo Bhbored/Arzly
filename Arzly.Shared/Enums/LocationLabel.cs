@@ -4,5 +4,10 @@ using System.Text;
 
 namespace Arzly.Shared.Enums
 {
-    public enum ChatRole { Buyer, Seller }
+    public enum LocationLabel
+    {
+        Home,
+        Work,
+        Other
+    }
 }

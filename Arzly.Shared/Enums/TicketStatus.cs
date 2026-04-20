@@ -4,12 +4,11 @@ using System.Text;
 
 namespace Arzly.Shared.Enums
 {
-    public enum NotificationSource
+    public enum TicketStatus
     {
-        System,
-        Listing,
-        Chat,
-        Ticket,
-        Promotion
+        Open,
+        InProgress,
+        Resolved,
+        Closed
     }
 }
