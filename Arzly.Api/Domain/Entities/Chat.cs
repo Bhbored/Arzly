@@ -12,9 +12,9 @@ namespace Arzly.Api.Domain.Entities
 
         public ChatRole ContextRole { get; set; }
 
-        public bool IsArchived { get; set; }
-        public bool IsDeleted { get; set; }
-        public bool IsDiscontinued { get; set; }
+        public bool IsArchived { get; set; } = false;
+        public bool IsDeleted { get; set; } = false;
+        public bool IsDiscontinued { get; set; } = false;
 
         public DateTime LastActivity { get; set; } = DateTime.UtcNow;
 
@@ -25,7 +25,7 @@ namespace Arzly.Api.Domain.Entities
         [Required]
         public string ReceiverId { get; set; } = string.Empty;
 
-        public Guid? ListingId { get; set; }
+        public Guid ListingId { get; set; }
 
         // Navigation
         [ForeignKey(nameof(InitiatorId))]

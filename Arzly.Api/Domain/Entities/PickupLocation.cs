@@ -25,7 +25,8 @@ namespace Arzly.Api.Domain.Entities
         [MaxLength(200)]
         public string? Notes { get; set; }
 
-        public Coordinate? Coordinates { get; set; }
+        public double Lat { get; set; }
+        public double Lon { get; set; }
 
         public bool IsDefault { get; set; }
 

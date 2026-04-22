@@ -6,7 +6,7 @@ namespace Arzly.Shared.Enums
 {
     public enum ReportReasonType
     {
-        Spam = 1,
+        Spam,
         Harassment,
         Fraud,
         InappropriateContent,

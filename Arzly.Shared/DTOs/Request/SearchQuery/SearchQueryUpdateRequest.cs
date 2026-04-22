@@ -1,8 +1,8 @@
 namespace Arzly.Shared.DTOs.Request.SearchQuery
 {
-    public class SearchQueryAddRequest
+    public class SearchQueryUpdateRequest
     {
-        public string UserId { get; set; } = string.Empty;
+        public Guid Id { get; set; }
         public string Query { get; set; } = string.Empty;
     }
 }

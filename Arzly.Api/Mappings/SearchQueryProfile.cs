@@ -5,16 +5,11 @@ using AutoMapper;
 
 namespace Arzly.Api.Mappings
 {
-    public class SearchQueryProfile : Profile
+    public class SearchQueryProfile 
     {
         public SearchQueryProfile()
         {
-            CreateMap<SearchQuery, SearchQueryResponse>();
-
-            CreateMap<SearchQueryAddRequest, SearchQuery>()
-                .ForMember(dest => dest.Id, opt => opt.Ignore())
-                .ForMember(dest => dest.SearchedAt, opt => opt.Ignore())
-                .ForMember(dest => dest.User, opt => opt.Ignore());
+            
         }
     }
 }

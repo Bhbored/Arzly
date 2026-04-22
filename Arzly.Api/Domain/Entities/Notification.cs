@@ -10,7 +10,7 @@ namespace Arzly.Api.Domain.Entities
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public string? UserId { get; set; } // Null = broadcast to all users
+        public string? UserId { get; set; }
 
         public Guid? ChatterId {  get; set; }
 

@@ -6,25 +6,50 @@ namespace Arzly.Shared.Enums
 {
     public enum ActivityActionType
     {
+        // Auth
         Login,
         Logout,
         Register,
         PasswordChanged,
+        PasswordReset,
 
+        // Profile
         ProfileUpdated,
+        ProfilePictureUpdated,
         AccountDeleted,
 
-        ProductCreated,
-        ProductUpdated,
-        ProductDeleted,
+        // Listings
+        ListingCreated,
+        ListingUpdated,
+        ListingDeleted,
+        ListingViewed,
+        ListingShared,
 
-        OrderPlaced,
-        OrderCancelled,
-        PaymentCompleted,
+        // Saved Listings
+        ListingSaved,
+        ListingUnsaved,
 
+        // Chat
+        ChatStarted,
+        MessageSent,
+        MessageRead,
+        ChatArchived,
+
+        // Reports
+        ReportSubmitted,
+        ReportResolved,
+        ReportDismissed,
+
+        // Tickets (Support)
+        TicketCreated,
+        TicketMessageSent,
+        TicketClosed,
+        TicketReopened,
+
+        // Admin Actions
         UserBanned,
         UserUnbanned,
-        TicketCreated,
-        TicketClosed
+        ListingFlagged,
+        ListingUnflagged
     }
 }

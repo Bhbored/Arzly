@@ -6,11 +6,17 @@ namespace Arzly.Shared.Enums
 {
     public enum ActivityTargetType
     {
-        None ,
+        None,
         User,
-        Product,
-        Order,
-        Payment,
-        Ticket
+        Listing,
+        Chat,
+        Message,
+        Ticket,
+        Report,
+        PickupLocation,
+        SavedListing,
+        SearchQuery,
+        UserPreference,
+        Notification
     }
 }
