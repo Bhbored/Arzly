@@ -1,4 +1,4 @@
-using Arzly.Shared.Enums;
+using Arzly.Shared.Enums.Notification;
 
 namespace Arzly.Shared.DTOs.Request.Notification
 {

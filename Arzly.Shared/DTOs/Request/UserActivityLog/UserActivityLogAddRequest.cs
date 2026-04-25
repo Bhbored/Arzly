@@ -1,4 +1,5 @@
-using Arzly.Shared.Enums;
+
+using Arzly.Shared.Enums.Activity;
 
 namespace Arzly.Shared.DTOs.Request.UserActivityLog
 {

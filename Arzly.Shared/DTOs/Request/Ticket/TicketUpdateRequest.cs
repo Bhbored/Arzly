@@ -1,4 +1,4 @@
-using Arzly.Shared.Enums;
+using Arzly.Shared.Enums.Ticket;
 
 namespace Arzly.Shared.DTOs.Request.Ticket
 {

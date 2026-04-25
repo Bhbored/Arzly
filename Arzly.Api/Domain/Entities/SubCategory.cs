@@ -24,7 +24,6 @@ namespace Arzly.Api.Domain.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public int ItemsCount { get; set; }
 
-        public virtual ICollection<SubCategoryOptions>? Options { get; set; }
         public virtual ICollection<Listing>? Listings { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Arzly.Api.Infrastructure.Identity;
-using Arzly.Shared.Enums;
+using Arzly.Shared.Enums.Preference;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

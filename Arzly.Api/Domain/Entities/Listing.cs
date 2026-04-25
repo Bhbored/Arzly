@@ -1,5 +1,6 @@
-﻿using Arzly.Api.Infrastructure.Identity;
-using Arzly.Shared.Enums;
+﻿using Arzly.Api.Domain.Entities.ListingOwned;
+using Arzly.Api.Infrastructure.Identity;
+using Arzly.Shared.Enums.Listing;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -32,6 +33,16 @@ namespace Arzly.Api.Domain.Entities
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
 
+
+
+        //new Properties 😊
+        public VehiclesDetails? VehiclesDetails { get; set; }
+        public RealEstateDetails? RealEstateDetails { get; set; }
+        public PhonesDetails? PhonesDetails { get; set; }
+        public bool IsPriceNegotiable { get; set; } = false;
+        public int? OneTimeNumber { get; set; }
+        public string? OneTimePostDisplayName { get; set; }
+
         // Foreign keys
         [Required]
         public string OwnerId { get; set; } = string.Empty;
@@ -41,8 +52,6 @@ namespace Arzly.Api.Domain.Entities
 
         [Required]
         public Guid SubcategoryId { get; set; }
-
-        public Guid? SubcategoryOptionsId { get; set; }
 
         [Required]
         public Guid PickupLocationId { get; set; }
@@ -59,9 +68,6 @@ namespace Arzly.Api.Domain.Entities
 
         [ForeignKey(nameof(SubcategoryId))]
         public virtual SubCategory SubCategory { get; set; } = null!; 
-
-        [ForeignKey(nameof(SubcategoryOptionsId))]
-        public virtual SubCategoryOptions? SubCategoryOptions { get; set; }
 
         public virtual ICollection<Chat>? RelatedChats { get; set; }
         public virtual ICollection<SavedListing>? SavedByUsers { get; set; }

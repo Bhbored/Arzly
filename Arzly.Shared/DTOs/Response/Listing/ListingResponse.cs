@@ -1,4 +1,4 @@
-using Arzly.Shared.Enums;
+using Arzly.Shared.Enums.Listing;
 
 namespace Arzly.Shared.DTOs.Response.Listing
 {

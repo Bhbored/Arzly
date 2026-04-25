@@ -22,7 +22,6 @@ namespace Arzly.Api.Mappings
                 OwnerId = entity.OwnerId,
                 CategoryId = entity.CategoryId,
                 SubcategoryId = entity.SubcategoryId,
-                SubcategoryOptionsId = entity.SubcategoryOptionsId,
                 PickupLocationId = entity.PickupLocationId
             };
         }
@@ -40,7 +39,6 @@ namespace Arzly.Api.Mappings
                 OwnerId = request.OwnerId,
                 CategoryId = request.CategoryId,
                 SubcategoryId = request.SubcategoryId,
-                SubcategoryOptionsId = request.SubcategoryOptionsId,
                 PickupLocationId = request.PickupLocationId
             };
         }
@@ -58,7 +56,6 @@ namespace Arzly.Api.Mappings
                 ImagesUrl = request.ImagesUrl,
                 CategoryId = request.CategoryId,
                 SubcategoryId = request.SubcategoryId,
-                SubcategoryOptionsId = request.SubcategoryOptionsId,
                 PickupLocationId = request.PickupLocationId
             };
         }
