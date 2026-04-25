@@ -1,5 +1,6 @@
 ﻿using Arzly.Shared.Enums.VehiclesDetails;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic.FileIO;
 
 namespace Arzly.Api.Domain.Entities.ListingOwned
 {
@@ -11,8 +12,12 @@ namespace Arzly.Api.Domain.Entities.ListingOwned
         public VehicleCondition? Condition { get; set; }
         public int? Kilometers { get; set; }
         public int? Year { get; set; }
+        public FuelType? FuelType { get; set; }
+        public VehicleColor? VehicleColor { get; set; }
+        public int? NumberOfDoors { get; set; }
+        public TransmissionType? TransmissionType { get; set; }
+        public List<CarFeature>? CarFeatures { get; set; }
 
-     
         public AccessoryType? AccessoryType { get; set; }
         public VehicleType? VehicleType { get; set; }
        

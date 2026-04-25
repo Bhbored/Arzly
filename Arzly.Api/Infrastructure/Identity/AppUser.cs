@@ -38,6 +38,8 @@ namespace Arzly.Api.Infrastructure.Identity
         public string? BanReason { get; set; }
         public DateTime? BanExpiresAt { get; set; }
 
+        public bool IsVerified { get; set; }
+
         // Navigation properties (inverse relationships)
         public virtual ICollection<PickupLocation>? DeliveryLocations { get; set; }
         public virtual ICollection<SavedListing>? SavedListings { get; set; }

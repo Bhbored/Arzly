@@ -39,9 +39,16 @@ namespace Arzly.Api.Domain.Entities
         public VehiclesDetails? VehiclesDetails { get; set; }
         public RealEstateDetails? RealEstateDetails { get; set; }
         public PhonesDetails? PhonesDetails { get; set; }
+        public ElectronicsDetails? ElectronicsDetails { get; set; }
+        public FurnitureDetails? FurnitureDetails { get; set; }
+        public PetsDetails? PetsDetails { get; set; }
         public bool IsPriceNegotiable { get; set; } = false;
         public int? OneTimeNumber { get; set; }
         public string? OneTimePostDisplayName { get; set; }
+        public bool IsPromoted { get; set; } = false;
+        public PromotionType? PromotionType { get; set; }
+        public DateTime? PromotionStartDate { get; set; }
+        public DateTime? PromotionEndDate { get; set; }
 
         // Foreign keys
         [Required]
