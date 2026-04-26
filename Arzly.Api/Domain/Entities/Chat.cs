@@ -25,7 +25,8 @@ namespace Arzly.Api.Domain.Entities
         [Required]
         public string ReceiverId { get; set; } = string.Empty;
 
-        public Guid ListingId { get; set; }
+        public Guid? ListingId { get; set; }
+        public Guid? JobListingId { get; set; }
 
         // Navigation
         [ForeignKey(nameof(InitiatorId))]
@@ -36,6 +37,9 @@ namespace Arzly.Api.Domain.Entities
 
         [ForeignKey(nameof(ListingId))]
         public virtual Listing? Listing { get; set; }
+
+        [ForeignKey(nameof(JobListingId))]
+        public virtual JobListing? JobListing { get; set; }
 
         public virtual ICollection<ChatMessage>? Messages { get; set; }
     }

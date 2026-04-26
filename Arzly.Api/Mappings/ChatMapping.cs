@@ -18,7 +18,7 @@ namespace Arzly.Api.Mappings
                 LastActivity = entity.LastActivity,
                 InitiatorId = entity.InitiatorId,
                 ReceiverId = entity.ReceiverId,
-                ListingId = entity.ListingId
+                ListingId = entity.ListingId.Value
             };
         }
 

@@ -1,4 +1,5 @@
 ﻿using Arzly.Api.Infrastructure.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -24,4 +25,15 @@ namespace Arzly.Api.Domain.Entities
         [ForeignKey(nameof(ListingId))]
         public virtual Listing Listing { get; set; } = null!;
     }
+
+
+
 }
+
+// Get all users who saved this listing
+//var listing = await _context.Listings
+//    .Include(l => l.SavedByUsers)
+//    .ThenInclude(s => s.User)
+//    .FirstOrDefaultAsync(l => l.Id == id);
+
+//var count = listing.SavedByUsers?.Count(s => s.DeletedAt == null); // active saves only

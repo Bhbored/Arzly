@@ -1,5 +1,6 @@
-﻿using Arzly.Api.Domain.Entities.ListingOwned;
+using Arzly.Shared.ListingOwned;
 using Arzly.Api.Infrastructure.Identity;
+using Arzly.Shared.Enums.JobListing;
 using Arzly.Shared.Enums.Listing;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -36,19 +37,34 @@ namespace Arzly.Api.Domain.Entities
 
 
         //new Properties 😊
+
+        [Required]
+        [MaxLength(200)]
+        public string Name { get; set; } = string.Empty;
+
+        [Required]
+        [MaxLength(20)]
+        public string PhoneNumber { get; set; } = string.Empty;
+
         public VehiclesDetails? VehiclesDetails { get; set; }
         public RealEstateDetails? RealEstateDetails { get; set; }
         public PhonesDetails? PhonesDetails { get; set; }
         public ElectronicsDetails? ElectronicsDetails { get; set; }
         public FurnitureDetails? FurnitureDetails { get; set; }
         public PetsDetails? PetsDetails { get; set; }
+        public BabyChildDetails? BabyChildDetails { get; set; }
+        public SportsDetails? SportsDetails { get; set; }
+        public HobbiesDetails? HobbiesDetails { get; set; }
+        public FashionDetails? FashionDetails { get; set; }
+        public ServicesDetails? ServicesDetails { get; set; }
+
         public bool IsPriceNegotiable { get; set; } = false;
-        public int? OneTimeNumber { get; set; }
-        public string? OneTimePostDisplayName { get; set; }
+
         public bool IsPromoted { get; set; } = false;
         public PromotionType? PromotionType { get; set; }
         public DateTime? PromotionStartDate { get; set; }
         public DateTime? PromotionEndDate { get; set; }
+        public ContactMethod MethodOfContact { get; set; } = ContactMethod.InAppChat;
 
         // Foreign keys
         [Required]

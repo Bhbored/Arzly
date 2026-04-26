@@ -1,0 +1,25 @@
+using Arzly.Shared.Enums.ListingOwned.Motors;
+using Microsoft.EntityFrameworkCore;
+
+namespace Arzly.Shared.ListingOwned
+{
+    [Owned]
+    public class VehiclesDetails
+    {
+        public CarBrand? CarBrand { get; set; }
+        public string? Version { get; set; }
+        public VehicleCondition? Condition { get; set; }
+        public int? Kilometers { get; set; }
+        public int? Year { get; set; }
+        public FuelType? FuelType { get; set; }
+        public VehicleColor? VehicleColor { get; set; }
+        public int? NumberOfDoors { get; set; }
+        public TransmissionType? TransmissionType { get; set; }
+        public List<CarFeature>? CarFeatures { get; set; }
+        public AccessoryType? AccessoryType { get; set; }
+        public VehicleType? VehicleType { get; set; }
+        public PlateDigits? NumberOfDigits { get; set; }
+        public TruckBrand? TruckBrand { get; set; }
+        public BoatType? BoatType { get; set; }
+    }
+}

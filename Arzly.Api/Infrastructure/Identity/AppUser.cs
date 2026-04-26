@@ -53,7 +53,9 @@ namespace Arzly.Api.Infrastructure.Identity
         public virtual ICollection<TicketMessage>? TicketMessages { get; set; }
         public virtual ICollection<UserReport>? ReportsMade { get; set; }
         public virtual ICollection<UserReport>? ReportsReceived { get; set; }
-        public virtual ICollection<Listing>? Listings { get; set; }    
+        public virtual ICollection<Listing>? Listings { get; set; }
+        public virtual ICollection<JobListing>? JobListings { get; set; }
+
 
     }
 
