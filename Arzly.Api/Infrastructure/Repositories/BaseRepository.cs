@@ -32,17 +32,17 @@ namespace Arzly.Api.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public virtual TEntity Update(TEntity entity)
+        public virtual async Task<TEntity> Update(TEntity entity)
         {
             _dbSet.Update(entity);
-            _context.SaveChangesAsync().GetAwaiter().GetResult();
+            await _context.SaveChangesAsync();
             return entity;
         }
 
-        public virtual bool Delete(TEntity entity)
+        public virtual async Task<bool> Delete(TEntity entity)
         {
             _dbSet.Remove(entity);
-            _context.SaveChangesAsync().GetAwaiter().GetResult();
+            await _context.SaveChangesAsync();
             return true;
         }
     }

@@ -7,8 +7,8 @@ namespace Arzly.Shared.DTOs.Request.ChatMessage
         [Required]
         public Guid Id { get; set; }
 
-        [Required]
-        [MaxLength(2000)]
+        [Required(ErrorMessage = "Message text is required.")]
+        [MaxLength(2000, ErrorMessage = "Message cannot exceed 2000 characters.")]
         public string Text { get; set; } = string.Empty;
 
         public bool IsRead { get; set; }

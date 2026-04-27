@@ -1,12 +1,16 @@
+using Arzly.Api.Domain.Entities;
 using Arzly.Shared.Enums.ListingOwned.BabyAndChild;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Arzly.Shared.ListingOwned
+namespace Arzly.Api.Domain.ListingOwned
 {
-    [Owned]
     public class BabyChildDetails
     {
-
+        [Key, ForeignKey(nameof(Listing))]
+        public Guid ListingId { get; set; }
+        public virtual Listing? Listing { get; set; }
         public KidsAgeRange? AgeRange { get; set; }
         public BabyChildCondition? Condition { get; set; }
 

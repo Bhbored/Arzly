@@ -5,13 +5,13 @@ namespace Arzly.Shared.DTOs.Request.Ticket
 {
     public class TicketAddRequest
     {
-        [Required]
-        [MaxLength(200)]
+        [Required(ErrorMessage = "Subject is required.")]
+        [MaxLength(200, ErrorMessage = "Subject cannot exceed 200 characters.")]
         public string Subject { get; set; } = string.Empty;
 
         public TicketPriority Priority { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "User ID is required.")]
         public string UserId { get; set; } = string.Empty;
 
         public Guid? ListingId { get; set; }

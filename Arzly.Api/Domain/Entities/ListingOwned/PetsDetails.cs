@@ -1,11 +1,15 @@
+using Arzly.Api.Domain.Entities;
 using Arzly.Shared.Enums.ListingOwned.AnimalsAndPets;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Arzly.Shared.ListingOwned
+namespace Arzly.Api.Domain.ListingOwned
 {
-    [Owned]
     public class PetsDetails
     {
+        [Key, ForeignKey(nameof(Listing))]
+        public Guid ListingId { get; set; }
+        public virtual Listing? Listing { get; set; }
 
         public PetFoodType? PetFoodType { get; set; }
 
@@ -32,7 +36,7 @@ namespace Arzly.Shared.ListingOwned
         public BirdAgeGroup? BirdAgeGroup { get; set; }
 
 
-        public string? AnimalType { get; set; }  
+        public string? AnimalType { get; set; }
 
 
         public PetServiceType? PetServiceType { get; set; }

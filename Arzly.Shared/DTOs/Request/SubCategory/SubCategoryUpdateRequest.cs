@@ -7,14 +7,14 @@ namespace Arzly.Shared.DTOs.Request.SubCategory
         [Required]
         public Guid Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Category ID is required.")]
         public Guid CategoryId { get; set; }
 
-        [Required]
-        [MaxLength(100)]
+        [Required(ErrorMessage = "Name is required.")]
+        [MaxLength(100, ErrorMessage = "Name cannot exceed 100 characters.")]
         public string Name { get; set; } = string.Empty;
 
-        [MaxLength(500)]
+        [MaxLength(500, ErrorMessage = "Description cannot exceed 500 characters.")]
         public string? Description { get; set; }
     }
 }

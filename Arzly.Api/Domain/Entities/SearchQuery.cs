@@ -9,14 +9,14 @@ namespace Arzly.Api.Domain.Entities
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        [Required]
+        [Required(ErrorMessage = "User ID is required.")]
         public string UserId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(UserId))]
         public virtual AppUser User { get; set; } = null!;
 
-        [Required]
-        [MaxLength(200)]
+        [Required(ErrorMessage = "Query is required.")]
+        [MaxLength(200, ErrorMessage = "Query cannot exceed 200 characters.")]
         public string Query { get; set; } = string.Empty;
         public DateTime SearchedAt { get; set; } = DateTime.UtcNow;
 

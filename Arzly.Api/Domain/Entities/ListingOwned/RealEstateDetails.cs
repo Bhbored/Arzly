@@ -1,11 +1,16 @@
+using Arzly.Api.Domain.Entities;
 using Arzly.Shared.Enums.ListingOwned.RealEstate;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Arzly.Shared.ListingOwned
+namespace Arzly.Api.Domain.ListingOwned
 {
-    [Owned]
     public class RealEstateDetails
     {
+        [Key, ForeignKey(nameof(Listing))]
+        public Guid ListingId { get; set; }
+        public virtual Listing? Listing { get; set; }
+
         public PropertyListingType? ListingType { get; set; }
         public string? ReferenceId { get; set; }
         public PropertyType? PropertyType { get; set; }

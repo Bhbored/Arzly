@@ -1,12 +1,16 @@
+using Arzly.Api.Domain.Entities;
 using Arzly.Shared.Enums.ListingOwned.HomeElectronics;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Arzly.Shared.ListingOwned
+namespace Arzly.Api.Domain.ListingOwned
 {
-    [Owned]
     public class ElectronicsDetails
     {
-        
+        [Key, ForeignKey(nameof(Listing))]
+        public Guid ListingId { get; set; }
+        public virtual Listing? Listing { get; set; }
+
         public TVBrand? TVBrand { get; set; }
         public TVType? TVType { get; set; }
         public ElectronicsCondition? Condition { get; set; }

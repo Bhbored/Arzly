@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Arzly.Api.Domain.Entities
 {
+    [NotMapped]
     public class Notification
     {
         [Key]
@@ -23,12 +24,12 @@ namespace Arzly.Api.Domain.Entities
         [ForeignKey(nameof(UserId))]
         public virtual AppUser? User { get; set; }
 
-        [Required]
-        [MaxLength(200)]
+        [Required(ErrorMessage = "Title is required.")]
+        [MaxLength(200, ErrorMessage = "Title cannot exceed 200 characters.")]
         public string Title { get; set; } = string.Empty;
 
-        [Required]
-        [MaxLength(1000)]
+        [Required(ErrorMessage = "Body is required.")]
+        [MaxLength(1000, ErrorMessage = "Body cannot exceed 1000 characters.")]
         public string Body { get; set; } = string.Empty;
 
         public NotificationSource Source { get; set; }
@@ -41,7 +42,7 @@ namespace Arzly.Api.Domain.Entities
 
         public DateTime? ReadAt { get; set; }
 
-        [MaxLength(500)]
+        [MaxLength(500, ErrorMessage = "Deep link cannot exceed 500 characters.")]
         public string? DeepLink { get; set; }
 
         public NotificationActionType ActionType { get; set; }

@@ -10,8 +10,8 @@ namespace Arzly.Api.Domain.Entities
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        [Required]
-        [MaxLength(200)]
+        [Required(ErrorMessage = "Subject is required.")]
+        [MaxLength(200, ErrorMessage = "Subject cannot exceed 200 characters.")]
         public string Subject { get; set; } = string.Empty;
 
         public TicketStatus Status { get; set; } = TicketStatus.Open;
@@ -22,7 +22,7 @@ namespace Arzly.Api.Domain.Entities
         public DateTime? ClosedAt { get; set; }
 
         // Foreign keys
-        [Required]
+        [Required(ErrorMessage = "User ID is required.")]
         public string UserId { get; set; } = string.Empty; 
 
         public string? AssignedToId { get; set; } 

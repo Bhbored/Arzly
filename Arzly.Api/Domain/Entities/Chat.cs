@@ -19,10 +19,10 @@ namespace Arzly.Api.Domain.Entities
         public DateTime LastActivity { get; set; } = DateTime.UtcNow;
 
         // Foreign keys
-        [Required]
+        [Required(ErrorMessage = "Initiator ID is required.")]
         public string InitiatorId { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Receiver ID is required.")]
         public string ReceiverId { get; set; } = string.Empty;
 
         public Guid? ListingId { get; set; }

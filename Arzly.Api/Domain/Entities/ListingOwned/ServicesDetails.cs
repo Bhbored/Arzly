@@ -1,13 +1,17 @@
+using Arzly.Api.Domain.Entities;
 using Arzly.Shared.Enums.ListingOwned.ServicesDetails;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Arzly.Shared.ListingOwned
+namespace Arzly.Api.Domain.ListingOwned
 {
-    [Owned]
     public class ServicesDetails
     {
+        [Key, ForeignKey(nameof(Listing))]
+        public Guid ListingId { get; set; }
+        public virtual Listing? Listing { get; set; }
 
-        public ServiceType? ServiceType { get; set; } // Offering or Requesting
+        public ServiceType? ServiceType { get; set; }
 
         public HomeServiceType? HomeServiceType { get; set; }
 
@@ -19,7 +23,7 @@ namespace Arzly.Shared.ListingOwned
 
         public EventServiceType? EventServiceType { get; set; }
 
- 
+
         public TransportServiceType? TransportServiceType { get; set; }
 
         public OtherServiceType? OtherServiceType { get; set; }

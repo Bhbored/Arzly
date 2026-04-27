@@ -1,11 +1,15 @@
+using Arzly.Api.Domain.Entities;
 using Arzly.Shared.Enums.ListingOwned.StyleAndWellness;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Arzly.Shared.ListingOwned
+namespace Arzly.Api.Domain.ListingOwned
 {
-    [Owned]
     public class FashionDetails
     {
+        [Key, ForeignKey(nameof(Listing))]
+        public Guid ListingId { get; set; }
+        public virtual Listing? Listing { get; set; }
 
         public MensClothingType? MensClothingType { get; set; }
         public FashionCondition? Condition { get; set; }
@@ -15,7 +19,6 @@ namespace Arzly.Shared.ListingOwned
 
 
         public WomensClothingType? WomensClothingType { get; set; }
-        // Reuses Condition
 
         public WomensAccessoryType? WomensAccessoryType { get; set; }
 

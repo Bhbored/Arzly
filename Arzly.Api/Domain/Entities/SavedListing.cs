@@ -10,10 +10,10 @@ namespace Arzly.Api.Domain.Entities
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        [Required]
+        [Required(ErrorMessage = "User ID is required.")]
         public string UserId { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Listing ID is required.")]
         public Guid ListingId { get; set; }
 
         public DateTime SavedAt { get; set; } = DateTime.UtcNow;

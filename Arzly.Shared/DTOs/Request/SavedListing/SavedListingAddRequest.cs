@@ -4,10 +4,10 @@ namespace Arzly.Shared.DTOs.Request.SavedListing
 {
     public class SavedListingAddRequest
     {
-        [Required]
+        [Required(ErrorMessage = "User ID is required.")]
         public string UserId { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Listing ID is required.")]
         public Guid ListingId { get; set; }
     }
 }

@@ -10,13 +10,13 @@ namespace Arzly.Api.Domain.Entities
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        [Required]
+        [Required(ErrorMessage = "Reporter ID is required.")]
         public string ReporterId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(ReporterId))]
         public virtual AppUser Reporter { get; set; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = "Reported user ID is required.")]
         public string ReportedUserId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(ReportedUserId))]
@@ -27,10 +27,10 @@ namespace Arzly.Api.Domain.Entities
         [ForeignKey(nameof(ChatId))]
         public virtual Chat? Chat { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Report reason is required.")]
         public ReportReasonType Reason { get; set; }
 
-        [MaxLength(1000)]
+        [MaxLength(1000, ErrorMessage = "Notes cannot exceed 1000 characters.")]
         public string? Notes { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

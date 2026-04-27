@@ -10,7 +10,7 @@ namespace Arzly.Api.Domain.Entities
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        [Required]
+        [Required(ErrorMessage = "User ID is required.")]
         public string UserId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(UserId))]
@@ -18,11 +18,11 @@ namespace Arzly.Api.Domain.Entities
 
         public LocationLabel Label { get; set; } = LocationLabel.Home;
 
-        [Required]
-        [MaxLength(500)]
+        [Required(ErrorMessage = "Address is required.")]
+        [MaxLength(500, ErrorMessage = "Address cannot exceed 500 characters.")]
         public string Address { get; set; } = string.Empty;
 
-        [MaxLength(200)]
+        [MaxLength(200, ErrorMessage = "Notes cannot exceed 200 characters.")]
         public string? Notes { get; set; }
 
         public double Lat { get; set; }

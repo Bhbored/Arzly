@@ -7,8 +7,8 @@ namespace Arzly.Shared.DTOs.Request.SearchQuery
         [Required]
         public Guid Id { get; set; }
 
-        [Required]
-        [MaxLength(200)]
+        [Required(ErrorMessage = "Query is required.")]
+        [MaxLength(200, ErrorMessage = "Query cannot exceed 200 characters.")]
         public string Query { get; set; } = string.Empty;
     }
 }

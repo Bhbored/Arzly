@@ -1,4 +1,3 @@
-using Arzly.Shared.ListingOwned;
 using Arzly.Shared.Enums.Listing;
 using Arzly.Shared.Enums.JobListing;
 
@@ -40,18 +39,7 @@ namespace Arzly.Shared.DTOs.Response.Listing
         public DateTime? PromotionStartDate { get; set; }
         public DateTime? PromotionEndDate { get; set; }
 
-        // Detail objects (only one non-null)
-        public VehiclesDetails? VehiclesDetails { get; set; }
-        public RealEstateDetails? RealEstateDetails { get; set; }
-        public PhonesDetails? PhonesDetails { get; set; }
-        public ElectronicsDetails? ElectronicsDetails { get; set; }
-        public FurnitureDetails? FurnitureDetails { get; set; }
-        public PetsDetails? PetsDetails { get; set; }
-        public BabyChildDetails? BabyChildDetails { get; set; }
-        public SportsDetails? SportsDetails { get; set; }
-        public HobbiesDetails? HobbiesDetails { get; set; }
-        public FashionDetails? FashionDetails { get; set; }
-        public ServicesDetails? ServicesDetails { get; set; }
+       
     }
 }
 

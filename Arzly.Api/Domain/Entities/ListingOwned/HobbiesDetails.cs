@@ -1,19 +1,23 @@
+using Arzly.Api.Domain.Entities;
 using Arzly.Shared.Enums.ListingOwned.LeisureAndInterests;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Arzly.Shared.ListingOwned
+namespace Arzly.Api.Domain.ListingOwned
 {
-    [Owned]
     public class HobbiesDetails
     {
-      
+        [Key, ForeignKey(nameof(Listing))]
+        public Guid ListingId { get; set; }
+        public virtual Listing? Listing { get; set; }
+
         public CollectibleType? CollectibleType { get; set; }
         public HobbiesCondition? Condition { get; set; }
 
 
         public InstrumentType? InstrumentType { get; set; }
 
- 
+
         public BookType? BookType { get; set; }
         public BookLanguage? BookLanguage { get; set; }
 

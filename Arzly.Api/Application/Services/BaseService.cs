@@ -1,6 +1,5 @@
 ﻿using Arzly.Api.Application.Contracts;
 using Arzly.Api.Domain.Contracts;
-using AutoMapper;
 
 namespace Arzly.Api.Application.Services
 {
@@ -48,7 +47,7 @@ namespace Arzly.Api.Application.Services
             if (updateDto == null) return default;
 
             var entity = MapToEntity(updateDto);
-            var updatedEntity = _repository.Update(entity);
+            var updatedEntity = await _repository.Update(entity);
             return MapToDto(updatedEntity);
         }
 
@@ -59,7 +58,7 @@ namespace Arzly.Api.Application.Services
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null) return false;
 
-            return _repository.Delete(entity);
+            return await _repository.Delete(entity);
         }
 
         protected abstract TDto MapToDto(TEntity entity);

@@ -1,12 +1,16 @@
+using Arzly.Api.Domain.Entities;
 using Arzly.Shared.Enums.ListingOwned.PhonesAndGadgets;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Arzly.Shared.ListingOwned
+namespace Arzly.Api.Domain.ListingOwned
 {
-    [Owned]
     public class PhonesDetails
     {
-  
+        [Key, ForeignKey(nameof(Listing))]
+        public Guid ListingId { get; set; }
+        public virtual Listing? Listing { get; set; }
+
         public PhoneBrand? PhoneBrand { get; set; }
         public PhoneCondition? PhoneCondition { get; set; }
         public PhoneStorage? Storage { get; set; }

@@ -7,14 +7,14 @@ namespace Arzly.Shared.DTOs.Request.TicketMessage
         [Required]
         public Guid TicketId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Sender ID is required.")]
         public string SenderId { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Receiver ID is required.")]
         public string ReceiverId { get; set; } = string.Empty;
 
-        [Required]
-        [MaxLength(3000)]
+        [Required(ErrorMessage = "Message is required.")]
+        [MaxLength(3000, ErrorMessage = "Message cannot exceed 3000 characters.")]
         public string Message { get; set; } = string.Empty;
 
         public bool IsInternalNote { get; set; }

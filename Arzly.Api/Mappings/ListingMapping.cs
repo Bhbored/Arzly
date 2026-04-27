@@ -31,17 +31,7 @@ namespace Arzly.Api.Mappings
                 PromotionType = entity.PromotionType,
                 PromotionStartDate = entity.PromotionStartDate,
                 PromotionEndDate = entity.PromotionEndDate,
-                VehiclesDetails = entity.VehiclesDetails,
-                RealEstateDetails = entity.RealEstateDetails,
-                PhonesDetails = entity.PhonesDetails,
-                ElectronicsDetails = entity.ElectronicsDetails,
-                FurnitureDetails = entity.FurnitureDetails,
-                PetsDetails = entity.PetsDetails,
-                BabyChildDetails = entity.BabyChildDetails,
-                SportsDetails = entity.SportsDetails,
-                HobbiesDetails = entity.HobbiesDetails,
-                FashionDetails = entity.FashionDetails,
-                ServicesDetails = entity.ServicesDetails
+
             };
         }
 
@@ -61,17 +51,7 @@ namespace Arzly.Api.Mappings
                 PhoneNumber = request.PhoneNumber,
                 IsPriceNegotiable = request.IsPriceNegotiable,
                 ContactMethod = request.ContactMethod,
-                VehiclesDetails = request.VehiclesDetails,
-                RealEstateDetails = request.RealEstateDetails,
-                PhonesDetails = request.PhonesDetails,
-                ElectronicsDetails = request.ElectronicsDetails,
-                FurnitureDetails = request.FurnitureDetails,
-                PetsDetails = request.PetsDetails,
-                BabyChildDetails = request.BabyChildDetails,
-                SportsDetails = request.SportsDetails,
-                HobbiesDetails = request.HobbiesDetails,
-                FashionDetails = request.FashionDetails,
-                ServicesDetails = request.ServicesDetails
+
             };
         }
 
@@ -90,17 +70,6 @@ namespace Arzly.Api.Mappings
             entity.IsPriceNegotiable = request.IsPriceNegotiable;
             entity.ContactMethod = request.ContactMethod;
             entity.UpdatedAt = DateTime.UtcNow;
-            entity.VehiclesDetails = request.VehiclesDetails;
-            entity.RealEstateDetails = request.RealEstateDetails;
-            entity.PhonesDetails = request.PhonesDetails;
-            entity.ElectronicsDetails = request.ElectronicsDetails;
-            entity.FurnitureDetails = request.FurnitureDetails;
-            entity.PetsDetails = request.PetsDetails;
-            entity.BabyChildDetails = request.BabyChildDetails;
-            entity.SportsDetails = request.SportsDetails;
-            entity.HobbiesDetails = request.HobbiesDetails;
-            entity.FashionDetails = request.FashionDetails;
-            entity.ServicesDetails = request.ServicesDetails;
 
             return entity;
         }
