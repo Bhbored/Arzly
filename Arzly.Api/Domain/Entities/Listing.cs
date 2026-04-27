@@ -64,7 +64,8 @@ namespace Arzly.Api.Domain.Entities
         public PromotionType? PromotionType { get; set; }
         public DateTime? PromotionStartDate { get; set; }
         public DateTime? PromotionEndDate { get; set; }
-        public ContactMethod MethodOfContact { get; set; } = ContactMethod.InAppChat;
+        [Required]
+        public ContactMethod ContactMethod { get; set; }
 
         // Foreign keys
         [Required]

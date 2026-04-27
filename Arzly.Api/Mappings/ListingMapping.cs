@@ -26,7 +26,7 @@ namespace Arzly.Api.Mappings
                 PickupLocationId = entity.PickupLocationId,
                 Name = entity.Name,
                 PhoneNumber = entity.PhoneNumber,
-                MethodOfContact = entity.MethodOfContact,
+                ContactMethod = entity.ContactMethod,
                 IsPromoted = entity.IsPromoted,
                 PromotionType = entity.PromotionType,
                 PromotionStartDate = entity.PromotionStartDate,
@@ -60,7 +60,7 @@ namespace Arzly.Api.Mappings
                 Name = request.Name,
                 PhoneNumber = request.PhoneNumber,
                 IsPriceNegotiable = request.IsPriceNegotiable,
-                MethodOfContact = request.MethodOfContact,
+                ContactMethod = request.ContactMethod,
                 VehiclesDetails = request.VehiclesDetails,
                 RealEstateDetails = request.RealEstateDetails,
                 PhonesDetails = request.PhonesDetails,
@@ -75,7 +75,7 @@ namespace Arzly.Api.Mappings
             };
         }
 
-        public static void ToEntity(this ListingUpdateRequest request, Listing entity)
+        public static Listing ToEntity(this ListingUpdateRequest request, Listing entity)
         {
             entity.Title = request.Title;
             entity.Description = request.Description;
@@ -88,7 +88,7 @@ namespace Arzly.Api.Mappings
             entity.Name = request.Name;
             entity.PhoneNumber = request.PhoneNumber;
             entity.IsPriceNegotiable = request.IsPriceNegotiable;
-            entity.MethodOfContact = request.MethodOfContact;
+            entity.ContactMethod = request.ContactMethod;
             entity.UpdatedAt = DateTime.UtcNow;
             entity.VehiclesDetails = request.VehiclesDetails;
             entity.RealEstateDetails = request.RealEstateDetails;
@@ -101,6 +101,8 @@ namespace Arzly.Api.Mappings
             entity.HobbiesDetails = request.HobbiesDetails;
             entity.FashionDetails = request.FashionDetails;
             entity.ServicesDetails = request.ServicesDetails;
+
+            return entity;
         }
     }
 }

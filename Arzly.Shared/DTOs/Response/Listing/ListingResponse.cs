@@ -32,7 +32,7 @@ namespace Arzly.Shared.DTOs.Response.Listing
         // Contact
         public string Name { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
-        public ContactMethod MethodOfContact { get; set; }
+        public ContactMethod ContactMethod { get; set; }
 
         // Promotion
         public bool IsPromoted { get; set; }

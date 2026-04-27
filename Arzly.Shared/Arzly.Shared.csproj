@@ -7,13 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Enums\BabyChildDetails\**" />
+    <Compile Remove="Enums\FashionDetails\**" />
+    <Compile Remove="Enums\HobbiesDetails\**" />
+    <Compile Remove="Enums\SportsDetails\**" />
+    <EmbeddedResource Remove="Enums\BabyChildDetails\**" />
+    <EmbeddedResource Remove="Enums\FashionDetails\**" />
+    <EmbeddedResource Remove="Enums\HobbiesDetails\**" />
+    <EmbeddedResource Remove="Enums\SportsDetails\**" />
+    <None Remove="Enums\BabyChildDetails\**" />
+    <None Remove="Enums\FashionDetails\**" />
+    <None Remove="Enums\HobbiesDetails\**" />
+    <None Remove="Enums\SportsDetails\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Constants\" />
-    <Folder Include="Enums\BabyChildDetails\" />
-    <Folder Include="Enums\HobbiesDetails\" />
     <Folder Include="Enums\JobListing\" />
-    <Folder Include="Enums\FashionDetails\" />
     <Folder Include="Enums\ListingOwned\ServicesDetails\" />
-    <Folder Include="Enums\SportsDetails\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Contracts\" />
     <Folder Include="Extensions\" />

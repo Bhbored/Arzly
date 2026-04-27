@@ -7,7 +7,6 @@ namespace Arzly.Shared.DTOs.Request.Listing
 {
     public class ListingUpdateRequest
     {
-
         [Required]
         public Guid Id { get; set; }
 
@@ -19,7 +18,7 @@ namespace Arzly.Shared.DTOs.Request.Listing
         [MaxLength(2000)]
         public string Description { get; set; } = string.Empty;
 
-        [Range(0, double.MaxValue)]
+        [Range(0, double.MaxValue, ErrorMessage = "Price must be a positive number.")]
         public double Price { get; set; }
 
         [Url]
@@ -46,7 +45,8 @@ namespace Arzly.Shared.DTOs.Request.Listing
         public string PhoneNumber { get; set; } = string.Empty;
 
         public bool IsPriceNegotiable { get; set; }
-        public ContactMethod MethodOfContact { get; set; }
+        [Required]
+        public ContactMethod ContactMethod { get; set; }
 
         // Detail objects
         public VehiclesDetails? VehiclesDetails { get; set; }

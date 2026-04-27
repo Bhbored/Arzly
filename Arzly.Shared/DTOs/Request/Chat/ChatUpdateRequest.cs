@@ -1,8 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Arzly.Shared.DTOs.Request.Chat
 {
     public class ChatUpdateRequest
     {
+        [Required]
         public Guid Id { get; set; }
+
         public bool IsArchived { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsDiscontinued { get; set; }
