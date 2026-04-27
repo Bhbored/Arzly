@@ -39,7 +39,18 @@ namespace Arzly.Shared.DTOs.Response.Listing
         public DateTime? PromotionStartDate { get; set; }
         public DateTime? PromotionEndDate { get; set; }
 
-       
+        public override string ToString()
+        {
+            return $"ListingResponse [Id={Id}, Title={Title}, Description={Description}, Price={Price}, " +
+                   $"IsPriceNegotiable={IsPriceNegotiable}, Status={Status}, PrimaryImageUrl={PrimaryImageUrl}, " +
+                   $"ImagesCount={ImagesUrl?.Count ?? 0}, CreatedAt={CreatedAt}, UpdatedAt={UpdatedAt}, " +
+                   $"OwnerId={OwnerId}, CategoryId={CategoryId}, SubcategoryId={SubcategoryId}, " +
+                   $"PickupLocationId={PickupLocationId}, Name={Name}, PhoneNumber={PhoneNumber}, " +
+                   $"ContactMethod={ContactMethod}, IsPromoted={IsPromoted}, PromotionType={PromotionType}, " +
+                   $"PromotionStartDate={PromotionStartDate}, PromotionEndDate={PromotionEndDate}]";
+        }
+
+
     }
 }
 

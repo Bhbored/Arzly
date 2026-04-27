@@ -16,8 +16,7 @@ namespace Arzly.Api.Application.Services
         public override async Task<ListingResponse?> CreateAsync(ListingAddRequest? createDto)
         {
             if (createDto is null)
-                throw new ArgumentException("hello");
-            //and more
+                throw new ArgumentException("");
             return await base.CreateAsync(createDto);
         }
 

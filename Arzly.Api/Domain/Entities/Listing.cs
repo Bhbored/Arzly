@@ -85,6 +85,17 @@ namespace Arzly.Api.Domain.Entities
         public virtual ICollection<Chat>? RelatedChats { get; set; }
         public virtual ICollection<SavedListing>? SavedByUsers { get; set; }
 
+        public override string ToString()
+        {
+            return $"Listing [Id={Id}, Title={Title}, Description={Description}, Price={Price}, Status={Status}, " +
+                   $"PrimaryImageUrl={PrimaryImageUrl}, ImagesCount={ImagesUrl?.Count ?? 0}, CreatedAt={CreatedAt}, " +
+                   $"UpdatedAt={UpdatedAt}, Name={Name}, PhoneNumber={PhoneNumber}, IsPriceNegotiable={IsPriceNegotiable}, " +
+                   $"IsPromoted={IsPromoted}, PromotionType={PromotionType}, PromotionStartDate={PromotionStartDate}, " +
+                   $"PromotionEndDate={PromotionEndDate}, ContactMethod={ContactMethod}, OwnerId={OwnerId}, " +
+                   $"CategoryId={CategoryId}, SubcategoryId={SubcategoryId}, PickupLocationId={PickupLocationId}]";
+        }
+
+
         //pre-owned
 
         public VehiclesDetails? VehiclesDetails { get; set; }

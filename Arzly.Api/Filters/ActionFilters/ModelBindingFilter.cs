@@ -32,7 +32,7 @@ namespace Arzly.Api.Filters.ActionFilters
                     var requestObject = context.ActionArguments[_parameterName];
 
                     context.Result = ((ControllerBase)context.Controller).BadRequest(
-                        $"Couldn't process {_parameterName}: {requestObject} because of the following: \n {error}");
+                        $"Couldn't process \n {requestObject} because of the following: \n {error}");
 
                     return;
                 }
