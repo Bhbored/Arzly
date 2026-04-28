@@ -17,6 +17,7 @@ namespace Arzly.Api.Application.Services
             _repository = repository;
         }
 
+        //complete since we're gonna provide empty list in repo layer in case of none elements
         public virtual async Task<List<TDto>> GetAllAsync()
         {
             var entities = await _repository.GetAllAsync();
@@ -24,36 +25,43 @@ namespace Arzly.Api.Application.Services
                 .ConvertAll(x => MapToDto(x));
 
         }
-
+        //all validation can be done here
         public virtual async Task<TDto?> GetByIdAsync(TKey? id)
         {
-            if (id == null) return default;
+            if (id == null)
+                throw new ArgumentNullException($"No ID Provided");
 
             var entity = await _repository.GetByIdAsync(id);
-            return entity == null ? default : MapToDto(entity);
+            if (entity is null)
+                throw new ArgumentException($"No Object with this ID {id} Found");
+            return MapToDto(entity);
         }
-
+        //use it at the end as base each entity has it own case validation,don't repeated made validations
         public virtual async Task<TDto?> CreateAsync(TCreateDto? createDto)
         {
-            if (createDto == null) return default;
-
+            if (createDto == null)
+                throw new ArgumentNullException($"Add Request is empty Provided");
             var entity = MapToEntity(createDto);
             await _repository.AddAsync(entity);
             return MapToDto(entity);
         }
 
+        //same as create each entity update case differs
         public virtual async Task<TDto?> UpdateAsync(TUpdateDto? updateDto)
         {
-            if (updateDto == null) return default;
+            if (updateDto == null)
+                throw new ArgumentNullException($"update Request is empty Provided");
 
             var entity = MapToEntity(updateDto);
             var updatedEntity = await _repository.Update(entity);
             return MapToDto(updatedEntity);
         }
 
+        //this is enough
         public virtual async Task<bool> DeleteAsync(TKey? id)
         {
-            if (id == null) return false;
+            if (id == null)
+                throw new ArgumentNullException($"No ID Provided");
 
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null) return false;

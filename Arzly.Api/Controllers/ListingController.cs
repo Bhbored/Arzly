@@ -1,9 +1,7 @@
 ﻿using Arzly.Api.Application.Contracts;
-using Arzly.Api.Domain.Entities;
 using Arzly.Api.Filters.ActionFilters;
 using Arzly.Shared.DTOs.Request.Listing;
 using Arzly.Shared.DTOs.Response.Listing;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Arzly.Api.Controllers
@@ -34,7 +32,7 @@ namespace Arzly.Api.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        public  async Task<ActionResult<ListingResponse>> GetById(Guid? id)
+        public async Task<ActionResult<ListingResponse>> GetById(Guid? id)
         {
             _logger.LogInformation("{Controller}.GetById({Id}) - Before",
                 GetType().Name, id);
@@ -47,13 +45,13 @@ namespace Arzly.Api.Controllers
         }
 
         [HttpPost("[action]")]
-        [TypeFilter(typeof(ModelBindingFilter),Arguments =new object []{typeof(ListingController), "createDto" })]
-        public  async Task<ActionResult<ListingResponse>> Create([FromBody] ListingAddRequest? createDto)
+        [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(ListingController) })]
+        public async Task<ActionResult<ListingResponse>> Create([FromBody] ListingAddRequest? request)
         {
             _logger.LogInformation("{Controller}.Create - Before",
                 GetType().Name);
 
-            var result = await _service.CreateAsync(createDto);
+            var result = await _service.CreateAsync(request);
 
             _logger.LogInformation("{Controller}.Create - After",
                 GetType().Name);
@@ -68,20 +66,21 @@ namespace Arzly.Api.Controllers
         }
 
         [HttpPut("[action]/{id:guid}")]
-        public  async Task<ActionResult<ListingResponse?>> Update([FromBody] ListingUpdateRequest? updateDto)
+        [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(ListingController) })]
+        public async Task<ActionResult<ListingResponse?>> Update([FromBody] ListingUpdateRequest? request)
         {
             _logger.LogInformation("{Controller}.Update({Id}) - Before",
-                GetType().Name, updateDto);
+                GetType().Name, request);
 
-            var result = await _service.UpdateAsync(updateDto);
+            var result = await _service.UpdateAsync(request);
 
             _logger.LogInformation("{Controller}.Update({Id}) - After",
-                GetType().Name, updateDto);
+                GetType().Name, request);
             return Ok(result);
         }
 
-        [HttpDelete("{id:guid}")]
-        public  async Task<ActionResult> Delete(Guid? id)
+        [HttpDelete("[action]/{id:guid}")]
+        public async Task<ActionResult> Delete(Guid? id)
         {
             _logger.LogInformation("{Controller}.Delete({Id}) - Before",
                 GetType().Name, id);

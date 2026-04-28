@@ -7,13 +7,11 @@ namespace Arzly.Api.Filters.ActionFilters
     {
         private readonly ILogger<ModelBindingFilter> _logger;
         private readonly Type _controllerType;
-        private readonly string _parameterName;
 
-        public ModelBindingFilter(ILogger<ModelBindingFilter> logger, Type controllerType, string parameterName)
+        public ModelBindingFilter(ILogger<ModelBindingFilter> logger, Type controllerType)
         {
             _logger = logger;
             _controllerType = controllerType;
-            _parameterName = parameterName;
         }
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -29,10 +27,8 @@ namespace Arzly.Api.Filters.ActionFilters
                         .SelectMany(x => x.Errors)
                         .Select(x => x.ErrorMessage));
 
-                    var requestObject = context.ActionArguments[_parameterName];
-
                     context.Result = ((ControllerBase)context.Controller).BadRequest(
-                        $"Couldn't process \n {requestObject} because of the following: \n {error}");
+                        $"Couldn't process request because of the following: \n {error}");
 
                     return;
                 }

@@ -17,7 +17,7 @@ namespace Arzly.Api.Infrastructure.Repositories
 
         public virtual async Task<List<TEntity>> GetAllAsync()
         {
-            return await _dbSet.AsNoTracking().ToListAsync();
+            return await _dbSet.AsNoTracking().ToListAsync() ?? new List<TEntity>();
         }
 
         public virtual async Task<TEntity?> GetByIdAsync(TKey? id)
@@ -34,7 +34,6 @@ namespace Arzly.Api.Infrastructure.Repositories
 
         public virtual async Task<TEntity> Update(TEntity entity)
         {
-            _dbSet.Update(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
@@ -42,8 +41,8 @@ namespace Arzly.Api.Infrastructure.Repositories
         public virtual async Task<bool> Delete(TEntity entity)
         {
             _dbSet.Remove(entity);
-            await _context.SaveChangesAsync();
-            return true;
+            var row = await _context.SaveChangesAsync();
+            return row > 0;
         }
     }
 }

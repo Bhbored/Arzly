@@ -49,10 +49,10 @@ namespace Arzly.Shared.DTOs.Request.Listing
 
         public override string ToString()
         {
-            return $"ListingUpdateRequest [Id={Id}, Title={Title}, Description={Description}, Price={Price}, " +
+            return $"Id={Id}, Title={Title}, Description={Description}, Price={Price}, " +
                    $"PrimaryImageUrl={PrimaryImageUrl}, ImagesCount={ImagesUrl?.Count ?? 0}, CategoryId={CategoryId}, " +
                    $"SubcategoryId={SubcategoryId}, PickupLocationId={PickupLocationId}, Name={Name}, " +
-                   $"PhoneNumber={PhoneNumber}, IsPriceNegotiable={IsPriceNegotiable}, ContactMethod={ContactMethod}]";
+                   $"PhoneNumber={PhoneNumber}, IsPriceNegotiable={IsPriceNegotiable}, ContactMethod={ContactMethod}";
         }
 
     }

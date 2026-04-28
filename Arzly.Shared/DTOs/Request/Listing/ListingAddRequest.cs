@@ -46,44 +46,12 @@ namespace Arzly.Shared.DTOs.Request.Listing
 
         public override string ToString()
         {
-            return $"ListingAddRequest [Title={Title}, Description={Description}, Price={Price}, " +
+            return $"Title={Title}, Description={Description}, Price={Price}, " +
                    $"PrimaryImageUrl={PrimaryImageUrl}, ImagesCount={ImagesUrl?.Count ?? 0}, CategoryId={CategoryId}, " +
                    $"SubcategoryId={SubcategoryId}, PickupLocationId={PickupLocationId}, Name={Name}, " +
-                   $"PhoneNumber={PhoneNumber}, IsPriceNegotiable={IsPriceNegotiable}, ContactMethod={ContactMethod}]";
+                   $"PhoneNumber={PhoneNumber}, IsPriceNegotiable={IsPriceNegotiable}, ContactMethod={ContactMethod}";
         }
 
-        public override bool Equals(object? obj)
-        {
-            if (obj is ListingAddRequest other)
-            {
-                return Title == other.Title &&
-                       Description == other.Description &&
-                       Price == other.Price &&
-                       CategoryId == other.CategoryId &&
-                       SubcategoryId == other.SubcategoryId &&
-                       PickupLocationId == other.PickupLocationId &&
-                       Name == other.Name &&
-                       PhoneNumber == other.PhoneNumber &&
-                       IsPriceNegotiable == other.IsPriceNegotiable &&
-                       ContactMethod == other.ContactMethod;
-            }
-            return false;
-        }
 
-        public override int GetHashCode()
-        {
-            var hash = new HashCode();
-            hash.Add(Title);
-            hash.Add(Description);
-            hash.Add(Price);
-            hash.Add(CategoryId);
-            hash.Add(SubcategoryId);
-            hash.Add(PickupLocationId);
-            hash.Add(Name);
-            hash.Add(PhoneNumber);
-            hash.Add(IsPriceNegotiable);
-            hash.Add(ContactMethod);
-            return hash.ToHashCode();
-        }
     }
 }
