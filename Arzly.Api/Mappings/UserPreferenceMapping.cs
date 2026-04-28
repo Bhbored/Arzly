@@ -20,7 +20,7 @@ namespace Arzly.Api.Mappings
         }
 
 
-        public static UserPreference ToEntity(this UserPreferenceUpdateRequest request)
+        public static UserPreference ToEntity(this UserPreferenceAddRequest request)
         {
             return new UserPreference
             {
@@ -29,6 +29,19 @@ namespace Arzly.Api.Mappings
                 Language = request.Language,
                 PushNotifications = request.PushNotifications,
                 EmailNotifications = request.EmailNotifications
+            };
+        }
+
+        public static UserPreference ToEntity(this UserPreferenceUpdateRequest request)
+        {
+            return new UserPreference
+            {
+                UserId = request.UserId,
+                Theme = request.Theme,
+                Language = request.Language,
+                PushNotifications = request.PushNotifications,
+                EmailNotifications = request.EmailNotifications,
+                UpdatedAt = DateTime.UtcNow
             };
         }
 

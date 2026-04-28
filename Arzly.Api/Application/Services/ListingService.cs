@@ -28,11 +28,8 @@ namespace Arzly.Api.Application.Services
         protected override Listing MapToEntity(ListingAddRequest createDto) =>
             createDto.ToEntity();
 
-        protected override Listing MapToEntity(ListingUpdateRequest updateDto)
-        {
-            var entity = new Listing();
-            return updateDto.ToEntity(entity);
-        }
+        protected override Listing MapToEntity(ListingUpdateRequest updateDto) => updateDto.ToEntity();
+
         #endregion
 
     }

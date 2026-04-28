@@ -55,23 +55,24 @@ namespace Arzly.Api.Mappings
             };
         }
 
-        public static Listing ToEntity(this ListingUpdateRequest request, Listing entity)
+        public static Listing ToEntity(this ListingUpdateRequest request)
         {
-            entity.Title = request.Title;
-            entity.Description = request.Description;
-            entity.Price = request.Price;
-            entity.PrimaryImageUrl = request.PrimaryImageUrl;
-            entity.ImagesUrl = request.ImagesUrl;
-            entity.CategoryId = request.CategoryId;
-            entity.SubcategoryId = request.SubcategoryId;
-            entity.PickupLocationId = request.PickupLocationId;
-            entity.Name = request.Name;
-            entity.PhoneNumber = request.PhoneNumber;
-            entity.IsPriceNegotiable = request.IsPriceNegotiable;
-            entity.ContactMethod = request.ContactMethod;
-            entity.UpdatedAt = DateTime.UtcNow;
-
-            return entity;
+            return new Listing
+            {
+                Title = request.Title,
+                Description = request.Description,
+                Price = request.Price,
+                PrimaryImageUrl = request.PrimaryImageUrl,
+                ImagesUrl = request.ImagesUrl,
+                CategoryId = request.CategoryId,
+                SubcategoryId = request.SubcategoryId,
+                PickupLocationId = request.PickupLocationId,
+                Name = request.Name,
+                PhoneNumber = request.PhoneNumber,
+                IsPriceNegotiable = request.IsPriceNegotiable,
+                ContactMethod = request.ContactMethod,
+                UpdatedAt = DateTime.UtcNow
+            };
         }
     }
 }

@@ -16,6 +16,15 @@ namespace Arzly.Api.Application.Services
             services.AddScoped<ITicketService, TicketService>();
             services.AddScoped<IUserReportService, UserReportService>();
             services.AddScoped<ISavedListingService, SavedListingService>();
+            services.AddScoped<IChatMessageService, ChatMessageService>();
+            services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IPickupLocationService, PickupLocationService>();
+            services.AddScoped<ISearchQueryService, SearchQueryService>();
+            services.AddScoped<IJobListingService, JobListingService>();
+            services.AddScoped<ITicketAttachmentService, TicketAttachmentService>();
+            services.AddScoped<ITicketMessageService, TicketMessageService>();
+            services.AddScoped<IUserActivityLogService, UserActivityLogService>();
+            services.AddScoped<IUserPreferenceService, UserPreferenceService>();
             return services;
 
         }
@@ -28,6 +37,15 @@ namespace Arzly.Api.Application.Services
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<IUserReportRepository, UserReportRepository>();
             services.AddScoped<ISavedListingRepository, SavedListingRepository>();
+            services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
+            services.AddScoped<IPickupLocationRepository, PickupLocationRepository>();
+            services.AddScoped<ISearchQueryRepository, SearchQueryRepository>();
+            services.AddScoped<IJobListingRepository, JobListingRepository>();
+            services.AddScoped<ITicketAttachmentRepository, TicketAttachmentRepository>();
+            services.AddScoped<ITicketMessageRepository, TicketMessageRepository>();
+            services.AddScoped<IUserActivityLogRepository, UserActivityLogRepository>();
+            services.AddScoped<IUserPreferenceRepository, UserPreferenceRepository>();
             return services;
 
         }
