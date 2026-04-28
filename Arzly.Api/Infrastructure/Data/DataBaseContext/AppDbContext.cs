@@ -20,7 +20,6 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
         public virtual DbSet<JobListing> JobListings { get; set; }
         public virtual DbSet<Chat> Chats { get; set; }
         public virtual DbSet<ChatMessage> ChatMessages { get; set; }
-        //public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<PickupLocation> PickupLocations { get; set; }
         public virtual DbSet<SavedListing> SavedListings { get; set; }
         public virtual DbSet<SearchQuery> SearchQueries { get; set; }
@@ -30,6 +29,8 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
         public virtual DbSet<UserActivityLog> UserActivityLogs { get; set; }
         public virtual DbSet<UserPreference> UserPreferences { get; set; }
         public virtual DbSet<UserReport> UserReports { get; set; }
+
+
 
         // Listing Owned Details
         public virtual DbSet<BabyChildDetails> BabyChildDetails { get; set; }
@@ -43,6 +44,11 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
         public virtual DbSet<ServicesDetails> ServicesDetails { get; set; }
         public virtual DbSet<SportsDetails> SportsDetails { get; set; }
         public virtual DbSet<VehiclesDetails> VehiclesDetails { get; set; }
+
+        //later
+
+        //public virtual DbSet<Notification> Notifications { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

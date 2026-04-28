@@ -4,10 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arzly.Api.Infrastructure.Repositories
 {
-    public class UserActivityLogRepository : BaseRepository<UserActivityLog, Guid>, IUserActivityLogRepository
+    public class UserActivityLogRepository :  IUserActivityLogRepository
     {
-        public UserActivityLogRepository(DbContext context) : base(context)
-        {
-        }
+        
     }
 }

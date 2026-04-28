@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arzly.Api.Infrastructure.Repositories
 {
-    public class UserPreferenceRepository : BaseRepository<UserPreference, string>, IUserPreferenceRepository
+    public class UserPreferenceRepository : IUserPreferenceRepository
     {
-        public UserPreferenceRepository(DbContext context) : base(context)
+        public UserPreferenceRepository(DbContext context)
         {
         }
     }

@@ -1,11 +1,23 @@
 ﻿using Arzly.Api.Application.Contracts;
 using Arzly.Api.Domain.Contracts;
+using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Arzly.Api.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Arzly.Api.Application.Services
 {
     public static class DIContainer
     {
+
+        public static IServiceCollection RegisterDataBase(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            });
+            services.AddScoped<DbContext>(sp => sp.GetRequiredService<AppDbContext>());
+            return services;
+        }
 
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
@@ -17,14 +29,16 @@ namespace Arzly.Api.Application.Services
             services.AddScoped<IUserReportService, UserReportService>();
             services.AddScoped<ISavedListingService, SavedListingService>();
             services.AddScoped<IChatMessageService, ChatMessageService>();
-            services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IPickupLocationService, PickupLocationService>();
             services.AddScoped<ISearchQueryService, SearchQueryService>();
             services.AddScoped<IJobListingService, JobListingService>();
             services.AddScoped<ITicketAttachmentService, TicketAttachmentService>();
             services.AddScoped<ITicketMessageService, TicketMessageService>();
-            services.AddScoped<IUserActivityLogService, UserActivityLogService>();
-            services.AddScoped<IUserPreferenceService, UserPreferenceService>();
+
+
+            //services.AddScoped<INotificationService, NotificationService>();
+            //services.AddScoped<IUserActivityLogService, UserActivityLogService>();
+            //services.AddScoped<IUserPreferenceService, UserPreferenceService>();
             return services;
 
         }
@@ -38,20 +52,23 @@ namespace Arzly.Api.Application.Services
             services.AddScoped<IUserReportRepository, UserReportRepository>();
             services.AddScoped<ISavedListingRepository, SavedListingRepository>();
             services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
-            services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<IPickupLocationRepository, PickupLocationRepository>();
             services.AddScoped<ISearchQueryRepository, SearchQueryRepository>();
             services.AddScoped<IJobListingRepository, JobListingRepository>();
             services.AddScoped<ITicketAttachmentRepository, TicketAttachmentRepository>();
             services.AddScoped<ITicketMessageRepository, TicketMessageRepository>();
-            services.AddScoped<IUserActivityLogRepository, UserActivityLogRepository>();
-            services.AddScoped<IUserPreferenceRepository, UserPreferenceRepository>();
+
+
+            //services.AddScoped<INotificationRepository, NotificationRepository>();
+            //services.AddScoped<IUserActivityLogRepository, UserActivityLogRepository>();
+            //services.AddScoped<IUserPreferenceRepository, UserPreferenceRepository>();
             return services;
 
         }
         public static IServiceCollection RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            return services.RegisterServices()
+            return services.RegisterDataBase(configuration)
+                           .RegisterServices()
                            .RegisterRepositories();
         }
     }
