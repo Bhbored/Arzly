@@ -19,14 +19,12 @@ namespace Arzly.Shared.DTOs.Response.Listing
         // Owner
         public string OwnerId { get; set; } = string.Empty;
 
-        // Category
         public Guid CategoryId { get; set; }
 
-        // SubCategory
         public Guid SubcategoryId { get; set; }
 
-        // Location
         public Guid PickupLocationId { get; set; }
+        public object? ListingDetails { get; set; }
 
         // Contact
         public string Name { get; set; } = string.Empty;

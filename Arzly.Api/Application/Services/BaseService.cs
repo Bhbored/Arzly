@@ -40,7 +40,7 @@ namespace Arzly.Api.Application.Services
         public virtual async Task<TDto?> CreateAsync(TCreateDto? createDto)
         {
             if (createDto == null)
-                throw new ArgumentNullException($"Add Request is empty Provided");
+                throw new ArgumentNullException($"Add Request {nameof(createDto)} is empty Provided");
             var entity = MapToEntity(createDto);
             await _repository.AddAsync(entity);
             return MapToDto(entity);
@@ -50,7 +50,7 @@ namespace Arzly.Api.Application.Services
         public virtual async Task<TDto?> UpdateAsync(TUpdateDto? updateDto)
         {
             if (updateDto == null)
-                throw new ArgumentNullException($"update Request is empty Provided");
+                throw new ArgumentNullException($"update Request {nameof(updateDto)} is empty Provided");
 
             var entity = MapToEntity(updateDto);
             var updatedEntity = await _repository.Update(entity);

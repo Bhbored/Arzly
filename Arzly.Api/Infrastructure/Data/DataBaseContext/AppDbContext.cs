@@ -79,6 +79,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .HasForeignKey(l => l.CategoryId)
                     .OnDelete(DeleteBehavior.Restrict);
 
+
                 entity.HasOne(l => l.SubCategory)
                     .WithMany(s => s.Listings)
                     .HasForeignKey(l => l.SubcategoryId)

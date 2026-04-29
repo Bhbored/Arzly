@@ -47,6 +47,15 @@ namespace Arzly.Shared.DTOs.Request.Listing
         [Required(ErrorMessage = "Contact method is required.")]
         public ContactMethod ContactMethod { get; set; }
 
+        public object? ListingDetails { get; set; }
+
+        //admin and support
+        public ListingStatus? Status { get; set; }
+        public bool? IsPromoted { get; set; }
+        public PromotionType? PromotionType { get; set; }
+        public DateTime? PromotionStartDate { get; set; }
+        public DateTime? PromotionEndDate { get; set; }
+
         public override string ToString()
         {
             return $"Id={Id}, Title={Title}, Description={Description}, Price={Price}, " +

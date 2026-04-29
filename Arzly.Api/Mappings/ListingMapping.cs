@@ -1,6 +1,7 @@
 using Arzly.Api.Domain.Entities;
 using Arzly.Shared.DTOs.Request.Listing;
 using Arzly.Shared.DTOs.Response.Listing;
+using Arzly.Shared.Enums.Listing;
 
 namespace Arzly.Api.Mappings
 {
@@ -71,7 +72,12 @@ namespace Arzly.Api.Mappings
                 PhoneNumber = request.PhoneNumber,
                 IsPriceNegotiable = request.IsPriceNegotiable,
                 ContactMethod = request.ContactMethod,
-                UpdatedAt = DateTime.UtcNow
+                UpdatedAt = DateTime.UtcNow,
+                Status = request.Status ?? ListingStatus.Pending,
+                IsPromoted = request.IsPromoted ?? false,
+                PromotionType = request.PromotionType,
+                PromotionStartDate = request.PromotionStartDate,
+                PromotionEndDate = request.PromotionEndDate,
             };
         }
     }
