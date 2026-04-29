@@ -21,108 +21,66 @@ namespace Arzly.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<List<SubCategoryResponse>>> GetAll()
         {
-            try
-            {
-                _logger.LogInformation("{Controller}.GetAll - Before",
-                    GetType().Name);
+            _logger.LogInformation("{Controller}.GetAll - Before",
+                GetType().Name);
 
-                var result = await _service.GetAllAsync();
+            var result = await _service.GetAllAsync();
 
-                _logger.LogInformation("{Controller}.GetAll - After",
-                    GetType().Name);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in SubCategoryController.GetAll");
-                return StatusCode(500, "Internal server error");
-            }
+            _logger.LogInformation("{Controller}.GetAll - After",
+                GetType().Name);
+            return Ok(result);
         }
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<SubCategoryResponse>> GetById(Guid id)
         {
-            try
-            {
-                _logger.LogInformation("{Controller}.GetById({Id}) - Before",
-                    GetType().Name, id);
+            _logger.LogInformation("{Controller}.GetById({Id}) - Before",
+                GetType().Name, id);
 
-                var result = await _service.GetByIdAsync(id);
+            var result = await _service.GetByIdAsync(id);
 
-                _logger.LogInformation("{Controller}.GetById({Id}) - After",
-                    GetType().Name, id);
-                if (result == null) return NotFound();
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in SubCategoryController.GetById");
-                return StatusCode(500, "Internal server error");
-            }
+            _logger.LogInformation("{Controller}.GetById({Id}) - After",
+                GetType().Name, id);
+            return Ok(result);
         }
 
         [HttpPost("[action]")]
         public async Task<ActionResult<SubCategoryResponse>> Create([FromBody] SubCategoryAddRequest createDto)
         {
-            try
-            {
-                _logger.LogInformation("{Controller}.Create - Before",
-                    GetType().Name);
+            _logger.LogInformation("{Controller}.Create - Before",
+                GetType().Name);
 
-                var result = await _service.CreateAsync(createDto);
+            var result = await _service.CreateAsync(createDto);
 
-                _logger.LogInformation("{Controller}.Create - After",
-                    GetType().Name);
-                return CreatedAtAction(nameof(GetById), new { id = result?.Id }, result);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in SubCategoryController.Create");
-                return StatusCode(500, "Internal server error");
-            }
+            _logger.LogInformation("{Controller}.Create - After",
+                GetType().Name);
+            return CreatedAtAction(nameof(GetById), new { id = result?.Id }, result);
         }
 
         [HttpPut("[action]")]
         public async Task<ActionResult<SubCategoryResponse>> Update([FromBody] SubCategoryUpdateRequest updateDto)
         {
-            try
-            {
-                _logger.LogInformation("{Controller}.Update({Id}) - Before",
-                    GetType().Name, updateDto);
+            _logger.LogInformation("{Controller}.Update({Id}) - Before",
+                GetType().Name, updateDto);
 
-                var result = await _service.UpdateAsync(updateDto);
+            var result = await _service.UpdateAsync(updateDto);
 
-                _logger.LogInformation("{Controller}.Update({Id}) - After",
-                    GetType().Name, updateDto);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in SubCategoryController.Update");
-                return StatusCode(500, "Internal server error");
-            }
+            _logger.LogInformation("{Controller}.Update({Id}) - After",
+                GetType().Name, updateDto);
+            return Ok(result);
         }
 
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> Delete(Guid id)
         {
-            try
-            {
-                _logger.LogInformation("{Controller}.Delete({Id}) - Before",
-                    GetType().Name, id);
+            _logger.LogInformation("{Controller}.Delete({Id}) - Before",
+                GetType().Name, id);
 
-                var success = await _service.DeleteAsync(id);
+            await _service.DeleteAsync(id);
 
-                _logger.LogInformation("{Controller}.Delete({Id}) - After",
-                    GetType().Name, id);
-                if (!success) return NotFound();
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in SubCategoryController.Delete");
-                return StatusCode(500, "Internal server error");
-            }
+            _logger.LogInformation("{Controller}.Delete({Id}) - After",
+                GetType().Name, id);
+            return NoContent();
         }
     }
 }

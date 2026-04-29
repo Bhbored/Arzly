@@ -21,112 +21,72 @@ namespace Arzly.Api.Controllers
         [HttpGet]
         public virtual async Task<ActionResult<List<ListingResponse>>> GetAll()
         {
-            try
-            {
-                _logger.LogInformation("{Controller}.GetAll - Before",
-                    GetType().Name);
+            _logger.LogInformation("{Controller}.GetAll - Before",
+                GetType().Name);
 
-                var result = await _service.GetAllAsync();
+            var result = await _service.GetAllAsync();
 
-                _logger.LogInformation("{Controller}.GetAll - After",
-                    GetType().Name);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in ListingController.GetAll");
-                return StatusCode(500, "Internal server error");
-            }
+            _logger.LogInformation("{Controller}.GetAll - After",
+                GetType().Name);
+            return Ok(result);
         }
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ListingResponse>> GetById(Guid? id)
         {
-            try
-            {
-                _logger.LogInformation("{Controller}.GetById({Id}) - Before",
-                    GetType().Name, id);
+            _logger.LogInformation("{Controller}.GetById({Id}) - Before",
+                GetType().Name, id);
 
-                var result = await _service.GetByIdAsync(id.Value);
+            var result = await _service.GetByIdAsync(id.Value);
 
-                _logger.LogInformation("{Controller}.GetById({Id}) - After",
-                    GetType().Name, id);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in ListingController.GetById");
-                return StatusCode(500, "Internal server error");
-            }
+            _logger.LogInformation("{Controller}.GetById({Id}) - After",
+                GetType().Name, id);
+            return Ok(result);
         }
 
         [HttpPost("[action]")]
         [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(ListingController) })]
         public async Task<ActionResult<ListingResponse>> Create([FromBody] ListingAddRequest? request)
         {
-            try
-            {
-                _logger.LogInformation("{Controller}.Create - Before",
-                    GetType().Name);
+            _logger.LogInformation("{Controller}.Create - Before",
+                GetType().Name);
 
-                var result = await _service.CreateAsync(request);
+            var result = await _service.CreateAsync(request);
 
-                _logger.LogInformation("{Controller}.Create - After",
-                    GetType().Name);
-                return CreatedAtAction(nameof(GetById), new
-                {
-                    id = result?.Id
-                },
-                    result);
-            }
-            catch (Exception ex)
+            _logger.LogInformation("{Controller}.Create - After",
+                GetType().Name);
+            return CreatedAtAction(nameof(GetById), new
             {
-                _logger.LogError(ex, "Error in ListingController.Create");
-                return StatusCode(500, "Internal server error");
-            }
+                id = result?.Id
+            },
+                result);
         }
 
         [HttpPut("[action]/{id:guid}")]
         [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(ListingController) })]
         public async Task<ActionResult<ListingResponse?>> Update([FromBody] ListingUpdateRequest? request)
         {
-            try
-            {
-                _logger.LogInformation("{Controller}.Update({Id}) - Before",
-                    GetType().Name, request);
+            _logger.LogInformation("{Controller}.Update({Id}) - Before",
+                GetType().Name, request);
 
-                var result = await _service.UpdateAsync(request);
+            var result = await _service.UpdateAsync(request);
 
-                _logger.LogInformation("{Controller}.Update({Id}) - After",
-                    GetType().Name, request);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in ListingController.Update");
-                return StatusCode(500, "Internal server error");
-            }
+            _logger.LogInformation("{Controller}.Update({Id}) - After",
+                GetType().Name, request);
+            return Ok(result);
         }
 
         [HttpDelete("[action]/{id:guid}")]
         public async Task<ActionResult> Delete(Guid? id)
         {
-            try
-            {
-                _logger.LogInformation("{Controller}.Delete({Id}) - Before",
-                    GetType().Name, id);
+            _logger.LogInformation("{Controller}.Delete({Id}) - Before",
+                GetType().Name, id);
 
-                await _service.DeleteAsync(id.Value);
+            await _service.DeleteAsync(id.Value);
 
-                _logger.LogInformation("{Controller}.Delete({Id}) - After",
-                    GetType().Name, id);
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error in ListingController.Delete");
-                return StatusCode(500, "Internal server error");
-            }
+            _logger.LogInformation("{Controller}.Delete({Id}) - After",
+                GetType().Name, id);
+            return NoContent();
         }
 
     }
