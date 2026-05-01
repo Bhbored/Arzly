@@ -16,7 +16,6 @@ namespace Arzly.Api.Domain.Entities
         [MaxLength(500, ErrorMessage = "Description cannot exceed 500 characters.")]
         public string? Description { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public int ItemsCount { get; set; }
 
         [Url(ErrorMessage = "Image URL must be a valid URL.")]

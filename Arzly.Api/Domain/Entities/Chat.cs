@@ -14,6 +14,7 @@ namespace Arzly.Api.Domain.Entities
 
         public bool IsArchived { get; set; } = false;
         public bool IsDeleted { get; set; } = false;
+        public DateTime? DeletedAt { get; set; }
         public bool IsDiscontinued { get; set; } = false;
 
         public DateTime LastActivity { get; set; } = DateTime.UtcNow;

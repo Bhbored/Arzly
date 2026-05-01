@@ -6,12 +6,40 @@ namespace Arzly.Api.Infrastructure.Data.SeedData
     {
         public static readonly List<SearchQuery> Data = new()
         {
-            new SearchQuery 
-            { 
-                Id = Guid.Parse("41b1a2c3-4e5f-4f6a-8b7c-9d0e1f2a3b4c"), 
-                UserId = "8f3b2a1c-5d4e-4f3a-9b8c-7d6e5f4a3b2c", 
-                Query = "iPhone 15", 
-                SearchedAt = DateTime.UtcNow
+            new SearchQuery
+            {
+                Id = Guid.NewGuid(),
+                UserId = "user-1-id",
+                Query = "BMW cars for sale",
+                SearchedAt = DateTime.UtcNow.AddDays(-5)
+            },
+            new SearchQuery
+            {
+                Id = Guid.NewGuid(),
+                UserId = "user-1-id",
+                Query = "apartment for rent in Brooklyn",
+                SearchedAt = DateTime.UtcNow.AddDays(-3)
+            },
+            new SearchQuery
+            {
+                Id = Guid.NewGuid(),
+                UserId = "user-1-id",
+                Query = "iPhone 15 Pro Max",
+                SearchedAt = DateTime.UtcNow.AddDays(-1)
+            },
+            new SearchQuery
+            {
+                Id = Guid.NewGuid(),
+                UserId = "user-2-id",
+                Query = "gaming laptop",
+                SearchedAt = DateTime.UtcNow.AddDays(-7)
+            },
+            new SearchQuery
+            {
+                Id = Guid.NewGuid(),
+                UserId = "user-2-id",
+                Query = "sofa set",
+                SearchedAt = DateTime.UtcNow.AddDays(-2)
             }
         };
     }

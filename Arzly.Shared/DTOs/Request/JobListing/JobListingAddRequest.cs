@@ -1,3 +1,4 @@
+using Arzly.Shared.Enums;
 using Arzly.Shared.Enums.JobListing;
 using Arzly.Shared.Enums.Listing;
 using System.ComponentModel.DataAnnotations;
@@ -30,21 +31,23 @@ namespace Arzly.Shared.DTOs.Request.JobListing
         [MaxLength(20, ErrorMessage = "Phone number cannot exceed 20 characters.")]
         public string PhoneNumber { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Location ID is required.")]
-        public Guid LocationId { get; set; }
+        [Required(ErrorMessage = "BaseLocation is Required")]
+        public LocationPreset BaseLocation { get; set; }
+
+        public double? lon { get; set; }
+        public double? lat { get; set; }
+
+        [Required(ErrorMessage = "Location Title is required")]
+        public string LocationTitle { get; set; } = string.Empty;
 
         public ContactMethod? ContactMethod { get; set; }
 
-        [Required(ErrorMessage = "Job field is required.")]
         public JobField? JobField { get; set; }
 
-        [Required(ErrorMessage = "Experience level is required.")]
         public ExperienceLevel? ExperienceLevel { get; set; }
 
-        [Required(ErrorMessage = "Education level is required.")]
         public EducationLevel? EducationLevel { get; set; }
 
-        [Required(ErrorMessage = "Employment type is required.")]
         public EmploymentType? EmploymentType { get; set; }
 
         public WorkplaceType? WorkplaceType { get; set; }

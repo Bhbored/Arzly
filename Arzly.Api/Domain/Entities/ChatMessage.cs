@@ -28,7 +28,8 @@ namespace Arzly.Api.Domain.Entities
         [Required(ErrorMessage = "Message text is required.")]
         [MaxLength(2000, ErrorMessage = "Message cannot exceed 2000 characters.")]
         public string Text { get; set; } = string.Empty;
-
+        public bool IsDeleted { get; set; } = false;
+        public DateTime? DeletedAt { get; set; }
         public DateTime SentAt { get; set; } = DateTime.UtcNow;
 
         public bool IsRead { get; set; }

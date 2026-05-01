@@ -17,7 +17,6 @@ namespace Arzly.Api.Mappings
                 Name = entity.Name,
                 Email = entity.Email,
                 PhoneNumber = entity.PhoneNumber,
-                LocationId = entity.LocationId,
                 ContactMethod = entity.ContactMethod,
                 JobField = entity.JobField,
                 ExperienceLevel = entity.ExperienceLevel,
@@ -34,7 +33,11 @@ namespace Arzly.Api.Mappings
                 IsPromoted = entity.IsPromoted,
                 PromotionType = entity.PromotionType,
                 PromotionStartDate = entity.PromotionStartDate,
-                PromotionEndDate = entity.PromotionEndDate
+                PromotionEndDate = entity.PromotionEndDate,
+                BaseLocation = entity.BaseLocation,
+                lon = entity.lon,
+                lat = entity.lat,
+                LocationTitle = entity.LocationTitle,
             };
         }
 
@@ -48,7 +51,6 @@ namespace Arzly.Api.Mappings
                 Name = request.Name,
                 Email = request.Email,
                 PhoneNumber = request.PhoneNumber,
-                LocationId = request.LocationId,
                 ContactMethod = request.ContactMethod,
                 JobField = request.JobField,
                 ExperienceLevel = request.ExperienceLevel,
@@ -59,36 +61,44 @@ namespace Arzly.Api.Mappings
                 SalaryMax = request.SalaryMax,
                 Languages = request.Languages,
                 OwnerId = request.OwnerId,
-                ExpiresAt = request.ExpiresAt
+                ExpiresAt = request.ExpiresAt,
+                BaseLocation = request.BaseLocation,
+                lon = request.lon,
+                lat = request.lat,
+                LocationTitle = request.LocationTitle
             };
         }
 
-        public static JobListing ToEntity(this JobListingUpdateRequest request, JobListing entity)
+        public static JobListing ToEntity(this JobListingUpdateRequest request)
         {
-            entity.Type = request.Type;
-            entity.Title = request.Title;
-            entity.Description = request.Description;
-            entity.Name = request.Name;
-            entity.Email = request.Email;
-            entity.PhoneNumber = request.PhoneNumber;
-            entity.LocationId = request.LocationId;
-            entity.ContactMethod = request.ContactMethod;
-            entity.JobField = request.JobField;
-            entity.ExperienceLevel = request.ExperienceLevel;
-            entity.EducationLevel = request.EducationLevel;
-            entity.EmploymentType = request.EmploymentType;
-            entity.WorkplaceType = request.WorkplaceType;
-            entity.SalaryMin = request.SalaryMin;
-            entity.SalaryMax = request.SalaryMax;
-            entity.Languages = request.Languages;
-            entity.ExpiresAt = request.ExpiresAt;
-            entity.Status = request.Status;
-            entity.IsPromoted = request.IsPromoted;
-            entity.PromotionType = request.PromotionType;
-            entity.PromotionStartDate = request.PromotionStartDate;
-            entity.PromotionEndDate = request.PromotionEndDate;
-
-            return entity;
+            return new JobListing
+            {
+                Type = request.Type,
+                Title = request.Title,
+                Description = request.Description,
+                Name = request.Name,
+                Email = request.Email,
+                PhoneNumber = request.PhoneNumber,
+                ContactMethod = request.ContactMethod,
+                JobField = request.JobField,
+                ExperienceLevel = request.ExperienceLevel,
+                EducationLevel = request.EducationLevel,
+                EmploymentType = request.EmploymentType,
+                WorkplaceType = request.WorkplaceType,
+                SalaryMin = request.SalaryMin,
+                SalaryMax = request.SalaryMax,
+                Languages = request.Languages,
+                ExpiresAt = request.ExpiresAt,
+                Status = request.Status,
+                IsPromoted = request.IsPromoted,
+                PromotionType = request.PromotionType,
+                PromotionStartDate = request.PromotionStartDate,
+                PromotionEndDate = request.PromotionEndDate,
+                BaseLocation = request.BaseLocation,
+                lon = request.lon,
+                lat = request.lat,
+                LocationTitle = request.LocationTitle
+            };
         }
     }
 }

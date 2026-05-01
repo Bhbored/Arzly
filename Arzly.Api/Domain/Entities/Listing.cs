@@ -36,8 +36,11 @@ namespace Arzly.Api.Domain.Entities
 
 
 
-        //new Properties 😊
+        //new Properties 
 
+
+        public bool IsDeleted { get; set; } = false;
+        public DateTime? DeletedAt { get; set; }
         [Required(ErrorMessage = "Name is required.")]
         [MaxLength(200, ErrorMessage = "Name cannot exceed 200 characters.")]
         public string Name { get; set; } = string.Empty;

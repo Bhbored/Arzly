@@ -21,7 +21,6 @@ namespace Arzly.Api.Domain.Entities
         [MaxLength(500, ErrorMessage = "Description cannot exceed 500 characters.")]
         public string? Description { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public int ItemsCount { get; set; }
 
         public virtual ICollection<Listing>? Listings { get; set; }

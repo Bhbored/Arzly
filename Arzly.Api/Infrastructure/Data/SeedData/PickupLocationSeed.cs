@@ -7,25 +7,48 @@ namespace Arzly.Api.Infrastructure.Data.SeedData
     {
         public static readonly List<PickupLocation> Data = new()
         {
-            new PickupLocation 
-            { 
-                Id = Guid.Parse("91b1a2c3-4e5f-4f6a-8b7c-9d0e1f2a3b4c"), 
-                UserId = "7c9e6679-7425-40de-944b-e07fc1f90ae7", 
-                Address = "123 Main St, New York", 
-                Label = LocationLabel.Home, 
-                IsDefault = true,
+            new PickupLocation
+            {
+                Id = Guid.NewGuid(),
+                UserId = "user-1-id",
+                Label = LocationLabel.Home,
+                Address = "123 Main Street, New York, NY 10001",
+                Notes = "Ring the doorbell twice",
                 Lat = 40.7128,
-                Lon = -74.0060
+                Lon = -74.0060,
+                IsDefault = true
             },
-            new PickupLocation 
-            { 
-                Id = Guid.Parse("92b2a2c4-5d4e-4f3a-9b8c-7d6e5f4a3b2c"), 
-                UserId = "8f3b2a1c-5d4e-4f3a-9b8c-7d6e5f4a3b2c", 
-                Address = "456 Side St, Los Angeles", 
-                Label = LocationLabel.Work, 
-                IsDefault = true,
-                Lat = 34.0522,
-                Lon = -118.2437
+            new PickupLocation
+            {
+                Id = Guid.NewGuid(),
+                UserId = "user-1-id",
+                Label = LocationLabel.Work,
+                Address = "456 Business Ave, New York, NY 10002",
+                Notes = "Call before arriving",
+                Lat = 40.7580,
+                Lon = -73.9855,
+                IsDefault = false
+            },
+            new PickupLocation
+            {
+                Id = Guid.NewGuid(),
+                UserId = "user-2-id",
+                Label = LocationLabel.Home,
+                Address = "789 Park Lane, Brooklyn, NY 11201",
+                Lat = 40.6782,
+                Lon = -73.9442,
+                IsDefault = true
+            },
+            new PickupLocation
+            {
+                Id = Guid.NewGuid(),
+                UserId = "user-2-id",
+                Label = LocationLabel.Other,
+                Address = "321 Shopping Mall, Queens, NY 11354",
+                Notes = "Near the food court entrance",
+                Lat = 40.7282,
+                Lon = -73.7949,
+                IsDefault = false
             }
         };
     }

@@ -15,10 +15,7 @@ namespace Arzly.Api.Application.Services
 
         protected override JobListingResponse MapToDto(JobListing entity) => entity.ToResponse();
         protected override JobListing MapToEntity(JobListingAddRequest createDto) => createDto.ToEntity();
-        protected override JobListing MapToEntity(JobListingUpdateRequest updateDto)
-        {
-            var entity = new JobListing();
-            return updateDto.ToEntity(entity);
-        }
+        protected override JobListing MapToEntity(JobListingUpdateRequest updateDto) => updateDto.ToEntity();
+
     }
 }

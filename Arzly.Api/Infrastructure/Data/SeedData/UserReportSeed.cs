@@ -7,14 +7,26 @@ namespace Arzly.Api.Infrastructure.Data.SeedData
     {
         public static readonly List<UserReport> Data = new()
         {
-            new UserReport 
-            { 
-                Id = Guid.Parse("c1b1a2c3-4e5f-4f6a-8b7c-9d0e1f2a3b4c"), 
-                ReporterId = "7c9e6679-7425-40de-944b-e07fc1f90ae7", 
-                ReportedUserId = "8f3b2a1c-5d4e-4f3a-9b8c-7d6e5f4a3b2c", 
-                Reason = ReportReasonType.Spam, 
-                Notes = "User is spamming messages", 
-                CreatedAt = DateTime.UtcNow
+            new UserReport
+            {
+                Id = Guid.NewGuid(),
+                ReporterId = "user-1-id",
+                ReportedUserId = "user-2-id",
+                Reason =  ReportReasonType.Spam,
+                Notes = "User posting duplicate listings",
+                CreatedAt = DateTime.UtcNow.AddDays(-5),
+                IsResolved = true,
+                ResolvedAt = DateTime.UtcNow.AddDays(-3)
+            },
+            new UserReport
+            {
+                Id = Guid.NewGuid(),
+                ReporterId = "user-2-id",
+                ReportedUserId = "user-1-id",
+                Reason =  ReportReasonType.InappropriateContent,
+                Notes = "Listing contains misleading information",
+                CreatedAt = DateTime.UtcNow.AddDays(-2),
+                IsResolved = false
             }
         };
     }

@@ -1,5 +1,7 @@
+using Arzly.Shared.Enums;
 using Arzly.Shared.Enums.JobListing;
 using Arzly.Shared.Enums.Listing;
+using System.ComponentModel.DataAnnotations;
 
 namespace Arzly.Shared.DTOs.Response.JobListing
 {
@@ -12,7 +14,6 @@ namespace Arzly.Shared.DTOs.Response.JobListing
         public string Name { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
-        public Guid LocationId { get; set; }
         public ContactMethod? ContactMethod { get; set; }
         public JobField? JobField { get; set; }
         public ExperienceLevel? ExperienceLevel { get; set; }
@@ -26,6 +27,13 @@ namespace Arzly.Shared.DTOs.Response.JobListing
         public DateTime CreatedAt { get; set; }
         public DateTime? ExpiresAt { get; set; }
         public JobStatus Status { get; set; }
+
+        public LocationPreset BaseLocation { get; set; }
+
+        public double? lon { get; set; }
+        public double? lat { get; set; }
+
+        public string LocationTitle { get; set; } = string.Empty;
 
         // Promotion
         public bool IsPromoted { get; set; }

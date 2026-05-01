@@ -22,6 +22,7 @@ namespace Arzly.Api.Domain.ListingOwned
         public TransmissionType? TransmissionType { get; set; }
         public List<CarFeature>? CarFeatures { get; set; }
         public AccessoryType? AccessoryType { get; set; }
+        public MotorcycleType? MotorcycleType { get; set; }
         public VehicleType? VehicleType { get; set; }
         public PlateDigits? NumberOfDigits { get; set; }
         public TruckBrand? TruckBrand { get; set; }

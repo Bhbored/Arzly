@@ -24,7 +24,8 @@ namespace Arzly.Api.Domain.Entities
 
         [MaxLength(200, ErrorMessage = "Notes cannot exceed 200 characters.")]
         public string? Notes { get; set; }
-
+        public bool IsDeleted { get; set; } = false;
+        public DateTime? DeletedAt { get; set; }
         public double Lat { get; set; }
         public double Lon { get; set; }
 

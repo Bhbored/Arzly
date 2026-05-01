@@ -6,8 +6,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Arzly.Api.Infrastructure.Identity
 {
-    public class AppUser : IdentityUser
+    public class AppUser
     {
+
+        //temp
+        [Required]
+        public string Id { get; set; } = string.Empty;
+        public string UserName { get; set; } = string.Empty;
+
+        public string Email { get; set; } = string.Empty;
         // Authentication source
         public AuthMethod AuthMethod { get; set; } = AuthMethod.Firebase;
 
@@ -29,7 +36,7 @@ namespace Arzly.Api.Infrastructure.Identity
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? LastActiveAt { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
         public DateTime? DeletedAt { get; set; }
 
         public bool IsBanned { get; set; }
@@ -47,7 +54,7 @@ namespace Arzly.Api.Infrastructure.Identity
         public virtual UserPreference? Preferences { get; set; }
         public virtual ICollection<Notification>? Notifications { get; set; }
         public virtual ICollection<Chat>? ChatsInitiated { get; set; }
-        public virtual ICollection<Chat>? ChatsReceived { get; set; } 
+        public virtual ICollection<Chat>? ChatsReceived { get; set; }
         public virtual ICollection<UserActivityLog>? ActivityLogs { get; set; }
         public virtual ICollection<Ticket>? CreatedTickets { get; set; }
         public virtual ICollection<TicketMessage>? TicketMessages { get; set; }
