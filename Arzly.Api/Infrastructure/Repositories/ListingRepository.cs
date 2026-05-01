@@ -19,7 +19,7 @@ namespace Arzly.Api.Infrastructure.Repositories
         public override async Task<Listing?> GetByIdAsync(Guid id)
         {
             return await _db.Listings
-                .Include(l => l.PickupLocationId)
+                .Include(l => l.PickupLocation)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
         public override async Task<List<Listing>> GetAllAsync()
@@ -46,6 +46,11 @@ namespace Arzly.Api.Infrastructure.Repositories
                 .Where(l => l.OwnerId == id)
                 .Include(l => l.PickupLocation)
                 .ToListAsync();
+        }
+
+        public override Task AddAsync(Listing entity)
+        {
+            return base.AddAsync(entity);
         }
 
     }

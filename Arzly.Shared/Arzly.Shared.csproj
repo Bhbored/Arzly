@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Constants\" />
     <Folder Include="Enums\JobListing\" />
     <Folder Include="Enums\ListingOwned\ServicesDetails\" />
     <Folder Include="Exceptions\" />

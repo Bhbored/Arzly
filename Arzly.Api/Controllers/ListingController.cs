@@ -45,7 +45,7 @@ namespace Arzly.Api.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<ListingResponse>> GetById([FromHeader] Guid? id)
+        public async Task<ActionResult<ListingResponse>> GetById(Guid? id)
         {
             _logger.LogInformation("{Controller}.GetById({Id}) - Before",
                 GetType().Name, id);
@@ -92,7 +92,7 @@ namespace Arzly.Api.Controllers
                 result);
         }
 
-        [HttpPut("[action]/{id:guid}")]
+        [HttpPut("[action]")]
         [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(ListingController) })]
         public async Task<ActionResult<ListingResponse?>> Update([FromBody] ListingUpdateRequest? request)
         {

@@ -2,6 +2,7 @@
 using Arzly.Api.Domain.Contracts;
 using Arzly.Api.Domain.Entities;
 using Arzly.Api.Mappings;
+using Arzly.Shared.Constants;
 using Arzly.Shared.DTOs.Request.Listing;
 using Arzly.Shared.DTOs.Response.Listing;
 using Azure;
@@ -11,9 +12,13 @@ namespace Arzly.Api.Application.Services
     public class ListingService : BaseService<Listing, ListingResponse, ListingAddRequest, ListingUpdateRequest, Guid>, IListingService
     {
         private readonly IListingRepository _listingRepo;
-        public ListingService(IListingRepository repository) : base(repository)
+        private readonly IPickupLocationRepository _pickupLocationRepository;
+
+        public ListingService(IListingRepository repository, IPickupLocationRepository pickupLocationRepository) : base(repository)
         {
-            _listingRepo = repository; ;
+            _listingRepo = repository;
+            _pickupLocationRepository = pickupLocationRepository;
+
         }
 
 
@@ -30,6 +35,14 @@ namespace Arzly.Api.Application.Services
             }
             return responses ?? [];
         }
+        public async Task<ListingResponse> AssignOnePickupLocation(Listing entitie, ListingResponse response)
+        {
+            PickupLocation pickupLocation = entitie.PickupLocation;
+
+            response.PickupLocation = pickupLocation.ToResponse();
+
+            return response ?? new();
+        }
 
         #region fetch
 
@@ -44,6 +57,17 @@ namespace Arzly.Api.Application.Services
 
         }
 
+        public override async Task<ListingResponse?> GetByIdAsync(Guid id)
+        {
+            if (id == Guid.Empty)
+                throw new ArgumentNullException(ExceptionMessages.MissingId);
+
+            var entity = await _listingRepo.GetByIdAsync(id);
+            if (entity is null)
+                throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {id}");
+
+            return await AssignOnePickupLocation(entity,MapToDto(entity));
+        }
         public Task<List<ListingResponse>> GetListingByCategoryId(Guid? categoryId)
         {
             throw new NotImplementedException();
@@ -86,14 +110,26 @@ namespace Arzly.Api.Application.Services
         #endregion
 
 
+
+
         public override async Task<ListingResponse?> CreateAsync(ListingAddRequest? createDto)
         {
             if (createDto is null)
-                throw new ArgumentException("");
-            return await base.CreateAsync(createDto);
+                throw new ArgumentException(ExceptionMessages.EmptyAddRequest);
+
+            var requestLocation = await _pickupLocationRepository
+                .GetByIdAsync(createDto.PickupLocationId);
+
+            if (requestLocation is null)
+                throw new ArgumentNullException(ExceptionMessages.MissingPickUpLocation);
+
+            var entity = createDto.ToEntity();
+            entity.Id = Guid.NewGuid();
+            entity.OwnerId = "user-2-id";//temp
+            await _listingRepo.AddAsync(entity);
+
+            return entity.ToResponse();
         }
-
-
 
 
         #region Mapping

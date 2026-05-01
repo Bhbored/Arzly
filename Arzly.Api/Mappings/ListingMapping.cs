@@ -32,7 +32,6 @@ namespace Arzly.Api.Mappings
                 PromotionType = entity.PromotionType,
                 PromotionStartDate = entity.PromotionStartDate,
                 PromotionEndDate = entity.PromotionEndDate,
-
             };
         }
 

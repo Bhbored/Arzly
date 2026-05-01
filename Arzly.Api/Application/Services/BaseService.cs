@@ -1,5 +1,6 @@
 ﻿using Arzly.Api.Application.Contracts;
 using Arzly.Api.Domain.Contracts;
+using Arzly.Shared.Constants;
 
 namespace Arzly.Api.Application.Services
 {
@@ -29,7 +30,7 @@ namespace Arzly.Api.Application.Services
         public virtual async Task<TDto?> GetByIdAsync(TKey? id)
         {
             if (id == null)
-                throw new ArgumentNullException($"No ID Provided");
+                throw new ArgumentNullException(ExceptionMessages.MissingId);
 
             var entity = await _repository.GetByIdAsync(id);
             if (entity is null)
@@ -40,7 +41,7 @@ namespace Arzly.Api.Application.Services
         public virtual async Task<TDto?> CreateAsync(TCreateDto? createDto)
         {
             if (createDto == null)
-                throw new ArgumentNullException($"Add Request {nameof(createDto)} is empty Provided");
+                throw new ArgumentNullException(ExceptionMessages.EmptyAddRequest);
             var entity = MapToEntity(createDto);
             await _repository.AddAsync(entity);
             return MapToDto(entity);
@@ -50,7 +51,7 @@ namespace Arzly.Api.Application.Services
         public virtual async Task<TDto?> UpdateAsync(TUpdateDto? updateDto)
         {
             if (updateDto == null)
-                throw new ArgumentNullException($"update Request {nameof(updateDto)} is empty Provided");
+                throw new ArgumentNullException(ExceptionMessages.EmptyUpdateRequest);
 
             var entity = MapToEntity(updateDto);
             var updatedEntity = await _repository.Update(entity);
@@ -61,8 +62,16 @@ namespace Arzly.Api.Application.Services
         public virtual async Task<bool> DeleteAsync(TKey? id)
         {
             if (id == null)
-                throw new ArgumentNullException($"No ID Provided");
+                throw new ArgumentNullException(ExceptionMessages.MissingId);
 
+            if (id is not Guid)
+                throw new ArgumentNullException(ExceptionMessages.MissingId);
+
+            if (id is Guid guid)
+            {
+                if (guid == Guid.Empty)
+                    throw new ArgumentNullException(ExceptionMessages.MissingId);
+            }
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null) return false;
 
