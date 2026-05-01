@@ -105,6 +105,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                         .WithOne(c => c.Listing)
                         .HasForeignKey(c => c.ListingId)
                         .OnDelete(DeleteBehavior.Restrict);
+
                 entity.HasQueryFilter(l => !l.IsDeleted);
 
 
@@ -167,6 +168,8 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                       .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasIndex(s => new { s.UserId, s.ListingId }).IsUnique();
+                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
+
 
             });
 
@@ -217,6 +220,11 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                 entity.HasIndex(r => r.ChatId);
                 entity.HasIndex(r => r.IsResolved);
                 entity.HasIndex(r => r.CreatedAt);
+
+                entity.HasQueryFilter(v => v.Reporter != null && !v.Reporter.IsDeleted);
+                entity.HasQueryFilter(v => v.ReportedUser != null && !v.ReportedUser.IsDeleted);
+
+
             });
 
 
@@ -227,6 +235,9 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
             {
                 entity.HasIndex(l => l.ActorId);
                 entity.HasIndex(l => l.Timestamp);
+
+                entity.HasQueryFilter(v => v.Actor != null && !v.Actor.IsDeleted);
+
             });
 
             modelBuilder.Entity<AppUser>(entity =>
@@ -248,6 +259,8 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
 
                 entity.HasIndex(sq => sq.UserId);
                 entity.HasIndex(sq => sq.SearchedAt);
+                entity.HasQueryFilter(v => v.User != null && !v.User.IsDeleted);
+
             });
 
             // UserPreference
@@ -257,6 +270,8 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(u => u.Preferences)
                     .HasForeignKey<UserPreference>(up => up.UserId)
                     .OnDelete(DeleteBehavior.Cascade);
+                entity.HasQueryFilter(v => v.User != null && !v.User.IsDeleted);
+
             });
 
             // ListingOwned entities - one-to-one relationships
@@ -266,6 +281,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.BabyChildDetails)
                     .HasForeignKey<BabyChildDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
+                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
             });
 
             modelBuilder.Entity<ElectronicsDetails>(entity =>
@@ -274,6 +290,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.ElectronicsDetails)
                     .HasForeignKey<ElectronicsDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
+                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
             });
 
             modelBuilder.Entity<FashionDetails>(entity =>
@@ -282,6 +299,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.FashionDetails)
                     .HasForeignKey<FashionDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
+                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
             });
 
             modelBuilder.Entity<FurnitureDetails>(entity =>
@@ -290,6 +308,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.FurnitureDetails)
                     .HasForeignKey<FurnitureDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
+                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
             });
 
             modelBuilder.Entity<HobbiesDetails>(entity =>
@@ -298,6 +317,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.HobbiesDetails)
                     .HasForeignKey<HobbiesDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
+                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
             });
 
             modelBuilder.Entity<PetsDetails>(entity =>
@@ -306,6 +326,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.PetsDetails)
                     .HasForeignKey<PetsDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
+                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
             });
 
             modelBuilder.Entity<PhonesDetails>(entity =>
@@ -314,6 +335,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.PhonesDetails)
                     .HasForeignKey<PhonesDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
+                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
             });
 
             modelBuilder.Entity<RealEstateDetails>(entity =>
@@ -322,6 +344,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.RealEstateDetails)
                     .HasForeignKey<RealEstateDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
+                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
             });
 
             modelBuilder.Entity<ServicesDetails>(entity =>
@@ -330,6 +353,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.ServicesDetails)
                     .HasForeignKey<ServicesDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
+                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
             });
 
             modelBuilder.Entity<SportsDetails>(entity =>
@@ -338,6 +362,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.SportsDetails)
                     .HasForeignKey<SportsDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
+                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
             });
 
             modelBuilder.Entity<VehiclesDetails>(entity =>
@@ -346,6 +371,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.VehiclesDetails)
                     .HasForeignKey<VehiclesDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
+                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
             });
             #endregion
 
@@ -426,6 +452,9 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasIndex(t => t.ListingId);
+
+                entity.HasQueryFilter(v => v.User != null && !v.User.IsDeleted);
+
             });
 
             //ticket messages
@@ -449,6 +478,8 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
 
                 entity.HasIndex(tm => tm.TicketId);
                 entity.HasIndex(tm => tm.SentAt);
+
+
             });
 
             // TicketAttachment

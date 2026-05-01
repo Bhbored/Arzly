@@ -1,5 +1,6 @@
 using Arzly.Shared.Enums.Listing;
 using Arzly.Shared.Enums.JobListing;
+using Arzly.Shared.DTOs.Response.PickupLocation;
 
 namespace Arzly.Shared.DTOs.Response.Listing
 {
@@ -24,6 +25,8 @@ namespace Arzly.Shared.DTOs.Response.Listing
         public Guid SubcategoryId { get; set; }
 
         public Guid PickupLocationId { get; set; }
+
+        public PickupLocationResponse? PickupLocation { get; set; } 
         public object? ListingDetails { get; set; }
 
         // Contact

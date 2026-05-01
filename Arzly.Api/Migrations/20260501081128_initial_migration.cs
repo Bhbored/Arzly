@@ -853,17 +853,17 @@ namespace Arzly.Api.Migrations
                 columns: new[] { "Id", "Description", "ImageUrl", "ItemsCount", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("0bb2ac3e-e98b-48f6-b5c6-c0cc705fc825"), "Smartphones, tablets, watches and accessories", "/images/categories/mobiles.svg", 0, "Phones & Gadgets" },
-                    { new Guid("24784d09-4881-4a11-8c68-2a67f4d32f87"), "Clothing, shoes, bags, jewelry and cosmetics", "/images/categories/fashion.svg", 0, "Fashion & Style" },
-                    { new Guid("3cad2798-23de-4196-8dd7-952155fd1ab4"), "Cars, motorcycles, boats, trucks and accessories", "/images/categories/vehicles.svg", 0, "Vehicles" },
-                    { new Guid("59733c2c-27c7-40ac-8cf5-ed9f89b14b0a"), "Apartments, villas, land and commercial properties", "/images/categories/properties.svg", 0, "Real Estate" },
-                    { new Guid("9d855155-09ed-40dc-9ba0-4b31833f9ea0"), "Toys, strollers, clothing and baby gear", "/images/categories/kids.svg", 0, "Kids & Babies" },
-                    { new Guid("aa24a6f6-fd36-4cb1-a7ee-5d8d2c52355f"), "Gym equipment, bicycles, camping and fitness gear", "/images/categories/sports.svg", 0, "Sports & Equipment" },
-                    { new Guid("ab2a6892-b17d-41a7-b344-251426ea00df"), "Home repair, cleaning, tutoring, moving and more", "/images/categories/services.svg", 0, "Services" },
-                    { new Guid("be6549b8-588f-406f-bf91-a6f50e66f97c"), "Books, music, art, collectibles and musical instruments", "/images/categories/hobbies.svg", 0, "Hobbies" },
-                    { new Guid("c7e33f89-5f59-4384-9f32-5062d53a8e56"), "Dogs, cats, birds, fish and pet supplies", "/images/categories/pets.svg", 0, "Pets" },
-                    { new Guid("cba614a7-eb8c-45d8-9f8e-dd0c5803d91d"), "TVs, laptops, cameras, kitchen and home appliances", "/images/categories/electronics.svg", 0, "Electronics & Appliances" },
-                    { new Guid("d1c9e429-21fc-4164-8fc0-2f64585a7026"), "Home and office furniture, lighting, rugs and decor", "/images/categories/furniture.svg", 0, "Furniture & Decor" }
+                    { new Guid("087008f8-4ced-47ff-a688-5f40d9593ae7"), "TVs, laptops, cameras, kitchen and home appliances", "/images/categories/electronics.svg", 0, "Electronics & Appliances" },
+                    { new Guid("0abbf2d4-55e8-42d3-8d85-687f8cf62b7a"), "Clothing, shoes, bags, jewelry and cosmetics", "/images/categories/fashion.svg", 0, "Fashion & Style" },
+                    { new Guid("0b6c8f48-6028-40ac-a576-e63d62ff04a6"), "Books, music, art, collectibles and musical instruments", "/images/categories/hobbies.svg", 0, "Hobbies" },
+                    { new Guid("29773f2c-04c4-4256-8b0c-e1159945d596"), "Smartphones, tablets, watches and accessories", "/images/categories/mobiles.svg", 0, "Phones & Gadgets" },
+                    { new Guid("7165621d-ddce-458c-a34f-d3bd7aeed570"), "Dogs, cats, birds, fish and pet supplies", "/images/categories/pets.svg", 0, "Pets" },
+                    { new Guid("7e917c79-782e-480d-8d76-052194601264"), "Home repair, cleaning, tutoring, moving and more", "/images/categories/services.svg", 0, "Services" },
+                    { new Guid("993ad18f-fe57-4d1c-af6b-f3e8633de96b"), "Toys, strollers, clothing and baby gear", "/images/categories/kids.svg", 0, "Kids & Babies" },
+                    { new Guid("c4212950-0a5e-401b-9310-365f717e8f76"), "Apartments, villas, land and commercial properties", "/images/categories/properties.svg", 0, "Real Estate" },
+                    { new Guid("c480a5f6-14b9-46f2-a4ce-c09e754ca477"), "Cars, motorcycles, boats, trucks and accessories", "/images/categories/vehicles.svg", 0, "Vehicles" },
+                    { new Guid("dda98df4-74e8-4a7d-aecc-344f43f19846"), "Home and office furniture, lighting, rugs and decor", "/images/categories/furniture.svg", 0, "Furniture & Decor" },
+                    { new Guid("e68b2c7a-3f47-464a-b5ad-315e66de10cf"), "Gym equipment, bicycles, camping and fitness gear", "/images/categories/sports.svg", 0, "Sports & Equipment" }
                 });
 
             migrationBuilder.InsertData(
@@ -880,11 +880,11 @@ namespace Arzly.Api.Migrations
                 columns: new[] { "Id", "AppUserId", "BaseLocation", "ContactMethod", "CreatedAt", "DeletedAt", "Description", "EducationLevel", "Email", "EmploymentType", "ExperienceLevel", "ExpiresAt", "IsDeleted", "IsPromoted", "JobField", "Languages", "LocationTitle", "Name", "OwnerId", "PhoneNumber", "PromotionEndDate", "PromotionStartDate", "PromotionType", "SalaryMax", "SalaryMin", "Status", "Title", "Type", "WorkplaceType", "lat", "lon" },
                 values: new object[,]
                 {
-                    { new Guid("00000000-0000-0000-0000-000000000001"), null, 23, 0, new DateTime(2026, 4, 20, 15, 49, 22, 988, DateTimeKind.Utc).AddTicks(9664), null, "We are looking for an experienced software engineer to join our growing team. Must have 5+ years of experience with .NET and React. Remote-friendly with flexible hours.", 3, "john@example.com", 0, 2, new DateTime(2026, 5, 20, 15, 49, 22, 988, DateTimeKind.Utc).AddTicks(9887), false, true, 21, null, "BintJbeilNabatieh", "John Doe", "user-1-id", "+1-555-0201", new DateTime(2026, 5, 9, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(1008), new DateTime(2026, 4, 25, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(774), 1, 120000.0, 90000.0, 1, " FiveToTenYears Software Engineer", 0, 2, null, null },
-                    { new Guid("00000000-0000-0000-0000-000000000002"), null, 10, 2, new DateTime(2026, 4, 25, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(1677), null, "Part-time customer service role for retail store. Evening and weekend shifts available. Great opportunity for students.", 1, "bhbored2022@gmail.com", 1, 0, new DateTime(2026, 5, 25, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(1678), false, false, 12, null, "Tripoli", "Bourhan Hassoun", "user-2-id", "+1-555-0202", null, null, null, 22.0, 18.0, 1, "Customer Service Representative", 1, 0, null, null },
-                    { new Guid("00000000-0000-0000-0000-000000000003"), null, 23, 1, new DateTime(2026, 4, 15, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(1708), null, "Dynamic marketing manager needed for fast-paced startup. Lead our digital marketing efforts, manage social media, and develop brand strategy.", 3, "john@example.com", 0, 1, new DateTime(2026, 5, 15, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(1711), false, false, 30, null, "BintJbeilNabatieh", "John Doe", "user-1-id", "+1-555-0203", null, null, null, 90000.0, 70000.0, 1, "Marketing Manager", 1, 1, null, null },
-                    { new Guid("00000000-0000-0000-0000-000000000004"), null, 25, 0, new DateTime(2026, 4, 27, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(1715), null, "Seeking talented graphic designer for ongoing project work. Must be proficient in Adobe Creative Suite. Portfolio required.", 3, "bhbored2022@gmail.com", 2, 0, new DateTime(2026, 5, 27, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(1716), false, false, 13, null, "Hermel", "Bourhan Hassoun", "user-2-id", "+1-555-0204", null, null, null, 60.0, 40.0, 1, "Freelance Graphic Designer", 0, 1, null, null },
-                    { new Guid("00000000-0000-0000-0000-000000000005"), null, 17, 2, new DateTime(2026, 4, 10, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(1721), null, "ICU nurse position at major hospital. Competitive salary, excellent benefits. Night shift differential included.", 3, "john@example.com", 0, 2, new DateTime(2026, 5, 10, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(1721), false, false, 18, null, "Zahle", "John Doe", "user-1-id", "+1-555-0205", null, null, null, 105000.0, 85000.0, 0, "Registered Nurse - ICU", 0, 0, null, null }
+                    { new Guid("00000000-0000-0000-0000-000000000001"), null, 23, 0, new DateTime(2026, 4, 21, 8, 11, 27, 539, DateTimeKind.Utc).AddTicks(4802), null, "We are looking for an experienced software engineer to join our growing team. Must have 5+ years of experience with .NET and React. Remote-friendly with flexible hours.", 3, "john@example.com", 0, 2, new DateTime(2026, 5, 21, 8, 11, 27, 539, DateTimeKind.Utc).AddTicks(5029), false, true, 21, null, "BintJbeilNabatieh", "John Doe", "user-1-id", "+1-555-0201", new DateTime(2026, 5, 10, 8, 11, 27, 539, DateTimeKind.Utc).AddTicks(6161), new DateTime(2026, 4, 26, 8, 11, 27, 539, DateTimeKind.Utc).AddTicks(5921), 1, 120000.0, 90000.0, 1, " FiveToTenYears Software Engineer", 0, 2, null, null },
+                    { new Guid("00000000-0000-0000-0000-000000000002"), null, 10, 2, new DateTime(2026, 4, 26, 8, 11, 27, 539, DateTimeKind.Utc).AddTicks(6848), null, "Part-time customer service role for retail store. Evening and weekend shifts available. Great opportunity for students.", 1, "bhbored2022@gmail.com", 1, 0, new DateTime(2026, 5, 26, 8, 11, 27, 539, DateTimeKind.Utc).AddTicks(6849), false, false, 12, null, "Tripoli", "Bourhan Hassoun", "user-2-id", "+1-555-0202", null, null, null, 22.0, 18.0, 1, "Customer Service Representative", 1, 0, null, null },
+                    { new Guid("00000000-0000-0000-0000-000000000003"), null, 23, 1, new DateTime(2026, 4, 16, 8, 11, 27, 539, DateTimeKind.Utc).AddTicks(6860), null, "Dynamic marketing manager needed for fast-paced startup. Lead our digital marketing efforts, manage social media, and develop brand strategy.", 3, "john@example.com", 0, 1, new DateTime(2026, 5, 16, 8, 11, 27, 539, DateTimeKind.Utc).AddTicks(6860), false, false, 30, null, "BintJbeilNabatieh", "John Doe", "user-1-id", "+1-555-0203", null, null, null, 90000.0, 70000.0, 1, "Marketing Manager", 1, 1, null, null },
+                    { new Guid("00000000-0000-0000-0000-000000000004"), null, 25, 0, new DateTime(2026, 4, 28, 8, 11, 27, 539, DateTimeKind.Utc).AddTicks(6865), null, "Seeking talented graphic designer for ongoing project work. Must be proficient in Adobe Creative Suite. Portfolio required.", 3, "bhbored2022@gmail.com", 2, 0, new DateTime(2026, 5, 28, 8, 11, 27, 539, DateTimeKind.Utc).AddTicks(6865), false, false, 13, null, "Hermel", "Bourhan Hassoun", "user-2-id", "+1-555-0204", null, null, null, 60.0, 40.0, 1, "Freelance Graphic Designer", 0, 1, null, null },
+                    { new Guid("00000000-0000-0000-0000-000000000005"), null, 17, 2, new DateTime(2026, 4, 11, 8, 11, 27, 539, DateTimeKind.Utc).AddTicks(6903), null, "ICU nurse position at major hospital. Competitive salary, excellent benefits. Night shift differential included.", 3, "john@example.com", 0, 2, new DateTime(2026, 5, 11, 8, 11, 27, 539, DateTimeKind.Utc).AddTicks(6905), false, false, 18, null, "Zahle", "John Doe", "user-1-id", "+1-555-0205", null, null, null, 105000.0, 85000.0, 0, "Registered Nurse - ICU", 0, 0, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -892,10 +892,10 @@ namespace Arzly.Api.Migrations
                 columns: new[] { "Id", "Address", "DeletedAt", "IsDefault", "IsDeleted", "Label", "Lat", "Lon", "Notes", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("3e545987-07b4-4130-b88f-e1830ac22d9f"), "456 Business Ave, New York, NY 10002", null, false, false, 1, 40.758000000000003, -73.985500000000002, "Call before arriving", "user-1-id" },
-                    { new Guid("6b5529c9-8299-47a5-b688-4fc75c2c8208"), "321 Shopping Mall, Queens, NY 11354", null, false, false, 2, 40.728200000000001, -73.794899999999998, "Near the food court entrance", "user-2-id" },
-                    { new Guid("a3f47519-f19d-48b7-97bc-bfa9cfadf5a4"), "123 Main Street, New York, NY 10001", null, true, false, 0, 40.712800000000001, -74.006, "Ring the doorbell twice", "user-1-id" },
-                    { new Guid("b37fce3b-3ae7-461b-a02e-63dd33d46d2b"), "789 Park Lane, Brooklyn, NY 11201", null, true, false, 0, 40.678199999999997, -73.944199999999995, null, "user-2-id" }
+                    { new Guid("113dfbb4-8768-4be8-aa7c-cca69e86a3eb"), "321 Shopping Mall, Queens, NY 11354", null, false, false, 2, 40.728200000000001, -73.794899999999998, "Near the food court entrance", "user-2-id" },
+                    { new Guid("5edd95c5-e737-47eb-b483-9724ff71b5da"), "123 Main Street, New York, NY 10001", null, true, false, 0, 40.712800000000001, -74.006, "Ring the doorbell twice", "user-1-id" },
+                    { new Guid("c87e626d-1b25-48d7-a822-6edbc700e9a0"), "789 Park Lane, Brooklyn, NY 11201", null, true, false, 0, 40.678199999999997, -73.944199999999995, null, "user-2-id" },
+                    { new Guid("ea79e836-0db7-4fc9-9aaa-bf953a2e8606"), "456 Business Ave, New York, NY 10002", null, false, false, 1, 40.758000000000003, -73.985500000000002, "Call before arriving", "user-1-id" }
                 });
 
             migrationBuilder.InsertData(
@@ -903,11 +903,11 @@ namespace Arzly.Api.Migrations
                 columns: new[] { "Id", "Query", "SearchedAt", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("44efa511-db28-4cca-a799-996d2ac5fa26"), "apartment for rent in Brooklyn", new DateTime(2026, 4, 27, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(9075), "user-1-id" },
-                    { new Guid("570c5033-59fc-40e0-b641-c8890e8ece8b"), "gaming laptop", new DateTime(2026, 4, 23, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(9083), "user-2-id" },
-                    { new Guid("81eda076-52bd-43df-b0b8-5f54fbb99ac3"), "sofa set", new DateTime(2026, 4, 28, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(9086), "user-2-id" },
-                    { new Guid("b5792aab-2166-4c54-a3a9-0e988a103061"), "BMW cars for sale", new DateTime(2026, 4, 25, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(8825), "user-1-id" },
-                    { new Guid("efdba549-9d2c-42f6-8d33-411eb894a7d8"), "iPhone 15 Pro Max", new DateTime(2026, 4, 29, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(9078), "user-1-id" }
+                    { new Guid("a62f6cc5-2ec4-4ac7-9196-835e9cab22fb"), "BMW cars for sale", new DateTime(2026, 4, 26, 8, 11, 27, 540, DateTimeKind.Utc).AddTicks(4684), "user-1-id" },
+                    { new Guid("ac6a718d-b905-419e-91bd-c54027c6ba54"), "iPhone 15 Pro Max", new DateTime(2026, 4, 30, 8, 11, 27, 540, DateTimeKind.Utc).AddTicks(4934), "user-1-id" },
+                    { new Guid("b4329168-02ca-40b8-944c-2a4a716b6810"), "gaming laptop", new DateTime(2026, 4, 24, 8, 11, 27, 540, DateTimeKind.Utc).AddTicks(4936), "user-2-id" },
+                    { new Guid("f8aa7ea2-7772-4003-afc4-c8047633dc26"), "apartment for rent in Brooklyn", new DateTime(2026, 4, 28, 8, 11, 27, 540, DateTimeKind.Utc).AddTicks(4931), "user-1-id" },
+                    { new Guid("fc51de9d-5c0e-45f9-acf8-5606d6673577"), "sofa set", new DateTime(2026, 4, 29, 8, 11, 27, 540, DateTimeKind.Utc).AddTicks(4940), "user-2-id" }
                 });
 
             migrationBuilder.InsertData(
@@ -915,93 +915,93 @@ namespace Arzly.Api.Migrations
                 columns: new[] { "Id", "CategoryId", "Description", "ItemsCount", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("00238b5e-63f0-49e1-bc68-8386e710bc72"), new Guid("3cad2798-23de-4196-8dd7-952155fd1ab4"), null, 0, "Trucks & Buses" },
-                    { new Guid("031e087d-ee28-4bf5-af70-fa3eec8df73b"), new Guid("c7e33f89-5f59-4384-9f32-5062d53a8e56"), null, 0, "Cats" },
-                    { new Guid("071e8dce-9f1f-4922-bf51-ba2a0c31d7e9"), new Guid("cba614a7-eb8c-45d8-9f8e-dd0c5803d91d"), null, 0, "Computer Parts & IT Accessories" },
-                    { new Guid("0bd90c19-c289-41fa-8506-1b365a83a339"), new Guid("59733c2c-27c7-40ac-8cf5-ed9f89b14b0a"), null, 0, "Commercials For Rent" },
-                    { new Guid("15dfebf5-0d8e-4bd0-bdc5-2334c79f91c3"), new Guid("9d855155-09ed-40dc-9ba0-4b31833f9ea0"), null, 0, "Feeding & Nursing" },
-                    { new Guid("18e91ecb-e2db-482b-a5fc-37a0c3f3f80c"), new Guid("d1c9e429-21fc-4164-8fc0-2f64585a7026"), null, 0, "Bathrooms" },
-                    { new Guid("1fdb9daa-8fca-4eb8-b952-77bd0e3cdc93"), new Guid("3cad2798-23de-4196-8dd7-952155fd1ab4"), null, 0, "Boats" },
-                    { new Guid("2837c85a-3219-4d79-a2e0-976776f1c417"), new Guid("9d855155-09ed-40dc-9ba0-4b31833f9ea0"), null, 0, "Safety & Monitors" },
-                    { new Guid("2e514a44-0c91-40c1-b897-5593599f70a6"), new Guid("59733c2c-27c7-40ac-8cf5-ed9f89b14b0a"), null, 0, "Land For Sale" },
-                    { new Guid("2ee9fc3e-961a-4b33-aca9-755b9af4651b"), new Guid("aa24a6f6-fd36-4cb1-a7ee-5d8d2c52355f"), null, 0, "Ball Sports" },
-                    { new Guid("319a2218-cecf-47ed-b6a6-db57bcbcb90c"), new Guid("24784d09-4881-4a11-8c68-2a67f4d32f87"), null, 0, "Clothing For Men" },
-                    { new Guid("32f6d569-34a3-4ca3-a54e-a6cf1c8ef4c7"), new Guid("cba614a7-eb8c-45d8-9f8e-dd0c5803d91d"), null, 0, "Other Home Appliances" },
-                    { new Guid("362d080e-0e72-4e63-b534-334e27facdb1"), new Guid("ab2a6892-b17d-41a7-b344-251426ea00df"), null, 0, "Events" },
-                    { new Guid("39390af1-517d-4c66-a417-65c4869b299d"), new Guid("9d855155-09ed-40dc-9ba0-4b31833f9ea0"), null, 0, "Bathing Accessories" },
-                    { new Guid("495a6d3d-ef85-4903-80d4-d5e6724e303c"), new Guid("59733c2c-27c7-40ac-8cf5-ed9f89b14b0a"), null, 0, "Land For Rent" },
-                    { new Guid("4a3ed01b-6122-4b36-8565-dd95af02ff98"), new Guid("be6549b8-588f-406f-bf91-a6f50e66f97c"), null, 0, "Antiques & Collectibles" },
-                    { new Guid("4aa4fea5-ad88-4120-a787-fc932c3972ee"), new Guid("d1c9e429-21fc-4164-8fc0-2f64585a7026"), null, 0, "Kitchen & Kitchenware" },
-                    { new Guid("4b0a5ac9-9851-4752-aba5-ab3d066c8354"), new Guid("0bb2ac3e-e98b-48f6-b5c6-c0cc705fc825"), null, 0, "Smart Watches" },
-                    { new Guid("4b80e331-26c3-4f13-806d-c9e5d4741477"), new Guid("24784d09-4881-4a11-8c68-2a67f4d32f87"), null, 0, "Accessories For Women" },
-                    { new Guid("4c388c37-f3d2-4925-91a0-c8ea66c87772"), new Guid("cba614a7-eb8c-45d8-9f8e-dd0c5803d91d"), null, 0, "Washing Machines & Dryers" },
-                    { new Guid("4f2be330-41b0-4a5b-b40e-efd9347581fd"), new Guid("cba614a7-eb8c-45d8-9f8e-dd0c5803d91d"), null, 0, "Cameras" },
-                    { new Guid("5089f851-4b39-48e4-b5f7-db9563586b5d"), new Guid("aa24a6f6-fd36-4cb1-a7ee-5d8d2c52355f"), null, 0, "Other Sports" },
-                    { new Guid("5c4f4259-9208-475c-b20f-2a3653f6f124"), new Guid("be6549b8-588f-406f-bf91-a6f50e66f97c"), null, 0, "Musical Instruments" },
-                    { new Guid("5f720311-25db-4b4e-b5fd-3ec1324cbec4"), new Guid("9d855155-09ed-40dc-9ba0-4b31833f9ea0"), null, 0, "Kids & Babies Clothing" },
-                    { new Guid("60c10f2c-03c8-4c90-9676-d3f55032d6f6"), new Guid("d1c9e429-21fc-4164-8fc0-2f64585a7026"), null, 0, "Garden & Outdoors" },
-                    { new Guid("6bf9e8d2-bc8c-4780-8dbb-902f566f2c14"), new Guid("c7e33f89-5f59-4384-9f32-5062d53a8e56"), null, 0, "Pet Grooming" },
-                    { new Guid("6fcb30eb-70a7-4ae5-b4d3-8c4f2b3a35dc"), new Guid("cba614a7-eb8c-45d8-9f8e-dd0c5803d91d"), null, 0, "Home Audio & Speakers" },
-                    { new Guid("73534b97-33d1-4252-86c4-63dac75c5287"), new Guid("59733c2c-27c7-40ac-8cf5-ed9f89b14b0a"), null, 0, "Houses For Rent" },
-                    { new Guid("7588e04e-e09d-4473-9087-035a8fef0d56"), new Guid("cba614a7-eb8c-45d8-9f8e-dd0c5803d91d"), null, 0, "AC Cooling & Heating" },
-                    { new Guid("75b9b734-b0e2-47bd-a096-0717a028d19e"), new Guid("ab2a6892-b17d-41a7-b344-251426ea00df"), null, 0, "Personal Services" },
-                    { new Guid("7ac28f95-a956-4fe3-8ddd-0c329dd3e314"), new Guid("59733c2c-27c7-40ac-8cf5-ed9f89b14b0a"), null, 0, "Chalets & Cabins For Sale" },
-                    { new Guid("7ad1fe9b-de48-4613-9538-7ea1e16e402f"), new Guid("c7e33f89-5f59-4384-9f32-5062d53a8e56"), null, 0, "Pet Food & Treats" },
-                    { new Guid("7bfde93e-ba48-4c18-9e6d-55aea9f629ac"), new Guid("aa24a6f6-fd36-4cb1-a7ee-5d8d2c52355f"), null, 0, "Bicycles & Accessories" },
-                    { new Guid("7d3234bc-4ca6-4b8f-bc66-e52d9cbfc388"), new Guid("d1c9e429-21fc-4164-8fc0-2f64585a7026"), null, 0, "Other Furniture & Decor" },
-                    { new Guid("7fc23e86-5a00-4169-ac0e-93969a6ded60"), new Guid("3cad2798-23de-4196-8dd7-952155fd1ab4"), null, 0, "Cars For Sale" },
-                    { new Guid("852752e6-ecea-48a4-9d04-a8c1304bf63f"), new Guid("3cad2798-23de-4196-8dd7-952155fd1ab4"), null, 0, "Vehicle Accessories" },
-                    { new Guid("85af7117-5f8c-45bf-b2fe-93677082c5b6"), new Guid("3cad2798-23de-4196-8dd7-952155fd1ab4"), null, 0, "Vehicle Spare Parts" },
-                    { new Guid("85ea40d8-591f-4346-9adb-2bc79cc07034"), new Guid("d1c9e429-21fc-4164-8fc0-2f64585a7026"), null, 0, "Bedrooms" },
-                    { new Guid("8846cbb8-abd4-4f38-8edb-1f7cb653d9f7"), new Guid("be6549b8-588f-406f-bf91-a6f50e66f97c"), null, 0, "Books" },
-                    { new Guid("8f4b5b81-ff99-49c4-b15e-09ef80929ccd"), new Guid("c7e33f89-5f59-4384-9f32-5062d53a8e56"), null, 0, "Other Animals" },
-                    { new Guid("922c4bf9-8a35-4044-bb1e-c03d37dc86ca"), new Guid("ab2a6892-b17d-41a7-b344-251426ea00df"), null, 0, "Professional Services" },
-                    { new Guid("9551fa8a-0f23-4d5b-bc4e-de1ebff4e2eb"), new Guid("9d855155-09ed-40dc-9ba0-4b31833f9ea0"), null, 0, "Cribs & Bedroom Furniture" },
-                    { new Guid("9631be99-7b93-4eaa-976c-28c1aac945af"), new Guid("24784d09-4881-4a11-8c68-2a67f4d32f87"), null, 0, "Watches" },
-                    { new Guid("96eddc63-f986-405f-a063-ef27d7fd0477"), new Guid("cba614a7-eb8c-45d8-9f8e-dd0c5803d91d"), null, 0, "Kitchen Equipment & Appliances" },
-                    { new Guid("9bbf3534-8ed0-4bae-bf9f-8bbd1d8863a3"), new Guid("59733c2c-27c7-40ac-8cf5-ed9f89b14b0a"), null, 0, "Commercials For Sale" },
-                    { new Guid("9c60da2c-cc89-4a69-b0d3-5102ec5f2926"), new Guid("3cad2798-23de-4196-8dd7-952155fd1ab4"), null, 0, "Motorcycles & ATV's" },
-                    { new Guid("9cc49a9e-3441-4384-a9d1-bd58db7e2d1d"), new Guid("c7e33f89-5f59-4384-9f32-5062d53a8e56"), null, 0, "Birds" },
-                    { new Guid("9ce7df0c-e37a-42ca-8f99-13171ffb1b4c"), new Guid("d1c9e429-21fc-4164-8fc0-2f64585a7026"), null, 0, "Home Decoration & Accessories" },
-                    { new Guid("a1a9a4ca-a7e6-4e17-9f32-beb6bd8d7b25"), new Guid("c7e33f89-5f59-4384-9f32-5062d53a8e56"), null, 0, "Pet Services" },
-                    { new Guid("a58b56ff-ec62-4b11-a3f9-9dbd5171cd74"), new Guid("0bb2ac3e-e98b-48f6-b5c6-c0cc705fc825"), null, 0, "Mobile Numbers" },
-                    { new Guid("a5f2c0a0-ea69-451b-b857-002accb82f53"), new Guid("aa24a6f6-fd36-4cb1-a7ee-5d8d2c52355f"), null, 0, "Billiard & Similar Games" },
-                    { new Guid("a91bfeeb-ec77-41d2-859b-8e5cb90a9c66"), new Guid("0bb2ac3e-e98b-48f6-b5c6-c0cc705fc825"), null, 0, "Mobile Phones" },
-                    { new Guid("ada7c0b3-9d3e-4266-b362-ef4fd31b8644"), new Guid("24784d09-4881-4a11-8c68-2a67f4d32f87"), null, 0, "Accessories For Men" },
-                    { new Guid("ae4580b3-5da8-4040-b3d4-009ce10fa3f1"), new Guid("ab2a6892-b17d-41a7-b344-251426ea00df"), null, 0, "Home Services" },
-                    { new Guid("b126b97b-7965-44fd-8e3a-14221666d1f3"), new Guid("d1c9e429-21fc-4164-8fc0-2f64585a7026"), null, 0, "Dining Rooms" },
-                    { new Guid("b26b733b-2485-4f7e-924d-b50454a5ad37"), new Guid("c7e33f89-5f59-4384-9f32-5062d53a8e56"), null, 0, "Toys" },
-                    { new Guid("b30e7d52-f535-4488-84ff-f3cabff04eaa"), new Guid("cba614a7-eb8c-45d8-9f8e-dd0c5803d91d"), null, 0, "Video Games" },
-                    { new Guid("b3a184a0-01cb-40fa-b479-b466bc1d6bca"), new Guid("aa24a6f6-fd36-4cb1-a7ee-5d8d2c52355f"), null, 0, "Outdoors & Camping" },
-                    { new Guid("c20022b0-51c8-4a46-95de-84a238968394"), new Guid("aa24a6f6-fd36-4cb1-a7ee-5d8d2c52355f"), null, 0, "Gym Fitness & Combat Sports" },
-                    { new Guid("c21b32e2-a476-4fb1-9ae5-4e808ca31a63"), new Guid("cba614a7-eb8c-45d8-9f8e-dd0c5803d91d"), null, 0, "Laptops Tablets Computers" },
-                    { new Guid("c3508062-875d-4289-a8a7-8f0df219f257"), new Guid("d1c9e429-21fc-4164-8fc0-2f64585a7026"), null, 0, "Living Room" },
-                    { new Guid("c3eeadbf-2a23-4498-a87b-a4fd5303e305"), new Guid("24784d09-4881-4a11-8c68-2a67f4d32f87"), null, 0, "Jewelry & Faux-Bijou" },
-                    { new Guid("c6867a59-3ae2-4c7d-957c-79fb83e7fc38"), new Guid("c7e33f89-5f59-4384-9f32-5062d53a8e56"), null, 0, "Pet Accessories" },
-                    { new Guid("cdf64170-f5be-423d-ae0c-05cb24a9d282"), new Guid("aa24a6f6-fd36-4cb1-a7ee-5d8d2c52355f"), null, 0, "Water Sports & Diving" },
-                    { new Guid("d0c2c61b-9e58-4ded-8a30-dba2e2372181"), new Guid("c7e33f89-5f59-4384-9f32-5062d53a8e56"), null, 0, "Dogs" },
-                    { new Guid("d2ab7e6b-11f7-4e10-a871-209c5c6636c8"), new Guid("cba614a7-eb8c-45d8-9f8e-dd0c5803d91d"), null, 0, "Cleaning Appliances" },
-                    { new Guid("d2b3a5ea-c00a-4588-883b-a4b08e9eb231"), new Guid("aa24a6f6-fd36-4cb1-a7ee-5d8d2c52355f"), null, 0, "Supplements & Nutrition" },
-                    { new Guid("d728fb8c-ffb2-473b-8a92-751e19549460"), new Guid("9d855155-09ed-40dc-9ba0-4b31833f9ea0"), null, 0, "Other for Kids & Babies" },
-                    { new Guid("d838bd7f-7a46-4f57-b9aa-31d9d6b7c708"), new Guid("aa24a6f6-fd36-4cb1-a7ee-5d8d2c52355f"), null, 0, "Tennis & Racket Sports" },
-                    { new Guid("d91a18e4-a59a-469c-8151-14cfe9af88f5"), new Guid("24784d09-4881-4a11-8c68-2a67f4d32f87"), null, 0, "Other Fashion & Style" },
-                    { new Guid("db0d3ab9-d5ba-4f73-a256-02f1e07f4b22"), new Guid("ab2a6892-b17d-41a7-b344-251426ea00df"), null, 0, "Transport" },
-                    { new Guid("db55d931-6854-4604-9f54-b535ca73ebb2"), new Guid("cba614a7-eb8c-45d8-9f8e-dd0c5803d91d"), null, 0, "Gaming Consoles & Accessories" },
-                    { new Guid("df4b487f-8bbf-48f9-b01c-a0123129c869"), new Guid("59733c2c-27c7-40ac-8cf5-ed9f89b14b0a"), null, 0, "Rooms For Rent" },
-                    { new Guid("e206520b-60db-4cc3-872c-ef754a3807f9"), new Guid("be6549b8-588f-406f-bf91-a6f50e66f97c"), null, 0, "Movies" },
-                    { new Guid("e7102a85-36cd-4417-a12b-ff3447cbb3cf"), new Guid("cba614a7-eb8c-45d8-9f8e-dd0c5803d91d"), null, 0, "TV & Video" },
-                    { new Guid("e727a29c-a2a7-4421-b7ab-073cdaea12bd"), new Guid("24784d09-4881-4a11-8c68-2a67f4d32f87"), null, 0, "Makeup & Cosmetics" },
-                    { new Guid("e7454e3e-f314-4be2-a9c5-51ce4f3be794"), new Guid("24784d09-4881-4a11-8c68-2a67f4d32f87"), null, 0, "Clothing For Women" },
-                    { new Guid("e890d8d2-c600-4961-9766-49b3f2f4cf3d"), new Guid("9d855155-09ed-40dc-9ba0-4b31833f9ea0"), null, 0, "Strollers & Seats" },
-                    { new Guid("e8d8e8db-cf42-4788-a987-eacd7e8d5b63"), new Guid("0bb2ac3e-e98b-48f6-b5c6-c0cc705fc825"), null, 0, "Mobile Accessories" },
-                    { new Guid("e8e84db6-2a96-415c-bcf1-383f5095733c"), new Guid("59733c2c-27c7-40ac-8cf5-ed9f89b14b0a"), null, 0, "Chalets & Cabins For Rent" },
-                    { new Guid("e966c458-3745-4c40-adc2-122cdeaddc22"), new Guid("9d855155-09ed-40dc-9ba0-4b31833f9ea0"), null, 0, "Toys For Kids" },
-                    { new Guid("ef1ec32d-378d-42ac-9354-2a706392594b"), new Guid("ab2a6892-b17d-41a7-b344-251426ea00df"), null, 0, "Other Services" },
-                    { new Guid("f17e9a6e-2e3e-46be-b83f-edd46a0ecf23"), new Guid("be6549b8-588f-406f-bf91-a6f50e66f97c"), null, 0, "Other Items" },
-                    { new Guid("f46c58d4-e5f9-4cb5-bf28-024eaf0369d7"), new Guid("3cad2798-23de-4196-8dd7-952155fd1ab4"), null, 0, "Number Plates" },
-                    { new Guid("fb1feeb7-25ad-4041-a1a3-54653cbae8c4"), new Guid("59733c2c-27c7-40ac-8cf5-ed9f89b14b0a"), null, 0, "Houses For Sale" },
-                    { new Guid("fca5634e-81e1-4dc2-bcb9-82921a38a428"), new Guid("be6549b8-588f-406f-bf91-a6f50e66f97c"), null, 0, "Games & Hobbies" },
-                    { new Guid("ffd944ff-c384-4caa-94f9-5d2e1a8652ba"), new Guid("aa24a6f6-fd36-4cb1-a7ee-5d8d2c52355f"), null, 0, "Ski & Winter Sports" }
+                    { new Guid("00fb3880-a947-487f-ab84-e38efc218edf"), new Guid("c4212950-0a5e-401b-9310-365f717e8f76"), null, 0, "Chalets & Cabins For Sale" },
+                    { new Guid("08105009-2cb5-4c01-84f5-f4e24a7b43b2"), new Guid("7e917c79-782e-480d-8d76-052194601264"), null, 0, "Professional Services" },
+                    { new Guid("12ac5c22-f8f5-445e-89dc-6eaaf92d4619"), new Guid("0abbf2d4-55e8-42d3-8d85-687f8cf62b7a"), null, 0, "Other Fashion & Style" },
+                    { new Guid("1335c4b4-a88b-4c89-a80b-3c6d0fc39537"), new Guid("7e917c79-782e-480d-8d76-052194601264"), null, 0, "Transport" },
+                    { new Guid("151d5505-56da-462c-b148-bb217db22c70"), new Guid("0abbf2d4-55e8-42d3-8d85-687f8cf62b7a"), null, 0, "Clothing For Women" },
+                    { new Guid("19a08e85-ca91-4955-a85a-429cc7aef7e3"), new Guid("087008f8-4ced-47ff-a688-5f40d9593ae7"), null, 0, "Other Home Appliances" },
+                    { new Guid("1cb43cde-4c52-4173-b97f-9fee6cfad727"), new Guid("087008f8-4ced-47ff-a688-5f40d9593ae7"), null, 0, "AC Cooling & Heating" },
+                    { new Guid("21d4347b-6972-4dee-ba6e-d6c6fb2eff17"), new Guid("0b6c8f48-6028-40ac-a576-e63d62ff04a6"), null, 0, "Other Items" },
+                    { new Guid("235402cd-4f0d-4e95-90e6-568a3864878f"), new Guid("7165621d-ddce-458c-a34f-d3bd7aeed570"), null, 0, "Other Animals" },
+                    { new Guid("236c4330-55a6-4fc9-89a2-0e628d8e6f63"), new Guid("087008f8-4ced-47ff-a688-5f40d9593ae7"), null, 0, "Washing Machines & Dryers" },
+                    { new Guid("241796a5-83b7-4146-be93-567aecd0a1c8"), new Guid("7165621d-ddce-458c-a34f-d3bd7aeed570"), null, 0, "Pet Grooming" },
+                    { new Guid("25b6af6b-2a62-4286-abf5-817c7ae47dcc"), new Guid("29773f2c-04c4-4256-8b0c-e1159945d596"), null, 0, "Mobile Numbers" },
+                    { new Guid("29dc99c3-0c1e-4c77-a0a2-508f7ae719a6"), new Guid("c480a5f6-14b9-46f2-a4ce-c09e754ca477"), null, 0, "Number Plates" },
+                    { new Guid("2b01ae62-7cad-4f11-8a86-05eb3f1bf047"), new Guid("c4212950-0a5e-401b-9310-365f717e8f76"), null, 0, "Land For Rent" },
+                    { new Guid("2eb2a5f6-650d-4395-926d-e1a30fb12cfb"), new Guid("c4212950-0a5e-401b-9310-365f717e8f76"), null, 0, "Houses For Rent" },
+                    { new Guid("2f66de2d-10a0-4e34-9fe5-78473349d1ac"), new Guid("087008f8-4ced-47ff-a688-5f40d9593ae7"), null, 0, "Gaming Consoles & Accessories" },
+                    { new Guid("34757548-8a15-4d78-a963-6a4936cd06b2"), new Guid("c480a5f6-14b9-46f2-a4ce-c09e754ca477"), null, 0, "Vehicle Accessories" },
+                    { new Guid("36ec0d1c-63a3-46ab-a8ee-33ad2512fd3c"), new Guid("087008f8-4ced-47ff-a688-5f40d9593ae7"), null, 0, "Laptops Tablets Computers" },
+                    { new Guid("374f37f8-af59-4db4-8d3b-45225c693ba8"), new Guid("dda98df4-74e8-4a7d-aecc-344f43f19846"), null, 0, "Bedrooms" },
+                    { new Guid("385c0136-314c-4ae6-8c81-7047d506ba76"), new Guid("087008f8-4ced-47ff-a688-5f40d9593ae7"), null, 0, "Video Games" },
+                    { new Guid("38eb77fe-5951-4102-878d-99c87a62a67b"), new Guid("087008f8-4ced-47ff-a688-5f40d9593ae7"), null, 0, "Kitchen Equipment & Appliances" },
+                    { new Guid("39538da6-ffa2-4c5d-8423-ad5e1370893e"), new Guid("0b6c8f48-6028-40ac-a576-e63d62ff04a6"), null, 0, "Antiques & Collectibles" },
+                    { new Guid("3b97b761-d217-464d-a1c9-16f758b2c6f9"), new Guid("e68b2c7a-3f47-464a-b5ad-315e66de10cf"), null, 0, "Water Sports & Diving" },
+                    { new Guid("3cf0eb26-e881-4d11-a54a-e89b14a37cc1"), new Guid("e68b2c7a-3f47-464a-b5ad-315e66de10cf"), null, 0, "Bicycles & Accessories" },
+                    { new Guid("3d6bb602-296c-4a0a-96b3-a2975e34c7e8"), new Guid("7165621d-ddce-458c-a34f-d3bd7aeed570"), null, 0, "Birds" },
+                    { new Guid("40b6c98f-ba38-4ff0-b456-ff12dee6d386"), new Guid("7e917c79-782e-480d-8d76-052194601264"), null, 0, "Home Services" },
+                    { new Guid("4560c1d8-6618-40ef-864a-badfbe7e58e4"), new Guid("e68b2c7a-3f47-464a-b5ad-315e66de10cf"), null, 0, "Tennis & Racket Sports" },
+                    { new Guid("4bb2d7f0-4f0e-4ed7-a4b0-b42bf0cba5e7"), new Guid("dda98df4-74e8-4a7d-aecc-344f43f19846"), null, 0, "Other Furniture & Decor" },
+                    { new Guid("4f479bc0-082b-44ec-b3a9-208e5f4c637a"), new Guid("7165621d-ddce-458c-a34f-d3bd7aeed570"), null, 0, "Toys" },
+                    { new Guid("5097eb3a-aeba-4e51-afd5-40ec51446482"), new Guid("993ad18f-fe57-4d1c-af6b-f3e8633de96b"), null, 0, "Toys For Kids" },
+                    { new Guid("51b4ade7-8e5b-4dd9-bd19-1c63418fd87c"), new Guid("7165621d-ddce-458c-a34f-d3bd7aeed570"), null, 0, "Dogs" },
+                    { new Guid("53da8798-488e-42b6-a3b6-8031824e35d8"), new Guid("e68b2c7a-3f47-464a-b5ad-315e66de10cf"), null, 0, "Gym Fitness & Combat Sports" },
+                    { new Guid("55699fd9-232e-4181-9e5e-f16750baa0ed"), new Guid("7165621d-ddce-458c-a34f-d3bd7aeed570"), null, 0, "Pet Food & Treats" },
+                    { new Guid("5881f5f4-eafa-4638-8925-9a2df0909c29"), new Guid("993ad18f-fe57-4d1c-af6b-f3e8633de96b"), null, 0, "Strollers & Seats" },
+                    { new Guid("64ce7848-684e-4b38-b2eb-2ef465ba805f"), new Guid("29773f2c-04c4-4256-8b0c-e1159945d596"), null, 0, "Smart Watches" },
+                    { new Guid("6b71f3b2-5d9f-4c86-81e3-af66ab303b6e"), new Guid("c4212950-0a5e-401b-9310-365f717e8f76"), null, 0, "Rooms For Rent" },
+                    { new Guid("6dff1bc9-a5de-439c-97f3-8d37535fb967"), new Guid("dda98df4-74e8-4a7d-aecc-344f43f19846"), null, 0, "Kitchen & Kitchenware" },
+                    { new Guid("6f75458f-eb98-4672-930e-d5c2780ab9a6"), new Guid("dda98df4-74e8-4a7d-aecc-344f43f19846"), null, 0, "Bathrooms" },
+                    { new Guid("6fe09d4c-1c8d-4b50-937d-5ac4112c4eb9"), new Guid("e68b2c7a-3f47-464a-b5ad-315e66de10cf"), null, 0, "Outdoors & Camping" },
+                    { new Guid("70419c8a-9db2-4fc3-97dc-e88055b4c864"), new Guid("087008f8-4ced-47ff-a688-5f40d9593ae7"), null, 0, "TV & Video" },
+                    { new Guid("74931c5f-c1a0-4919-aabf-b75b6503a7c7"), new Guid("993ad18f-fe57-4d1c-af6b-f3e8633de96b"), null, 0, "Kids & Babies Clothing" },
+                    { new Guid("81613381-28f5-435f-8829-749af4c3fdb8"), new Guid("993ad18f-fe57-4d1c-af6b-f3e8633de96b"), null, 0, "Feeding & Nursing" },
+                    { new Guid("817dbf5d-f308-4adf-9a4f-b54954a98c01"), new Guid("c4212950-0a5e-401b-9310-365f717e8f76"), null, 0, "Commercials For Sale" },
+                    { new Guid("890d5ed0-bd23-4d33-9aa0-da88e25cf5f0"), new Guid("c480a5f6-14b9-46f2-a4ce-c09e754ca477"), null, 0, "Motorcycles & ATV's" },
+                    { new Guid("8edaf020-fd15-48d8-98ed-422d92eebeb5"), new Guid("0b6c8f48-6028-40ac-a576-e63d62ff04a6"), null, 0, "Musical Instruments" },
+                    { new Guid("92455108-4c6b-4e11-b63e-0dce6512d6a5"), new Guid("087008f8-4ced-47ff-a688-5f40d9593ae7"), null, 0, "Computer Parts & IT Accessories" },
+                    { new Guid("95b2e9ec-c318-4635-a4e8-7603caa4f6f2"), new Guid("7e917c79-782e-480d-8d76-052194601264"), null, 0, "Events" },
+                    { new Guid("96effa59-ff3c-4f24-927c-864e6da7b42e"), new Guid("0abbf2d4-55e8-42d3-8d85-687f8cf62b7a"), null, 0, "Clothing For Men" },
+                    { new Guid("a29f0104-16b9-4696-89c9-75c8d6f2ceee"), new Guid("dda98df4-74e8-4a7d-aecc-344f43f19846"), null, 0, "Home Decoration & Accessories" },
+                    { new Guid("a4812b82-9520-44fa-89f9-3cd962782b45"), new Guid("7165621d-ddce-458c-a34f-d3bd7aeed570"), null, 0, "Cats" },
+                    { new Guid("a4d4334a-a1c7-4a3b-8585-fd6dc042df34"), new Guid("0abbf2d4-55e8-42d3-8d85-687f8cf62b7a"), null, 0, "Accessories For Women" },
+                    { new Guid("a6d32505-e5b7-4a7b-8365-ac39bca74cdf"), new Guid("087008f8-4ced-47ff-a688-5f40d9593ae7"), null, 0, "Home Audio & Speakers" },
+                    { new Guid("a741630b-309e-4566-8a48-0c1aee5ffe9d"), new Guid("e68b2c7a-3f47-464a-b5ad-315e66de10cf"), null, 0, "Ski & Winter Sports" },
+                    { new Guid("ac4a9bec-e866-4bdd-aee4-43292364c16a"), new Guid("7e917c79-782e-480d-8d76-052194601264"), null, 0, "Other Services" },
+                    { new Guid("acbbfb07-91a0-47eb-a551-d7450be7b49a"), new Guid("993ad18f-fe57-4d1c-af6b-f3e8633de96b"), null, 0, "Cribs & Bedroom Furniture" },
+                    { new Guid("add1d4c5-8fed-4eaf-9509-7a6202667f86"), new Guid("993ad18f-fe57-4d1c-af6b-f3e8633de96b"), null, 0, "Bathing Accessories" },
+                    { new Guid("b058e559-2452-4706-bff6-e9da40e0176a"), new Guid("0b6c8f48-6028-40ac-a576-e63d62ff04a6"), null, 0, "Movies" },
+                    { new Guid("b2b8f010-70df-4c2a-8e8d-954d201bd663"), new Guid("c480a5f6-14b9-46f2-a4ce-c09e754ca477"), null, 0, "Vehicle Spare Parts" },
+                    { new Guid("b46a892d-8587-4d47-aa5c-5444473d96fa"), new Guid("c480a5f6-14b9-46f2-a4ce-c09e754ca477"), null, 0, "Boats" },
+                    { new Guid("b791419a-5048-48f1-9e11-58e3350a2e51"), new Guid("dda98df4-74e8-4a7d-aecc-344f43f19846"), null, 0, "Dining Rooms" },
+                    { new Guid("b841c5b7-c30b-4a0d-9266-ea4fe2b29381"), new Guid("e68b2c7a-3f47-464a-b5ad-315e66de10cf"), null, 0, "Billiard & Similar Games" },
+                    { new Guid("ba0677a3-5a9e-4225-ac73-d36621c97381"), new Guid("e68b2c7a-3f47-464a-b5ad-315e66de10cf"), null, 0, "Ball Sports" },
+                    { new Guid("ba0be832-29bd-4531-a310-437a28eea30d"), new Guid("c4212950-0a5e-401b-9310-365f717e8f76"), null, 0, "Land For Sale" },
+                    { new Guid("bbdf8074-42b8-4ac7-ab99-4639fb552b26"), new Guid("993ad18f-fe57-4d1c-af6b-f3e8633de96b"), null, 0, "Other for Kids & Babies" },
+                    { new Guid("bc56f065-4d67-4924-b806-15009df2c7b5"), new Guid("c4212950-0a5e-401b-9310-365f717e8f76"), null, 0, "Houses For Sale" },
+                    { new Guid("bdc7c272-826c-4b50-b6da-d59da7805e47"), new Guid("c4212950-0a5e-401b-9310-365f717e8f76"), null, 0, "Chalets & Cabins For Rent" },
+                    { new Guid("bea824b3-4144-4353-83cd-b6c4dc384922"), new Guid("c480a5f6-14b9-46f2-a4ce-c09e754ca477"), null, 0, "Cars For Sale" },
+                    { new Guid("c5a8886f-5dea-4710-8eab-1b6f33d22bd2"), new Guid("dda98df4-74e8-4a7d-aecc-344f43f19846"), null, 0, "Living Room" },
+                    { new Guid("c6f0260d-90ba-4676-a0d9-48d5ebff0fd7"), new Guid("dda98df4-74e8-4a7d-aecc-344f43f19846"), null, 0, "Garden & Outdoors" },
+                    { new Guid("c9c563ad-f3b8-408c-aa75-c872b064c2bd"), new Guid("7e917c79-782e-480d-8d76-052194601264"), null, 0, "Personal Services" },
+                    { new Guid("d08e41e5-6fda-4b91-bafe-6f4f3c018591"), new Guid("c480a5f6-14b9-46f2-a4ce-c09e754ca477"), null, 0, "Trucks & Buses" },
+                    { new Guid("d324586b-667a-45d0-a034-5a9ec0cd21c2"), new Guid("c4212950-0a5e-401b-9310-365f717e8f76"), null, 0, "Commercials For Rent" },
+                    { new Guid("d3f71c37-4bb3-4d82-bbaf-c1783c386768"), new Guid("e68b2c7a-3f47-464a-b5ad-315e66de10cf"), null, 0, "Supplements & Nutrition" },
+                    { new Guid("d7e3d471-2101-4b0f-8b8f-451f5cbb3043"), new Guid("7165621d-ddce-458c-a34f-d3bd7aeed570"), null, 0, "Pet Accessories" },
+                    { new Guid("dc8fe277-1b1f-4466-a106-66710fedf8ca"), new Guid("29773f2c-04c4-4256-8b0c-e1159945d596"), null, 0, "Mobile Accessories" },
+                    { new Guid("de3e269f-a74c-4f75-a20f-ec0aa8d26c40"), new Guid("0b6c8f48-6028-40ac-a576-e63d62ff04a6"), null, 0, "Games & Hobbies" },
+                    { new Guid("dffef0bb-1a4c-4fa8-819b-fd81e22a8707"), new Guid("0abbf2d4-55e8-42d3-8d85-687f8cf62b7a"), null, 0, "Accessories For Men" },
+                    { new Guid("e2f15b20-1b4e-47bc-a384-9c96f50f0d33"), new Guid("0abbf2d4-55e8-42d3-8d85-687f8cf62b7a"), null, 0, "Watches" },
+                    { new Guid("e347d8ee-de95-4be7-ad6a-8dea91841692"), new Guid("0abbf2d4-55e8-42d3-8d85-687f8cf62b7a"), null, 0, "Makeup & Cosmetics" },
+                    { new Guid("e50e6b43-81f0-4cb5-8138-5da998b781d0"), new Guid("7165621d-ddce-458c-a34f-d3bd7aeed570"), null, 0, "Pet Services" },
+                    { new Guid("f3c09c52-0ade-4d78-9026-8d0a4b48b172"), new Guid("993ad18f-fe57-4d1c-af6b-f3e8633de96b"), null, 0, "Safety & Monitors" },
+                    { new Guid("f5c9241a-9303-47a5-b73f-54228ddad823"), new Guid("e68b2c7a-3f47-464a-b5ad-315e66de10cf"), null, 0, "Other Sports" },
+                    { new Guid("faab6c60-347a-494f-aa7a-10ed36871f18"), new Guid("087008f8-4ced-47ff-a688-5f40d9593ae7"), null, 0, "Cameras" },
+                    { new Guid("fd460b43-d1ea-45ce-92c4-1746fcee7d1d"), new Guid("0abbf2d4-55e8-42d3-8d85-687f8cf62b7a"), null, 0, "Jewelry & Faux-Bijou" },
+                    { new Guid("fd731e9d-0347-46d9-85a1-ead8fdbdc5ed"), new Guid("29773f2c-04c4-4256-8b0c-e1159945d596"), null, 0, "Mobile Phones" },
+                    { new Guid("fd74c002-53ef-4c6b-9279-4121fe30157d"), new Guid("087008f8-4ced-47ff-a688-5f40d9593ae7"), null, 0, "Cleaning Appliances" },
+                    { new Guid("ff9ced80-ffcc-4694-9b36-93735b7f8419"), new Guid("0b6c8f48-6028-40ac-a576-e63d62ff04a6"), null, 0, "Books" }
                 });
 
             migrationBuilder.InsertData(
@@ -1009,12 +1009,12 @@ namespace Arzly.Api.Migrations
                 columns: new[] { "Id", "ActionType", "ActorId", "ActorRole", "Details", "DurationMs", "ErrorMessage", "IPAddress", "IsSuccess", "TargetId", "TargetType", "Timestamp", "UserAgent" },
                 values: new object[,]
                 {
-                    { new Guid("2640698f-15e5-4e36-a366-f0ba4df9d1ba"), 0, "user-1-id", "User", null, 250, null, "192.168.1.100", true, null, 0, new DateTime(2026, 4, 29, 15, 49, 22, 990, DateTimeKind.Utc).AddTicks(5374), "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" },
-                    { new Guid("424c1994-209a-4ed8-9661-10d4b541261c"), 2, "user-1-id", "User", "User registered successfully", null, null, "192.168.1.100", true, "user-1-id", 1, new DateTime(2026, 3, 31, 15, 49, 22, 990, DateTimeKind.Utc).AddTicks(4922), "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" },
-                    { new Guid("44ac02df-ad7a-4673-b4a6-d8a17e70b6c8"), 2, "user-2-id", "User", "User registered successfully", null, null, "192.168.1.105", true, "user-2-id", 1, new DateTime(2026, 4, 10, 15, 49, 22, 990, DateTimeKind.Utc).AddTicks(5630), "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" },
-                    { new Guid("52c8a3b4-3377-4e27-9f0b-19f40671de61"), 16, "user-2-id", "User", "Sent message in chat", 120, null, "192.168.1.105", true, "chat-1-id", 3, new DateTime(2026, 4, 30, 10, 49, 22, 990, DateTimeKind.Utc).AddTicks(5633), null },
-                    { new Guid("7d30b4c8-6e69-4307-9ad9-cd0be37823aa"), 13, "user-1-id", "User", "Saved listing to favorites", null, null, "192.168.1.100", true, "listing-2-id", 2, new DateTime(2026, 4, 30, 13, 49, 22, 990, DateTimeKind.Utc).AddTicks(5651), null },
-                    { new Guid("b829dbb8-3608-4a41-82d1-84ee8b5cebb8"), 8, "user-1-id", "User", "Created listing: BMW 320i", null, null, "192.168.1.100", true, "listing-1-id", 2, new DateTime(2026, 4, 20, 15, 49, 22, 990, DateTimeKind.Utc).AddTicks(5627), null }
+                    { new Guid("15eec01c-8c66-4d4b-9cf6-960806526bfb"), 13, "user-1-id", "User", "Saved listing to favorites", null, null, "192.168.1.100", true, "listing-2-id", 2, new DateTime(2026, 5, 1, 6, 11, 27, 541, DateTimeKind.Utc).AddTicks(1475), null },
+                    { new Guid("82f24ee2-44e4-48a7-9b76-80129de632f0"), 0, "user-1-id", "User", null, 250, null, "192.168.1.100", true, null, 0, new DateTime(2026, 4, 30, 8, 11, 27, 541, DateTimeKind.Utc).AddTicks(1207), "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" },
+                    { new Guid("a880bee5-aa17-44e2-b34f-dbde523de79c"), 16, "user-2-id", "User", "Sent message in chat", 120, null, "192.168.1.105", true, "chat-1-id", 3, new DateTime(2026, 5, 1, 3, 11, 27, 541, DateTimeKind.Utc).AddTicks(1455), null },
+                    { new Guid("b0f28087-6303-49df-9dd3-901bfcc57a3c"), 8, "user-1-id", "User", "Created listing: BMW 320i", null, null, "192.168.1.100", true, "listing-1-id", 2, new DateTime(2026, 4, 21, 8, 11, 27, 541, DateTimeKind.Utc).AddTicks(1445), null },
+                    { new Guid("ba307295-14d5-4970-946a-c4aca433a7f1"), 2, "user-1-id", "User", "User registered successfully", null, null, "192.168.1.100", true, "user-1-id", 1, new DateTime(2026, 4, 1, 8, 11, 27, 541, DateTimeKind.Utc).AddTicks(757), "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" },
+                    { new Guid("f5cc52ce-c9f9-421c-8039-21de87b80d31"), 2, "user-2-id", "User", "User registered successfully", null, null, "192.168.1.105", true, "user-2-id", 1, new DateTime(2026, 4, 11, 8, 11, 27, 541, DateTimeKind.Utc).AddTicks(1452), "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" }
                 });
 
             migrationBuilder.InsertData(
@@ -1022,8 +1022,8 @@ namespace Arzly.Api.Migrations
                 columns: new[] { "UserId", "EmailNotifications", "Language", "PushNotifications", "Theme", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { "user-1-id", false, 0, true, 2, new DateTime(2026, 4, 30, 15, 49, 22, 990, DateTimeKind.Utc).AddTicks(8397) },
-                    { "user-2-id", true, 0, true, 1, new DateTime(2026, 4, 30, 15, 49, 22, 990, DateTimeKind.Utc).AddTicks(8634) }
+                    { "user-1-id", false, 0, true, 2, new DateTime(2026, 5, 1, 8, 11, 27, 541, DateTimeKind.Utc).AddTicks(4211) },
+                    { "user-2-id", true, 0, true, 1, new DateTime(2026, 5, 1, 8, 11, 27, 541, DateTimeKind.Utc).AddTicks(4441) }
                 });
 
             migrationBuilder.InsertData(
@@ -1031,8 +1031,8 @@ namespace Arzly.Api.Migrations
                 columns: new[] { "Id", "ChatId", "CreatedAt", "IsResolved", "Notes", "Reason", "ReportedUserId", "ReporterId", "ResolvedAt", "ResolvedById" },
                 values: new object[,]
                 {
-                    { new Guid("7f9a8fd6-a6c8-4818-8732-6a07eedeca8e"), null, new DateTime(2026, 4, 25, 15, 49, 22, 991, DateTimeKind.Utc).AddTicks(1833), true, "User posting duplicate listings", 0, "user-2-id", "user-1-id", new DateTime(2026, 4, 27, 15, 49, 22, 991, DateTimeKind.Utc).AddTicks(2315), null },
-                    { new Guid("e7cb56e0-89b9-4fb0-9130-4f6216823b7c"), null, new DateTime(2026, 4, 28, 15, 49, 22, 991, DateTimeKind.Utc).AddTicks(2582), false, "Listing contains misleading information", 3, "user-1-id", "user-2-id", null, null }
+                    { new Guid("500b729f-dccd-4010-baee-762471f9426f"), null, new DateTime(2026, 4, 26, 8, 11, 27, 541, DateTimeKind.Utc).AddTicks(7779), true, "User posting duplicate listings", 0, "user-2-id", "user-1-id", new DateTime(2026, 4, 28, 8, 11, 27, 541, DateTimeKind.Utc).AddTicks(8216), null },
+                    { new Guid("5cb2fa6d-c996-46b6-8b93-a502dceb335f"), null, new DateTime(2026, 4, 29, 8, 11, 27, 541, DateTimeKind.Utc).AddTicks(8484), false, "Listing contains misleading information", 3, "user-1-id", "user-2-id", null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -1040,14 +1040,14 @@ namespace Arzly.Api.Migrations
                 columns: new[] { "Id", "CategoryId", "ContactMethod", "CreatedAt", "DeletedAt", "Description", "ImagesUrl", "IsDeleted", "IsPriceNegotiable", "IsPromoted", "Name", "OwnerId", "PhoneNumber", "PickupLocationId", "Price", "PrimaryImageUrl", "PromotionEndDate", "PromotionStartDate", "PromotionType", "Status", "SubcategoryId", "Title", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { new Guid("00000000-0000-0000-0000-000000000001"), new Guid("3cad2798-23de-4196-8dd7-952155fd1ab4"), 1, new DateTime(2026, 4, 15, 15, 49, 22, 987, DateTimeKind.Utc).AddTicks(5314), null, "Well-maintained BMW 320i with full service history. Luxury package, navigation system, leather seats, and sunroof. Single owner, garage kept.", "[\"https://example.com/images/bmw-320i-2.jpg\",\"https://example.com/images/bmw-320i-3.jpg\"]", false, true, false, "John Doe", "user-1-id", "+1-555-0101", new Guid("a3f47519-f19d-48b7-97bc-bfa9cfadf5a4"), 45000.0, "https://example.com/images/bmw-320i-1.jpg", null, null, null, 1, new Guid("7fc23e86-5a00-4169-ac0e-93969a6ded60"), "BMW 320i Luxury Line 2022", null },
-                    { new Guid("00000000-0000-0000-0000-000000000002"), new Guid("3cad2798-23de-4196-8dd7-952155fd1ab4"), 1, new DateTime(2026, 4, 23, 15, 49, 22, 987, DateTimeKind.Utc).AddTicks(5599), null, "Clean Toyota Camry, perfect for daily commute. Fuel-efficient, reliable, and spacious. Recent oil change and tire rotation.", "[\"https://example.com/images/toyota-camry-2.jpg\"]", false, false, false, "Bourhan Hassoun", "user-2-id", "+1-555-0102", new Guid("b37fce3b-3ae7-461b-a02e-63dd33d46d2b"), 28000.0, "https://example.com/images/toyota-camry-1.jpg", null, null, null, 1, new Guid("7fc23e86-5a00-4169-ac0e-93969a6ded60"), "Toyota Camry 2020 - Excellent Condition", null },
-                    { new Guid("00000000-0000-0000-0000-000000000003"), new Guid("59733c2c-27c7-40ac-8cf5-ed9f89b14b0a"), 1, new DateTime(2026, 4, 27, 15, 49, 22, 987, DateTimeKind.Utc).AddTicks(5605), null, "Stunning 2-bedroom apartment with city views. Fully equipped kitchen, in-unit laundry, gym and pool in building. Close to subway.", "[\"https://example.com/images/apt-manhattan-2.jpg\",\"https://example.com/images/apt-manhattan-3.jpg\",\"https://example.com/images/apt-manhattan-4.jpg\"]", false, true, false, "John Doe", "user-1-id", "+1-555-0103", new Guid("a3f47519-f19d-48b7-97bc-bfa9cfadf5a4"), 4500.0, "https://example.com/images/apt-manhattan-1.jpg", null, null, null, 1, new Guid("fb1feeb7-25ad-4041-a1a3-54653cbae8c4"), "Modern 2BR Apartment in Manhattan", null },
-                    { new Guid("00000000-0000-0000-0000-000000000004"), new Guid("cba614a7-eb8c-45d8-9f8e-dd0c5803d91d"), 0, new DateTime(2026, 4, 29, 15, 49, 22, 987, DateTimeKind.Utc).AddTicks(5611), null, "Like-new MacBook Pro with M2 Max chip, 32GB RAM, 1TB SSD. Perfect for professionals. AppleCare+ until 2026.", "[\"https://example.com/images/macbook-pro-2.jpg\"]", false, false, true, "Bourhan Hassoun", "user-2-id", "+1-555-0104", new Guid("b37fce3b-3ae7-461b-a02e-63dd33d46d2b"), 2800.0, "https://example.com/images/macbook-pro-1.jpg", new DateTime(2026, 5, 6, 15, 49, 22, 987, DateTimeKind.Utc).AddTicks(6601), new DateTime(2026, 4, 29, 15, 49, 22, 987, DateTimeKind.Utc).AddTicks(6344), 0, 1, new Guid("c21b32e2-a476-4fb1-9ae5-4e808ca31a63"), "MacBook Pro 16\" M2 Max 2023", null },
-                    { new Guid("00000000-0000-0000-0000-000000000005"), new Guid("d1c9e429-21fc-4164-8fc0-2f64585a7026"), 0, new DateTime(2026, 4, 25, 15, 49, 22, 987, DateTimeKind.Utc).AddTicks(6858), null, "Comfortable L-shaped sectional sofa in excellent condition. Pet-free, smoke-free home. Easy to clean fabric.", "[\"https://example.com/images/sofa-gray-2.jpg\"]", false, true, false, "John Doe", "user-1-id", "+1-555-0105", new Guid("3e545987-07b4-4130-b88f-e1830ac22d9f"), 650.0, "https://example.com/images/sofa-gray-1.jpg", null, null, null, 1, new Guid("c3508062-875d-4289-a8a7-8f0df219f257"), "IKEA Sectional Sofa - Gray", null },
-                    { new Guid("00000000-0000-0000-0000-000000000006"), new Guid("0bb2ac3e-e98b-48f6-b5c6-c0cc705fc825"), 1, new DateTime(2026, 4, 10, 15, 49, 22, 987, DateTimeKind.Utc).AddTicks(6866), new DateTime(2026, 4, 20, 15, 49, 22, 987, DateTimeKind.Utc).AddTicks(7114), "Brand new iPhone 15 Pro Max, unopened box. 256GB storage in Titanium Blue. Full Apple warranty.", "[\"https://example.com/images/iphone-15-pro-2.jpg\"]", false, false, false, "Bourhan Hassoun", "user-2-id", "+1-555-0106", new Guid("6b5529c9-8299-47a5-b688-4fc75c2c8208"), 1200.0, "https://example.com/images/iphone-15-pro-1.jpg", null, null, null, 2, new Guid("a91bfeeb-ec77-41d2-859b-8e5cb90a9c66"), "iPhone 15 Pro Max 256GB - Titanium Blue", new DateTime(2026, 4, 20, 15, 49, 22, 987, DateTimeKind.Utc).AddTicks(6867) },
-                    { new Guid("00000000-0000-0000-0000-000000000007"), new Guid("ab2a6892-b17d-41a7-b344-251426ea00df"), 0, new DateTime(2026, 3, 31, 15, 49, 22, 987, DateTimeKind.Utc).AddTicks(7352), null, "Licensed plumber with 15+ years experience. Emergency services available. Free estimates for all jobs.", "[]", false, true, false, "John Doe", "user-1-id", "+1-555-0107", new Guid("a3f47519-f19d-48b7-97bc-bfa9cfadf5a4"), 0.0, "https://example.com/images/plumbing-service-1.jpg", null, null, null, 1, new Guid("8f4b5b81-ff99-49c4-b15e-09ef80929ccd"), "Professional Plumbing Services", null },
-                    { new Guid("00000000-0000-0000-0000-000000000008"), new Guid("c7e33f89-5f59-4384-9f32-5062d53a8e56"), 0, new DateTime(2026, 4, 28, 15, 49, 22, 987, DateTimeKind.Utc).AddTicks(7365), null, "Adorable Golden Retriever puppies looking for loving homes. Vaccinated, microchipped, and health checked. Parents on premises.", "[\"https://example.com/images/golden-retriever-2.jpg\",\"https://example.com/images/golden-retriever-3.jpg\"]", false, false, false, "Bourhan Hassoun", "user-2-id", "+1-555-0108", new Guid("b37fce3b-3ae7-461b-a02e-63dd33d46d2b"), 1500.0, "https://example.com/images/golden-retriever-1.jpg", null, null, null, 1, new Guid("18e91ecb-e2db-482b-a5fc-37a0c3f3f80c"), "Golden Retriever Puppies", null }
+                    { new Guid("00000000-0000-0000-0000-000000000001"), new Guid("c480a5f6-14b9-46f2-a4ce-c09e754ca477"), 1, new DateTime(2026, 4, 16, 8, 11, 27, 538, DateTimeKind.Utc).AddTicks(332), null, "Well-maintained BMW 320i with full service history. Luxury package, navigation system, leather seats, and sunroof. Single owner, garage kept.", "[\"https://example.com/images/bmw-320i-2.jpg\",\"https://example.com/images/bmw-320i-3.jpg\"]", false, true, false, "John Doe", "user-1-id", "+1-555-0101", new Guid("5edd95c5-e737-47eb-b483-9724ff71b5da"), 45000.0, "https://example.com/images/bmw-320i-1.jpg", null, null, null, 1, new Guid("bea824b3-4144-4353-83cd-b6c4dc384922"), "BMW 320i Luxury Line 2022", null },
+                    { new Guid("00000000-0000-0000-0000-000000000002"), new Guid("c480a5f6-14b9-46f2-a4ce-c09e754ca477"), 1, new DateTime(2026, 4, 24, 8, 11, 27, 538, DateTimeKind.Utc).AddTicks(624), null, "Clean Toyota Camry, perfect for daily commute. Fuel-efficient, reliable, and spacious. Recent oil change and tire rotation.", "[\"https://example.com/images/toyota-camry-2.jpg\"]", false, false, false, "Bourhan Hassoun", "user-2-id", "+1-555-0102", new Guid("c87e626d-1b25-48d7-a822-6edbc700e9a0"), 28000.0, "https://example.com/images/toyota-camry-1.jpg", null, null, null, 1, new Guid("bea824b3-4144-4353-83cd-b6c4dc384922"), "Toyota Camry 2020 - Excellent Condition", null },
+                    { new Guid("00000000-0000-0000-0000-000000000003"), new Guid("c4212950-0a5e-401b-9310-365f717e8f76"), 1, new DateTime(2026, 4, 28, 8, 11, 27, 538, DateTimeKind.Utc).AddTicks(649), null, "Stunning 2-bedroom apartment with city views. Fully equipped kitchen, in-unit laundry, gym and pool in building. Close to subway.", "[\"https://example.com/images/apt-manhattan-2.jpg\",\"https://example.com/images/apt-manhattan-3.jpg\",\"https://example.com/images/apt-manhattan-4.jpg\"]", false, true, false, "John Doe", "user-1-id", "+1-555-0103", new Guid("5edd95c5-e737-47eb-b483-9724ff71b5da"), 4500.0, "https://example.com/images/apt-manhattan-1.jpg", null, null, null, 1, new Guid("bc56f065-4d67-4924-b806-15009df2c7b5"), "Modern 2BR Apartment in Manhattan", null },
+                    { new Guid("00000000-0000-0000-0000-000000000004"), new Guid("087008f8-4ced-47ff-a688-5f40d9593ae7"), 0, new DateTime(2026, 4, 30, 8, 11, 27, 538, DateTimeKind.Utc).AddTicks(656), null, "Like-new MacBook Pro with M2 Max chip, 32GB RAM, 1TB SSD. Perfect for professionals. AppleCare+ until 2026.", "[\"https://example.com/images/macbook-pro-2.jpg\"]", false, false, true, "Bourhan Hassoun", "user-2-id", "+1-555-0104", new Guid("c87e626d-1b25-48d7-a822-6edbc700e9a0"), 2800.0, "https://example.com/images/macbook-pro-1.jpg", new DateTime(2026, 5, 7, 8, 11, 27, 538, DateTimeKind.Utc).AddTicks(1686), new DateTime(2026, 4, 30, 8, 11, 27, 538, DateTimeKind.Utc).AddTicks(1427), 0, 1, new Guid("36ec0d1c-63a3-46ab-a8ee-33ad2512fd3c"), "MacBook Pro 16\" M2 Max 2023", null },
+                    { new Guid("00000000-0000-0000-0000-000000000005"), new Guid("dda98df4-74e8-4a7d-aecc-344f43f19846"), 0, new DateTime(2026, 4, 26, 8, 11, 27, 538, DateTimeKind.Utc).AddTicks(1948), null, "Comfortable L-shaped sectional sofa in excellent condition. Pet-free, smoke-free home. Easy to clean fabric.", "[\"https://example.com/images/sofa-gray-2.jpg\"]", false, true, false, "John Doe", "user-1-id", "+1-555-0105", new Guid("ea79e836-0db7-4fc9-9aaa-bf953a2e8606"), 650.0, "https://example.com/images/sofa-gray-1.jpg", null, null, null, 1, new Guid("c5a8886f-5dea-4710-8eab-1b6f33d22bd2"), "IKEA Sectional Sofa - Gray", null },
+                    { new Guid("00000000-0000-0000-0000-000000000006"), new Guid("29773f2c-04c4-4256-8b0c-e1159945d596"), 1, new DateTime(2026, 4, 11, 8, 11, 27, 538, DateTimeKind.Utc).AddTicks(1957), new DateTime(2026, 4, 21, 8, 11, 27, 538, DateTimeKind.Utc).AddTicks(2218), "Brand new iPhone 15 Pro Max, unopened box. 256GB storage in Titanium Blue. Full Apple warranty.", "[\"https://example.com/images/iphone-15-pro-2.jpg\"]", false, false, false, "Bourhan Hassoun", "user-2-id", "+1-555-0106", new Guid("113dfbb4-8768-4be8-aa7c-cca69e86a3eb"), 1200.0, "https://example.com/images/iphone-15-pro-1.jpg", null, null, null, 2, new Guid("fd731e9d-0347-46d9-85a1-ead8fdbdc5ed"), "iPhone 15 Pro Max 256GB - Titanium Blue", new DateTime(2026, 4, 21, 8, 11, 27, 538, DateTimeKind.Utc).AddTicks(1957) },
+                    { new Guid("00000000-0000-0000-0000-000000000007"), new Guid("7e917c79-782e-480d-8d76-052194601264"), 0, new DateTime(2026, 4, 1, 8, 11, 27, 538, DateTimeKind.Utc).AddTicks(2467), null, "Licensed plumber with 15+ years experience. Emergency services available. Free estimates for all jobs.", "[]", false, true, false, "John Doe", "user-1-id", "+1-555-0107", new Guid("5edd95c5-e737-47eb-b483-9724ff71b5da"), 0.0, "https://example.com/images/plumbing-service-1.jpg", null, null, null, 1, new Guid("235402cd-4f0d-4e95-90e6-568a3864878f"), "Professional Plumbing Services", null },
+                    { new Guid("00000000-0000-0000-0000-000000000008"), new Guid("7165621d-ddce-458c-a34f-d3bd7aeed570"), 0, new DateTime(2026, 4, 29, 8, 11, 27, 538, DateTimeKind.Utc).AddTicks(2475), null, "Adorable Golden Retriever puppies looking for loving homes. Vaccinated, microchipped, and health checked. Parents on premises.", "[\"https://example.com/images/golden-retriever-2.jpg\",\"https://example.com/images/golden-retriever-3.jpg\"]", false, false, false, "Bourhan Hassoun", "user-2-id", "+1-555-0108", new Guid("c87e626d-1b25-48d7-a822-6edbc700e9a0"), 1500.0, "https://example.com/images/golden-retriever-1.jpg", null, null, null, 1, new Guid("6f75458f-eb98-4672-930e-d5c2780ab9a6"), "Golden Retriever Puppies", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1055,10 +1055,10 @@ namespace Arzly.Api.Migrations
                 columns: new[] { "Id", "DeletedAt", "ListingId", "SavedAt", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("00000000-0000-0000-0000-000000000001"), null, new Guid("00000000-0000-0000-0000-000000000004"), new DateTime(2026, 4, 28, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(5034), "user-1-id" },
-                    { new Guid("00000000-0000-0000-0000-000000000002"), null, new Guid("00000000-0000-0000-0000-000000000008"), new DateTime(2026, 4, 29, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(5342), "user-1-id" },
-                    { new Guid("00000000-0000-0000-0000-000000000003"), null, new Guid("00000000-0000-0000-0000-000000000001"), new DateTime(2026, 4, 25, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(5349), "user-2-id" },
-                    { new Guid("00000000-0000-0000-0000-000000000004"), new DateTime(2026, 4, 29, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(5352), new Guid("00000000-0000-0000-0000-000000000003"), new DateTime(2026, 4, 27, 15, 49, 22, 989, DateTimeKind.Utc).AddTicks(5351), "user-2-id" }
+                    { new Guid("00000000-0000-0000-0000-000000000001"), null, new Guid("00000000-0000-0000-0000-000000000004"), new DateTime(2026, 4, 29, 8, 11, 27, 540, DateTimeKind.Utc).AddTicks(968), "user-1-id" },
+                    { new Guid("00000000-0000-0000-0000-000000000002"), null, new Guid("00000000-0000-0000-0000-000000000008"), new DateTime(2026, 4, 30, 8, 11, 27, 540, DateTimeKind.Utc).AddTicks(1224), "user-1-id" },
+                    { new Guid("00000000-0000-0000-0000-000000000003"), null, new Guid("00000000-0000-0000-0000-000000000001"), new DateTime(2026, 4, 26, 8, 11, 27, 540, DateTimeKind.Utc).AddTicks(1227), "user-2-id" },
+                    { new Guid("00000000-0000-0000-0000-000000000004"), new DateTime(2026, 4, 30, 8, 11, 27, 540, DateTimeKind.Utc).AddTicks(1230), new Guid("00000000-0000-0000-0000-000000000003"), new DateTime(2026, 4, 28, 8, 11, 27, 540, DateTimeKind.Utc).AddTicks(1229), "user-2-id" }
                 });
 
             migrationBuilder.CreateIndex(

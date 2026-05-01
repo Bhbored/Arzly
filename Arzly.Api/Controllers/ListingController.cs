@@ -18,8 +18,9 @@ namespace Arzly.Api.Controllers
             _service = service;
         }
 
+        #region fetch
         [HttpGet]
-        public virtual async Task<ActionResult<List<ListingResponse>>> GetAll()
+        public async Task<ActionResult<List<ListingResponse>>> GetAll()
         {
             _logger.LogInformation("{Controller}.GetAll - Before",
                 GetType().Name);
@@ -30,9 +31,21 @@ namespace Arzly.Api.Controllers
                 GetType().Name);
             return Ok(result);
         }
+        [HttpGet("filter")]
+        public async Task<ActionResult<List<ListingResponse>>> GetFilteredListing(string searchBy, string searchString)
+        {
+            _logger.LogInformation("{Controller}.GetAll - Before",
+                GetType().Name);
+
+            var result = await _service.GetFilteredListing(searchBy, searchString);
+
+            _logger.LogInformation("{Controller}.GetAll - After",
+                GetType().Name);
+            return Ok(result);
+        }
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<ListingResponse>> GetById(Guid? id)
+        public async Task<ActionResult<ListingResponse>> GetById([FromHeader] Guid? id)
         {
             _logger.LogInformation("{Controller}.GetById({Id}) - Before",
                 GetType().Name, id);
@@ -43,6 +56,23 @@ namespace Arzly.Api.Controllers
                 GetType().Name, id);
             return Ok(result);
         }
+
+
+        [HttpGet("user-listings")]
+        public async Task<ActionResult<ListingResponse>> GetByUserId([FromHeader] string? userId)
+        {
+            _logger.LogInformation("{Controller}.GetByUserId({Id}) - Before",
+                GetType().Name, userId);
+
+            var result = await _service.GetListingByUserId(userId);
+
+            _logger.LogInformation("{Controller}.GetByUserId({Id}) - After",
+                GetType().Name, userId);
+            return Ok(result);
+        }
+
+        #endregion
+
 
         [HttpPost("[action]")]
         [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(ListingController) })]
