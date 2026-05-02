@@ -2,12 +2,14 @@ using Arzly.Api.Domain.Entities;
 using Arzly.Shared.Enums.ListingOwned.PhonesAndGadgets;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Arzly.Api.Domain.ListingOwned
 {
     public class PhonesDetails
     {
         [Key, ForeignKey(nameof(Listing))]
+        [JsonIgnore]
         public Guid ListingId { get; set; }
         public virtual Listing? Listing { get; set; }
 

@@ -38,7 +38,7 @@ namespace Arzly.Api.Application.Services
             return MapToDto(entity);
         }
         //use it at the end as base each entity has it own case validation,don't repeated made validations
-        public virtual async Task<TDto?> CreateAsync(TCreateDto? createDto)
+        public virtual async Task<TDto?> CreateAsync(TCreateDto? createDto, string? userId )
         {
             if (createDto == null)
                 throw new ArgumentNullException(ExceptionMessages.EmptyAddRequest);
@@ -48,7 +48,7 @@ namespace Arzly.Api.Application.Services
         }
 
         //same as create each entity update case differs
-        public virtual async Task<TDto?> UpdateAsync(TUpdateDto? updateDto)
+        public virtual async Task<TDto?> UpdateAsync(TUpdateDto? updateDto, string? userId)
         {
             if (updateDto == null)
                 throw new ArgumentNullException(ExceptionMessages.EmptyUpdateRequest);

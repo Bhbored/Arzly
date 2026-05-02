@@ -2,6 +2,7 @@ using Arzly.Api.Domain.Entities;
 using Arzly.Shared.Enums.ListingOwned.LeisureAndInterests;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Arzly.Api.Domain.ListingOwned
 {
@@ -9,6 +10,7 @@ namespace Arzly.Api.Domain.ListingOwned
     {
         [Key, ForeignKey(nameof(Listing))]
         public Guid ListingId { get; set; }
+        [JsonIgnore]
         public virtual Listing? Listing { get; set; }
 
         public CollectibleType? CollectibleType { get; set; }

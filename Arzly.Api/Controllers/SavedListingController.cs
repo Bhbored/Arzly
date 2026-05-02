@@ -45,12 +45,12 @@ namespace Arzly.Api.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<SavedListingResponse>> Create([FromBody] SavedListingAddRequest createDto)
+        public async Task<ActionResult<SavedListingResponse>> Create([FromBody] SavedListingAddRequest createDto, [FromHeader] string? userId)
         {
             _logger.LogInformation("{Controller}.Create - Before",
                 GetType().Name);
 
-            var result = await _service.CreateAsync(createDto);
+            var result = await _service.CreateAsync(createDto, userId);
 
             _logger.LogInformation("{Controller}.Create - After",
                 GetType().Name);
@@ -58,12 +58,12 @@ namespace Arzly.Api.Controllers
         }
 
         [HttpPut("[action]")]
-        public async Task<ActionResult<SavedListingResponse>> Update([FromBody] SavedListingUpdateRequest updateDto)
+        public async Task<ActionResult<SavedListingResponse>> Update([FromBody] SavedListingUpdateRequest updateDto, [FromHeader] string? userId)
         {
             _logger.LogInformation("{Controller}.Update({Id}) - Before",
                 GetType().Name, updateDto);
 
-            var result = await _service.UpdateAsync(updateDto);
+            var result = await _service.UpdateAsync(updateDto, userId);
 
             _logger.LogInformation("{Controller}.Update({Id}) - After",
                 GetType().Name, updateDto);

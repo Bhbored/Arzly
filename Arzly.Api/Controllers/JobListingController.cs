@@ -39,20 +39,20 @@ namespace Arzly.Api.Controllers
 
         [HttpPost("[action]")]
         [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(JobListingController) })]
-        public async Task<ActionResult<JobListingResponse>> Create([FromBody] JobListingAddRequest? request)
+        public async Task<ActionResult<JobListingResponse>> Create([FromBody] JobListingAddRequest? request, [FromHeader] string? userId)
         {
             _logger.LogInformation("{Controller}.Create - Before", GetType().Name);
-            var result = await _service.CreateAsync(request);
+            var result = await _service.CreateAsync(request,userId);
             _logger.LogInformation("{Controller}.Create - After", GetType().Name);
             return CreatedAtAction(nameof(GetById), new { id = result?.Id }, result);
         }
 
         [HttpPut("[action]/{id:guid}")]
         [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(JobListingController) })]
-        public async Task<ActionResult<JobListingResponse?>> Update([FromBody] JobListingUpdateRequest? request)
+        public async Task<ActionResult<JobListingResponse?>> Update([FromBody] JobListingUpdateRequest? request, [FromHeader] string? userId)
         {
             _logger.LogInformation("{Controller}.Update({Id}) - Before", GetType().Name, request);
-            var result = await _service.UpdateAsync(request);
+            var result = await _service.UpdateAsync(request,userId);
             _logger.LogInformation("{Controller}.Update({Id}) - After", GetType().Name, request);
             return Ok(result);
         }

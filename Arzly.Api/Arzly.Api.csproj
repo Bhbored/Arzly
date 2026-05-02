@@ -38,6 +38,7 @@
 		<Folder Include="Middlewares\" />
 		<Folder Include="Hubs\" />
 		<Folder Include="Migrations\" />
+		<Folder Include="Helpers\" />
 	</ItemGroup>
 	<ItemGroup>
 		<InternalsVisibleTo Include="Arzly.Shared" />

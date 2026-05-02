@@ -174,8 +174,168 @@ namespace Arzly.Api.Infrastructure.Data.SeedData
                 ContactMethod = ContactMethod.PhoneNumber,
                 OwnerId = "user-2-id",
                 CategoryId = CategorySeed.Data[5].Id,
-                SubcategoryId = SubCategorySeed.Data[36].Id,
+                SubcategoryId = SubCategorySeed.Data[44].Id,
                 PickupLocationId = PickupLocationSeed.Data[2].Id,
+                CreatedAt = DateTime.UtcNow.AddDays(-2)
+            },
+            // Fashion - Men's Clothing
+            new Listing
+            {
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000001"),
+                Title = "Classic Oxford Dress Shirt - Navy",
+                Description = "Premium cotton oxford dress shirt, slim fit. Perfect for office or formal occasions. Never worn, tags attached.",
+                Price = 45,
+                Status = ListingStatus.Active,
+                PrimaryImageUrl = "https://example.com/images/oxford-shirt-1.jpg",
+                ImagesUrl = new List<string> { "https://example.com/images/oxford-shirt-2.jpg" },
+                Name = "John Doe",
+                PhoneNumber = "+1-555-0109",
+                IsPriceNegotiable = true,
+                ContactMethod = ContactMethod.InAppChat,
+                OwnerId = "user-1-id",
+                CategoryId = CategorySeed.Data[9].Id,
+                SubcategoryId = SubCategorySeed.Data[73].Id,
+                PickupLocationId = PickupLocationSeed.Data[0].Id,
+                CreatedAt = DateTime.UtcNow.AddDays(-4)
+            },
+            // Fashion - Women's Clothing
+            new Listing
+            {
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000002"),
+                Title = "Floral Summer Dress - Size M",
+                Description = "Beautiful floral print summer dress, worn once for a photoshoot. Excellent condition, dry cleaned.",
+                Price = 65,
+                Status = ListingStatus.Active,
+                PrimaryImageUrl = "https://example.com/images/floral-dress-1.jpg",
+                ImagesUrl = new List<string> { "https://example.com/images/floral-dress-2.jpg", "https://example.com/images/floral-dress-3.jpg" },
+                Name = "Bourhan Hassoun",
+                PhoneNumber = "+1-555-0110",
+                IsPriceNegotiable = false,
+                ContactMethod = ContactMethod.InAppChat,
+                OwnerId = "user-2-id",
+                CategoryId = CategorySeed.Data[9].Id,
+                SubcategoryId = SubCategorySeed.Data[75].Id,
+                PickupLocationId = PickupLocationSeed.Data[1].Id,
+                CreatedAt = DateTime.UtcNow.AddDays(-6)
+            },
+            // Baby & Child - Baby Gear
+            new Listing
+            {
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000003"),
+                Title = "Baby Gift Set - Newborn Essentials",
+                Description = "Complete newborn gift set with onesies, blankets, and bibs. Brand new, unopened. Gender neutral colors.",
+                Price = 35,
+                Status = ListingStatus.Active,
+                PrimaryImageUrl = "https://example.com/images/baby-gift-set-1.jpg",
+                ImagesUrl = new List<string> { "https://example.com/images/baby-gift-set-2.jpg" },
+                Name = "John Doe",
+                PhoneNumber = "+1-555-0111",
+                IsPriceNegotiable = true,
+                ContactMethod = ContactMethod.PhoneNumber,
+                OwnerId = "user-1-id",
+                CategoryId = CategorySeed.Data[6].Id,
+                SubcategoryId = SubCategorySeed.Data[56].Id,
+                PickupLocationId = PickupLocationSeed.Data[2].Id,
+                CreatedAt = DateTime.UtcNow.AddDays(-8)
+            },
+            // Baby & Child - Stroller
+            new Listing
+            {
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000004"),
+                Title = "Babyzen YOYO2 Compact Stroller",
+                Description = "Lightweight foldable stroller, perfect for travel. Used for 6 months, in great condition. Includes rain cover.",
+                Price = 350,
+                Status = ListingStatus.Active,
+                PrimaryImageUrl = "https://example.com/images/yoyo-stroller-1.jpg",
+                ImagesUrl = new List<string> { "https://example.com/images/yoyo-stroller-2.jpg", "https://example.com/images/yoyo-stroller-3.jpg" },
+                Name = "Bourhan Hassoun",
+                PhoneNumber = "+1-555-0112",
+                IsPriceNegotiable = true,
+                ContactMethod = ContactMethod.InAppChat,
+                OwnerId = "user-2-id",
+                CategoryId = CategorySeed.Data[6].Id,
+                SubcategoryId = SubCategorySeed.Data[50].Id,
+                PickupLocationId = PickupLocationSeed.Data[3].Id,
+                CreatedAt = DateTime.UtcNow.AddDays(-3)
+            },
+            // Hobbies - Collectible
+            new Listing
+            {
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000005"),
+                Title = "Vintage Silver Coin Collection",
+                Description = "Collection of 25 vintage silver coins from various countries, 1800s-1900s. Includes display case and certificates.",
+                Price = 800,
+                Status = ListingStatus.Active,
+                PrimaryImageUrl = "https://example.com/images/coin-collection-1.jpg",
+                ImagesUrl = new List<string> { "https://example.com/images/coin-collection-2.jpg" },
+                Name = "John Doe",
+                PhoneNumber = "+1-555-0113",
+                IsPriceNegotiable = false,
+                ContactMethod = ContactMethod.PhoneNumber,
+                OwnerId = "user-1-id",
+                CategoryId = CategorySeed.Data[8].Id,
+                SubcategoryId = SubCategorySeed.Data[67].Id,
+                PickupLocationId = PickupLocationSeed.Data[0].Id,
+                CreatedAt = DateTime.UtcNow.AddDays(-12)
+            },
+            // Hobbies - Musical Instrument
+            new Listing
+            {
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000006"),
+                Title = "Fender Acoustic Guitar - Sunburst",
+                Description = "Fender CD-60S dreadnought acoustic guitar. Solid spruce top, walnut fingerboard. Comes with gig bag and tuner.",
+                Price = 180,
+                Status = ListingStatus.Active,
+                PrimaryImageUrl = "https://example.com/images/fender-guitar-1.jpg",
+                ImagesUrl = new List<string> { "https://example.com/images/fender-guitar-2.jpg", "https://example.com/images/fender-guitar-3.jpg" },
+                Name = "Bourhan Hassoun",
+                PhoneNumber = "+1-555-0114",
+                IsPriceNegotiable = true,
+                ContactMethod = ContactMethod.InAppChat,
+                OwnerId = "user-2-id",
+                CategoryId = CategorySeed.Data[8].Id,
+                SubcategoryId = SubCategorySeed.Data[68].Id,
+                PickupLocationId = PickupLocationSeed.Data[1].Id,
+                CreatedAt = DateTime.UtcNow.AddDays(-9)
+            },
+            // Sports - Bicycle
+            new Listing
+            {
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000007"),
+                Title = "Trek Marlin 7 Mountain Bike 2023",
+                Description = "Trek Marlin 7 hardtail mountain bike, 29er wheels. Hydraulic disc brakes, 1x10 drivetrain. Excellent trail condition.",
+                Price = 950,
+                Status = ListingStatus.Active,
+                PrimaryImageUrl = "https://example.com/images/trek-marlin-1.jpg",
+                ImagesUrl = new List<string> { "https://example.com/images/trek-marlin-2.jpg" },
+                Name = "John Doe",
+                PhoneNumber = "+1-555-0115",
+                IsPriceNegotiable = true,
+                ContactMethod = ContactMethod.PhoneNumber,
+                OwnerId = "user-1-id",
+                CategoryId = CategorySeed.Data[7].Id,
+                SubcategoryId = SubCategorySeed.Data[57].Id,
+                PickupLocationId = PickupLocationSeed.Data[2].Id,
+                CreatedAt = DateTime.UtcNow.AddDays(-5)
+            },
+            // Sports - Gym Equipment
+            new Listing
+            {
+                Id = Guid.Parse("10000000-0000-0000-0000-000000000008"),
+                Title = "Adjustable Dumbbell Set 5-52.5 lbs",
+                Description = "Bowflex SelectTech adjustable dumbbells, pair. Replaces 15 sets of weights. Like new, barely used.",
+                Price = 300,
+                Status = ListingStatus.Active,
+                PrimaryImageUrl = "https://example.com/images/dumbbells-1.jpg",
+                ImagesUrl = new List<string> { "https://example.com/images/dumbbells-2.jpg" },
+                Name = "Bourhan Hassoun",
+                PhoneNumber = "+1-555-0116",
+                IsPriceNegotiable = false,
+                ContactMethod = ContactMethod.InAppChat,
+                OwnerId = "user-2-id",
+                CategoryId = CategorySeed.Data[7].Id,
+                SubcategoryId = SubCategorySeed.Data[59].Id,
+                PickupLocationId = PickupLocationSeed.Data[3].Id,
                 CreatedAt = DateTime.UtcNow.AddDays(-2)
             }
         };

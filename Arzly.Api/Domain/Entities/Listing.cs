@@ -93,7 +93,7 @@ namespace Arzly.Api.Domain.Entities
 
         //pre-owned
 
-        public VehiclesDetails? VehiclesDetails { get; set; }
+        public virtual VehiclesDetails? VehiclesDetails { get; set; }
         public virtual RealEstateDetails? RealEstateDetails { get; set; }
         public virtual PhonesDetails? PhonesDetails { get; set; }
         public virtual ElectronicsDetails? ElectronicsDetails { get; set; }

@@ -119,7 +119,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                 entity.HasOne(p => p.User)
                     .WithMany(u => u.DeliveryLocations)
                     .HasForeignKey(p => p.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasMany(p => p.Listings)
                     .WithOne(l => l.PickupLocation)
@@ -281,7 +281,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.BabyChildDetails)
                     .HasForeignKey<BabyChildDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
-                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
+                entity.HasQueryFilter(v => !v.Listing!.IsDeleted);
             });
 
             modelBuilder.Entity<ElectronicsDetails>(entity =>
@@ -290,7 +290,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.ElectronicsDetails)
                     .HasForeignKey<ElectronicsDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
-                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
+                entity.HasQueryFilter(v => !v.Listing!.IsDeleted);
             });
 
             modelBuilder.Entity<FashionDetails>(entity =>
@@ -299,7 +299,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.FashionDetails)
                     .HasForeignKey<FashionDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
-                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
+                entity.HasQueryFilter(v => !v.Listing!.IsDeleted);
             });
 
             modelBuilder.Entity<FurnitureDetails>(entity =>
@@ -308,7 +308,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.FurnitureDetails)
                     .HasForeignKey<FurnitureDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
-                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
+                entity.HasQueryFilter(v => !v.Listing!.IsDeleted);
             });
 
             modelBuilder.Entity<HobbiesDetails>(entity =>
@@ -317,7 +317,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.HobbiesDetails)
                     .HasForeignKey<HobbiesDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
-                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
+                entity.HasQueryFilter(v => !v.Listing!.IsDeleted);
             });
 
             modelBuilder.Entity<PetsDetails>(entity =>
@@ -326,7 +326,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.PetsDetails)
                     .HasForeignKey<PetsDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
-                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
+                entity.HasQueryFilter(v => !v.Listing!.IsDeleted);
             });
 
             modelBuilder.Entity<PhonesDetails>(entity =>
@@ -335,7 +335,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.PhonesDetails)
                     .HasForeignKey<PhonesDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
-                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
+                entity.HasQueryFilter(v => !v.Listing!.IsDeleted);
             });
 
             modelBuilder.Entity<RealEstateDetails>(entity =>
@@ -344,7 +344,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.RealEstateDetails)
                     .HasForeignKey<RealEstateDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
-                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
+                entity.HasQueryFilter(v => !v.Listing!.IsDeleted);
             });
 
             modelBuilder.Entity<ServicesDetails>(entity =>
@@ -353,7 +353,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.ServicesDetails)
                     .HasForeignKey<ServicesDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
-                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
+                entity.HasQueryFilter(v => !v.Listing!.IsDeleted);
             });
 
             modelBuilder.Entity<SportsDetails>(entity =>
@@ -362,7 +362,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.SportsDetails)
                     .HasForeignKey<SportsDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
-                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
+                entity.HasQueryFilter(v => !v.Listing!.IsDeleted);
             });
 
             modelBuilder.Entity<VehiclesDetails>(entity =>
@@ -371,7 +371,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.VehiclesDetails)
                     .HasForeignKey<VehiclesDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
-                entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
+                entity.HasQueryFilter(v =>  !v.Listing!.IsDeleted);
             });
             #endregion
 
@@ -522,6 +522,17 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
             foreach (var item in UserActivityLogSeed.Data) modelBuilder.Entity<UserActivityLog>().HasData(item);
             foreach (var item in UserPreferenceSeed.Data) modelBuilder.Entity<UserPreference>().HasData(item);
             foreach (var item in UserReportSeed.Data) modelBuilder.Entity<UserReport>().HasData(item);
+            foreach (var item in VehiclesDetailsSeed.Data) modelBuilder.Entity<VehiclesDetails>().HasData(item);
+            foreach (var item in RealEstateDetailsSeed.Data) modelBuilder.Entity<RealEstateDetails>().HasData(item);
+            foreach (var item in ElectronicsDetailsSeed.Data) modelBuilder.Entity<ElectronicsDetails>().HasData(item);
+            foreach (var item in FurnitureDetailsSeed.Data) modelBuilder.Entity<FurnitureDetails>().HasData(item);
+            foreach (var item in PhonesDetailsSeed.Data) modelBuilder.Entity<PhonesDetails>().HasData(item);
+            foreach (var item in ServicesDetailsSeed.Data) modelBuilder.Entity<ServicesDetails>().HasData(item);
+            foreach (var item in PetsDetailsSeed.Data) modelBuilder.Entity<PetsDetails>().HasData(item);
+            foreach (var item in FashionDetailsSeed.Data) modelBuilder.Entity<FashionDetails>().HasData(item);
+            foreach (var item in BabyChildDetailsSeed.Data) modelBuilder.Entity<BabyChildDetails>().HasData(item);
+            foreach (var item in HobbiesDetailsSeed.Data) modelBuilder.Entity<HobbiesDetails>().HasData(item);
+            foreach (var item in SportsDetailsSeed.Data) modelBuilder.Entity<SportsDetails>().HasData(item);
             #endregion
 
 

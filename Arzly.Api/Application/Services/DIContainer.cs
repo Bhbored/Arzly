@@ -34,6 +34,7 @@ namespace Arzly.Api.Application.Services
             services.AddScoped<IJobListingService, JobListingService>();
             services.AddScoped<ITicketAttachmentService, TicketAttachmentService>();
             services.AddScoped<ITicketMessageService, TicketMessageService>();
+            services.AddScoped<IUserService, UserService>();
 
 
             //services.AddScoped<INotificationService, NotificationService>();
@@ -57,7 +58,8 @@ namespace Arzly.Api.Application.Services
             services.AddScoped<IJobListingRepository, JobListingRepository>();
             services.AddScoped<ITicketAttachmentRepository, TicketAttachmentRepository>();
             services.AddScoped<ITicketMessageRepository, TicketMessageRepository>();
-
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IListingOwnedRepository, ListingOwnedRepository>();
 
             //services.AddScoped<INotificationRepository, NotificationRepository>();
             //services.AddScoped<IUserActivityLogRepository, UserActivityLogRepository>();

@@ -31,6 +31,19 @@ namespace Arzly.Api.Controllers
                 GetType().Name);
             return Ok(result);
         }
+        [HttpGet("indexed")]
+        public async Task<ActionResult<List<ListingResponse>>> IndexedListings([FromHeader] int pageSzie, [FromHeader] int currentPage)
+        {
+            _logger.LogInformation("{Controller}.GetByPage - Before",
+                GetType().Name);
+
+            var result = await _service.GetIndexedListings(pageSzie, currentPage);
+
+            _logger.LogInformation("{Controller}.GetByPage - After",
+                GetType().Name);
+            return Ok(result);
+        }
+
         [HttpGet("filter")]
         public async Task<ActionResult<List<ListingResponse>>> GetFilteredListing(string searchBy, string searchString)
         {
@@ -45,7 +58,7 @@ namespace Arzly.Api.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<ListingResponse>> GetById(Guid? id)
+        public async Task<ActionResult<ListingResponse>> GetByListingId(Guid? id)
         {
             _logger.LogInformation("{Controller}.GetById({Id}) - Before",
                 GetType().Name, id);
@@ -59,15 +72,15 @@ namespace Arzly.Api.Controllers
 
 
         [HttpGet("user-listings")]
-        public async Task<ActionResult<ListingResponse>> GetByUserId([FromHeader] string? userId)
+        public async Task<ActionResult<ListingResponse>> GetByUserId([FromHeader] string? firebaseId)
         {
             _logger.LogInformation("{Controller}.GetByUserId({Id}) - Before",
-                GetType().Name, userId);
+                GetType().Name, firebaseId);
 
-            var result = await _service.GetListingByUserId(userId);
+            var result = await _service.GetListingByUserId(firebaseId);
 
             _logger.LogInformation("{Controller}.GetByUserId({Id}) - After",
-                GetType().Name, userId);
+                GetType().Name, firebaseId);
             return Ok(result);
         }
 
@@ -76,16 +89,16 @@ namespace Arzly.Api.Controllers
 
         [HttpPost("[action]")]
         [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(ListingController) })]
-        public async Task<ActionResult<ListingResponse>> Create([FromBody] ListingAddRequest? request)
+        public async Task<ActionResult<ListingResponse>> Create([FromBody] ListingAddRequest? request, [FromHeader] string? firebaseId)
         {
             _logger.LogInformation("{Controller}.Create - Before",
                 GetType().Name);
 
-            var result = await _service.CreateAsync(request);
+            var result = await _service.CreateAsync(request, firebaseId);
 
             _logger.LogInformation("{Controller}.Create - After",
                 GetType().Name);
-            return CreatedAtAction(nameof(GetById), new
+            return CreatedAtAction(nameof(GetByListingId), new
             {
                 id = result?.Id
             },
@@ -94,12 +107,12 @@ namespace Arzly.Api.Controllers
 
         [HttpPut("[action]")]
         [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(ListingController) })]
-        public async Task<ActionResult<ListingResponse?>> Update([FromBody] ListingUpdateRequest? request)
+        public async Task<ActionResult<ListingResponse?>> Update([FromBody] ListingUpdateRequest? request, [FromHeader] string? firebaseId)
         {
             _logger.LogInformation("{Controller}.Update({Id}) - Before",
                 GetType().Name, request);
 
-            var result = await _service.UpdateAsync(request);
+            var result = await _service.UpdateAsync(request, firebaseId);
 
             _logger.LogInformation("{Controller}.Update({Id}) - After",
                 GetType().Name, request);

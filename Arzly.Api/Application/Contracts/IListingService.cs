@@ -11,6 +11,8 @@ namespace Arzly.Api.Application.Contracts
         Task<List<ListingResponse>> GetFilteredListing(string searchBy, string searchString);
 
         Task<List<ListingResponse>> GetListingByUserId(string? userId);
+        Task<List<ListingResponse>> GetIndexedListings(int pageSzie = 10, int currentPage=0);
+
 
     }
 }

@@ -8,5 +8,6 @@ namespace Arzly.Api.Domain.Contracts
         Task<List<Listing>> GetFilteredListing(Expression<Func<Listing, bool>> predicate);
 
         Task<List<Listing>> GetListingByUserId(string id);
+        Task<List<Listing>> GetIndexedListings(int pageSzie, int currentPage);
     }
 }

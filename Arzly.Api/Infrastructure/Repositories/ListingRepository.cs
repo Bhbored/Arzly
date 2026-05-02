@@ -16,6 +16,8 @@ namespace Arzly.Api.Infrastructure.Repositories
             _db = context;
             _logger = logger;
         }
+
+        
         public override async Task<Listing?> GetByIdAsync(Guid id)
         {
             return await _db.Listings
@@ -47,11 +49,20 @@ namespace Arzly.Api.Infrastructure.Repositories
                 .Include(l => l.PickupLocation)
                 .ToListAsync();
         }
+        public async Task<List<Listing>> GetIndexedListings(int pageSzie, int currentPage)
+        {
+            return await _db.Listings
+                .Skip(currentPage * pageSzie)
+                .Take(pageSzie)
+                .Include(l => l.PickupLocation)
+                .ToListAsync();
+        }
 
         public override Task AddAsync(Listing entity)
         {
             return base.AddAsync(entity);
         }
+
 
     }
 }
