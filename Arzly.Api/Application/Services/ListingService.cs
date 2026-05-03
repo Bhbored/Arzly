@@ -6,7 +6,7 @@ using Arzly.Api.Mappings;
 using Arzly.Shared.Constants;
 using Arzly.Shared.DTOs.Request.Listing;
 using Arzly.Shared.DTOs.Response.Listing;
-using Azure;
+using SerilogTimings;
 
 namespace Arzly.Api.Application.Services
 {
@@ -63,12 +63,19 @@ namespace Arzly.Api.Application.Services
 
         public override async Task<List<ListingResponse>> GetAllAsync()
         {
-            var entities = await _listingRepo.GetAllAsync();
 
-            var responses = entities
-                .Select(x => x.ToResponse())
-                .ToList();
-            return await AssignLocation_Details(entities, responses);
+            List<ListingResponse> responses = new();
+            using (Operation.Time("Time for Fetched All Listings with location & details from Database"))
+            {
+                var entities = await _listingRepo.GetAllAsync();
+
+                var response = entities
+                    .Select(x => x.ToResponse())
+                    .ToList();
+                responses = await AssignLocation_Details(entities, response);
+            }
+
+            return responses;
 
         }
 
@@ -94,16 +101,23 @@ namespace Arzly.Api.Application.Services
             if (string.IsNullOrWhiteSpace(searchBy) || string.IsNullOrWhiteSpace(searchString))
                 return new List<ListingResponse>();
             List<Listing> listings = new();
-            listings = searchBy switch
+            List<ListingResponse> responses = new();
+            using (Operation.Time("Time for Fetched filtered Listings with location & details from Database"))
             {
-                nameof(ListingResponse.Title) => await _listingRepo.GetFilteredListing(l => l.Title.Contains(searchString)),
-                //more cases to come
-                _ => await _listingRepo.GetAllAsync()
-            };
-            var response = listings
-                .Select(x => x.ToResponse())
-                .ToList();
-            return await AssignLocation_Details(listings, response);
+
+                listings = searchBy switch
+                {
+                    nameof(ListingResponse.Title) => await _listingRepo.GetFilteredListing(l => l.Title.Contains(searchString)),
+                    //more cases to come
+                    _ => await _listingRepo.GetAllAsync()
+                };
+                var response = listings
+                    .Select(x => x.ToResponse())
+                    .ToList();
+                responses = await AssignLocation_Details(listings, response);
+            }
+
+            return responses;
 
         }
 
@@ -112,28 +126,37 @@ namespace Arzly.Api.Application.Services
             if (string.IsNullOrWhiteSpace(userId))
                 throw new ArgumentNullException(ExceptionMessages.MissingFirebaseId);
 
-            await _userService
-                          .GetByFireBaseIdAsync(userId);
+            var user = await _userService
+                            .GetByFireBaseIdAsync(userId);
+            List<ListingResponse> responses = new();
+            using (Operation.Time("Time for Fetched Listings ByUserId with location & details from Database"))
+            {
+                var entities = await _listingRepo.GetListingByUserId(user.Id);
 
-            var entities = await _listingRepo.GetListingByUserId(userId);
+                var response = entities
+                    .Select(x => x.ToResponse())
+                    .ToList();
+                responses = await AssignLocation_Details(entities, response);
+            }
 
-            var responses = entities
-                .Select(x => x.ToResponse())
-                .ToList();
-
-            return await AssignLocation_Details(entities, responses);
+            return responses;
 
         }
 
         public async Task<List<ListingResponse>> GetIndexedListings(int pageSzie = 10, int currentPage = 0)
         {
-            var entities = await _listingRepo.GetIndexedListings(pageSzie, currentPage);
 
-            var responses = entities
-                .Select(x => x.ToResponse())
-                .ToList();
+            List<ListingResponse> responses = new();
+            using (Operation.Time("Time for Fetched indexed Listings with location & details from Database"))
+            {
+                var entities = await _listingRepo.GetIndexedListings(pageSzie, currentPage);
 
-            return await AssignLocation_Details(entities, responses);
+                var response = entities
+                    .Select(x => x.ToResponse())
+                    .ToList();
+                responses = await AssignLocation_Details(entities, response);
+            }
+            return responses;
         }
 
         #endregion

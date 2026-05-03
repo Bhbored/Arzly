@@ -17,7 +17,7 @@ namespace Arzly.Api.Infrastructure.Repositories
             _logger = logger;
         }
 
-        
+
         public override async Task<Listing?> GetByIdAsync(Guid id)
         {
             return await _db.Listings
@@ -34,7 +34,7 @@ namespace Arzly.Api.Infrastructure.Repositories
 
         public async Task<List<Listing>> GetFilteredListing(Expression<Func<Listing, bool>> predicate)
         {
-            _logger.LogInformation("GetFilteredListing in the Repo has been reached");
+            _logger.LogInformation($"{GetType().Name} - GetFilteredListing has been reached");
 
             return await _db.Listings
                 .Where(predicate)

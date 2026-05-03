@@ -6,8 +6,13 @@ namespace Arzly.Api.Infrastructure.Repositories
     public class ListingOwnedRepository : IListingOwnedRepository
     {
         private readonly AppDbContext _db;
+        private readonly ILogger<ListingOwnedRepository> _logger;
+        public ListingOwnedRepository(AppDbContext db, ILogger<ListingOwnedRepository> logger)
+        {
 
-        public ListingOwnedRepository(AppDbContext db) => _db = db;
+            _db = db;
+            _logger = logger;
+        }
 
         public async Task<object?> GetByListingId(Guid listingId)
         {
@@ -17,6 +22,7 @@ namespace Arzly.Api.Infrastructure.Repositories
 
         public async Task<Dictionary<Guid, object>> GetByListingIds(List<Guid> listingIds)
         {
+            _logger.LogInformation($"{GetType().Name} - GetByListingIds has been reached reached");
             var result = new Dictionary<Guid, object>();
 
             var vehicles = await _db.VehiclesDetails.AsNoTracking().Where(x => listingIds.Contains(x.ListingId)).ToListAsync();
@@ -51,6 +57,9 @@ namespace Arzly.Api.Infrastructure.Repositories
 
             var sports = await _db.SportsDetails.AsNoTracking().Where(x => listingIds.Contains(x.ListingId)).ToListAsync();
             foreach (var s in sports) result[s.ListingId] = s;
+
+
+
 
             return result;
         }
