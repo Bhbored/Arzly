@@ -8,10 +8,10 @@ namespace Arzly.Api.Application.Contracts
     {
         Task<List<ListingResponse>> GetListingByCategoryId(Guid? categoryId);
 
-        Task<List<ListingResponse>> GetFilteredListing(string searchBy, string searchString);
+        Task<List<ListingResponse>> GetFilteredListing(string searchBy, string searchString, int pageSize , int currentPage);
 
-        Task<List<ListingResponse>> GetListingByUserId(string? userId);
-        Task<List<ListingResponse>> GetIndexedListings(int pageSzie = 10, int currentPage=0);
+        Task<List<ListingResponse>> GetListingByUserId(string? userId, int pageSize , int currentPage );
+        Task<List<ListingResponse>> GetIndexedListings(int pageSzie , int currentPage);
 
 
     }

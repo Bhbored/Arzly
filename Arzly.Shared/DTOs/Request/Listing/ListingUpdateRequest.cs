@@ -1,6 +1,7 @@
 using Arzly.Shared.Enums.JobListing;
 using Arzly.Shared.Enums.Listing;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
 
 namespace Arzly.Shared.DTOs.Request.Listing
 {
@@ -47,7 +48,7 @@ namespace Arzly.Shared.DTOs.Request.Listing
         [Required(ErrorMessage = "Contact method is required.")]
         public ContactMethod ContactMethod { get; set; }
 
-        public object? ListingDetails { get; set; }
+        public JsonElement? ListingDetails { get; set; }
 
         //admin and support
         public ListingStatus? Status { get; set; }

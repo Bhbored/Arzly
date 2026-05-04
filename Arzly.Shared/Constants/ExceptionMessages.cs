@@ -13,5 +13,7 @@ namespace Arzly.Shared.Constants
         public static readonly string MissingFirebaseId = "FireBaseId wasn't provided";
         public static readonly string MissingId = "No ID Provided";
         public static readonly string NoObjectWithId = "No Object with this ID Found";
+        public static readonly string NoCategoryWithId = "No Category with this ID Found";
+        public static readonly string NoAttachedDetails = "No Attached Details Found in the Create Request";
     }
 }

@@ -3,6 +3,8 @@ using Arzly.Api.Domain.Contracts;
 using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Arzly.Api.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Arzly.Api.Application.Services
 {
@@ -18,7 +20,17 @@ namespace Arzly.Api.Application.Services
             services.AddScoped<DbContext>(sp => sp.GetRequiredService<AppDbContext>());
             return services;
         }
+        public static IServiceCollection RegisterJsonOptions(this IServiceCollection services)
+        {
+            var jsonOptions = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = null
+            };
+            jsonOptions.Converters.Add(new JsonStringEnumConverter());
 
+            services.AddSingleton(jsonOptions);
+            return services;
+        }
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IListingService, ListingService>();
@@ -70,6 +82,7 @@ namespace Arzly.Api.Application.Services
         public static IServiceCollection RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
         {
             return services.RegisterDataBase(configuration)
+                            .RegisterJsonOptions()
                            .RegisterServices()
                            .RegisterRepositories();
         }
