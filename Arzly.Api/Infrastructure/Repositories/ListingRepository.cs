@@ -71,6 +71,25 @@ namespace Arzly.Api.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<List<Listing>> GetListingByCategoryId(Guid categoryId, int pageSize, int currentPage)
+        {
+            return await _db.Listings
+                             .Where(x => x.CategoryId == categoryId)
+                             .Skip(currentPage * pageSize)
+                             .Take(pageSize)
+                             .Include(x => x.PickupLocation)
+                             .ToListAsync();
+        }
+
+        public async Task<List<Listing>> GetInitialListings(Guid categoryId)
+        {
+            return await _db.Listings
+                              .Where(x => x.CategoryId == categoryId)
+                              .OrderByDescending(x=>x.IsPromoted)
+                              .Take(5)
+                              .Include(x => x.PickupLocation)
+                              .ToListAsync();
+        }
 
         public async Task AddListingDetails(object details, Guid listingId)
         {

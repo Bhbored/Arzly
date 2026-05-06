@@ -8,6 +8,7 @@ using Arzly.Shared.DTOs.Request.Listing;
 using Arzly.Shared.DTOs.Response.Listing;
 using Azure.Core;
 using SerilogTimings;
+using System.Reflection;
 using System.Text.Json;
 
 namespace Arzly.Api.Application.Services
@@ -143,10 +144,21 @@ namespace Arzly.Api.Application.Services
             return await AssignOneLocation_Details_Page(entity, MapToDto(entity));
         }
 
-        public Task<List<ListingResponse>> GetListingByCategoryId(Guid? categoryId)
+        public async Task<List<ListingResponse>> GetListingByCategoryId(Guid categoryId, int pageSize, int currentPage)
         {
             _logger.LogInformation($"{GetType().Name} - GetListingByCategoryId Has been reached");
-            throw new NotImplementedException();
+            if (categoryId == Guid.Empty)
+            {
+                _logger.LogError($"{GetType().Name} - GetListingByCategoryId No id was provided  {nameof(categoryId)}");
+                throw new ArgumentNullException(ExceptionMessages.MissingId);
+            }
+            List<ListingResponse> responses = new();
+            var entities = await _listingRepo.GetListingByCategoryId(categoryId, pageSize, currentPage);
+            var response = entities
+                .Select(x => x.ToResponse())
+                .ToList();
+            responses = await AssignLocation_Details(entities, responses);
+            return responses;
         }
 
         public async Task<List<ListingResponse>> GetFilteredListing(string searchBy, string searchString, int pageSize, int currentPage)
@@ -220,6 +232,35 @@ namespace Arzly.Api.Application.Services
             return responses;
         }
 
+        public async Task<List<ListingResponse>> GetInitialListings(List<Guid> categoriesId)
+        {
+            _logger.LogInformation($"{GetType().Name} - GetInitialListings Has been reached");
+            if (!categoriesId.Any())
+            {
+                _logger.LogError($"{GetType().Name} - Empty categoryNames provided in GetInitialListings");
+                throw new ArgumentNullException(ExceptionMessages.MissingCategoriesId);
+            }
+            List<ListingResponse> responses = new();
+            List<Listing> entities = new();
+            using (Operation.Time("Time for Fetched initial Listings with location & details from Database"))
+            {
+
+                foreach (Guid categoryId in categoriesId)
+                {
+                    var items = await _listingRepo.GetInitialListings(categoryId);
+                    entities.AddRange(items);
+                }
+                var response = entities
+                    .Select(x => x.ToResponse())
+                    .ToList();
+                responses = await AssignLocation_Details(entities, response);
+            }
+
+            return responses;
+
+        }
+
+
         #endregion
 
 
@@ -267,10 +308,10 @@ namespace Arzly.Api.Application.Services
             if (createDto.ListingDetails.HasValue)
             {
                 Type detailType = await GetDetailTypeFromCategoryId(createDto.CategoryId);
-               
+
                 var details = createDto
                     .ListingDetails
-                    .Value.Deserialize(detailType,_jsonOptions);
+                    .Value.Deserialize(detailType, _jsonOptions);
                 await _listingRepo.AddListingDetails(details!, entity.Id);
             }
 
@@ -290,6 +331,7 @@ namespace Arzly.Api.Application.Services
             createDto.ToEntity();
 
         protected override Listing MapToEntity(ListingUpdateRequest updateDto) => updateDto.ToEntity();
+
 
 
 

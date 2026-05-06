@@ -32,7 +32,7 @@ namespace Arzly.Api.Controllers
             return Ok(result);
         }
         [HttpGet("indexed")]
-        public async Task<ActionResult<List<ListingResponse>>> IndexedListings([FromHeader] int pageSize=10, [FromHeader] int currentPage=0)
+        public async Task<ActionResult<List<ListingResponse>>> IndexedListings([FromHeader] int pageSize = 10, [FromHeader] int currentPage = 0)
         {
             _logger.LogInformation("{Controller}.GetByPage - Before",
                 GetType().Name);
@@ -46,7 +46,7 @@ namespace Arzly.Api.Controllers
 
         [HttpGet("search")]
         public async Task<ActionResult<List<ListingResponse>>> GetFilteredListing(string searchBy, string searchString,
-            [FromHeader] int pageSize=10, [FromHeader] int currentPage=0)
+            [FromHeader] int pageSize = 10, [FromHeader] int currentPage = 0)
         {
             _logger.LogInformation("{Controller}.GetAll - Before",
                 GetType().Name);
@@ -73,8 +73,8 @@ namespace Arzly.Api.Controllers
 
 
         [HttpGet("user-listings")]
-        public async Task<ActionResult<ListingResponse>> GetByUserId([FromHeader] string? firebaseId, [FromHeader] int pageSize=10,
-            [FromHeader] int currentPage=0)
+        public async Task<ActionResult<ListingResponse>> GetByUserId([FromHeader] string? firebaseId, [FromHeader] int pageSize = 10,
+            [FromHeader] int currentPage = 0)
         {
             _logger.LogInformation("{Controller}.GetByUserId({Id}) - Before",
                 GetType().Name, firebaseId);
@@ -85,7 +85,32 @@ namespace Arzly.Api.Controllers
                 GetType().Name, firebaseId);
             return Ok(result);
         }
+        [HttpGet("initial-listings")]
+        public async Task<ActionResult<ListingResponse>> GetInitialListings([FromBody] List<Guid> categoriesId) 
+        {
+            _logger.LogInformation("{Controller}.GetInitialListings() - Before",
+                GetType().Name);
 
+            var result = await _service.GetInitialListings(categoriesId);
+
+            _logger.LogInformation("{Controller}.GetInitialListings() - After",
+                GetType().Name);
+            return Ok(result);
+        }
+
+        [HttpGet("category-listing")]
+        public async Task<ActionResult<ListingResponse>> GetByCategoryId(Guid? CategoryId, [FromHeader] int pageSize = 10,
+            [FromHeader] int currentPage = 0)
+        {
+            _logger.LogInformation("{Controller}.GetByCategoryId({CategoryId}) - Before",
+                GetType().Name, CategoryId);
+
+            var result = await _service.GetListingByCategoryId(CategoryId.Value, pageSize, currentPage);
+
+            _logger.LogInformation("{Controller}.GetByCategoryId({CategoryId}) - After",
+                GetType().Name, CategoryId);
+            return Ok(result);
+        }
         #endregion
 
 
