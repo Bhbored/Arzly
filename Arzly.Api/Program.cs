@@ -1,12 +1,7 @@
 using Arzly.Api.Application.Services;
 using Arzly.Api.Filters.ExceptionFilters;
-using Arzly.Api.Helpers;
-using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Microsoft.AspNetCore.HttpLogging;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Serilog;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);

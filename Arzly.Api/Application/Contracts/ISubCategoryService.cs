@@ -6,5 +6,6 @@ namespace Arzly.Api.Application.Contracts
 {
     public interface ISubCategoryService : IBaseService<SubCategory, SubCategoryResponse, SubCategoryAddRequest, SubCategoryUpdateRequest, Guid>
     {
+        Task<List<SubCategoryResponse>> GetByCategoryIdAsync(Guid categoryId);
     }
 }

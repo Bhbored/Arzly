@@ -4,5 +4,6 @@ namespace Arzly.Api.Domain.Contracts
 {
     public interface ISubCategoryRepository : IBaseRepository<SubCategory, Guid>
     {
+        Task<List<SubCategory>> GetByCategoryIdAsync(Guid categoryId);
     }
 }

@@ -51,89 +51,89 @@ namespace Arzly.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("bfaa12ee-071b-494b-85bd-26fe82e006f1"),
+                            Id = new Guid("18dfe493-66a6-4ada-a9e4-05fae6b685b6"),
                             Description = "Cars, motorcycles, boats, trucks and accessories",
-                            ImageUrl = "/images/categories/vehicles.svg",
+                            ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/vehicles.png",
                             ItemsCount = 0,
                             Name = "Vehicles"
                         },
                         new
                         {
-                            Id = new Guid("81f01cf2-2a11-4d01-a52d-a09a762590ab"),
+                            Id = new Guid("bb8a13b3-8f9a-4ede-a792-d090e694eaa4"),
                             Description = "Apartments, villas, land and commercial properties",
-                            ImageUrl = "/images/categories/properties.svg",
+                            ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/real-estate.png",
                             ItemsCount = 0,
                             Name = "Real Estate"
                         },
                         new
                         {
-                            Id = new Guid("ed7496f6-e8fb-4f22-95a4-cc7859cdb9b0"),
+                            Id = new Guid("936fa3de-1369-44fd-8fca-a15aa46dc254"),
                             Description = "Smartphones, tablets, watches and accessories",
-                            ImageUrl = "/images/categories/mobiles.svg",
+                            ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/phones%26gadgets.png",
                             ItemsCount = 0,
                             Name = "Phones & Gadgets"
                         },
                         new
                         {
-                            Id = new Guid("0657ac01-221c-4b0c-bc1c-c4b8594c8dab"),
+                            Id = new Guid("8436c326-6f4e-4e08-b4e4-af61e8a7bf64"),
                             Description = "TVs, laptops, cameras, kitchen and home appliances",
-                            ImageUrl = "/images/categories/electronics.svg",
+                            ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/electronics%26appliances.png",
                             ItemsCount = 0,
                             Name = "Electronics & Appliances"
                         },
                         new
                         {
-                            Id = new Guid("e0c1634c-5984-471f-b31d-fcf8089b8c29"),
+                            Id = new Guid("ab062d4a-2e67-46c2-88c1-b53094b5a724"),
                             Description = "Home and office furniture, lighting, rugs and decor",
-                            ImageUrl = "/images/categories/furniture.svg",
+                            ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/furniture%26decor.png",
                             ItemsCount = 0,
                             Name = "Furniture & Decor"
                         },
                         new
                         {
-                            Id = new Guid("932b3b87-4f94-4a26-8735-8e3ae3563309"),
+                            Id = new Guid("a3dd50b3-f30a-4f25-9b21-9ba577e2ea1c"),
                             Description = "Dogs, cats, birds, fish and pet supplies",
-                            ImageUrl = "/images/categories/pets.svg",
+                            ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/pets.png",
                             ItemsCount = 0,
                             Name = "Pets"
                         },
                         new
                         {
-                            Id = new Guid("0b746ecc-f0db-4eed-850f-de1e32b080aa"),
+                            Id = new Guid("fb2fa159-cb23-4dea-b995-3ac1394f25bc"),
                             Description = "Toys, strollers, clothing and baby gear",
-                            ImageUrl = "/images/categories/kids.svg",
+                            ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/kids%26babies.png",
                             ItemsCount = 0,
                             Name = "Kids & Babies"
                         },
                         new
                         {
-                            Id = new Guid("db614ee0-a2b6-488f-92ca-e972a3930e4e"),
+                            Id = new Guid("c3e63217-b8df-4cdd-9141-55202aaeaddb"),
                             Description = "Gym equipment, bicycles, camping and fitness gear",
-                            ImageUrl = "/images/categories/sports.svg",
+                            ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/sports%26equipment.png",
                             ItemsCount = 0,
                             Name = "Sports & Equipment"
                         },
                         new
                         {
-                            Id = new Guid("87e3fe5a-8477-4e7d-a079-4f768232df1d"),
+                            Id = new Guid("031f53da-215e-4361-b068-f8b960515a21"),
                             Description = "Books, music, art, collectibles and musical instruments",
-                            ImageUrl = "/images/categories/hobbies.svg",
+                            ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/hobbies.png",
                             ItemsCount = 0,
                             Name = "Hobbies"
                         },
                         new
                         {
-                            Id = new Guid("afea5c7d-5d4c-40b1-b5f7-fa9f40212e62"),
+                            Id = new Guid("09c657b6-fd03-4c1c-af71-7dc61e773a7c"),
                             Description = "Clothing, shoes, bags, jewelry and cosmetics",
-                            ImageUrl = "/images/categories/fashion.svg",
+                            ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/fshion%26style.png",
                             ItemsCount = 0,
                             Name = "Fashion & Style"
                         },
                         new
                         {
-                            Id = new Guid("eda632a8-cf1c-4809-bd2a-900b0697bd32"),
+                            Id = new Guid("50cf00ba-c75b-486b-95a2-509adf8da948"),
                             Description = "Home repair, cleaning, tutoring, moving and more",
-                            ImageUrl = "/images/categories/services.svg",
+                            ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/services.png",
                             ItemsCount = 0,
                             Name = "Services"
                         });
@@ -250,9 +250,6 @@ namespace Arzly.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("BaseLocation")
                         .HasColumnType("int");
 
@@ -354,8 +351,6 @@ namespace Arzly.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
-
                     b.HasIndex("BaseLocation");
 
                     b.HasIndex("CreatedAt");
@@ -369,141 +364,6 @@ namespace Arzly.Api.Migrations
                     b.HasIndex("Status");
 
                     b.ToTable("JobListings");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000001"),
-                            BaseLocation = 23,
-                            ContactMethod = 0,
-                            CreatedAt = new DateTime(2026, 4, 22, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(2847),
-                            Description = "We are looking for an experienced software engineer to join our growing team. Must have 5+ years of experience with .NET and React. Remote-friendly with flexible hours.",
-                            EducationLevel = 3,
-                            Email = "john@example.com",
-                            EmploymentType = 0,
-                            ExperienceLevel = 2,
-                            ExpiresAt = new DateTime(2026, 5, 22, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(3075),
-                            IsDeleted = false,
-                            IsPromoted = true,
-                            JobField = 21,
-                            LocationTitle = "BintJbeilNabatieh",
-                            Name = "John Doe",
-                            OwnerId = "user-1-id",
-                            PhoneNumber = "+1-555-0201",
-                            PromotionEndDate = new DateTime(2026, 5, 11, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(4171),
-                            PromotionStartDate = new DateTime(2026, 4, 27, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(3940),
-                            PromotionType = 1,
-                            SalaryMax = 120000.0,
-                            SalaryMin = 90000.0,
-                            Status = 1,
-                            Title = " FiveToTenYears Software Engineer",
-                            Type = 0,
-                            WorkplaceType = 2
-                        },
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000002"),
-                            BaseLocation = 10,
-                            ContactMethod = 2,
-                            CreatedAt = new DateTime(2026, 4, 27, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(4839),
-                            Description = "Part-time customer service role for retail store. Evening and weekend shifts available. Great opportunity for students.",
-                            EducationLevel = 1,
-                            Email = "bhbored2022@gmail.com",
-                            EmploymentType = 1,
-                            ExperienceLevel = 0,
-                            ExpiresAt = new DateTime(2026, 5, 27, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(4840),
-                            IsDeleted = false,
-                            IsPromoted = false,
-                            JobField = 12,
-                            LocationTitle = "Tripoli",
-                            Name = "Bourhan Hassoun",
-                            OwnerId = "user-2-id",
-                            PhoneNumber = "+1-555-0202",
-                            SalaryMax = 22.0,
-                            SalaryMin = 18.0,
-                            Status = 1,
-                            Title = "Customer Service Representative",
-                            Type = 1,
-                            WorkplaceType = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000003"),
-                            BaseLocation = 23,
-                            ContactMethod = 1,
-                            CreatedAt = new DateTime(2026, 4, 17, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(4845),
-                            Description = "Dynamic marketing manager needed for fast-paced startup. Lead our digital marketing efforts, manage social media, and develop brand strategy.",
-                            EducationLevel = 3,
-                            Email = "john@example.com",
-                            EmploymentType = 0,
-                            ExperienceLevel = 1,
-                            ExpiresAt = new DateTime(2026, 5, 17, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(4846),
-                            IsDeleted = false,
-                            IsPromoted = false,
-                            JobField = 30,
-                            LocationTitle = "BintJbeilNabatieh",
-                            Name = "John Doe",
-                            OwnerId = "user-1-id",
-                            PhoneNumber = "+1-555-0203",
-                            SalaryMax = 90000.0,
-                            SalaryMin = 70000.0,
-                            Status = 1,
-                            Title = "Marketing Manager",
-                            Type = 1,
-                            WorkplaceType = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000004"),
-                            BaseLocation = 25,
-                            ContactMethod = 0,
-                            CreatedAt = new DateTime(2026, 4, 29, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(4850),
-                            Description = "Seeking talented graphic designer for ongoing project work. Must be proficient in Adobe Creative Suite. Portfolio required.",
-                            EducationLevel = 3,
-                            Email = "bhbored2022@gmail.com",
-                            EmploymentType = 2,
-                            ExperienceLevel = 0,
-                            ExpiresAt = new DateTime(2026, 5, 29, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(4851),
-                            IsDeleted = false,
-                            IsPromoted = false,
-                            JobField = 13,
-                            LocationTitle = "Hermel",
-                            Name = "Bourhan Hassoun",
-                            OwnerId = "user-2-id",
-                            PhoneNumber = "+1-555-0204",
-                            SalaryMax = 60.0,
-                            SalaryMin = 40.0,
-                            Status = 1,
-                            Title = "Freelance Graphic Designer",
-                            Type = 0,
-                            WorkplaceType = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000005"),
-                            BaseLocation = 17,
-                            ContactMethod = 2,
-                            CreatedAt = new DateTime(2026, 4, 12, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(4856),
-                            Description = "ICU nurse position at major hospital. Competitive salary, excellent benefits. Night shift differential included.",
-                            EducationLevel = 3,
-                            Email = "john@example.com",
-                            EmploymentType = 0,
-                            ExperienceLevel = 2,
-                            ExpiresAt = new DateTime(2026, 5, 12, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(4857),
-                            IsDeleted = false,
-                            IsPromoted = false,
-                            JobField = 18,
-                            LocationTitle = "Zahle",
-                            Name = "John Doe",
-                            OwnerId = "user-1-id",
-                            PhoneNumber = "+1-555-0205",
-                            SalaryMax = 105000.0,
-                            SalaryMin = 85000.0,
-                            Status = 0,
-                            Title = "Registered Nurse - ICU",
-                            Type = 0,
-                            WorkplaceType = 0
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Listing", b =>
@@ -603,349 +463,6 @@ namespace Arzly.Api.Migrations
                     b.HasIndex("SubcategoryId");
 
                     b.ToTable("Listings");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000001"),
-                            CategoryId = new Guid("bfaa12ee-071b-494b-85bd-26fe82e006f1"),
-                            ContactMethod = 1,
-                            CreatedAt = new DateTime(2026, 4, 17, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(7621),
-                            Description = "Well-maintained BMW 320i with full service history. Luxury package, navigation system, leather seats, and sunroof. Single owner, garage kept.",
-                            ImagesUrl = "[\"https://example.com/images/bmw-320i-2.jpg\",\"https://example.com/images/bmw-320i-3.jpg\"]",
-                            IsDeleted = false,
-                            IsPriceNegotiable = true,
-                            IsPromoted = false,
-                            Name = "John Doe",
-                            OwnerId = "user-1-id",
-                            PhoneNumber = "+1-555-0101",
-                            PickupLocationId = new Guid("b8b26fdd-1cb0-4779-b90a-f876db635902"),
-                            Price = 45000.0,
-                            PrimaryImageUrl = "https://example.com/images/bmw-320i-1.jpg",
-                            Status = 1,
-                            SubcategoryId = new Guid("63703d83-9cba-4453-90a0-8701dfefef3f"),
-                            Title = "BMW 320i Luxury Line 2022"
-                        },
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000002"),
-                            CategoryId = new Guid("bfaa12ee-071b-494b-85bd-26fe82e006f1"),
-                            ContactMethod = 1,
-                            CreatedAt = new DateTime(2026, 4, 25, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(7912),
-                            Description = "Clean Toyota Camry, perfect for daily commute. Fuel-efficient, reliable, and spacious. Recent oil change and tire rotation.",
-                            ImagesUrl = "[\"https://example.com/images/toyota-camry-2.jpg\"]",
-                            IsDeleted = false,
-                            IsPriceNegotiable = false,
-                            IsPromoted = false,
-                            Name = "Bourhan Hassoun",
-                            OwnerId = "user-2-id",
-                            PhoneNumber = "+1-555-0102",
-                            PickupLocationId = new Guid("86d81967-56e8-465e-a60c-ffcc2567d41e"),
-                            Price = 28000.0,
-                            PrimaryImageUrl = "https://example.com/images/toyota-camry-1.jpg",
-                            Status = 1,
-                            SubcategoryId = new Guid("63703d83-9cba-4453-90a0-8701dfefef3f"),
-                            Title = "Toyota Camry 2020 - Excellent Condition"
-                        },
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000003"),
-                            CategoryId = new Guid("81f01cf2-2a11-4d01-a52d-a09a762590ab"),
-                            ContactMethod = 1,
-                            CreatedAt = new DateTime(2026, 4, 29, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(7919),
-                            Description = "Stunning 2-bedroom apartment with city views. Fully equipped kitchen, in-unit laundry, gym and pool in building. Close to subway.",
-                            ImagesUrl = "[\"https://example.com/images/apt-manhattan-2.jpg\",\"https://example.com/images/apt-manhattan-3.jpg\",\"https://example.com/images/apt-manhattan-4.jpg\"]",
-                            IsDeleted = false,
-                            IsPriceNegotiable = true,
-                            IsPromoted = false,
-                            Name = "John Doe",
-                            OwnerId = "user-1-id",
-                            PhoneNumber = "+1-555-0103",
-                            PickupLocationId = new Guid("b8b26fdd-1cb0-4779-b90a-f876db635902"),
-                            Price = 4500.0,
-                            PrimaryImageUrl = "https://example.com/images/apt-manhattan-1.jpg",
-                            Status = 1,
-                            SubcategoryId = new Guid("50caf411-d4ec-4ecf-83d6-6156351af7b6"),
-                            Title = "Modern 2BR Apartment in Manhattan"
-                        },
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000004"),
-                            CategoryId = new Guid("0657ac01-221c-4b0c-bc1c-c4b8594c8dab"),
-                            ContactMethod = 0,
-                            CreatedAt = new DateTime(2026, 5, 1, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(7924),
-                            Description = "Like-new MacBook Pro with M2 Max chip, 32GB RAM, 1TB SSD. Perfect for professionals. AppleCare+ until 2026.",
-                            ImagesUrl = "[\"https://example.com/images/macbook-pro-2.jpg\"]",
-                            IsDeleted = false,
-                            IsPriceNegotiable = false,
-                            IsPromoted = true,
-                            Name = "Bourhan Hassoun",
-                            OwnerId = "user-2-id",
-                            PhoneNumber = "+1-555-0104",
-                            PickupLocationId = new Guid("86d81967-56e8-465e-a60c-ffcc2567d41e"),
-                            Price = 2800.0,
-                            PrimaryImageUrl = "https://example.com/images/macbook-pro-1.jpg",
-                            PromotionEndDate = new DateTime(2026, 5, 8, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(8948),
-                            PromotionStartDate = new DateTime(2026, 5, 1, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(8668),
-                            PromotionType = 0,
-                            Status = 1,
-                            SubcategoryId = new Guid("07408a95-2014-44cd-8ec9-b89ee8a0714d"),
-                            Title = "MacBook Pro 16\" M2 Max 2023"
-                        },
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000005"),
-                            CategoryId = new Guid("e0c1634c-5984-471f-b31d-fcf8089b8c29"),
-                            ContactMethod = 0,
-                            CreatedAt = new DateTime(2026, 4, 27, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(9210),
-                            Description = "Comfortable L-shaped sectional sofa in excellent condition. Pet-free, smoke-free home. Easy to clean fabric.",
-                            ImagesUrl = "[\"https://example.com/images/sofa-gray-2.jpg\"]",
-                            IsDeleted = false,
-                            IsPriceNegotiable = true,
-                            IsPromoted = false,
-                            Name = "John Doe",
-                            OwnerId = "user-1-id",
-                            PhoneNumber = "+1-555-0105",
-                            PickupLocationId = new Guid("8dd0d435-c177-44d4-a2bd-9ede09ca6a8d"),
-                            Price = 650.0,
-                            PrimaryImageUrl = "https://example.com/images/sofa-gray-1.jpg",
-                            Status = 1,
-                            SubcategoryId = new Guid("59d10393-db50-4378-8db0-4936f11a4000"),
-                            Title = "IKEA Sectional Sofa - Gray"
-                        },
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000006"),
-                            CategoryId = new Guid("ed7496f6-e8fb-4f22-95a4-cc7859cdb9b0"),
-                            ContactMethod = 1,
-                            CreatedAt = new DateTime(2026, 4, 12, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(9223),
-                            DeletedAt = new DateTime(2026, 4, 22, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(9473),
-                            Description = "Brand new iPhone 15 Pro Max, unopened box. 256GB storage in Titanium Blue. Full Apple warranty.",
-                            ImagesUrl = "[\"https://example.com/images/iphone-15-pro-2.jpg\"]",
-                            IsDeleted = false,
-                            IsPriceNegotiable = false,
-                            IsPromoted = false,
-                            Name = "Bourhan Hassoun",
-                            OwnerId = "user-2-id",
-                            PhoneNumber = "+1-555-0106",
-                            PickupLocationId = new Guid("82c12b32-b4e8-4f29-8f2f-f699d95242f6"),
-                            Price = 1200.0,
-                            PrimaryImageUrl = "https://example.com/images/iphone-15-pro-1.jpg",
-                            Status = 2,
-                            SubcategoryId = new Guid("f4edc02a-2296-4017-a6f2-9d617ecf8c19"),
-                            Title = "iPhone 15 Pro Max 256GB - Titanium Blue",
-                            UpdatedAt = new DateTime(2026, 4, 22, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(9223)
-                        },
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000007"),
-                            CategoryId = new Guid("eda632a8-cf1c-4809-bd2a-900b0697bd32"),
-                            ContactMethod = 0,
-                            CreatedAt = new DateTime(2026, 4, 2, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(9726),
-                            Description = "Licensed plumber with 15+ years experience. Emergency services available. Free estimates for all jobs.",
-                            ImagesUrl = "[]",
-                            IsDeleted = false,
-                            IsPriceNegotiable = true,
-                            IsPromoted = false,
-                            Name = "John Doe",
-                            OwnerId = "user-1-id",
-                            PhoneNumber = "+1-555-0107",
-                            PickupLocationId = new Guid("b8b26fdd-1cb0-4779-b90a-f876db635902"),
-                            Price = 0.0,
-                            PrimaryImageUrl = "https://example.com/images/plumbing-service-1.jpg",
-                            Status = 1,
-                            SubcategoryId = new Guid("292b14e0-f7ba-47ae-bf3b-c4d55d3e1975"),
-                            Title = "Professional Plumbing Services"
-                        },
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000008"),
-                            CategoryId = new Guid("932b3b87-4f94-4a26-8735-8e3ae3563309"),
-                            ContactMethod = 0,
-                            CreatedAt = new DateTime(2026, 4, 30, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(9734),
-                            Description = "Adorable Golden Retriever puppies looking for loving homes. Vaccinated, microchipped, and health checked. Parents on premises.",
-                            ImagesUrl = "[\"https://example.com/images/golden-retriever-2.jpg\",\"https://example.com/images/golden-retriever-3.jpg\"]",
-                            IsDeleted = false,
-                            IsPriceNegotiable = false,
-                            IsPromoted = false,
-                            Name = "Bourhan Hassoun",
-                            OwnerId = "user-2-id",
-                            PhoneNumber = "+1-555-0108",
-                            PickupLocationId = new Guid("86d81967-56e8-465e-a60c-ffcc2567d41e"),
-                            Price = 1500.0,
-                            PrimaryImageUrl = "https://example.com/images/golden-retriever-1.jpg",
-                            Status = 1,
-                            SubcategoryId = new Guid("3da8d1a9-9e77-4b05-826b-418a6014ab28"),
-                            Title = "Golden Retriever Puppies"
-                        },
-                        new
-                        {
-                            Id = new Guid("10000000-0000-0000-0000-000000000001"),
-                            CategoryId = new Guid("afea5c7d-5d4c-40b1-b5f7-fa9f40212e62"),
-                            ContactMethod = 1,
-                            CreatedAt = new DateTime(2026, 4, 28, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(9739),
-                            Description = "Premium cotton oxford dress shirt, slim fit. Perfect for office or formal occasions. Never worn, tags attached.",
-                            ImagesUrl = "[\"https://example.com/images/oxford-shirt-2.jpg\"]",
-                            IsDeleted = false,
-                            IsPriceNegotiable = true,
-                            IsPromoted = false,
-                            Name = "John Doe",
-                            OwnerId = "user-1-id",
-                            PhoneNumber = "+1-555-0109",
-                            PickupLocationId = new Guid("b8b26fdd-1cb0-4779-b90a-f876db635902"),
-                            Price = 45.0,
-                            PrimaryImageUrl = "https://example.com/images/oxford-shirt-1.jpg",
-                            Status = 1,
-                            SubcategoryId = new Guid("704a6c17-0a15-4950-b168-ffbee1587e9d"),
-                            Title = "Classic Oxford Dress Shirt - Navy"
-                        },
-                        new
-                        {
-                            Id = new Guid("10000000-0000-0000-0000-000000000002"),
-                            CategoryId = new Guid("afea5c7d-5d4c-40b1-b5f7-fa9f40212e62"),
-                            ContactMethod = 1,
-                            CreatedAt = new DateTime(2026, 4, 26, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(9745),
-                            Description = "Beautiful floral print summer dress, worn once for a photoshoot. Excellent condition, dry cleaned.",
-                            ImagesUrl = "[\"https://example.com/images/floral-dress-2.jpg\",\"https://example.com/images/floral-dress-3.jpg\"]",
-                            IsDeleted = false,
-                            IsPriceNegotiable = false,
-                            IsPromoted = false,
-                            Name = "Bourhan Hassoun",
-                            OwnerId = "user-2-id",
-                            PhoneNumber = "+1-555-0110",
-                            PickupLocationId = new Guid("8dd0d435-c177-44d4-a2bd-9ede09ca6a8d"),
-                            Price = 65.0,
-                            PrimaryImageUrl = "https://example.com/images/floral-dress-1.jpg",
-                            Status = 1,
-                            SubcategoryId = new Guid("5ba3fdc4-c37d-4cb7-92d3-d19e2c2ce8bf"),
-                            Title = "Floral Summer Dress - Size M"
-                        },
-                        new
-                        {
-                            Id = new Guid("10000000-0000-0000-0000-000000000003"),
-                            CategoryId = new Guid("0b746ecc-f0db-4eed-850f-de1e32b080aa"),
-                            ContactMethod = 0,
-                            CreatedAt = new DateTime(2026, 4, 24, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(9750),
-                            Description = "Complete newborn gift set with onesies, blankets, and bibs. Brand new, unopened. Gender neutral colors.",
-                            ImagesUrl = "[\"https://example.com/images/baby-gift-set-2.jpg\"]",
-                            IsDeleted = false,
-                            IsPriceNegotiable = true,
-                            IsPromoted = false,
-                            Name = "John Doe",
-                            OwnerId = "user-1-id",
-                            PhoneNumber = "+1-555-0111",
-                            PickupLocationId = new Guid("86d81967-56e8-465e-a60c-ffcc2567d41e"),
-                            Price = 35.0,
-                            PrimaryImageUrl = "https://example.com/images/baby-gift-set-1.jpg",
-                            Status = 1,
-                            SubcategoryId = new Guid("8c3720d9-be2d-468c-8a5f-ceb50028ff47"),
-                            Title = "Baby Gift Set - Newborn Essentials"
-                        },
-                        new
-                        {
-                            Id = new Guid("10000000-0000-0000-0000-000000000004"),
-                            CategoryId = new Guid("0b746ecc-f0db-4eed-850f-de1e32b080aa"),
-                            ContactMethod = 1,
-                            CreatedAt = new DateTime(2026, 4, 29, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(9755),
-                            Description = "Lightweight foldable stroller, perfect for travel. Used for 6 months, in great condition. Includes rain cover.",
-                            ImagesUrl = "[\"https://example.com/images/yoyo-stroller-2.jpg\",\"https://example.com/images/yoyo-stroller-3.jpg\"]",
-                            IsDeleted = false,
-                            IsPriceNegotiable = true,
-                            IsPromoted = false,
-                            Name = "Bourhan Hassoun",
-                            OwnerId = "user-2-id",
-                            PhoneNumber = "+1-555-0112",
-                            PickupLocationId = new Guid("82c12b32-b4e8-4f29-8f2f-f699d95242f6"),
-                            Price = 350.0,
-                            PrimaryImageUrl = "https://example.com/images/yoyo-stroller-1.jpg",
-                            Status = 1,
-                            SubcategoryId = new Guid("b1b95f5f-7e0b-4535-a86c-defdbc95fc59"),
-                            Title = "Babyzen YOYO2 Compact Stroller"
-                        },
-                        new
-                        {
-                            Id = new Guid("10000000-0000-0000-0000-000000000005"),
-                            CategoryId = new Guid("87e3fe5a-8477-4e7d-a079-4f768232df1d"),
-                            ContactMethod = 0,
-                            CreatedAt = new DateTime(2026, 4, 20, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(9760),
-                            Description = "Collection of 25 vintage silver coins from various countries, 1800s-1900s. Includes display case and certificates.",
-                            ImagesUrl = "[\"https://example.com/images/coin-collection-2.jpg\"]",
-                            IsDeleted = false,
-                            IsPriceNegotiable = false,
-                            IsPromoted = false,
-                            Name = "John Doe",
-                            OwnerId = "user-1-id",
-                            PhoneNumber = "+1-555-0113",
-                            PickupLocationId = new Guid("b8b26fdd-1cb0-4779-b90a-f876db635902"),
-                            Price = 800.0,
-                            PrimaryImageUrl = "https://example.com/images/coin-collection-1.jpg",
-                            Status = 1,
-                            SubcategoryId = new Guid("41f1d8bf-084d-4a4a-b66f-2a3ba795d833"),
-                            Title = "Vintage Silver Coin Collection"
-                        },
-                        new
-                        {
-                            Id = new Guid("10000000-0000-0000-0000-000000000006"),
-                            CategoryId = new Guid("87e3fe5a-8477-4e7d-a079-4f768232df1d"),
-                            ContactMethod = 1,
-                            CreatedAt = new DateTime(2026, 4, 23, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(9804),
-                            Description = "Fender CD-60S dreadnought acoustic guitar. Solid spruce top, walnut fingerboard. Comes with gig bag and tuner.",
-                            ImagesUrl = "[\"https://example.com/images/fender-guitar-2.jpg\",\"https://example.com/images/fender-guitar-3.jpg\"]",
-                            IsDeleted = false,
-                            IsPriceNegotiable = true,
-                            IsPromoted = false,
-                            Name = "Bourhan Hassoun",
-                            OwnerId = "user-2-id",
-                            PhoneNumber = "+1-555-0114",
-                            PickupLocationId = new Guid("8dd0d435-c177-44d4-a2bd-9ede09ca6a8d"),
-                            Price = 180.0,
-                            PrimaryImageUrl = "https://example.com/images/fender-guitar-1.jpg",
-                            Status = 1,
-                            SubcategoryId = new Guid("ffbc39d3-c175-4540-aa04-33fd26634182"),
-                            Title = "Fender Acoustic Guitar - Sunburst"
-                        },
-                        new
-                        {
-                            Id = new Guid("10000000-0000-0000-0000-000000000007"),
-                            CategoryId = new Guid("db614ee0-a2b6-488f-92ca-e972a3930e4e"),
-                            ContactMethod = 0,
-                            CreatedAt = new DateTime(2026, 4, 27, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(9809),
-                            Description = "Trek Marlin 7 hardtail mountain bike, 29er wheels. Hydraulic disc brakes, 1x10 drivetrain. Excellent trail condition.",
-                            ImagesUrl = "[\"https://example.com/images/trek-marlin-2.jpg\"]",
-                            IsDeleted = false,
-                            IsPriceNegotiable = true,
-                            IsPromoted = false,
-                            Name = "John Doe",
-                            OwnerId = "user-1-id",
-                            PhoneNumber = "+1-555-0115",
-                            PickupLocationId = new Guid("86d81967-56e8-465e-a60c-ffcc2567d41e"),
-                            Price = 950.0,
-                            PrimaryImageUrl = "https://example.com/images/trek-marlin-1.jpg",
-                            Status = 1,
-                            SubcategoryId = new Guid("eb0eb5a4-cd2b-4deb-8156-10a28effebda"),
-                            Title = "Trek Marlin 7 Mountain Bike 2023"
-                        },
-                        new
-                        {
-                            Id = new Guid("10000000-0000-0000-0000-000000000008"),
-                            CategoryId = new Guid("db614ee0-a2b6-488f-92ca-e972a3930e4e"),
-                            ContactMethod = 1,
-                            CreatedAt = new DateTime(2026, 4, 30, 18, 4, 42, 51, DateTimeKind.Utc).AddTicks(9814),
-                            Description = "Bowflex SelectTech adjustable dumbbells, pair. Replaces 15 sets of weights. Like new, barely used.",
-                            ImagesUrl = "[\"https://example.com/images/dumbbells-2.jpg\"]",
-                            IsDeleted = false,
-                            IsPriceNegotiable = false,
-                            IsPromoted = false,
-                            Name = "Bourhan Hassoun",
-                            OwnerId = "user-2-id",
-                            PhoneNumber = "+1-555-0116",
-                            PickupLocationId = new Guid("82c12b32-b4e8-4f29-8f2f-f699d95242f6"),
-                            Price = 300.0,
-                            PrimaryImageUrl = "https://example.com/images/dumbbells-1.jpg",
-                            Status = 1,
-                            SubcategoryId = new Guid("a563398d-019a-432e-a422-b3d74b9805b1"),
-                            Title = "Adjustable Dumbbell Set 5-52.5 lbs"
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.PickupLocation", b =>
@@ -990,55 +507,6 @@ namespace Arzly.Api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("PickupLocations");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("b8b26fdd-1cb0-4779-b90a-f876db635902"),
-                            Address = "123 Main Street, New York, NY 10001",
-                            IsDefault = true,
-                            IsDeleted = false,
-                            Label = 0,
-                            Lat = 40.712800000000001,
-                            Lon = -74.006,
-                            Notes = "Ring the doorbell twice",
-                            UserId = "user-1-id"
-                        },
-                        new
-                        {
-                            Id = new Guid("8dd0d435-c177-44d4-a2bd-9ede09ca6a8d"),
-                            Address = "456 Business Ave, New York, NY 10002",
-                            IsDefault = false,
-                            IsDeleted = false,
-                            Label = 1,
-                            Lat = 40.758000000000003,
-                            Lon = -73.985500000000002,
-                            Notes = "Call before arriving",
-                            UserId = "user-1-id"
-                        },
-                        new
-                        {
-                            Id = new Guid("86d81967-56e8-465e-a60c-ffcc2567d41e"),
-                            Address = "789 Park Lane, Brooklyn, NY 11201",
-                            IsDefault = true,
-                            IsDeleted = false,
-                            Label = 0,
-                            Lat = 40.678199999999997,
-                            Lon = -73.944199999999995,
-                            UserId = "user-2-id"
-                        },
-                        new
-                        {
-                            Id = new Guid("82c12b32-b4e8-4f29-8f2f-f699d95242f6"),
-                            Address = "321 Shopping Mall, Queens, NY 11354",
-                            IsDefault = false,
-                            IsDeleted = false,
-                            Label = 2,
-                            Lat = 40.728200000000001,
-                            Lon = -73.794899999999998,
-                            Notes = "Near the food court entrance",
-                            UserId = "user-2-id"
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.SavedListing", b =>
@@ -1068,37 +536,6 @@ namespace Arzly.Api.Migrations
                         .IsUnique();
 
                     b.ToTable("SavedListings");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000001"),
-                            ListingId = new Guid("00000000-0000-0000-0000-000000000004"),
-                            SavedAt = new DateTime(2026, 4, 30, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(8437),
-                            UserId = "user-1-id"
-                        },
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000002"),
-                            ListingId = new Guid("00000000-0000-0000-0000-000000000008"),
-                            SavedAt = new DateTime(2026, 5, 1, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(8687),
-                            UserId = "user-1-id"
-                        },
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000003"),
-                            ListingId = new Guid("00000000-0000-0000-0000-000000000001"),
-                            SavedAt = new DateTime(2026, 4, 27, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(8690),
-                            UserId = "user-2-id"
-                        },
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000004"),
-                            DeletedAt = new DateTime(2026, 5, 1, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(8693),
-                            ListingId = new Guid("00000000-0000-0000-0000-000000000003"),
-                            SavedAt = new DateTime(2026, 4, 29, 18, 4, 42, 53, DateTimeKind.Utc).AddTicks(8693),
-                            UserId = "user-2-id"
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.SearchQuery", b =>
@@ -1126,43 +563,6 @@ namespace Arzly.Api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("SearchQueries");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("24995ad7-db33-4f5a-b4c3-b902d2a6a588"),
-                            Query = "BMW cars for sale",
-                            SearchedAt = new DateTime(2026, 4, 27, 18, 4, 42, 54, DateTimeKind.Utc).AddTicks(2075),
-                            UserId = "user-1-id"
-                        },
-                        new
-                        {
-                            Id = new Guid("225a23a5-3fa6-473f-934c-960dcbca4cdb"),
-                            Query = "apartment for rent in Brooklyn",
-                            SearchedAt = new DateTime(2026, 4, 29, 18, 4, 42, 54, DateTimeKind.Utc).AddTicks(2318),
-                            UserId = "user-1-id"
-                        },
-                        new
-                        {
-                            Id = new Guid("d75c508e-c94b-43dc-bef6-88c94537850a"),
-                            Query = "iPhone 15 Pro Max",
-                            SearchedAt = new DateTime(2026, 5, 1, 18, 4, 42, 54, DateTimeKind.Utc).AddTicks(2325),
-                            UserId = "user-1-id"
-                        },
-                        new
-                        {
-                            Id = new Guid("c3846245-61e6-46b8-9f24-a5eee88eefc7"),
-                            Query = "gaming laptop",
-                            SearchedAt = new DateTime(2026, 4, 25, 18, 4, 42, 54, DateTimeKind.Utc).AddTicks(2327),
-                            UserId = "user-2-id"
-                        },
-                        new
-                        {
-                            Id = new Guid("4bc31fbe-e557-44d9-8bc8-428520ab7e2f"),
-                            Query = "sofa set",
-                            SearchedAt = new DateTime(2026, 4, 30, 18, 4, 42, 54, DateTimeKind.Utc).AddTicks(2329),
-                            UserId = "user-2-id"
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.SubCategory", b =>
@@ -1195,610 +595,610 @@ namespace Arzly.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("63703d83-9cba-4453-90a0-8701dfefef3f"),
-                            CategoryId = new Guid("bfaa12ee-071b-494b-85bd-26fe82e006f1"),
+                            Id = new Guid("f11d4846-b486-4edc-b4ba-83cb4be90d05"),
+                            CategoryId = new Guid("18dfe493-66a6-4ada-a9e4-05fae6b685b6"),
                             ItemsCount = 0,
                             Name = "Cars For Sale"
                         },
                         new
                         {
-                            Id = new Guid("416813c1-d16f-45a0-98b3-296c87467fa0"),
-                            CategoryId = new Guid("bfaa12ee-071b-494b-85bd-26fe82e006f1"),
+                            Id = new Guid("790e2b65-d1fc-48b5-a2e6-3d49691b3461"),
+                            CategoryId = new Guid("18dfe493-66a6-4ada-a9e4-05fae6b685b6"),
                             ItemsCount = 0,
                             Name = "Vehicle Accessories"
                         },
                         new
                         {
-                            Id = new Guid("f572f69e-87d0-4c19-a526-ad32ca536c40"),
-                            CategoryId = new Guid("bfaa12ee-071b-494b-85bd-26fe82e006f1"),
+                            Id = new Guid("55c873be-0627-4baf-bae4-2fcf41c40f4a"),
+                            CategoryId = new Guid("18dfe493-66a6-4ada-a9e4-05fae6b685b6"),
                             ItemsCount = 0,
                             Name = "Vehicle Spare Parts"
                         },
                         new
                         {
-                            Id = new Guid("fc4802c0-d04c-4319-8aeb-d4eb10e6201b"),
-                            CategoryId = new Guid("bfaa12ee-071b-494b-85bd-26fe82e006f1"),
+                            Id = new Guid("12a6d04a-c8f6-4759-a3d6-319ede14fd01"),
+                            CategoryId = new Guid("18dfe493-66a6-4ada-a9e4-05fae6b685b6"),
                             ItemsCount = 0,
                             Name = "Number Plates"
                         },
                         new
                         {
-                            Id = new Guid("f28319bf-b738-4f9e-a046-abad86e209a2"),
-                            CategoryId = new Guid("bfaa12ee-071b-494b-85bd-26fe82e006f1"),
+                            Id = new Guid("7f9d79b8-1dd2-4f44-84a9-c57c34928655"),
+                            CategoryId = new Guid("18dfe493-66a6-4ada-a9e4-05fae6b685b6"),
                             ItemsCount = 0,
                             Name = "Motorcycles & ATV's"
                         },
                         new
                         {
-                            Id = new Guid("65b9904a-a829-46ab-9ae9-0a4fbfc32b97"),
-                            CategoryId = new Guid("bfaa12ee-071b-494b-85bd-26fe82e006f1"),
+                            Id = new Guid("44fa270a-a0e2-4d41-bea5-efc9f60d05f0"),
+                            CategoryId = new Guid("18dfe493-66a6-4ada-a9e4-05fae6b685b6"),
                             ItemsCount = 0,
                             Name = "Trucks & Buses"
                         },
                         new
                         {
-                            Id = new Guid("c607c7de-a20f-4fb1-aeb8-6dee9224c327"),
-                            CategoryId = new Guid("bfaa12ee-071b-494b-85bd-26fe82e006f1"),
+                            Id = new Guid("ecbaec45-4943-4a7e-b8fe-b751cd463fae"),
+                            CategoryId = new Guid("18dfe493-66a6-4ada-a9e4-05fae6b685b6"),
                             ItemsCount = 0,
                             Name = "Boats"
                         },
                         new
                         {
-                            Id = new Guid("50caf411-d4ec-4ecf-83d6-6156351af7b6"),
-                            CategoryId = new Guid("81f01cf2-2a11-4d01-a52d-a09a762590ab"),
+                            Id = new Guid("40cad012-65fd-46b9-9213-1a5874e20078"),
+                            CategoryId = new Guid("bb8a13b3-8f9a-4ede-a792-d090e694eaa4"),
                             ItemsCount = 0,
                             Name = "Houses For Sale"
                         },
                         new
                         {
-                            Id = new Guid("14dcea6c-75bf-4c47-9200-1409f8cb922a"),
-                            CategoryId = new Guid("81f01cf2-2a11-4d01-a52d-a09a762590ab"),
+                            Id = new Guid("134cf286-4217-4cbf-bd12-7a8813c69b61"),
+                            CategoryId = new Guid("bb8a13b3-8f9a-4ede-a792-d090e694eaa4"),
                             ItemsCount = 0,
                             Name = "Houses For Rent"
                         },
                         new
                         {
-                            Id = new Guid("eb64abf2-3999-4da5-b678-433ecebacdb2"),
-                            CategoryId = new Guid("81f01cf2-2a11-4d01-a52d-a09a762590ab"),
+                            Id = new Guid("314b0210-2ef4-45bd-a1bf-77a486ec2c56"),
+                            CategoryId = new Guid("bb8a13b3-8f9a-4ede-a792-d090e694eaa4"),
                             ItemsCount = 0,
                             Name = "Commercials For Sale"
                         },
                         new
                         {
-                            Id = new Guid("ab4b9f6f-24f5-4f6a-92b5-d9fec3180f9a"),
-                            CategoryId = new Guid("81f01cf2-2a11-4d01-a52d-a09a762590ab"),
+                            Id = new Guid("97f066b2-94d8-4af2-9ac8-794eec89a8f7"),
+                            CategoryId = new Guid("bb8a13b3-8f9a-4ede-a792-d090e694eaa4"),
                             ItemsCount = 0,
                             Name = "Commercials For Rent"
                         },
                         new
                         {
-                            Id = new Guid("4d13d1fd-5f36-433e-84e7-bc22ada36d46"),
-                            CategoryId = new Guid("81f01cf2-2a11-4d01-a52d-a09a762590ab"),
+                            Id = new Guid("a58ddd8f-bdfa-46ed-9a73-7e707b520d76"),
+                            CategoryId = new Guid("bb8a13b3-8f9a-4ede-a792-d090e694eaa4"),
                             ItemsCount = 0,
                             Name = "Land For Sale"
                         },
                         new
                         {
-                            Id = new Guid("4579e0c9-408d-4f2c-9556-320c7b0cd01c"),
-                            CategoryId = new Guid("81f01cf2-2a11-4d01-a52d-a09a762590ab"),
+                            Id = new Guid("d6125b0b-b2f4-4395-bd1c-62b9d430fc0c"),
+                            CategoryId = new Guid("bb8a13b3-8f9a-4ede-a792-d090e694eaa4"),
                             ItemsCount = 0,
                             Name = "Land For Rent"
                         },
                         new
                         {
-                            Id = new Guid("e4198007-e7e0-4776-ac64-abde1d4bf08e"),
-                            CategoryId = new Guid("81f01cf2-2a11-4d01-a52d-a09a762590ab"),
+                            Id = new Guid("5f4c75d0-8559-43ce-a892-1dd242f08eee"),
+                            CategoryId = new Guid("bb8a13b3-8f9a-4ede-a792-d090e694eaa4"),
                             ItemsCount = 0,
                             Name = "Chalets & Cabins For Sale"
                         },
                         new
                         {
-                            Id = new Guid("9658216f-01fe-44ee-8fac-a43a24757875"),
-                            CategoryId = new Guid("81f01cf2-2a11-4d01-a52d-a09a762590ab"),
+                            Id = new Guid("d1a2f171-9c22-4bf0-9756-a2cd3429dda8"),
+                            CategoryId = new Guid("bb8a13b3-8f9a-4ede-a792-d090e694eaa4"),
                             ItemsCount = 0,
                             Name = "Chalets & Cabins For Rent"
                         },
                         new
                         {
-                            Id = new Guid("5755f8b8-2596-47b6-9208-3eecdd184e43"),
-                            CategoryId = new Guid("81f01cf2-2a11-4d01-a52d-a09a762590ab"),
+                            Id = new Guid("2fae8e1e-dbac-4364-a47a-04255c3d4630"),
+                            CategoryId = new Guid("bb8a13b3-8f9a-4ede-a792-d090e694eaa4"),
                             ItemsCount = 0,
                             Name = "Rooms For Rent"
                         },
                         new
                         {
-                            Id = new Guid("f4edc02a-2296-4017-a6f2-9d617ecf8c19"),
-                            CategoryId = new Guid("ed7496f6-e8fb-4f22-95a4-cc7859cdb9b0"),
+                            Id = new Guid("2161b541-1769-4d47-b3ad-db44d5f97509"),
+                            CategoryId = new Guid("936fa3de-1369-44fd-8fca-a15aa46dc254"),
                             ItemsCount = 0,
                             Name = "Mobile Phones"
                         },
                         new
                         {
-                            Id = new Guid("e46010cd-b3f1-48f0-a9b7-dcc984f9bb3d"),
-                            CategoryId = new Guid("ed7496f6-e8fb-4f22-95a4-cc7859cdb9b0"),
+                            Id = new Guid("e6f074e5-e064-42a5-9a01-e92238082002"),
+                            CategoryId = new Guid("936fa3de-1369-44fd-8fca-a15aa46dc254"),
                             ItemsCount = 0,
                             Name = "Mobile Accessories"
                         },
                         new
                         {
-                            Id = new Guid("9ae180a7-45bb-4899-ae47-ac0ec9f829f9"),
-                            CategoryId = new Guid("ed7496f6-e8fb-4f22-95a4-cc7859cdb9b0"),
+                            Id = new Guid("1f2ac968-e79c-40e7-8b4d-a806035ee9c7"),
+                            CategoryId = new Guid("936fa3de-1369-44fd-8fca-a15aa46dc254"),
                             ItemsCount = 0,
                             Name = "Mobile Numbers"
                         },
                         new
                         {
-                            Id = new Guid("248b123c-f13e-4ad1-b4ae-df159735c357"),
-                            CategoryId = new Guid("ed7496f6-e8fb-4f22-95a4-cc7859cdb9b0"),
+                            Id = new Guid("01315faf-3c3b-451c-b91b-078badd79134"),
+                            CategoryId = new Guid("936fa3de-1369-44fd-8fca-a15aa46dc254"),
                             ItemsCount = 0,
                             Name = "Smart Watches"
                         },
                         new
                         {
-                            Id = new Guid("48a793fe-3e18-41ce-a545-4102f019a7c8"),
-                            CategoryId = new Guid("0657ac01-221c-4b0c-bc1c-c4b8594c8dab"),
+                            Id = new Guid("ff1495b9-840e-45b8-9041-2b74db8dc416"),
+                            CategoryId = new Guid("8436c326-6f4e-4e08-b4e4-af61e8a7bf64"),
                             ItemsCount = 0,
                             Name = "TV & Video"
                         },
                         new
                         {
-                            Id = new Guid("0f12200d-9906-447c-9e72-5654ad791334"),
-                            CategoryId = new Guid("0657ac01-221c-4b0c-bc1c-c4b8594c8dab"),
+                            Id = new Guid("55c8a352-84c9-4754-8234-10fd72e1e892"),
+                            CategoryId = new Guid("8436c326-6f4e-4e08-b4e4-af61e8a7bf64"),
                             ItemsCount = 0,
                             Name = "Home Audio & Speakers"
                         },
                         new
                         {
-                            Id = new Guid("8f700fff-2ec4-4751-8faa-238e58da7c63"),
-                            CategoryId = new Guid("0657ac01-221c-4b0c-bc1c-c4b8594c8dab"),
+                            Id = new Guid("a5b4f367-03f2-4f6b-86c0-dd6fcb86143e"),
+                            CategoryId = new Guid("8436c326-6f4e-4e08-b4e4-af61e8a7bf64"),
                             ItemsCount = 0,
                             Name = "Kitchen Equipment & Appliances"
                         },
                         new
                         {
-                            Id = new Guid("a220b6ba-10c4-459c-b9af-c2b5bc35bf7d"),
-                            CategoryId = new Guid("0657ac01-221c-4b0c-bc1c-c4b8594c8dab"),
+                            Id = new Guid("2857fdf3-43e3-419a-a6e2-bb95b6d04c56"),
+                            CategoryId = new Guid("8436c326-6f4e-4e08-b4e4-af61e8a7bf64"),
                             ItemsCount = 0,
                             Name = "AC Cooling & Heating"
                         },
                         new
                         {
-                            Id = new Guid("7e1bdf5c-57bb-4818-b141-64be1d71ce16"),
-                            CategoryId = new Guid("0657ac01-221c-4b0c-bc1c-c4b8594c8dab"),
+                            Id = new Guid("f0e6649e-34b2-40c1-a6d4-b361f12730e7"),
+                            CategoryId = new Guid("8436c326-6f4e-4e08-b4e4-af61e8a7bf64"),
                             ItemsCount = 0,
                             Name = "Cleaning Appliances"
                         },
                         new
                         {
-                            Id = new Guid("24c8c5a6-0c39-471d-84e3-ef4e4295adb4"),
-                            CategoryId = new Guid("0657ac01-221c-4b0c-bc1c-c4b8594c8dab"),
+                            Id = new Guid("865a8ef2-44f6-4233-8ff2-993b88c6f18e"),
+                            CategoryId = new Guid("8436c326-6f4e-4e08-b4e4-af61e8a7bf64"),
                             ItemsCount = 0,
                             Name = "Washing Machines & Dryers"
                         },
                         new
                         {
-                            Id = new Guid("07408a95-2014-44cd-8ec9-b89ee8a0714d"),
-                            CategoryId = new Guid("0657ac01-221c-4b0c-bc1c-c4b8594c8dab"),
+                            Id = new Guid("0b33477b-27fb-4472-8296-373a99cf9cae"),
+                            CategoryId = new Guid("8436c326-6f4e-4e08-b4e4-af61e8a7bf64"),
                             ItemsCount = 0,
                             Name = "Laptops Tablets Computers"
                         },
                         new
                         {
-                            Id = new Guid("fb585fd4-e1ea-44f5-9d90-a71baa568998"),
-                            CategoryId = new Guid("0657ac01-221c-4b0c-bc1c-c4b8594c8dab"),
+                            Id = new Guid("e8b55c3e-6b11-4780-bd7e-e902b75a4d22"),
+                            CategoryId = new Guid("8436c326-6f4e-4e08-b4e4-af61e8a7bf64"),
                             ItemsCount = 0,
                             Name = "Computer Parts & IT Accessories"
                         },
                         new
                         {
-                            Id = new Guid("863041bd-3d2b-48ad-9181-741fa9a6c5b5"),
-                            CategoryId = new Guid("0657ac01-221c-4b0c-bc1c-c4b8594c8dab"),
+                            Id = new Guid("948a6b3d-1e61-4e1c-ae22-eb3acf053f18"),
+                            CategoryId = new Guid("8436c326-6f4e-4e08-b4e4-af61e8a7bf64"),
                             ItemsCount = 0,
                             Name = "Cameras"
                         },
                         new
                         {
-                            Id = new Guid("cec1776e-0200-4a20-bcf3-fa1c8b7d40c7"),
-                            CategoryId = new Guid("0657ac01-221c-4b0c-bc1c-c4b8594c8dab"),
+                            Id = new Guid("96fa1762-ca6e-4355-9e93-018d2a2cc7de"),
+                            CategoryId = new Guid("8436c326-6f4e-4e08-b4e4-af61e8a7bf64"),
                             ItemsCount = 0,
                             Name = "Gaming Consoles & Accessories"
                         },
                         new
                         {
-                            Id = new Guid("d7978e56-c6d2-4c9a-86b7-a66cb32964e7"),
-                            CategoryId = new Guid("0657ac01-221c-4b0c-bc1c-c4b8594c8dab"),
+                            Id = new Guid("8308ac6a-54b4-4332-a313-6cf958147624"),
+                            CategoryId = new Guid("8436c326-6f4e-4e08-b4e4-af61e8a7bf64"),
                             ItemsCount = 0,
                             Name = "Video Games"
                         },
                         new
                         {
-                            Id = new Guid("9a3bc8d7-64d2-4fdb-908d-9bc0727897d5"),
-                            CategoryId = new Guid("0657ac01-221c-4b0c-bc1c-c4b8594c8dab"),
+                            Id = new Guid("41ff7d91-e135-4bd5-af8d-0b007a7a747d"),
+                            CategoryId = new Guid("8436c326-6f4e-4e08-b4e4-af61e8a7bf64"),
                             ItemsCount = 0,
                             Name = "Other Home Appliances"
                         },
                         new
                         {
-                            Id = new Guid("59d10393-db50-4378-8db0-4936f11a4000"),
-                            CategoryId = new Guid("e0c1634c-5984-471f-b31d-fcf8089b8c29"),
+                            Id = new Guid("659d0d21-1051-401f-b276-da30b4fa931a"),
+                            CategoryId = new Guid("ab062d4a-2e67-46c2-88c1-b53094b5a724"),
                             ItemsCount = 0,
                             Name = "Living Room"
                         },
                         new
                         {
-                            Id = new Guid("a2fb01b5-807e-4479-902f-7feddf9bdd5f"),
-                            CategoryId = new Guid("e0c1634c-5984-471f-b31d-fcf8089b8c29"),
+                            Id = new Guid("85d86bb6-2192-494a-8d7e-72f0bf8002b3"),
+                            CategoryId = new Guid("ab062d4a-2e67-46c2-88c1-b53094b5a724"),
                             ItemsCount = 0,
                             Name = "Bedrooms"
                         },
                         new
                         {
-                            Id = new Guid("c2d81562-5396-40a6-a72c-439a0acd332c"),
-                            CategoryId = new Guid("e0c1634c-5984-471f-b31d-fcf8089b8c29"),
+                            Id = new Guid("e980f1c2-a15e-4112-83e8-5822277a882d"),
+                            CategoryId = new Guid("ab062d4a-2e67-46c2-88c1-b53094b5a724"),
                             ItemsCount = 0,
                             Name = "Dining Rooms"
                         },
                         new
                         {
-                            Id = new Guid("bd5b1da4-ce54-4296-a7d2-f82056915c62"),
-                            CategoryId = new Guid("e0c1634c-5984-471f-b31d-fcf8089b8c29"),
+                            Id = new Guid("5f5ca06e-6c77-4d9e-a19c-ace81b687a94"),
+                            CategoryId = new Guid("ab062d4a-2e67-46c2-88c1-b53094b5a724"),
                             ItemsCount = 0,
                             Name = "Kitchen & Kitchenware"
                         },
                         new
                         {
-                            Id = new Guid("4f2e70a0-a139-4026-994a-ef398b93ce00"),
-                            CategoryId = new Guid("e0c1634c-5984-471f-b31d-fcf8089b8c29"),
+                            Id = new Guid("8253b1a7-2cd0-4ad6-bd6f-dbacc4decce6"),
+                            CategoryId = new Guid("ab062d4a-2e67-46c2-88c1-b53094b5a724"),
                             ItemsCount = 0,
                             Name = "Bathrooms"
                         },
                         new
                         {
-                            Id = new Guid("1036479c-30c1-4289-96fe-16268d9a5c73"),
-                            CategoryId = new Guid("e0c1634c-5984-471f-b31d-fcf8089b8c29"),
+                            Id = new Guid("d6ab97da-baf2-4575-ace3-320f9e47dc43"),
+                            CategoryId = new Guid("ab062d4a-2e67-46c2-88c1-b53094b5a724"),
                             ItemsCount = 0,
                             Name = "Home Decoration & Accessories"
                         },
                         new
                         {
-                            Id = new Guid("81695f40-6c5f-4ee8-91d5-1acc94e0ee19"),
-                            CategoryId = new Guid("e0c1634c-5984-471f-b31d-fcf8089b8c29"),
+                            Id = new Guid("b0b3a7d0-6c1f-4717-bfe1-43f17db6ffb0"),
+                            CategoryId = new Guid("ab062d4a-2e67-46c2-88c1-b53094b5a724"),
                             ItemsCount = 0,
                             Name = "Garden & Outdoors"
                         },
                         new
                         {
-                            Id = new Guid("d187a433-f02f-4122-8e5f-3ed383288a7b"),
-                            CategoryId = new Guid("e0c1634c-5984-471f-b31d-fcf8089b8c29"),
+                            Id = new Guid("97ba7c2e-37d7-4e39-927b-337ec402fe06"),
+                            CategoryId = new Guid("ab062d4a-2e67-46c2-88c1-b53094b5a724"),
                             ItemsCount = 0,
                             Name = "Other Furniture & Decor"
                         },
                         new
                         {
-                            Id = new Guid("29b181ec-ff07-4bf5-87ee-14a33a523225"),
-                            CategoryId = new Guid("932b3b87-4f94-4a26-8735-8e3ae3563309"),
+                            Id = new Guid("780a5e40-aefc-45d6-8f3e-d29010592a3b"),
+                            CategoryId = new Guid("a3dd50b3-f30a-4f25-9b21-9ba577e2ea1c"),
                             ItemsCount = 0,
                             Name = "Pet Food & Treats"
                         },
                         new
                         {
-                            Id = new Guid("6eac9933-8fe5-4f42-b786-c29770e26a4e"),
-                            CategoryId = new Guid("932b3b87-4f94-4a26-8735-8e3ae3563309"),
+                            Id = new Guid("c521a539-bf59-4604-b4a2-d9c6a14aadae"),
+                            CategoryId = new Guid("a3dd50b3-f30a-4f25-9b21-9ba577e2ea1c"),
                             ItemsCount = 0,
                             Name = "Toys"
                         },
                         new
                         {
-                            Id = new Guid("05758f26-2ff8-4110-b1af-76b15ad2ce2c"),
-                            CategoryId = new Guid("932b3b87-4f94-4a26-8735-8e3ae3563309"),
+                            Id = new Guid("82089091-2ae8-42ad-af2d-6a01ee9cc067"),
+                            CategoryId = new Guid("a3dd50b3-f30a-4f25-9b21-9ba577e2ea1c"),
                             ItemsCount = 0,
                             Name = "Pet Grooming"
                         },
                         new
                         {
-                            Id = new Guid("02fdd4c9-896b-4bda-82e8-2b020d4b0cdd"),
-                            CategoryId = new Guid("932b3b87-4f94-4a26-8735-8e3ae3563309"),
+                            Id = new Guid("a2e33db7-6642-474f-bb75-3d584a9517db"),
+                            CategoryId = new Guid("a3dd50b3-f30a-4f25-9b21-9ba577e2ea1c"),
                             ItemsCount = 0,
                             Name = "Pet Accessories"
                         },
                         new
                         {
-                            Id = new Guid("3da8d1a9-9e77-4b05-826b-418a6014ab28"),
-                            CategoryId = new Guid("932b3b87-4f94-4a26-8735-8e3ae3563309"),
+                            Id = new Guid("48a19589-ea3c-476d-b8a9-9c8171cd7d93"),
+                            CategoryId = new Guid("a3dd50b3-f30a-4f25-9b21-9ba577e2ea1c"),
                             ItemsCount = 0,
                             Name = "Dogs"
                         },
                         new
                         {
-                            Id = new Guid("716ecdbb-085f-48a1-9f0a-4cba8e1d863a"),
-                            CategoryId = new Guid("932b3b87-4f94-4a26-8735-8e3ae3563309"),
+                            Id = new Guid("c47b2e8b-17c8-406e-856b-cdc3e4ae74cd"),
+                            CategoryId = new Guid("a3dd50b3-f30a-4f25-9b21-9ba577e2ea1c"),
                             ItemsCount = 0,
                             Name = "Cats"
                         },
                         new
                         {
-                            Id = new Guid("c351f3eb-2093-4559-b792-beaae1c63efe"),
-                            CategoryId = new Guid("932b3b87-4f94-4a26-8735-8e3ae3563309"),
+                            Id = new Guid("f940c6a3-e8ed-485b-acf5-32eb8a04ba8f"),
+                            CategoryId = new Guid("a3dd50b3-f30a-4f25-9b21-9ba577e2ea1c"),
                             ItemsCount = 0,
                             Name = "Birds"
                         },
                         new
                         {
-                            Id = new Guid("292b14e0-f7ba-47ae-bf3b-c4d55d3e1975"),
-                            CategoryId = new Guid("932b3b87-4f94-4a26-8735-8e3ae3563309"),
+                            Id = new Guid("5d5f6a1a-3303-43f5-ad80-2194edef4fe3"),
+                            CategoryId = new Guid("a3dd50b3-f30a-4f25-9b21-9ba577e2ea1c"),
                             ItemsCount = 0,
                             Name = "Other Animals"
                         },
                         new
                         {
-                            Id = new Guid("46dd52d8-e94b-4745-bde7-3f744d378428"),
-                            CategoryId = new Guid("932b3b87-4f94-4a26-8735-8e3ae3563309"),
+                            Id = new Guid("53cdfb03-cc9e-48b9-8427-6a29d8aa0d80"),
+                            CategoryId = new Guid("a3dd50b3-f30a-4f25-9b21-9ba577e2ea1c"),
                             ItemsCount = 0,
                             Name = "Pet Services"
                         },
                         new
                         {
-                            Id = new Guid("8d82c961-6a30-4d4f-94c8-ddad28d5052c"),
-                            CategoryId = new Guid("0b746ecc-f0db-4eed-850f-de1e32b080aa"),
+                            Id = new Guid("34d135a1-2439-4ea2-986c-836d6515ee6c"),
+                            CategoryId = new Guid("fb2fa159-cb23-4dea-b995-3ac1394f25bc"),
                             ItemsCount = 0,
                             Name = "Toys For Kids"
                         },
                         new
                         {
-                            Id = new Guid("b1b95f5f-7e0b-4535-a86c-defdbc95fc59"),
-                            CategoryId = new Guid("0b746ecc-f0db-4eed-850f-de1e32b080aa"),
+                            Id = new Guid("877e1687-de61-4efb-aaae-d63a894e3c65"),
+                            CategoryId = new Guid("fb2fa159-cb23-4dea-b995-3ac1394f25bc"),
                             ItemsCount = 0,
                             Name = "Strollers & Seats"
                         },
                         new
                         {
-                            Id = new Guid("8395b325-bc10-4d89-bc8e-16fcadc5ded7"),
-                            CategoryId = new Guid("0b746ecc-f0db-4eed-850f-de1e32b080aa"),
+                            Id = new Guid("9009cc3e-cc19-4ed8-a09c-b58cfcee0266"),
+                            CategoryId = new Guid("fb2fa159-cb23-4dea-b995-3ac1394f25bc"),
                             ItemsCount = 0,
                             Name = "Kids & Babies Clothing"
                         },
                         new
                         {
-                            Id = new Guid("8c52e1c4-3821-42c6-a465-73d96f2b506f"),
-                            CategoryId = new Guid("0b746ecc-f0db-4eed-850f-de1e32b080aa"),
+                            Id = new Guid("0e3e3e67-0c8d-4765-b376-12927c9073bd"),
+                            CategoryId = new Guid("fb2fa159-cb23-4dea-b995-3ac1394f25bc"),
                             ItemsCount = 0,
                             Name = "Cribs & Bedroom Furniture"
                         },
                         new
                         {
-                            Id = new Guid("5b7ad674-9a03-447b-affc-1f76578beaf3"),
-                            CategoryId = new Guid("0b746ecc-f0db-4eed-850f-de1e32b080aa"),
+                            Id = new Guid("ec2202d5-da23-4ab6-a29e-77bd26df202f"),
+                            CategoryId = new Guid("fb2fa159-cb23-4dea-b995-3ac1394f25bc"),
                             ItemsCount = 0,
                             Name = "Bathing Accessories"
                         },
                         new
                         {
-                            Id = new Guid("7837d867-26e8-44d0-91c8-85aea965f684"),
-                            CategoryId = new Guid("0b746ecc-f0db-4eed-850f-de1e32b080aa"),
+                            Id = new Guid("f9ef7034-6209-4f5e-9891-e70ba562a282"),
+                            CategoryId = new Guid("fb2fa159-cb23-4dea-b995-3ac1394f25bc"),
                             ItemsCount = 0,
                             Name = "Feeding & Nursing"
                         },
                         new
                         {
-                            Id = new Guid("00605d53-5df9-42f1-b084-479e8bd8d087"),
-                            CategoryId = new Guid("0b746ecc-f0db-4eed-850f-de1e32b080aa"),
+                            Id = new Guid("8c3df1ef-8193-416f-bd17-5b4b42b4b874"),
+                            CategoryId = new Guid("fb2fa159-cb23-4dea-b995-3ac1394f25bc"),
                             ItemsCount = 0,
                             Name = "Safety & Monitors"
                         },
                         new
                         {
-                            Id = new Guid("8c3720d9-be2d-468c-8a5f-ceb50028ff47"),
-                            CategoryId = new Guid("0b746ecc-f0db-4eed-850f-de1e32b080aa"),
+                            Id = new Guid("70c6feda-0315-4dc1-9f01-44c1059e60c6"),
+                            CategoryId = new Guid("fb2fa159-cb23-4dea-b995-3ac1394f25bc"),
                             ItemsCount = 0,
                             Name = "Other for Kids & Babies"
                         },
                         new
                         {
-                            Id = new Guid("eb0eb5a4-cd2b-4deb-8156-10a28effebda"),
-                            CategoryId = new Guid("db614ee0-a2b6-488f-92ca-e972a3930e4e"),
+                            Id = new Guid("5d8fff4e-dd21-4c6d-8b68-2a03f6a142bb"),
+                            CategoryId = new Guid("c3e63217-b8df-4cdd-9141-55202aaeaddb"),
                             ItemsCount = 0,
                             Name = "Bicycles & Accessories"
                         },
                         new
                         {
-                            Id = new Guid("07ba771c-01dc-48f4-b265-35fa9e43c794"),
-                            CategoryId = new Guid("db614ee0-a2b6-488f-92ca-e972a3930e4e"),
+                            Id = new Guid("aab85e2a-57be-44ee-9c4c-77c991e05844"),
+                            CategoryId = new Guid("c3e63217-b8df-4cdd-9141-55202aaeaddb"),
                             ItemsCount = 0,
                             Name = "Outdoors & Camping"
                         },
                         new
                         {
-                            Id = new Guid("a563398d-019a-432e-a422-b3d74b9805b1"),
-                            CategoryId = new Guid("db614ee0-a2b6-488f-92ca-e972a3930e4e"),
+                            Id = new Guid("4166d6d2-36d9-4a7c-8b0d-0ee227639fc5"),
+                            CategoryId = new Guid("c3e63217-b8df-4cdd-9141-55202aaeaddb"),
                             ItemsCount = 0,
                             Name = "Gym Fitness & Combat Sports"
                         },
                         new
                         {
-                            Id = new Guid("ae04c25b-0369-400b-aac6-244f26c48a5e"),
-                            CategoryId = new Guid("db614ee0-a2b6-488f-92ca-e972a3930e4e"),
+                            Id = new Guid("71005e0c-6a51-4470-878f-93e995588173"),
+                            CategoryId = new Guid("c3e63217-b8df-4cdd-9141-55202aaeaddb"),
                             ItemsCount = 0,
                             Name = "Ball Sports"
                         },
                         new
                         {
-                            Id = new Guid("ee844a5d-515a-4129-95e0-dedaa42bae5c"),
-                            CategoryId = new Guid("db614ee0-a2b6-488f-92ca-e972a3930e4e"),
+                            Id = new Guid("e8df1f2b-e31a-4323-8cc2-8c6adb04adf9"),
+                            CategoryId = new Guid("c3e63217-b8df-4cdd-9141-55202aaeaddb"),
                             ItemsCount = 0,
                             Name = "Supplements & Nutrition"
                         },
                         new
                         {
-                            Id = new Guid("c5df4bf6-b7f9-40f9-82a9-e09a0b3a4cf5"),
-                            CategoryId = new Guid("db614ee0-a2b6-488f-92ca-e972a3930e4e"),
+                            Id = new Guid("421787e3-b8f0-4aed-a2ab-db124007ffb3"),
+                            CategoryId = new Guid("c3e63217-b8df-4cdd-9141-55202aaeaddb"),
                             ItemsCount = 0,
                             Name = "Billiard & Similar Games"
                         },
                         new
                         {
-                            Id = new Guid("18414afe-5af7-421b-91df-f829e243d566"),
-                            CategoryId = new Guid("db614ee0-a2b6-488f-92ca-e972a3930e4e"),
+                            Id = new Guid("4d79b502-48a4-413e-879d-5f2c40d7b98a"),
+                            CategoryId = new Guid("c3e63217-b8df-4cdd-9141-55202aaeaddb"),
                             ItemsCount = 0,
                             Name = "Ski & Winter Sports"
                         },
                         new
                         {
-                            Id = new Guid("0e04fd14-a679-4759-ae35-d7cb847aec98"),
-                            CategoryId = new Guid("db614ee0-a2b6-488f-92ca-e972a3930e4e"),
+                            Id = new Guid("da05f2bc-212c-4df6-bd86-fd575217824d"),
+                            CategoryId = new Guid("c3e63217-b8df-4cdd-9141-55202aaeaddb"),
                             ItemsCount = 0,
                             Name = "Water Sports & Diving"
                         },
                         new
                         {
-                            Id = new Guid("91b00d0b-47ff-4e0d-9123-5359ee79be6f"),
-                            CategoryId = new Guid("db614ee0-a2b6-488f-92ca-e972a3930e4e"),
+                            Id = new Guid("e6cbd2ba-719e-4632-9769-c1e3cd052efc"),
+                            CategoryId = new Guid("c3e63217-b8df-4cdd-9141-55202aaeaddb"),
                             ItemsCount = 0,
                             Name = "Tennis & Racket Sports"
                         },
                         new
                         {
-                            Id = new Guid("e4837437-e57c-44e1-9e57-a0316c9e2a44"),
-                            CategoryId = new Guid("db614ee0-a2b6-488f-92ca-e972a3930e4e"),
+                            Id = new Guid("241c8daa-af44-4ee9-ac92-53d3a87f33a9"),
+                            CategoryId = new Guid("c3e63217-b8df-4cdd-9141-55202aaeaddb"),
                             ItemsCount = 0,
                             Name = "Other Sports"
                         },
                         new
                         {
-                            Id = new Guid("41f1d8bf-084d-4a4a-b66f-2a3ba795d833"),
-                            CategoryId = new Guid("87e3fe5a-8477-4e7d-a079-4f768232df1d"),
+                            Id = new Guid("a3b9c546-d318-4299-b5e7-18a8708d9496"),
+                            CategoryId = new Guid("031f53da-215e-4361-b068-f8b960515a21"),
                             ItemsCount = 0,
                             Name = "Antiques & Collectibles"
                         },
                         new
                         {
-                            Id = new Guid("ffbc39d3-c175-4540-aa04-33fd26634182"),
-                            CategoryId = new Guid("87e3fe5a-8477-4e7d-a079-4f768232df1d"),
+                            Id = new Guid("12656cb4-803d-408f-ad68-3d9afd2be3ed"),
+                            CategoryId = new Guid("031f53da-215e-4361-b068-f8b960515a21"),
                             ItemsCount = 0,
                             Name = "Musical Instruments"
                         },
                         new
                         {
-                            Id = new Guid("0fc1fe6b-aa50-4990-95d2-f3277c26fe23"),
-                            CategoryId = new Guid("87e3fe5a-8477-4e7d-a079-4f768232df1d"),
+                            Id = new Guid("7abe46ba-ca9e-475f-9df8-c365c8aadf14"),
+                            CategoryId = new Guid("031f53da-215e-4361-b068-f8b960515a21"),
                             ItemsCount = 0,
                             Name = "Books"
                         },
                         new
                         {
-                            Id = new Guid("32015d00-405b-417e-a7a5-753b29d4dfcc"),
-                            CategoryId = new Guid("87e3fe5a-8477-4e7d-a079-4f768232df1d"),
+                            Id = new Guid("c94fd2d6-c095-4260-85e2-b3bc04a50437"),
+                            CategoryId = new Guid("031f53da-215e-4361-b068-f8b960515a21"),
                             ItemsCount = 0,
                             Name = "Movies"
                         },
                         new
                         {
-                            Id = new Guid("573ec918-e903-4acf-9168-c527537d73ea"),
-                            CategoryId = new Guid("87e3fe5a-8477-4e7d-a079-4f768232df1d"),
+                            Id = new Guid("184d500f-106e-471b-9b52-928f8033d2d3"),
+                            CategoryId = new Guid("031f53da-215e-4361-b068-f8b960515a21"),
                             ItemsCount = 0,
                             Name = "Games & Hobbies"
                         },
                         new
                         {
-                            Id = new Guid("7367ea53-59e6-4396-b37f-c6954ea0d428"),
-                            CategoryId = new Guid("87e3fe5a-8477-4e7d-a079-4f768232df1d"),
+                            Id = new Guid("d0b1affe-d4ac-46e7-af3c-bbb576f01fc9"),
+                            CategoryId = new Guid("031f53da-215e-4361-b068-f8b960515a21"),
                             ItemsCount = 0,
                             Name = "Other Items"
                         },
                         new
                         {
-                            Id = new Guid("704a6c17-0a15-4950-b168-ffbee1587e9d"),
-                            CategoryId = new Guid("afea5c7d-5d4c-40b1-b5f7-fa9f40212e62"),
+                            Id = new Guid("22b2a1c3-782b-41f7-9694-d8ce99ce372e"),
+                            CategoryId = new Guid("09c657b6-fd03-4c1c-af71-7dc61e773a7c"),
                             ItemsCount = 0,
                             Name = "Clothing For Men"
                         },
                         new
                         {
-                            Id = new Guid("1738e952-35a5-4fd3-aa90-99209d3ee2fe"),
-                            CategoryId = new Guid("afea5c7d-5d4c-40b1-b5f7-fa9f40212e62"),
+                            Id = new Guid("98692ba4-991a-4aa8-a947-e93de58c8eb2"),
+                            CategoryId = new Guid("09c657b6-fd03-4c1c-af71-7dc61e773a7c"),
                             ItemsCount = 0,
                             Name = "Accessories For Men"
                         },
                         new
                         {
-                            Id = new Guid("5ba3fdc4-c37d-4cb7-92d3-d19e2c2ce8bf"),
-                            CategoryId = new Guid("afea5c7d-5d4c-40b1-b5f7-fa9f40212e62"),
+                            Id = new Guid("18d4fa52-37b9-4ec5-b66b-43263b549552"),
+                            CategoryId = new Guid("09c657b6-fd03-4c1c-af71-7dc61e773a7c"),
                             ItemsCount = 0,
                             Name = "Clothing For Women"
                         },
                         new
                         {
-                            Id = new Guid("8984145e-98b2-4876-ab60-3b2c6e9ba1a1"),
-                            CategoryId = new Guid("afea5c7d-5d4c-40b1-b5f7-fa9f40212e62"),
+                            Id = new Guid("11361ac0-6f45-4257-b287-27808831518e"),
+                            CategoryId = new Guid("09c657b6-fd03-4c1c-af71-7dc61e773a7c"),
                             ItemsCount = 0,
                             Name = "Accessories For Women"
                         },
                         new
                         {
-                            Id = new Guid("8a9c2feb-49ae-48d8-9f3d-a50f105e5e63"),
-                            CategoryId = new Guid("afea5c7d-5d4c-40b1-b5f7-fa9f40212e62"),
+                            Id = new Guid("75d13824-8cd7-406f-8f9f-4e53655a00c3"),
+                            CategoryId = new Guid("09c657b6-fd03-4c1c-af71-7dc61e773a7c"),
                             ItemsCount = 0,
                             Name = "Makeup & Cosmetics"
                         },
                         new
                         {
-                            Id = new Guid("a36cbdc4-793f-4605-acef-53985a83759d"),
-                            CategoryId = new Guid("afea5c7d-5d4c-40b1-b5f7-fa9f40212e62"),
+                            Id = new Guid("a7f80fa0-1660-4bd3-a83b-a0d4d1c6d622"),
+                            CategoryId = new Guid("09c657b6-fd03-4c1c-af71-7dc61e773a7c"),
                             ItemsCount = 0,
                             Name = "Jewelry & Faux-Bijou"
                         },
                         new
                         {
-                            Id = new Guid("d98525f3-5d21-4526-8171-c5e2d52d0e29"),
-                            CategoryId = new Guid("afea5c7d-5d4c-40b1-b5f7-fa9f40212e62"),
+                            Id = new Guid("bac0b255-a8dd-4589-8d73-d2c63640a912"),
+                            CategoryId = new Guid("09c657b6-fd03-4c1c-af71-7dc61e773a7c"),
                             ItemsCount = 0,
                             Name = "Watches"
                         },
                         new
                         {
-                            Id = new Guid("51dc6610-86e4-40ce-b3da-02d1fab59cab"),
-                            CategoryId = new Guid("afea5c7d-5d4c-40b1-b5f7-fa9f40212e62"),
+                            Id = new Guid("976b6691-2db7-4dbd-99b3-e2b945827614"),
+                            CategoryId = new Guid("09c657b6-fd03-4c1c-af71-7dc61e773a7c"),
                             ItemsCount = 0,
                             Name = "Other Fashion & Style"
                         },
                         new
                         {
-                            Id = new Guid("817bd695-954b-4ab8-816c-8a7d559fb8a8"),
-                            CategoryId = new Guid("eda632a8-cf1c-4809-bd2a-900b0697bd32"),
+                            Id = new Guid("a52fcb5b-0a84-43a6-b4f6-f2fe500cd876"),
+                            CategoryId = new Guid("50cf00ba-c75b-486b-95a2-509adf8da948"),
                             ItemsCount = 0,
                             Name = "Home Services"
                         },
                         new
                         {
-                            Id = new Guid("14690cd4-603d-4aa6-8fa5-5b55d7771b11"),
-                            CategoryId = new Guid("eda632a8-cf1c-4809-bd2a-900b0697bd32"),
+                            Id = new Guid("9562fd7a-7939-48a0-a717-5428387e6394"),
+                            CategoryId = new Guid("50cf00ba-c75b-486b-95a2-509adf8da948"),
                             ItemsCount = 0,
                             Name = "Personal Services"
                         },
                         new
                         {
-                            Id = new Guid("ec01b346-7988-4a4b-841b-2c4b2c8f4d53"),
-                            CategoryId = new Guid("eda632a8-cf1c-4809-bd2a-900b0697bd32"),
+                            Id = new Guid("832bf55b-a3fb-4c59-8aea-7df57036880d"),
+                            CategoryId = new Guid("50cf00ba-c75b-486b-95a2-509adf8da948"),
                             ItemsCount = 0,
                             Name = "Professional Services"
                         },
                         new
                         {
-                            Id = new Guid("93d77127-e505-41c1-87a7-9570e970d3e7"),
-                            CategoryId = new Guid("eda632a8-cf1c-4809-bd2a-900b0697bd32"),
+                            Id = new Guid("a9fbfede-aae2-40ff-add6-1f08c4337769"),
+                            CategoryId = new Guid("50cf00ba-c75b-486b-95a2-509adf8da948"),
                             ItemsCount = 0,
                             Name = "Events"
                         },
                         new
                         {
-                            Id = new Guid("13bc9dd8-b26a-434e-ae2b-c979361268a5"),
-                            CategoryId = new Guid("eda632a8-cf1c-4809-bd2a-900b0697bd32"),
+                            Id = new Guid("a48f12e6-5837-44f8-81a7-f6f6cdbe6c73"),
+                            CategoryId = new Guid("50cf00ba-c75b-486b-95a2-509adf8da948"),
                             ItemsCount = 0,
                             Name = "Transport"
                         },
                         new
                         {
-                            Id = new Guid("8dd33f67-020a-4712-a721-25174743781b"),
-                            CategoryId = new Guid("eda632a8-cf1c-4809-bd2a-900b0697bd32"),
+                            Id = new Guid("b9809e70-4120-480f-a499-5c8f71b8a939"),
+                            CategoryId = new Guid("50cf00ba-c75b-486b-95a2-509adf8da948"),
                             ItemsCount = 0,
                             Name = "Other Services"
                         });
@@ -1879,11 +1279,17 @@ namespace Arzly.Api.Migrations
                     b.Property<DateTime>("UploadedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("UploaderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("TicketId");
 
                     b.HasIndex("UploadedAt");
+
+                    b.HasIndex("UploaderId");
 
                     b.ToTable("TicketAttachments");
                 });
@@ -1983,89 +1389,6 @@ namespace Arzly.Api.Migrations
                     b.HasIndex("Timestamp");
 
                     b.ToTable("UserActivityLogs");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("77613992-a79a-4817-914d-0e78dd05b2ff"),
-                            ActionType = 2,
-                            ActorId = "user-1-id",
-                            ActorRole = "User",
-                            Details = "User registered successfully",
-                            IPAddress = "192.168.1.100",
-                            IsSuccess = true,
-                            TargetId = "user-1-id",
-                            TargetType = 1,
-                            Timestamp = new DateTime(2026, 4, 2, 18, 4, 42, 54, DateTimeKind.Utc).AddTicks(8355),
-                            UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-                        },
-                        new
-                        {
-                            Id = new Guid("d40c52b1-8459-4ba4-abb7-237a45cc53ff"),
-                            ActionType = 0,
-                            ActorId = "user-1-id",
-                            ActorRole = "User",
-                            DurationMs = 250,
-                            IPAddress = "192.168.1.100",
-                            IsSuccess = true,
-                            TargetType = 0,
-                            Timestamp = new DateTime(2026, 5, 1, 18, 4, 42, 54, DateTimeKind.Utc).AddTicks(8812),
-                            UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-                        },
-                        new
-                        {
-                            Id = new Guid("4439bcc8-d06e-485c-b07c-4303fa150c1b"),
-                            ActionType = 8,
-                            ActorId = "user-1-id",
-                            ActorRole = "User",
-                            Details = "Created listing: BMW 320i",
-                            IPAddress = "192.168.1.100",
-                            IsSuccess = true,
-                            TargetId = "listing-1-id",
-                            TargetType = 2,
-                            Timestamp = new DateTime(2026, 4, 22, 18, 4, 42, 54, DateTimeKind.Utc).AddTicks(9055)
-                        },
-                        new
-                        {
-                            Id = new Guid("22729f04-65ef-4eb3-8601-9889eda3ce5c"),
-                            ActionType = 2,
-                            ActorId = "user-2-id",
-                            ActorRole = "User",
-                            Details = "User registered successfully",
-                            IPAddress = "192.168.1.105",
-                            IsSuccess = true,
-                            TargetId = "user-2-id",
-                            TargetType = 1,
-                            Timestamp = new DateTime(2026, 4, 12, 18, 4, 42, 54, DateTimeKind.Utc).AddTicks(9058),
-                            UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-                        },
-                        new
-                        {
-                            Id = new Guid("dca2bf14-7fee-4bae-b8ac-809231ff0e5e"),
-                            ActionType = 16,
-                            ActorId = "user-2-id",
-                            ActorRole = "User",
-                            Details = "Sent message in chat",
-                            DurationMs = 120,
-                            IPAddress = "192.168.1.105",
-                            IsSuccess = true,
-                            TargetId = "chat-1-id",
-                            TargetType = 3,
-                            Timestamp = new DateTime(2026, 5, 2, 13, 4, 42, 54, DateTimeKind.Utc).AddTicks(9061)
-                        },
-                        new
-                        {
-                            Id = new Guid("bc389765-54b6-4de8-b8ad-65006f3a6ab6"),
-                            ActionType = 13,
-                            ActorId = "user-1-id",
-                            ActorRole = "User",
-                            Details = "Saved listing to favorites",
-                            IPAddress = "192.168.1.100",
-                            IsSuccess = true,
-                            TargetId = "listing-2-id",
-                            TargetType = 2,
-                            Timestamp = new DateTime(2026, 5, 2, 16, 4, 42, 54, DateTimeKind.Utc).AddTicks(9083)
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.UserPreference", b =>
@@ -2091,26 +1414,6 @@ namespace Arzly.Api.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("UserPreferences");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "user-1-id",
-                            EmailNotifications = false,
-                            Language = 0,
-                            PushNotifications = true,
-                            Theme = 2,
-                            UpdatedAt = new DateTime(2026, 5, 2, 18, 4, 42, 55, DateTimeKind.Utc).AddTicks(1884)
-                        },
-                        new
-                        {
-                            UserId = "user-2-id",
-                            EmailNotifications = true,
-                            Language = 0,
-                            PushNotifications = true,
-                            Theme = 1,
-                            UpdatedAt = new DateTime(2026, 5, 2, 18, 4, 42, 55, DateTimeKind.Utc).AddTicks(2120)
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.UserReport", b =>
@@ -2162,29 +1465,6 @@ namespace Arzly.Api.Migrations
                     b.HasIndex("ReporterId");
 
                     b.ToTable("UserReports");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("c1d420d9-1b07-41de-b2c0-bff212ecf527"),
-                            CreatedAt = new DateTime(2026, 4, 27, 18, 4, 42, 55, DateTimeKind.Utc).AddTicks(5362),
-                            IsResolved = true,
-                            Notes = "User posting duplicate listings",
-                            Reason = 0,
-                            ReportedUserId = "user-2-id",
-                            ReporterId = "user-1-id",
-                            ResolvedAt = new DateTime(2026, 4, 29, 18, 4, 42, 55, DateTimeKind.Utc).AddTicks(5803)
-                        },
-                        new
-                        {
-                            Id = new Guid("a104e243-7471-4d49-ab86-856131542959"),
-                            CreatedAt = new DateTime(2026, 4, 30, 18, 4, 42, 55, DateTimeKind.Utc).AddTicks(6066),
-                            IsResolved = false,
-                            Notes = "Listing contains misleading information",
-                            Reason = 3,
-                            ReportedUserId = "user-1-id",
-                            ReporterId = "user-2-id"
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.BabyChildDetails", b =>
@@ -2213,21 +1493,6 @@ namespace Arzly.Api.Migrations
                     b.HasKey("ListingId");
 
                     b.ToTable("BabyChildDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            ListingId = new Guid("10000000-0000-0000-0000-000000000003"),
-                            AgeRange = 0,
-                            Condition = 0,
-                            Gender = 0
-                        },
-                        new
-                        {
-                            ListingId = new Guid("10000000-0000-0000-0000-000000000004"),
-                            Condition = 1,
-                            StrollerSeatType = 2
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.ElectronicsDetails", b =>
@@ -2316,21 +1581,6 @@ namespace Arzly.Api.Migrations
                     b.HasKey("ListingId");
 
                     b.ToTable("ElectronicsDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            ListingId = new Guid("00000000-0000-0000-0000-000000000004"),
-                            ComputerBrand = 0,
-                            ComputerColor = 3,
-                            ComputerScreenSize = 6,
-                            ComputerStorage = 1024,
-                            ComputerType = 0,
-                            Condition = 0,
-                            Processor = 9,
-                            RamSize = 32,
-                            StorageType = 1
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.FashionDetails", b =>
@@ -2368,20 +1618,6 @@ namespace Arzly.Api.Migrations
                     b.HasKey("ListingId");
 
                     b.ToTable("FashionDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            ListingId = new Guid("10000000-0000-0000-0000-000000000001"),
-                            Condition = 0,
-                            MensClothingType = 1
-                        },
-                        new
-                        {
-                            ListingId = new Guid("10000000-0000-0000-0000-000000000002"),
-                            Condition = 1,
-                            WomensClothingType = 0
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.FurnitureDetails", b =>
@@ -2416,14 +1652,6 @@ namespace Arzly.Api.Migrations
                     b.HasKey("ListingId");
 
                     b.ToTable("FurnitureDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            ListingId = new Guid("00000000-0000-0000-0000-000000000005"),
-                            Condition = 1,
-                            LivingRoomType = 1
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.HobbiesDetails", b =>
@@ -2455,20 +1683,6 @@ namespace Arzly.Api.Migrations
                     b.HasKey("ListingId");
 
                     b.ToTable("HobbiesDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            ListingId = new Guid("10000000-0000-0000-0000-000000000005"),
-                            CollectibleType = 0,
-                            Condition = 1
-                        },
-                        new
-                        {
-                            ListingId = new Guid("10000000-0000-0000-0000-000000000006"),
-                            Condition = 0,
-                            InstrumentType = 1
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.PetsDetails", b =>
@@ -2521,16 +1735,6 @@ namespace Arzly.Api.Migrations
                     b.HasKey("ListingId");
 
                     b.ToTable("PetsDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            ListingId = new Guid("00000000-0000-0000-0000-000000000008"),
-                            DogAgeRange = 0,
-                            DogBreed = 1,
-                            Gender = 0,
-                            IsVaccinated = true
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.PhonesDetails", b =>
@@ -2577,16 +1781,6 @@ namespace Arzly.Api.Migrations
                     b.HasKey("ListingId");
 
                     b.ToTable("PhonesDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            ListingId = new Guid("00000000-0000-0000-0000-000000000006"),
-                            Color = 6,
-                            PhoneBrand = 0,
-                            PhoneCondition = 0,
-                            Storage = 256
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.RealEstateDetails", b =>
@@ -2657,24 +1851,6 @@ namespace Arzly.Api.Migrations
                     b.HasKey("ListingId");
 
                     b.ToTable("RealEstateDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            ListingId = new Guid("00000000-0000-0000-0000-000000000003"),
-                            Bathrooms = 2,
-                            Bedrooms = 2,
-                            Condition = 0,
-                            Features = "[8,14,11]",
-                            Floor = 6,
-                            Furnished = 3,
-                            ListingType = 1,
-                            Ownership = 0,
-                            PropertyAge = 0,
-                            PropertyType = 1,
-                            ReferenceId = "RE-00003",
-                            Size = 95.0
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.ServicesDetails", b =>
@@ -2706,14 +1882,6 @@ namespace Arzly.Api.Migrations
                     b.HasKey("ListingId");
 
                     b.ToTable("ServicesDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            ListingId = new Guid("00000000-0000-0000-0000-000000000007"),
-                            HomeServiceType = 2,
-                            ServiceType = 0
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.SportsDetails", b =>
@@ -2760,21 +1928,6 @@ namespace Arzly.Api.Migrations
                     b.HasKey("ListingId");
 
                     b.ToTable("SportsDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            ListingId = new Guid("10000000-0000-0000-0000-000000000007"),
-                            BicyclePowerType = 0,
-                            BicycleType = 1,
-                            Condition = 1
-                        },
-                        new
-                        {
-                            ListingId = new Guid("10000000-0000-0000-0000-000000000008"),
-                            Condition = 0,
-                            GymType = 0
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.VehiclesDetails", b =>
@@ -2833,36 +1986,6 @@ namespace Arzly.Api.Migrations
                     b.HasKey("ListingId");
 
                     b.ToTable("VehiclesDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            ListingId = new Guid("00000000-0000-0000-0000-000000000001"),
-                            CarBrand = 5,
-                            CarFeatures = "[20,25,17]",
-                            Condition = 1,
-                            FuelType = 0,
-                            Kilometers = 25000,
-                            NumberOfDoors = 4,
-                            TransmissionType = 0,
-                            VehicleColor = 0,
-                            Version = "320i Luxury Line",
-                            Year = 2022
-                        },
-                        new
-                        {
-                            ListingId = new Guid("00000000-0000-0000-0000-000000000002"),
-                            CarBrand = 0,
-                            CarFeatures = "[3,26]",
-                            Condition = 1,
-                            FuelType = 0,
-                            Kilometers = 45000,
-                            NumberOfDoors = 4,
-                            TransmissionType = 0,
-                            VehicleColor = 2,
-                            Version = "Camry SE",
-                            Year = 2020
-                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Infrastructure.Identity.AppUser", b =>
@@ -3031,12 +2154,8 @@ namespace Arzly.Api.Migrations
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.JobListing", b =>
                 {
-                    b.HasOne("Arzly.Api.Infrastructure.Identity.AppUser", null)
-                        .WithMany("JobListings")
-                        .HasForeignKey("AppUserId");
-
                     b.HasOne("Arzly.Api.Infrastructure.Identity.AppUser", "Owner")
-                        .WithMany()
+                        .WithMany("JobListings")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -3164,7 +2283,15 @@ namespace Arzly.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Arzly.Api.Infrastructure.Identity.AppUser", "Uploader")
+                        .WithMany()
+                        .HasForeignKey("UploaderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Ticket");
+
+                    b.Navigation("Uploader");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.TicketMessage", b =>
@@ -3176,7 +2303,7 @@ namespace Arzly.Api.Migrations
                         .IsRequired();
 
                     b.HasOne("Arzly.Api.Infrastructure.Identity.AppUser", "Sender")
-                        .WithMany("TicketMessages")
+                        .WithMany()
                         .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -3450,8 +2577,6 @@ namespace Arzly.Api.Migrations
                     b.Navigation("SavedListings");
 
                     b.Navigation("SearchHistory");
-
-                    b.Navigation("TicketMessages");
                 });
 #pragma warning restore 612, 618
         }

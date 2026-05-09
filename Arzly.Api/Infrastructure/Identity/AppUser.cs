@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Arzly.Api.Infrastructure.Identity
 {
-    public class AppUser
+    public class AppUser 
     {
 
         //temp
@@ -57,7 +57,6 @@ namespace Arzly.Api.Infrastructure.Identity
         public virtual ICollection<Chat>? ChatsReceived { get; set; }
         public virtual ICollection<UserActivityLog>? ActivityLogs { get; set; }
         public virtual ICollection<Ticket>? CreatedTickets { get; set; }
-        public virtual ICollection<TicketMessage>? TicketMessages { get; set; }
         public virtual ICollection<UserReport>? ReportsMade { get; set; }
         public virtual ICollection<UserReport>? ReportsReceived { get; set; }
         public virtual ICollection<Listing>? Listings { get; set; }

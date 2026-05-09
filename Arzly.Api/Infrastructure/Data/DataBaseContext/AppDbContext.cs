@@ -139,7 +139,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                 entity.HasIndex(j => j.LocationTitle);
 
                 entity.HasOne(j => j.Owner)
-                    .WithMany()
+                    .WithMany(j => j.JobListings)
                     .HasForeignKey(j => j.OwnerId)
                     .OnDelete(DeleteBehavior.Restrict);
 
@@ -371,7 +371,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithOne(l => l.VehiclesDetails)
                     .HasForeignKey<VehiclesDetails>(e => e.ListingId)
                     .OnDelete(DeleteBehavior.Cascade);
-                entity.HasQueryFilter(v =>  !v.Listing!.IsDeleted);
+                entity.HasQueryFilter(v => !v.Listing!.IsDeleted);
             });
             #endregion
 
@@ -382,9 +382,15 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
             modelBuilder.Entity<Chat>(entity =>
             {
                 entity.HasQueryFilter(c => !c.IsDeleted);
+                entity.HasQueryFilter(c => !c.Listing.IsDeleted);
+
 
                 entity.HasIndex(c => c.InitiatorId);
                 entity.HasIndex(c => c.ReceiverId);
+                entity.HasIndex(c => c.ListingId);
+                entity.HasIndex(c => c.JobListingId);
+                entity.HasIndex(c => c.LastActivity);
+                entity.HasIndex(c => c.IsArchived);
 
                 entity.HasOne(c => c.Initiator)
                     .WithMany(u => u.ChatsInitiated)
@@ -405,7 +411,13 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                      .WithMany(j => j.RelatedChats)
                     .HasForeignKey(c => c.JobListingId)
                     .OnDelete(DeleteBehavior.Restrict);
+
+
+                entity.HasQueryFilter(c => !c.IsDeleted &&
+               (c.Listing == null || !c.Listing.IsDeleted) &&
+               (c.JobListing == null || !c.JobListing.IsDeleted));
             });
+
 
             //chat messages
 
@@ -429,7 +441,10 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithMany()
                     .HasForeignKey(m => m.ReceiverId)
                     .OnDelete(DeleteBehavior.Restrict);
-
+                entity.HasQueryFilter(cm => !cm.IsDeleted &&
+               !cm.Chat.IsDeleted &&
+               (cm.Chat.Listing == null || !cm.Chat.Listing.IsDeleted) &&
+               (cm.Chat.JobListing == null || !cm.Chat.JobListing.IsDeleted));
             });
 
             //tickets
@@ -467,7 +482,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasOne(tm => tm.Sender)
-                    .WithMany(u => u.TicketMessages)
+                    .WithMany()
                     .HasForeignKey(tm => tm.SenderId)
                     .OnDelete(DeleteBehavior.Restrict);
 
@@ -479,6 +494,8 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                 entity.HasIndex(tm => tm.TicketId);
                 entity.HasIndex(tm => tm.SentAt);
 
+                entity.HasQueryFilter(tm => tm.Ticket.User != null && !tm.Ticket.User.IsDeleted);
+
 
             });
 
@@ -489,19 +506,17 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                     .WithMany(t => t.Attachments)
                     .HasForeignKey(ta => ta.TicketId)
                     .OnDelete(DeleteBehavior.Cascade);
-
+                entity.HasOne(ta => ta.Uploader)
+                        .WithMany()
+                        .HasForeignKey(ta => ta.UploaderId)
+                        .OnDelete(DeleteBehavior.Restrict);
                 entity.HasIndex(ta => ta.TicketId);
                 entity.HasIndex(ta => ta.UploadedAt);
+
+                entity.HasQueryFilter(ta => ta.Ticket.User != null && !ta.Ticket.User.IsDeleted);
             });
 
-            // Chat - additional indexes
-            modelBuilder.Entity<Chat>(entity =>
-            {
-                entity.HasIndex(c => c.ListingId);
-                entity.HasIndex(c => c.JobListingId);
-                entity.HasIndex(c => c.LastActivity);
-                entity.HasIndex(c => c.IsArchived);
-            });
+
 
             #endregion
 
@@ -514,25 +529,25 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
             foreach (var item in AppUserSeed.Users) modelBuilder.Entity<AppUser>().HasData(item);
             foreach (var item in CategorySeed.Data) modelBuilder.Entity<Category>().HasData(item);
             foreach (var item in SubCategorySeed.Data) modelBuilder.Entity<SubCategory>().HasData(item);
-            foreach (var item in PickupLocationSeed.Data) modelBuilder.Entity<PickupLocation>().HasData(item);
-            foreach (var item in ListingSeed.Data) modelBuilder.Entity<Listing>().HasData(item);
-            foreach (var item in JobListingSeed.Data) modelBuilder.Entity<JobListing>().HasData(item);
-            foreach (var item in SavedListingSeed.Data) modelBuilder.Entity<SavedListing>().HasData(item);
-            foreach (var item in SearchQuerySeed.Data) modelBuilder.Entity<SearchQuery>().HasData(item);
-            foreach (var item in UserActivityLogSeed.Data) modelBuilder.Entity<UserActivityLog>().HasData(item);
-            foreach (var item in UserPreferenceSeed.Data) modelBuilder.Entity<UserPreference>().HasData(item);
-            foreach (var item in UserReportSeed.Data) modelBuilder.Entity<UserReport>().HasData(item);
-            foreach (var item in VehiclesDetailsSeed.Data) modelBuilder.Entity<VehiclesDetails>().HasData(item);
-            foreach (var item in RealEstateDetailsSeed.Data) modelBuilder.Entity<RealEstateDetails>().HasData(item);
-            foreach (var item in ElectronicsDetailsSeed.Data) modelBuilder.Entity<ElectronicsDetails>().HasData(item);
-            foreach (var item in FurnitureDetailsSeed.Data) modelBuilder.Entity<FurnitureDetails>().HasData(item);
-            foreach (var item in PhonesDetailsSeed.Data) modelBuilder.Entity<PhonesDetails>().HasData(item);
-            foreach (var item in ServicesDetailsSeed.Data) modelBuilder.Entity<ServicesDetails>().HasData(item);
-            foreach (var item in PetsDetailsSeed.Data) modelBuilder.Entity<PetsDetails>().HasData(item);
-            foreach (var item in FashionDetailsSeed.Data) modelBuilder.Entity<FashionDetails>().HasData(item);
-            foreach (var item in BabyChildDetailsSeed.Data) modelBuilder.Entity<BabyChildDetails>().HasData(item);
-            foreach (var item in HobbiesDetailsSeed.Data) modelBuilder.Entity<HobbiesDetails>().HasData(item);
-            foreach (var item in SportsDetailsSeed.Data) modelBuilder.Entity<SportsDetails>().HasData(item);
+            //foreach (var item in PickupLocationSeed.Data) modelBuilder.Entity<PickupLocation>().HasData(item);
+            //foreach (var item in ListingSeed.Data) modelBuilder.Entity<Listing>().HasData(item);
+            //foreach (var item in JobListingSeed.Data) modelBuilder.Entity<JobListing>().HasData(item);
+            //foreach (var item in SavedListingSeed.Data) modelBuilder.Entity<SavedListing>().HasData(item);
+            //foreach (var item in SearchQuerySeed.Data) modelBuilder.Entity<SearchQuery>().HasData(item);
+            //foreach (var item in UserActivityLogSeed.Data) modelBuilder.Entity<UserActivityLog>().HasData(item);
+            //foreach (var item in UserPreferenceSeed.Data) modelBuilder.Entity<UserPreference>().HasData(item);
+            //foreach (var item in UserReportSeed.Data) modelBuilder.Entity<UserReport>().HasData(item);
+            //foreach (var item in VehiclesDetailsSeed.Data) modelBuilder.Entity<VehiclesDetails>().HasData(item);
+            //foreach (var item in RealEstateDetailsSeed.Data) modelBuilder.Entity<RealEstateDetails>().HasData(item);
+            //foreach (var item in ElectronicsDetailsSeed.Data) modelBuilder.Entity<ElectronicsDetails>().HasData(item);
+            //foreach (var item in FurnitureDetailsSeed.Data) modelBuilder.Entity<FurnitureDetails>().HasData(item);
+            //foreach (var item in PhonesDetailsSeed.Data) modelBuilder.Entity<PhonesDetails>().HasData(item);
+            //foreach (var item in ServicesDetailsSeed.Data) modelBuilder.Entity<ServicesDetails>().HasData(item);
+            //foreach (var item in PetsDetailsSeed.Data) modelBuilder.Entity<PetsDetails>().HasData(item);
+            //foreach (var item in FashionDetailsSeed.Data) modelBuilder.Entity<FashionDetails>().HasData(item);
+            //foreach (var item in BabyChildDetailsSeed.Data) modelBuilder.Entity<BabyChildDetails>().HasData(item);
+            //foreach (var item in HobbiesDetailsSeed.Data) modelBuilder.Entity<HobbiesDetails>().HasData(item);
+            //foreach (var item in SportsDetailsSeed.Data) modelBuilder.Entity<SportsDetails>().HasData(item);
             #endregion
 
 

@@ -31,6 +31,19 @@ namespace Arzly.Api.Controllers
             return Ok(result);
         }
 
+        [HttpGet("category/{categoryId:guid}")]
+        public async Task<ActionResult<List<SubCategoryResponse>>> GetByCategoryId(Guid categoryId)
+        {
+            _logger.LogInformation("{Controller}.GetByCategoryId({CategoryId}) - Before",
+                GetType().Name, categoryId);
+
+            var result = await _service.GetByCategoryIdAsync(categoryId);
+
+            _logger.LogInformation("{Controller}.GetByCategoryId({CategoryId}) - After",
+                GetType().Name, categoryId);
+            return Ok(result);
+        }
+
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<SubCategoryResponse>> GetById(Guid id)
         {

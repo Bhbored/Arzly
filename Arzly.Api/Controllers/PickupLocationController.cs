@@ -39,20 +39,22 @@ namespace Arzly.Api.Controllers
 
         [HttpPost("[action]")]
         [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(PickupLocationController) })]
-        public async Task<ActionResult<PickupLocationResponse>> Create([FromBody] PickupLocationAddRequest? request, [FromHeader] string? userId)
+        public async Task<ActionResult<PickupLocationResponse>> Create([FromBody] PickupLocationAddRequest? request,
+            [FromHeader] string? firebaseId)
         {
             _logger.LogInformation("{Controller}.Create - Before", GetType().Name);
-            var result = await _service.CreateAsync(request, userId);
+            var result = await _service.CreateAsync(request, firebaseId);
             _logger.LogInformation("{Controller}.Create - After", GetType().Name);
             return CreatedAtAction(nameof(GetById), new { id = result?.Id }, result);
         }
 
         [HttpPut("[action]/{id:guid}")]
         [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(PickupLocationController) })]
-        public async Task<ActionResult<PickupLocationResponse?>> Update([FromBody] PickupLocationUpdateRequest? request, [FromHeader] string? userId)
+        public async Task<ActionResult<PickupLocationResponse?>> Update([FromBody] PickupLocationUpdateRequest? request,
+            [FromHeader] string? firebaseId)
         {
             _logger.LogInformation("{Controller}.Update({Id}) - Before", GetType().Name, request?.Id);
-            var result = await _service.UpdateAsync(request,userId);
+            var result = await _service.UpdateAsync(request, firebaseId);
             _logger.LogInformation("{Controller}.Update({Id}) - After", GetType().Name, request?.Id);
             return Ok(result);
         }

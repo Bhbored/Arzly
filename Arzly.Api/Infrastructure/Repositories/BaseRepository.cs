@@ -17,7 +17,7 @@ namespace Arzly.Api.Infrastructure.Repositories
 
         public virtual async Task<List<TEntity>> GetAllAsync()
         {
-            return await _dbSet.AsNoTracking().ToListAsync() ?? new List<TEntity>();
+            return await _dbSet.AsNoTracking().ToListAsync();
         }
 
         public virtual async Task<TEntity?> GetByIdAsync(TKey? id)

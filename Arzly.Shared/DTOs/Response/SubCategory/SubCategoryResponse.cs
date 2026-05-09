@@ -7,5 +7,10 @@ namespace Arzly.Shared.DTOs.Response.SubCategory
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
         public int ItemsCount { get; set; }
+
+        public override string ToString()
+        {
+            return $"SubCategoryResponse [Id={Id}, CategoryId={CategoryId}, Name={Name}, Description={Description}, ItemsCount={ItemsCount}]";
+        }
     }
 }

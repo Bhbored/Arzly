@@ -1,6 +1,7 @@
 using Arzly.Api.Domain.Contracts;
 using Arzly.Api.Domain.Entities;
 using Arzly.Api.Infrastructure.Data.DataBaseContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace Arzly.Api.Infrastructure.Repositories
 {
@@ -9,5 +10,8 @@ namespace Arzly.Api.Infrastructure.Repositories
         public CategoryRepository(AppDbContext context) : base(context)
         {
         }
+
+
+    
     }
 }

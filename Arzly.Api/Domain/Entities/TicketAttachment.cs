@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Arzly.Api.Infrastructure.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Arzly.Api.Domain.Entities
@@ -13,6 +14,12 @@ namespace Arzly.Api.Domain.Entities
 
         [ForeignKey(nameof(TicketId))]
         public virtual Ticket Ticket { get; set; } = null!;
+
+        [Required(ErrorMessage = "Uploader ID is required.")]
+        public string UploaderId { get; set; } = string.Empty;
+
+        [ForeignKey(nameof(UploaderId))]
+        public virtual AppUser Uploader { get; set; } = null!;
 
         [Required(ErrorMessage = "File URL is required.")]
         [Url(ErrorMessage = "File URL must be a valid URL.")]
