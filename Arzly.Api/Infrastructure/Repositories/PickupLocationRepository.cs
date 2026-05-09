@@ -13,6 +13,25 @@ namespace Arzly.Api.Infrastructure.Repositories
             _db = context;
         }
 
+        public override async Task<PickupLocation> Update(PickupLocation entity)
+        {
+            var matchingLocation = await _db.PickupLocations
+                .FirstOrDefaultAsync(x => x.Id == entity.Id);
+
+            if (matchingLocation is not null)
+            {
+                matchingLocation.Lat = entity.Lat;
+                matchingLocation.Lon = entity.Lon;
+                matchingLocation.Label = entity.Label;
+                matchingLocation.Address = entity.Address;
+                matchingLocation.Notes = entity.Notes;
+                matchingLocation.IsDefault = entity.IsDefault;
+                await _db.SaveChangesAsync();
+                return matchingLocation;
+            }
+            return entity;
+
+        }
         public async Task<List<PickupLocation>> GetByUserId(string userId)
         {
             return await _db.PickupLocations

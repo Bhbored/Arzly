@@ -28,6 +28,19 @@ namespace Arzly.Api.Controllers
             return Ok(result);
         }
 
+        [HttpGet("user-locations")]
+        public async Task<ActionResult<List<PickupLocationResponse>>> GetByUserId([FromHeader] string? firebaseId)
+        {
+            _logger.LogInformation("{Controller}.GetByUserId({Id}) - Before",
+                GetType().Name, firebaseId);
+
+            var result = await _service.GetByUserId(firebaseId);
+
+            _logger.LogInformation("{Controller}.GetByUserId({Id}) - After",
+                GetType().Name, firebaseId);
+            return Ok(result);
+        }
+
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<PickupLocationResponse>> GetById(Guid? id)
         {
