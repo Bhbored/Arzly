@@ -7,5 +7,6 @@ namespace Arzly.Api.Application.Contracts
     public interface IPickupLocationService : IBaseService<PickupLocation, PickupLocationResponse, PickupLocationAddRequest, PickupLocationUpdateRequest, Guid>
     {
         Task<List<PickupLocationResponse>> GetByUserId(string? userId);
+        Task<bool> SoftDeleteLocation(Guid id, string? userId);
     }
 }

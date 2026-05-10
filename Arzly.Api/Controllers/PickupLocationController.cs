@@ -73,10 +73,10 @@ namespace Arzly.Api.Controllers
         }
 
         [HttpDelete("[action]/{id:guid}")]
-        public async Task<ActionResult> Delete(Guid? id)
+        public async Task<ActionResult> Delete(Guid? id, [FromHeader] string firebaseId)
         {
             _logger.LogInformation("{Controller}.Delete({Id}) - Before", GetType().Name, id);
-            await _service.DeleteAsync(id.Value);
+            await _service.SoftDeleteLocation(id.Value,firebaseId);
             _logger.LogInformation("{Controller}.Delete({Id}) - After", GetType().Name, id);
             return NoContent();
         }

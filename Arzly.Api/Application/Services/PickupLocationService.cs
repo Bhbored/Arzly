@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Arzly.Api.Application.Services
 {
-    public class PickupLocationService : BaseService<PickupLocation, PickupLocationResponse, PickupLocationAddRequest, PickupLocationUpdateRequest, Guid>, IPickupLocationService
+    public class PickupLocationService : BaseService<PickupLocation, PickupLocationResponse, PickupLocationAddRequest, PickupLocationUpdateRequest, Guid>,
+        IPickupLocationService
     {
         private readonly IPickupLocationRepository _pickupLocationRepo;
         private readonly ILogger<PickupLocationService> _logger;
@@ -67,11 +68,11 @@ namespace Arzly.Api.Application.Services
             }
 
             //comment this for now till the location service is done
-            //if (createDto.Lon == 0 || createDto.Lat == 0)
-            //{
-            //    _logger.LogError($"{GetType().Name} - Empty Coordination for the location provided in CreateAsync");
-            //    throw new ArgumentException(ExceptionMessages.NoCoordinationFound);
-            //}
+            if (createDto.Lon == 0 || createDto.Lat == 0)
+            {
+                _logger.LogError($"{GetType().Name} - Empty Coordination for the location provided in CreateAsync");
+                throw new ArgumentException(ExceptionMessages.NoCoordinationFound);
+            }
             var user = await _userService.GetByFireBaseIdAsync(userId);
 
             var userLocations = await _pickupLocationRepo.GetByUserId(user!.Id);
@@ -88,9 +89,31 @@ namespace Arzly.Api.Application.Services
             return MapToDto(entity);
         }
 
+        public async Task<bool> SoftDeleteLocation(Guid id, string? userId)
+        {
+            _logger.LogInformation($"{GetType().Name} - SoftDeleteLocation Has been reached");
+
+
+            if (id == Guid.Empty)
+            {
+                _logger.LogError($"{GetType().Name} - Empty LocationId provided in SoftDeleteLocation");
+                throw new ArgumentNullException(ExceptionMessages.MissingId);
+            }
+            await _userService.GetByFireBaseIdAsync(userId);
+            var location = await _pickupLocationRepo.GetByIdAsync(id);
+            if (location is null)
+            {
+                _logger.LogError($"{GetType().Name} - No Location founded with Id {id}", id);
+                throw new ArgumentException(ExceptionMessages.NoLocationFound);
+            }
+
+            return await _pickupLocationRepo.SoftDeleteLocation(id);
+        }
 
         protected override PickupLocationResponse MapToDto(PickupLocation entity) => entity.ToResponse();
         protected override PickupLocation MapToEntity(PickupLocationAddRequest createDto) => createDto.ToEntity();
         protected override PickupLocation MapToEntity(PickupLocationUpdateRequest updateDto) => updateDto.ToEntity();
+
+
     }
 }

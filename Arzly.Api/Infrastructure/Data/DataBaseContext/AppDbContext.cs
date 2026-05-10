@@ -82,33 +82,31 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                 entity.HasIndex(l => l.CreatedAt);
 
                 entity.HasOne(l => l.Category)
-                    .WithMany(c => c.Listings)
-                    .HasForeignKey(l => l.CategoryId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
+                     .WithMany(c => c.Listings)
+                     .HasForeignKey(l => l.CategoryId)
+                     .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasOne(l => l.SubCategory)
-                    .WithMany(s => s.Listings)
-                    .HasForeignKey(l => l.SubcategoryId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                     .WithMany(s => s.Listings)
+                     .HasForeignKey(l => l.SubcategoryId)
+                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(l => l.Owner)
-                    .WithMany(u => u.Listings)
-                    .HasForeignKey(l => l.OwnerId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                     .WithMany(u => u.Listings)
+                     .HasForeignKey(l => l.OwnerId)
+                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(l => l.PickupLocation)
-                        .WithMany(p => p.Listings)
-                        .HasForeignKey(l => l.PickupLocationId)
-                        .OnDelete(DeleteBehavior.Cascade);
+                     .WithMany(p => p.Listings)
+                     .HasForeignKey(l => l.PickupLocationId)
+                     .OnDelete(DeleteBehavior.Restrict);   
+
                 entity.HasMany(l => l.RelatedChats)
-                        .WithOne(c => c.Listing)
-                        .HasForeignKey(c => c.ListingId)
-                        .OnDelete(DeleteBehavior.Cascade);
+                     .WithOne(c => c.Listing)
+                     .HasForeignKey(c => c.ListingId)
+                     .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasQueryFilter(l => !l.IsDeleted);
-
-
             });
 
             //pickuplocation
@@ -117,9 +115,9 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                 entity.HasQueryFilter(p => !p.IsDeleted);
 
                 entity.HasOne(p => p.User)
-                    .WithMany(u => u.DeliveryLocations)
-                    .HasForeignKey(p => p.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                     .WithMany(u => u.DeliveryLocations)
+                     .HasForeignKey(p => p.UserId)
+                     .OnDelete(DeleteBehavior.Cascade);
 
             });
 
@@ -135,15 +133,14 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                 entity.HasIndex(j => j.LocationTitle);
 
                 entity.HasOne(j => j.Owner)
-                    .WithMany(j => j.JobListings)
-                    .HasForeignKey(j => j.OwnerId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
+                     .WithMany(j => j.JobListings)
+                     .HasForeignKey(j => j.OwnerId)
+                     .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasMany(j => j.RelatedChats)
-                    .WithOne(c => c.JobListing)
-                    .HasForeignKey(c => c.JobListingId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                     .WithOne(c => c.JobListing)
+                     .HasForeignKey(c => c.JobListingId)
+                     .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasQueryFilter(j => !j.IsDeleted);
             });
@@ -154,9 +151,9 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
             {
 
                 entity.HasOne(sl => sl.User)
-                      .WithMany(u => u.SavedListings)
-                      .HasForeignKey(sl => sl.UserId)
-                      .OnDelete(DeleteBehavior.Cascade);
+                     .WithMany(u => u.SavedListings)
+                     .HasForeignKey(sl => sl.UserId)
+                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(sl => sl.Listing)
                       .WithMany(l => l.SavedByUsers)
@@ -176,20 +173,17 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                 //entity.Property(c => c.ItemsCount)
                 //    .HasComputedColumnSql("SELECT COUNT(*) FROM Listings WHERE CategoryId = Id");//do it as stored 
 
-                entity.HasMany(c => c.Listings)
-                    .WithOne(c => c.Category)
-                    .HasForeignKey(l => l.CategoryId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                entity.HasMany(c => c.SubCategories)
+                       .WithOne(s => s.Category)
+                       .HasForeignKey(s => s.CategoryId)
+                       .OnDelete(DeleteBehavior.Cascade);
             });
 
             //subcategory
 
             modelBuilder.Entity<SubCategory>(entity =>
             {
-                entity.HasOne(s => s.Category)
-                    .WithMany(c => c.SubCategories)
-                    .HasForeignKey(s => s.CategoryId)
-                    .OnDelete(DeleteBehavior.Cascade);
+              
 
                 //entity.Property(s => s.ItemsCount).
                 //HasComputedColumnSql("SELECT COUNT(*) FROM Listings WHERE SubcategoryId = Id");
@@ -202,14 +196,14 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
             modelBuilder.Entity<UserReport>(entity =>
             {
                 entity.HasOne(r => r.Reporter)
-                    .WithMany(u => u.ReportsMade)
-                    .HasForeignKey(r => r.ReporterId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                     .WithMany(u => u.ReportsMade)
+                     .HasForeignKey(r => r.ReporterId)
+                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(r => r.ReportedUser)
-                    .WithMany(u => u.ReportsReceived)
-                    .HasForeignKey(r => r.ReportedUserId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                     .WithMany(u => u.ReportsReceived)
+                     .HasForeignKey(r => r.ReportedUserId)
+                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasIndex(r => r.ReporterId);
                 entity.HasIndex(r => r.ReportedUserId);
@@ -251,7 +245,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                 entity.HasOne(sq => sq.User)
                     .WithMany(u => u.SearchHistory)
                     .HasForeignKey(sq => sq.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasIndex(sq => sq.UserId);
                 entity.HasIndex(sq => sq.SearchedAt);
@@ -263,9 +257,9 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
             modelBuilder.Entity<UserPreference>(entity =>
             {
                 entity.HasOne(up => up.User)
-                    .WithOne(u => u.Preferences)
-                    .HasForeignKey<UserPreference>(up => up.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                        .WithOne(u => u.Preferences)
+                        .HasForeignKey<UserPreference>(up => up.UserId)
+                        .OnDelete(DeleteBehavior.Cascade);
                 entity.HasQueryFilter(v => v.User != null && !v.User.IsDeleted);
 
             });
@@ -377,10 +371,6 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
 
             modelBuilder.Entity<Chat>(entity =>
             {
-                entity.HasQueryFilter(c => !c.IsDeleted);
-                entity.HasQueryFilter(c => !c.Listing.IsDeleted);
-
-
                 entity.HasIndex(c => c.InitiatorId);
                 entity.HasIndex(c => c.ReceiverId);
                 entity.HasIndex(c => c.ListingId);
@@ -389,29 +379,19 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                 entity.HasIndex(c => c.IsArchived);
 
                 entity.HasOne(c => c.Initiator)
-                    .WithMany(u => u.ChatsInitiated)
-                    .HasForeignKey(c => c.InitiatorId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                     .WithMany(u => u.ChatsInitiated)
+                     .HasForeignKey(c => c.InitiatorId)
+                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(c => c.Receiver)
-                    .WithMany(u => u.ChatsReceived)
-                    .HasForeignKey(c => c.ReceiverId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-                entity.HasOne(c => c.Listing)
-                       .WithMany(l => l.RelatedChats)
-                       .HasForeignKey(c => c.ListingId)
-                       .OnDelete(DeleteBehavior.Cascade);
-
-                entity.HasOne(c => c.JobListing)
-                     .WithMany(j => j.RelatedChats)
-                    .HasForeignKey(c => c.JobListingId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                     .WithMany(u => u.ChatsReceived)
+                     .HasForeignKey(c => c.ReceiverId)
+                     .OnDelete(DeleteBehavior.Restrict);
 
 
                 entity.HasQueryFilter(c => !c.IsDeleted &&
-               (c.Listing == null || !c.Listing.IsDeleted) &&
-               (c.JobListing == null || !c.JobListing.IsDeleted));
+                    (c.Listing == null || !c.Listing.IsDeleted) &&
+                    (c.JobListing == null || !c.JobListing.IsDeleted));
             });
 
 
@@ -419,28 +399,28 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
 
             modelBuilder.Entity<ChatMessage>(entity =>
             {
-                entity.HasQueryFilter(cm => !cm.IsDeleted);
-
                 entity.HasIndex(m => m.ChatId);
                 entity.HasIndex(m => m.SentAt);
 
                 entity.HasOne(cm => cm.Chat)
-                       .WithMany(c => c.Messages)
-                       .HasForeignKey(cm => cm.ChatId)
-                       .OnDelete(DeleteBehavior.Cascade);
+                     .WithMany(c => c.Messages)
+                     .HasForeignKey(cm => cm.ChatId)
+                     .OnDelete(DeleteBehavior.Cascade);
+
                 entity.HasOne(m => m.Sender)
-                    .WithMany()
-                    .HasForeignKey(m => m.SenderId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                     .WithMany()
+                     .HasForeignKey(m => m.SenderId)
+                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(m => m.Receiver)
-                    .WithMany()
-                    .HasForeignKey(m => m.ReceiverId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                     .WithMany()
+                     .HasForeignKey(m => m.ReceiverId)
+                     .OnDelete(DeleteBehavior.Restrict);   
+
                 entity.HasQueryFilter(cm => !cm.IsDeleted &&
-               !cm.Chat.IsDeleted &&
-               (cm.Chat.Listing == null || !cm.Chat.Listing.IsDeleted) &&
-               (cm.Chat.JobListing == null || !cm.Chat.JobListing.IsDeleted));
+                    !cm.Chat.IsDeleted &&
+                    (cm.Chat.Listing == null || !cm.Chat.Listing.IsDeleted) &&
+                    (cm.Chat.JobListing == null || !cm.Chat.JobListing.IsDeleted));
             });
 
             //tickets
@@ -450,12 +430,12 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                 entity.HasOne(t => t.User)
                     .WithMany(u => u.CreatedTickets)
                     .HasForeignKey(t => t.UserId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(t => t.AssignedTo)
                     .WithMany()
                     .HasForeignKey(t => t.AssignedToId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(t => t.RelatedListing)
                     .WithMany()
@@ -480,12 +460,12 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                 entity.HasOne(tm => tm.Sender)
                     .WithMany()
                     .HasForeignKey(tm => tm.SenderId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(tm => tm.Receiver)
                     .WithMany()
                     .HasForeignKey(tm => tm.ReceiverId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasIndex(tm => tm.TicketId);
                 entity.HasIndex(tm => tm.SentAt);
@@ -505,7 +485,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                 entity.HasOne(ta => ta.Uploader)
                         .WithMany()
                         .HasForeignKey(ta => ta.UploaderId)
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 entity.HasIndex(ta => ta.TicketId);
                 entity.HasIndex(ta => ta.UploadedAt);
 
@@ -525,25 +505,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
             foreach (var item in AppUserSeed.Users) modelBuilder.Entity<AppUser>().HasData(item);
             foreach (var item in CategorySeed.Data) modelBuilder.Entity<Category>().HasData(item);
             foreach (var item in SubCategorySeed.Data) modelBuilder.Entity<SubCategory>().HasData(item);
-            //foreach (var item in PickupLocationSeed.Data) modelBuilder.Entity<PickupLocation>().HasData(item);
-            //foreach (var item in ListingSeed.Data) modelBuilder.Entity<Listing>().HasData(item);
-            //foreach (var item in JobListingSeed.Data) modelBuilder.Entity<JobListing>().HasData(item);
-            //foreach (var item in SavedListingSeed.Data) modelBuilder.Entity<SavedListing>().HasData(item);
-            //foreach (var item in SearchQuerySeed.Data) modelBuilder.Entity<SearchQuery>().HasData(item);
-            //foreach (var item in UserActivityLogSeed.Data) modelBuilder.Entity<UserActivityLog>().HasData(item);
-            //foreach (var item in UserPreferenceSeed.Data) modelBuilder.Entity<UserPreference>().HasData(item);
-            //foreach (var item in UserReportSeed.Data) modelBuilder.Entity<UserReport>().HasData(item);
-            //foreach (var item in VehiclesDetailsSeed.Data) modelBuilder.Entity<VehiclesDetails>().HasData(item);
-            //foreach (var item in RealEstateDetailsSeed.Data) modelBuilder.Entity<RealEstateDetails>().HasData(item);
-            //foreach (var item in ElectronicsDetailsSeed.Data) modelBuilder.Entity<ElectronicsDetails>().HasData(item);
-            //foreach (var item in FurnitureDetailsSeed.Data) modelBuilder.Entity<FurnitureDetails>().HasData(item);
-            //foreach (var item in PhonesDetailsSeed.Data) modelBuilder.Entity<PhonesDetails>().HasData(item);
-            //foreach (var item in ServicesDetailsSeed.Data) modelBuilder.Entity<ServicesDetails>().HasData(item);
-            //foreach (var item in PetsDetailsSeed.Data) modelBuilder.Entity<PetsDetails>().HasData(item);
-            //foreach (var item in FashionDetailsSeed.Data) modelBuilder.Entity<FashionDetails>().HasData(item);
-            //foreach (var item in BabyChildDetailsSeed.Data) modelBuilder.Entity<BabyChildDetails>().HasData(item);
-            //foreach (var item in HobbiesDetailsSeed.Data) modelBuilder.Entity<HobbiesDetails>().HasData(item);
-            //foreach (var item in SportsDetailsSeed.Data) modelBuilder.Entity<SportsDetails>().HasData(item);
+           
             #endregion
 
 

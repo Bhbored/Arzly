@@ -17,5 +17,6 @@ namespace Arzly.Shared.Constants
         public static readonly string NoCategoryWithId = "No Category with this ID Found";
         public static readonly string NoAttachedDetails = "No Attached Details Found in the Create Request";
         public static readonly string NoCoordinationFound = "No Coordination Found in the location Request";
+        public static readonly string NoLocationFound = "No Location Found With This ID";
     }
 }

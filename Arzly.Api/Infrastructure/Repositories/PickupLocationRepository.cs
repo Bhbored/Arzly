@@ -39,5 +39,20 @@ namespace Arzly.Api.Infrastructure.Repositories
                 .Where(x => x.UserId == userId)
                 .ToListAsync();
         }
+
+        public async Task<bool> SoftDeleteLocation(Guid id)
+        {
+            var entity = await _db.PickupLocations
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (entity !=null)
+            {
+                entity.IsDeleted = true;
+                entity.DeletedAt = DateTime.UtcNow;
+
+            }
+            var rows = await _db.SaveChangesAsync();
+            return rows > 0;
+
+        }
     }
 }

@@ -13,7 +13,8 @@ namespace Arzly.Api.Domain.ListingOwned
         [JsonIgnore]
         public virtual Listing? Listing { get; set; }
 
-        public CarBrand? CarBrand { get; set; }
+        public string? CarBrand { get; set; }
+        public string? CarModel { get; set; }
         public string? Version { get; set; }
         public VehicleCondition? Condition { get; set; }
         public int? Kilometers { get; set; }
