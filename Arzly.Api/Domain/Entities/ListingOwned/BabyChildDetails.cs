@@ -10,6 +10,7 @@ namespace Arzly.Api.Domain.ListingOwned
     public class BabyChildDetails
     {
         [Key, ForeignKey(nameof(Listing))]
+        [JsonIgnore]
         public Guid ListingId { get; set; }
         [JsonIgnore]
         public virtual Listing? Listing { get; set; }

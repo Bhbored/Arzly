@@ -9,6 +9,7 @@ namespace Arzly.Api.Domain.ListingOwned
     public class RealEstateDetails
     {
         [Key, ForeignKey(nameof(Listing))]
+        [JsonIgnore]
         public Guid ListingId { get; set; }
         [JsonIgnore]
         public virtual Listing? Listing { get; set; }

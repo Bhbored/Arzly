@@ -9,6 +9,7 @@ namespace Arzly.Api.Domain.ListingOwned
     public class FurnitureDetails
     {
         [Key, ForeignKey(nameof(Listing))]
+        [JsonIgnore]
         public Guid ListingId { get; set; }
         [JsonIgnore]
         public virtual Listing? Listing { get; set; }

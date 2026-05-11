@@ -11,6 +11,7 @@ namespace Arzly.Api.Domain.ListingOwned
         [Key, ForeignKey(nameof(Listing))]
         [JsonIgnore]
         public Guid ListingId { get; set; }
+        [JsonIgnore]
         public virtual Listing? Listing { get; set; }
 
         public PhoneBrand? PhoneBrand { get; set; }

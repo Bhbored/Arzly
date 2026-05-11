@@ -19,7 +19,6 @@ namespace Arzly.Shared.DTOs.Request.Listing
         [Range(0, double.MaxValue, ErrorMessage = "Price must be a positive number.")]
         public double Price { get; set; }
 
-        [Url(ErrorMessage = "Primary image URL must be a valid URL.")]
         [MaxLength(2048, ErrorMessage = "Primary image URL cannot exceed 2048 characters.")]
         public string? PrimaryImageUrl { get; set; }
 
