@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AWSSDK.S3" Version="4.0.23" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.7" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.7" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.7" />
@@ -35,7 +36,6 @@
 	<ItemGroup>
 		<Folder Include="Application\Validators\" />
 		<Folder Include="Infrastructure\Data\Configurations\" />
-		<Folder Include="Infrastructure\Storage\" />
 		<Folder Include="Middlewares\" />
 		<Folder Include="Hubs\" />
 		<Folder Include="Migrations\" />

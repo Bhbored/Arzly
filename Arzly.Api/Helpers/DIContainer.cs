@@ -4,6 +4,7 @@ using Arzly.Api.Domain.Contracts;
 using Arzly.Api.Filters.ExceptionFilters;
 using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Arzly.Api.Infrastructure.Repositories;
+using Arzly.Api.Infrastructure.Storage;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
@@ -114,12 +115,19 @@ namespace Arzly.Api.Helpers
             return services;
 
         }
+
+        public static IServiceCollection RegisterStorageServices(this IServiceCollection services)
+        {
+            services.AddScoped<ImageUploader>();
+            return services;
+        }
         public static IServiceCollection RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
         {
             return services.RegisterControllers()
                             .RegisterDataBase(configuration)
                             .RegisterHttpLogging()
                             .RegisterJsonOptions()
+                            .RegisterStorageServices()
                             .RegisterServices()
                             .RegisterRepositories();
         }
