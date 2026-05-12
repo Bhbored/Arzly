@@ -1,15 +1,48 @@
 ﻿using Arzly.Api.Application.Contracts;
+using Arzly.Api.Application.Services;
 using Arzly.Api.Domain.Contracts;
+using Arzly.Api.Filters.ExceptionFilters;
 using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Arzly.Api.Infrastructure.Repositories;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Arzly.Api.Application.Services
+namespace Arzly.Api.Helpers
 {
     public static class DIContainer
     {
+        public static IServiceCollection RegisterHttpLogging(this IServiceCollection services)
+        {
+            services.AddHttpLogging(options =>
+             {
+                 options.LoggingFields = HttpLoggingFields.RequestPropertiesAndHeaders | HttpLoggingFields.ResponsePropertiesAndHeaders;
+             });
+            return services;
+        }
+
+
+        public static IServiceCollection RegisterControllers(this IServiceCollection services)
+        {
+            services.AddControllers(controller =>
+            {
+
+                controller.Filters.Add<HandleExceptionFilter>();//global filter
+
+            })
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        })
+        .ConfigureApiBehaviorOptions(options =>
+        {
+            options.SuppressModelStateInvalidFilter = true;//for built-in modelBinding i did a custom filter for that although never again
+        });
+            return services;
+
+        }
 
         public static IServiceCollection RegisterDataBase(this IServiceCollection services, IConfiguration configuration)
         {
@@ -20,6 +53,8 @@ namespace Arzly.Api.Application.Services
             services.AddScoped<DbContext>(sp => sp.GetRequiredService<AppDbContext>());
             return services;
         }
+
+
         public static IServiceCollection RegisterJsonOptions(this IServiceCollection services)
         {
             var jsonOptions = new JsonSerializerOptions
@@ -81,10 +116,12 @@ namespace Arzly.Api.Application.Services
         }
         public static IServiceCollection RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            return services.RegisterDataBase(configuration)
+            return services.RegisterControllers()
+                            .RegisterDataBase(configuration)
+                            .RegisterHttpLogging()
                             .RegisterJsonOptions()
-                           .RegisterServices()
-                           .RegisterRepositories();
+                            .RegisterServices()
+                            .RegisterRepositories();
         }
     }
 }

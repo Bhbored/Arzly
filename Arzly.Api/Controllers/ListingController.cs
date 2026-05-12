@@ -19,6 +19,8 @@ namespace Arzly.Api.Controllers
         }
 
         #region fetch
+
+        //admin & support later
         [HttpGet]
         public async Task<ActionResult<List<ListingResponse>>> GetAll()
         {
@@ -29,7 +31,7 @@ namespace Arzly.Api.Controllers
 
             _logger.LogInformation("{Controller}.GetAll - After",
                 GetType().Name);
-            return Ok(result);
+            return result;
         }
         [HttpGet("indexed")]
         public async Task<ActionResult<List<ListingResponse>>> IndexedListings([FromHeader] int pageSize = 10, [FromHeader] int currentPage = 0)
@@ -41,7 +43,7 @@ namespace Arzly.Api.Controllers
 
             _logger.LogInformation("{Controller}.GetByPage - After",
                 GetType().Name);
-            return Ok(result);
+            return result;
         }
 
         [HttpGet("search")]
@@ -55,7 +57,7 @@ namespace Arzly.Api.Controllers
 
             _logger.LogInformation("{Controller}.GetAll - After",
                 GetType().Name);
-            return Ok(result);
+            return result;
         }
 
         [HttpGet("{id:guid}")]
@@ -125,7 +127,7 @@ namespace Arzly.Api.Controllers
 
             _logger.LogInformation("{Controller}.Create - After",
                 GetType().Name);
-            return CreatedAtAction(nameof(Create), new
+            return CreatedAtAction(nameof(GetByListingId), new
             {
                 id = result?.Id
             },

@@ -1,6 +1,7 @@
-using Arzly.Api.Application.Services;
 using Arzly.Api.Filters.ExceptionFilters;
+using Arzly.Api.Helpers;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Text.Json.Serialization;
 
@@ -14,47 +15,28 @@ builder.Host.UseSerilog((HostBuilderContext context, IServiceProvider services, 
     .ReadFrom.Configuration(context.Configuration)
     .ReadFrom.Services(services);
 });
-builder.Services.AddHttpLogging(options =>
-{
-    options.LoggingFields = HttpLoggingFields.RequestPropertiesAndHeaders | HttpLoggingFields.ResponsePropertiesAndHeaders;
-});
 
 builder.Services.RegisterDependencies(builder.Configuration);
 
-// Add services to the container.
 
-builder.Services.AddControllers(controller =>
-{
-
-    controller.Filters.Add<HandleExceptionFilter>();//global filter
-
-})
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.PropertyNamingPolicy = null;
-        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    })
-    .ConfigureApiBehaviorOptions(options =>
-    {
-        options.SuppressModelStateInvalidFilter = true;//for built-in modelBinding i did a custom filter for that
-    });
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
 
-//temp soi don't migrate
-//using var scope = app.Services.CreateScope();
-//var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-//await ListingOwnedSeedHelper.SeedAsync(context);
+
 // Configure the HTTP request pipeline.
 app.UseSerilogRequestLogging();
 
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
     app.UseDeveloperExceptionPage();
 }
+app.UseHsts();
+app.UseHttpsRedirection();
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpLogging();
 app.UseHttpsRedirection();
 app.UseAuthorization();

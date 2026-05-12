@@ -321,6 +321,15 @@ namespace Arzly.Api.Application.Services
 
         #endregion
 
+        #region update
+
+        public override async Task<ListingResponse?> UpdateAsync(ListingUpdateRequest? updateDto, string? userId)
+        {
+            await _userService.GetByIdAsync(userId);//if he's not available it will throw , identity affected later
+
+            return await base.UpdateAsync(updateDto, userId);
+        }
+        #endregion
 
 
         #region Mapping

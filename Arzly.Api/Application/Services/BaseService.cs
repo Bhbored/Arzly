@@ -38,7 +38,7 @@ namespace Arzly.Api.Application.Services
             return MapToDto(entity);
         }
         //use it at the end as base each entity has it own case validation,don't repeated made validations
-        public virtual async Task<TDto?> CreateAsync(TCreateDto? createDto, string? userId )
+        public virtual async Task<TDto?> CreateAsync(TCreateDto? createDto, string? userId)
         {
             if (createDto == null)
                 throw new ArgumentNullException(ExceptionMessages.EmptyAddRequest);
@@ -67,10 +67,9 @@ namespace Arzly.Api.Application.Services
             if (id is not Guid)
                 throw new ArgumentNullException(ExceptionMessages.MissingId);
 
-            if (id is Guid guid)
+            if (id is Guid guid && guid == Guid.Empty)
             {
-                if (guid == Guid.Empty)
-                    throw new ArgumentNullException(ExceptionMessages.MissingId);
+                throw new ArgumentNullException(ExceptionMessages.MissingId);
             }
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null) return false;
