@@ -1,5 +1,5 @@
 <Solution>
   <Project Path="Arzly.Api/Arzly.Api.csproj" />
-  <Project Path="Arzly.Client/Arzly.Client.csproj" />
+  <Project Path="Arzly.Client/Arzly.Client.csproj" Id="98135e54-a489-49eb-85aa-995ede4fab7e" />
   <Project Path="Arzly.Shared/Arzly.Shared.csproj" />
 </Solution>

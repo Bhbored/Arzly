@@ -44,7 +44,7 @@ namespace Arzly.Api.Infrastructure.Repositories
 
             return await _db.Listings
                 .Where(predicate)
-                .Where(x=> x.Status == ListingStatus.Active || x.Status == ListingStatus.Sold)
+                //.Where(x=> x.Status == ListingStatus.Active || x.Status == ListingStatus.Sold)
                 .Skip(currentPage * pageSize)
                 .Take(pageSize)
                 .Include(l => l.PickupLocation)
@@ -67,7 +67,7 @@ namespace Arzly.Api.Infrastructure.Repositories
             _logger.LogInformation($"{GetType().Name} - GetIndexedListings has been reached");
 
             return await _db.Listings
-                .Where(x=>x.Status == ListingStatus.Active || x.Status == ListingStatus.Sold)
+                //.Where(x=>x.Status == ListingStatus.Active || x.Status == ListingStatus.Sold)
                 .Skip(currentPage * pageSzie)
                 .Take(pageSzie)
                 .Include(l => l.PickupLocation)
@@ -77,7 +77,8 @@ namespace Arzly.Api.Infrastructure.Repositories
         public async Task<List<Listing>> GetListingByCategoryId(Guid categoryId, int pageSize, int currentPage)
         {
             return await _db.Listings 
-                             .Where(x => x.CategoryId == categoryId && x.Status == ListingStatus.Active || x.Status == ListingStatus.Sold)
+                             .Where(x => x.CategoryId == categoryId )
+                             //&& x.Status == ListingStatus.Active || x.Status == ListingStatus.Sold
                              .Skip(currentPage * pageSize)
                              .Take(pageSize)
                              .Include(x => x.PickupLocation)
@@ -87,7 +88,8 @@ namespace Arzly.Api.Infrastructure.Repositories
         public async Task<List<Listing>> GetInitialListings(Guid categoryId)
         {
             return await _db.Listings
-                              .Where(x => x.CategoryId == categoryId && x.Status == ListingStatus.Active || x.Status == ListingStatus.Sold)
+                              .Where(x => x.CategoryId == categoryId)
+                              //&& x.Status == ListingStatus.Active || x.Status == ListingStatus.Sold
                               .OrderByDescending(x=>x.IsPromoted)
                               .Take(5)
                               .Include(x => x.PickupLocation)

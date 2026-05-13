@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arzly.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260511072301_initial_migration")]
+    [Migration("20260513145039_initial_migration")]
     partial class initial_migration
     {
         /// <inheritdoc />
@@ -54,7 +54,7 @@ namespace Arzly.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f8fede12-48af-450f-b7b3-f67acfdbe51b"),
+                            Id = new Guid("7184fba1-9a8e-42bd-9990-10422c6bee3b"),
                             Description = "Cars, motorcycles, boats, trucks and accessories",
                             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/vehicles.png",
                             ItemsCount = 0,
@@ -62,7 +62,7 @@ namespace Arzly.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("20c7c515-b766-43dd-aee5-d0c412695a36"),
+                            Id = new Guid("fb05fb86-b8ad-4dfa-b206-976a4df6b3f0"),
                             Description = "Apartments, villas, land and commercial properties",
                             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/real-estate.png",
                             ItemsCount = 0,
@@ -70,7 +70,7 @@ namespace Arzly.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("60389343-b109-47f6-a93a-8f9155162a1b"),
+                            Id = new Guid("978ef857-50ff-4651-a7c2-ead818351d67"),
                             Description = "Smartphones, tablets, watches and accessories",
                             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/phones%26gadgets.png",
                             ItemsCount = 0,
@@ -78,7 +78,7 @@ namespace Arzly.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5516ebd4-e82b-467b-b3f5-51b32ab5d032"),
+                            Id = new Guid("f29c3d0a-c117-474d-b272-7784aa5240a0"),
                             Description = "TVs, laptops, cameras, kitchen and home appliances",
                             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/electronics%26appliances.png",
                             ItemsCount = 0,
@@ -86,7 +86,7 @@ namespace Arzly.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d02ece08-fdc1-4e40-8967-568d8be5e006"),
+                            Id = new Guid("f5185502-d3ef-432f-ad47-bcd912a12516"),
                             Description = "Home and office furniture, lighting, rugs and decor",
                             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/furniture%26decor.png",
                             ItemsCount = 0,
@@ -94,7 +94,7 @@ namespace Arzly.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("08b9f128-65d1-413b-ae94-183ee2279075"),
+                            Id = new Guid("75f23edb-b981-466c-b301-d93c727d8f8c"),
                             Description = "Dogs, cats, birds, fish and pet supplies",
                             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/pets.png",
                             ItemsCount = 0,
@@ -102,7 +102,7 @@ namespace Arzly.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("280ec89a-a20f-45f4-91fb-eed18e3b56ba"),
+                            Id = new Guid("be75c329-a89f-4dd1-8613-eee0ea073d08"),
                             Description = "Toys, strollers, clothing and baby gear",
                             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/kids%26babies.png",
                             ItemsCount = 0,
@@ -110,7 +110,7 @@ namespace Arzly.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7d02e1ce-f08f-408b-b213-830efe85e688"),
+                            Id = new Guid("165742b3-2f37-40aa-a705-c8fe185c48a5"),
                             Description = "Gym equipment, bicycles, camping and fitness gear",
                             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/sports%26equipment.png",
                             ItemsCount = 0,
@@ -118,7 +118,7 @@ namespace Arzly.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8e84dac8-7c9a-4941-860a-0c867723a547"),
+                            Id = new Guid("73bac066-51dd-4204-8719-121b412359ff"),
                             Description = "Books, music, art, collectibles and musical instruments",
                             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/hobbies.png",
                             ItemsCount = 0,
@@ -126,7 +126,7 @@ namespace Arzly.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d3de0f39-c955-4275-9486-21dbb0a132a4"),
+                            Id = new Guid("5c37f414-bff1-4df3-abb0-77e50965f74a"),
                             Description = "Clothing, shoes, bags, jewelry and cosmetics",
                             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/fshion%26style.png",
                             ItemsCount = 0,
@@ -134,7 +134,7 @@ namespace Arzly.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9c522c39-1cc2-44a2-88ad-5f5037e7eb8d"),
+                            Id = new Guid("0f9e2622-d8d1-45e3-a969-9d3b8bd618f6"),
                             Description = "Home repair, cleaning, tutoring, moving and more",
                             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/services.png",
                             ItemsCount = 0,
@@ -598,610 +598,610 @@ namespace Arzly.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3842cda1-fa1c-44ef-b503-3359cbe20c19"),
-                            CategoryId = new Guid("f8fede12-48af-450f-b7b3-f67acfdbe51b"),
+                            Id = new Guid("4ba3cc95-aca8-493b-be68-36a226cb8f30"),
+                            CategoryId = new Guid("7184fba1-9a8e-42bd-9990-10422c6bee3b"),
                             ItemsCount = 0,
                             Name = "Cars For Sale"
                         },
                         new
                         {
-                            Id = new Guid("6f352136-0a3a-44d8-a3ea-feb6bf4878a2"),
-                            CategoryId = new Guid("f8fede12-48af-450f-b7b3-f67acfdbe51b"),
+                            Id = new Guid("32c93a24-80c6-4ff6-aea5-c03ee157cf7c"),
+                            CategoryId = new Guid("7184fba1-9a8e-42bd-9990-10422c6bee3b"),
                             ItemsCount = 0,
                             Name = "Vehicle Accessories"
                         },
                         new
                         {
-                            Id = new Guid("ac3a2348-a68b-4991-acbf-59fcc0bd3166"),
-                            CategoryId = new Guid("f8fede12-48af-450f-b7b3-f67acfdbe51b"),
+                            Id = new Guid("08cf82be-8122-4eda-b7e8-5a5455114c41"),
+                            CategoryId = new Guid("7184fba1-9a8e-42bd-9990-10422c6bee3b"),
                             ItemsCount = 0,
                             Name = "Vehicle Spare Parts"
                         },
                         new
                         {
-                            Id = new Guid("e43109ad-e0f8-41f3-92fd-3afdefb95844"),
-                            CategoryId = new Guid("f8fede12-48af-450f-b7b3-f67acfdbe51b"),
+                            Id = new Guid("d7125f27-d3d8-42be-a5f1-4d9f34b7f81d"),
+                            CategoryId = new Guid("7184fba1-9a8e-42bd-9990-10422c6bee3b"),
                             ItemsCount = 0,
                             Name = "Number Plates"
                         },
                         new
                         {
-                            Id = new Guid("07af5a4b-869b-47d8-b8d9-4bc0a44e72aa"),
-                            CategoryId = new Guid("f8fede12-48af-450f-b7b3-f67acfdbe51b"),
+                            Id = new Guid("69add1e2-1db6-4c5c-837f-0b7892347af9"),
+                            CategoryId = new Guid("7184fba1-9a8e-42bd-9990-10422c6bee3b"),
                             ItemsCount = 0,
                             Name = "Motorcycles & ATV's"
                         },
                         new
                         {
-                            Id = new Guid("0ce80d63-b4fe-4e40-b8f6-755b8f797c12"),
-                            CategoryId = new Guid("f8fede12-48af-450f-b7b3-f67acfdbe51b"),
+                            Id = new Guid("957bdfb0-2308-4cd2-a582-84bda10ea5c5"),
+                            CategoryId = new Guid("7184fba1-9a8e-42bd-9990-10422c6bee3b"),
                             ItemsCount = 0,
                             Name = "Trucks & Buses"
                         },
                         new
                         {
-                            Id = new Guid("cef5d6cf-4f29-49f3-b4dc-82ea0df708be"),
-                            CategoryId = new Guid("f8fede12-48af-450f-b7b3-f67acfdbe51b"),
+                            Id = new Guid("0b528c12-8045-4e0b-89b0-ad2a913bb1b9"),
+                            CategoryId = new Guid("7184fba1-9a8e-42bd-9990-10422c6bee3b"),
                             ItemsCount = 0,
                             Name = "Boats"
                         },
                         new
                         {
-                            Id = new Guid("5475e904-2759-40bb-ad60-490ae898a416"),
-                            CategoryId = new Guid("20c7c515-b766-43dd-aee5-d0c412695a36"),
+                            Id = new Guid("4701fa66-0fe2-4428-92e8-4629b4bfd6ab"),
+                            CategoryId = new Guid("fb05fb86-b8ad-4dfa-b206-976a4df6b3f0"),
                             ItemsCount = 0,
                             Name = "Houses For Sale"
                         },
                         new
                         {
-                            Id = new Guid("df07599b-ab7d-4155-8161-f2489ccd93b4"),
-                            CategoryId = new Guid("20c7c515-b766-43dd-aee5-d0c412695a36"),
+                            Id = new Guid("2e28180c-d1e6-41c3-afbe-3f84aa656db2"),
+                            CategoryId = new Guid("fb05fb86-b8ad-4dfa-b206-976a4df6b3f0"),
                             ItemsCount = 0,
                             Name = "Houses For Rent"
                         },
                         new
                         {
-                            Id = new Guid("f6029d24-e261-478f-b946-13d97bfb23e7"),
-                            CategoryId = new Guid("20c7c515-b766-43dd-aee5-d0c412695a36"),
+                            Id = new Guid("868a6ce4-22ca-4474-bc10-152d586717d7"),
+                            CategoryId = new Guid("fb05fb86-b8ad-4dfa-b206-976a4df6b3f0"),
                             ItemsCount = 0,
                             Name = "Commercials For Sale"
                         },
                         new
                         {
-                            Id = new Guid("06d9640a-baf3-4aee-bfc5-1d699ee791f5"),
-                            CategoryId = new Guid("20c7c515-b766-43dd-aee5-d0c412695a36"),
+                            Id = new Guid("43a01afd-5564-4688-90e9-4ece120e060e"),
+                            CategoryId = new Guid("fb05fb86-b8ad-4dfa-b206-976a4df6b3f0"),
                             ItemsCount = 0,
                             Name = "Commercials For Rent"
                         },
                         new
                         {
-                            Id = new Guid("dc6d6f5b-1ada-42d8-bdbe-c710a2f94953"),
-                            CategoryId = new Guid("20c7c515-b766-43dd-aee5-d0c412695a36"),
+                            Id = new Guid("e986e5e5-a977-46f9-aa49-c11ce3a30ebb"),
+                            CategoryId = new Guid("fb05fb86-b8ad-4dfa-b206-976a4df6b3f0"),
                             ItemsCount = 0,
                             Name = "Land For Sale"
                         },
                         new
                         {
-                            Id = new Guid("2d4694d3-1fb6-4e7d-b9ed-03a513937ec7"),
-                            CategoryId = new Guid("20c7c515-b766-43dd-aee5-d0c412695a36"),
+                            Id = new Guid("b92db88e-33e4-4c16-b250-33103ce50ae5"),
+                            CategoryId = new Guid("fb05fb86-b8ad-4dfa-b206-976a4df6b3f0"),
                             ItemsCount = 0,
                             Name = "Land For Rent"
                         },
                         new
                         {
-                            Id = new Guid("e0e88653-f735-4af0-8054-8f7a7506898f"),
-                            CategoryId = new Guid("20c7c515-b766-43dd-aee5-d0c412695a36"),
+                            Id = new Guid("78907d96-6568-4f6f-8bbc-95209a2310d4"),
+                            CategoryId = new Guid("fb05fb86-b8ad-4dfa-b206-976a4df6b3f0"),
                             ItemsCount = 0,
                             Name = "Chalets & Cabins For Sale"
                         },
                         new
                         {
-                            Id = new Guid("136f428d-50dd-4c95-b4e6-531679e677d1"),
-                            CategoryId = new Guid("20c7c515-b766-43dd-aee5-d0c412695a36"),
+                            Id = new Guid("d7c57ca6-4973-40ed-9e19-15c81d2bc8f3"),
+                            CategoryId = new Guid("fb05fb86-b8ad-4dfa-b206-976a4df6b3f0"),
                             ItemsCount = 0,
                             Name = "Chalets & Cabins For Rent"
                         },
                         new
                         {
-                            Id = new Guid("c53ce17e-3f57-4549-b305-1e3101d21018"),
-                            CategoryId = new Guid("20c7c515-b766-43dd-aee5-d0c412695a36"),
+                            Id = new Guid("62c79f13-457c-4728-9763-881ac5567b2d"),
+                            CategoryId = new Guid("fb05fb86-b8ad-4dfa-b206-976a4df6b3f0"),
                             ItemsCount = 0,
                             Name = "Rooms For Rent"
                         },
                         new
                         {
-                            Id = new Guid("21adf4c8-43cc-4670-9be0-43bbe6bc7ad7"),
-                            CategoryId = new Guid("60389343-b109-47f6-a93a-8f9155162a1b"),
+                            Id = new Guid("e1da7f58-0faa-47cf-81ff-875c9fba6750"),
+                            CategoryId = new Guid("978ef857-50ff-4651-a7c2-ead818351d67"),
                             ItemsCount = 0,
                             Name = "Mobile Phones"
                         },
                         new
                         {
-                            Id = new Guid("f63d25f4-8ea2-4109-843a-5d9aab3849da"),
-                            CategoryId = new Guid("60389343-b109-47f6-a93a-8f9155162a1b"),
+                            Id = new Guid("bfeac0c3-0899-4314-87ff-9fddcee8f9b1"),
+                            CategoryId = new Guid("978ef857-50ff-4651-a7c2-ead818351d67"),
                             ItemsCount = 0,
                             Name = "Mobile Accessories"
                         },
                         new
                         {
-                            Id = new Guid("05ad0fbf-b523-4588-b0bf-c151df5e0d8c"),
-                            CategoryId = new Guid("60389343-b109-47f6-a93a-8f9155162a1b"),
+                            Id = new Guid("7d324246-d1e1-4113-8bb1-f846576a88dc"),
+                            CategoryId = new Guid("978ef857-50ff-4651-a7c2-ead818351d67"),
                             ItemsCount = 0,
                             Name = "Mobile Numbers"
                         },
                         new
                         {
-                            Id = new Guid("5190cca0-0fd0-400f-8e92-ae80ff149bf7"),
-                            CategoryId = new Guid("60389343-b109-47f6-a93a-8f9155162a1b"),
+                            Id = new Guid("b9096ddc-fa33-40b4-8822-91957c2b8334"),
+                            CategoryId = new Guid("978ef857-50ff-4651-a7c2-ead818351d67"),
                             ItemsCount = 0,
                             Name = "Smart Watches"
                         },
                         new
                         {
-                            Id = new Guid("0ae8b0eb-d352-4aeb-a24d-cbe434be57e7"),
-                            CategoryId = new Guid("5516ebd4-e82b-467b-b3f5-51b32ab5d032"),
+                            Id = new Guid("8f4bbd78-9315-4d06-bf2e-9a824d2f1433"),
+                            CategoryId = new Guid("f29c3d0a-c117-474d-b272-7784aa5240a0"),
                             ItemsCount = 0,
                             Name = "TV & Video"
                         },
                         new
                         {
-                            Id = new Guid("1e4b5bfb-a00f-42d3-b87b-fb6149f3ea1e"),
-                            CategoryId = new Guid("5516ebd4-e82b-467b-b3f5-51b32ab5d032"),
+                            Id = new Guid("2f5b2b46-e214-4198-b7fc-949e12301ad4"),
+                            CategoryId = new Guid("f29c3d0a-c117-474d-b272-7784aa5240a0"),
                             ItemsCount = 0,
                             Name = "Home Audio & Speakers"
                         },
                         new
                         {
-                            Id = new Guid("e3050cfb-cf40-42ac-abce-0f1673d770bf"),
-                            CategoryId = new Guid("5516ebd4-e82b-467b-b3f5-51b32ab5d032"),
+                            Id = new Guid("f7da5d97-97b1-4fa1-8bd1-53bc57a71e53"),
+                            CategoryId = new Guid("f29c3d0a-c117-474d-b272-7784aa5240a0"),
                             ItemsCount = 0,
                             Name = "Kitchen Equipment & Appliances"
                         },
                         new
                         {
-                            Id = new Guid("3fa7ca14-9848-4827-a33c-0b634de67a4e"),
-                            CategoryId = new Guid("5516ebd4-e82b-467b-b3f5-51b32ab5d032"),
+                            Id = new Guid("8877a141-8b83-407b-85e3-d982fc6c4d06"),
+                            CategoryId = new Guid("f29c3d0a-c117-474d-b272-7784aa5240a0"),
                             ItemsCount = 0,
                             Name = "AC Cooling & Heating"
                         },
                         new
                         {
-                            Id = new Guid("01d5f6b9-4637-44a0-957f-63da12b92840"),
-                            CategoryId = new Guid("5516ebd4-e82b-467b-b3f5-51b32ab5d032"),
+                            Id = new Guid("ebe8368b-b69b-4e12-9b53-e587f161f587"),
+                            CategoryId = new Guid("f29c3d0a-c117-474d-b272-7784aa5240a0"),
                             ItemsCount = 0,
                             Name = "Cleaning Appliances"
                         },
                         new
                         {
-                            Id = new Guid("b2aa479b-8d7d-4007-a057-3db21f139cf1"),
-                            CategoryId = new Guid("5516ebd4-e82b-467b-b3f5-51b32ab5d032"),
+                            Id = new Guid("fce18328-d7b9-4b5f-b90c-e4da09692046"),
+                            CategoryId = new Guid("f29c3d0a-c117-474d-b272-7784aa5240a0"),
                             ItemsCount = 0,
                             Name = "Washing Machines & Dryers"
                         },
                         new
                         {
-                            Id = new Guid("9c46b5e5-030e-4279-be1a-427e97515ba5"),
-                            CategoryId = new Guid("5516ebd4-e82b-467b-b3f5-51b32ab5d032"),
+                            Id = new Guid("85831366-4c50-459f-a43a-82324de3d81f"),
+                            CategoryId = new Guid("f29c3d0a-c117-474d-b272-7784aa5240a0"),
                             ItemsCount = 0,
                             Name = "Laptops Tablets Computers"
                         },
                         new
                         {
-                            Id = new Guid("0dd631bd-edaf-4cec-89ff-036d0f74dba6"),
-                            CategoryId = new Guid("5516ebd4-e82b-467b-b3f5-51b32ab5d032"),
+                            Id = new Guid("26ce8cb3-4076-4d3a-91a2-a36ea1dbfdd0"),
+                            CategoryId = new Guid("f29c3d0a-c117-474d-b272-7784aa5240a0"),
                             ItemsCount = 0,
                             Name = "Computer Parts & IT Accessories"
                         },
                         new
                         {
-                            Id = new Guid("954f3104-a25b-44a0-b199-a3fe7af95cdb"),
-                            CategoryId = new Guid("5516ebd4-e82b-467b-b3f5-51b32ab5d032"),
+                            Id = new Guid("b23e6a19-a2ae-4d87-a283-a1b4a363dcd0"),
+                            CategoryId = new Guid("f29c3d0a-c117-474d-b272-7784aa5240a0"),
                             ItemsCount = 0,
                             Name = "Cameras"
                         },
                         new
                         {
-                            Id = new Guid("31e6423f-8ed2-411a-819f-900582f56d20"),
-                            CategoryId = new Guid("5516ebd4-e82b-467b-b3f5-51b32ab5d032"),
+                            Id = new Guid("47bbac67-b62d-4177-a0af-de00a5f49b3a"),
+                            CategoryId = new Guid("f29c3d0a-c117-474d-b272-7784aa5240a0"),
                             ItemsCount = 0,
                             Name = "Gaming Consoles & Accessories"
                         },
                         new
                         {
-                            Id = new Guid("2ad01296-aca3-43e0-8e3a-347b78c3b744"),
-                            CategoryId = new Guid("5516ebd4-e82b-467b-b3f5-51b32ab5d032"),
+                            Id = new Guid("dd9b1867-95c2-471c-83a6-1d3dd4410b67"),
+                            CategoryId = new Guid("f29c3d0a-c117-474d-b272-7784aa5240a0"),
                             ItemsCount = 0,
                             Name = "Video Games"
                         },
                         new
                         {
-                            Id = new Guid("6b62362b-9f45-41db-9838-02a087ca3c61"),
-                            CategoryId = new Guid("5516ebd4-e82b-467b-b3f5-51b32ab5d032"),
+                            Id = new Guid("86e42627-7395-4dc9-8174-cc700b52cf2f"),
+                            CategoryId = new Guid("f29c3d0a-c117-474d-b272-7784aa5240a0"),
                             ItemsCount = 0,
                             Name = "Other Home Appliances"
                         },
                         new
                         {
-                            Id = new Guid("b0cd0865-f4db-4929-86bb-1c2fe5f68ad9"),
-                            CategoryId = new Guid("d02ece08-fdc1-4e40-8967-568d8be5e006"),
+                            Id = new Guid("189bd171-206e-4f08-962a-e7b9513328ea"),
+                            CategoryId = new Guid("f5185502-d3ef-432f-ad47-bcd912a12516"),
                             ItemsCount = 0,
                             Name = "Living Room"
                         },
                         new
                         {
-                            Id = new Guid("5997b795-0d8b-4f23-a870-77f92cf9d585"),
-                            CategoryId = new Guid("d02ece08-fdc1-4e40-8967-568d8be5e006"),
+                            Id = new Guid("a9d10148-d401-4235-a4b0-fdd4dd8e2a9e"),
+                            CategoryId = new Guid("f5185502-d3ef-432f-ad47-bcd912a12516"),
                             ItemsCount = 0,
                             Name = "Bedrooms"
                         },
                         new
                         {
-                            Id = new Guid("fb8223dd-aa65-4ccd-8211-139a8f381918"),
-                            CategoryId = new Guid("d02ece08-fdc1-4e40-8967-568d8be5e006"),
+                            Id = new Guid("2151476e-ad3c-477e-84a5-84e893be383d"),
+                            CategoryId = new Guid("f5185502-d3ef-432f-ad47-bcd912a12516"),
                             ItemsCount = 0,
                             Name = "Dining Rooms"
                         },
                         new
                         {
-                            Id = new Guid("371a8cf8-7dd3-446d-9fd5-b28698166a70"),
-                            CategoryId = new Guid("d02ece08-fdc1-4e40-8967-568d8be5e006"),
+                            Id = new Guid("34327f19-2c75-450d-bb2b-75456548a4a5"),
+                            CategoryId = new Guid("f5185502-d3ef-432f-ad47-bcd912a12516"),
                             ItemsCount = 0,
                             Name = "Kitchen & Kitchenware"
                         },
                         new
                         {
-                            Id = new Guid("d59545ca-6911-4098-9505-1d6463962530"),
-                            CategoryId = new Guid("d02ece08-fdc1-4e40-8967-568d8be5e006"),
+                            Id = new Guid("5b50fbf9-ce65-4803-a62f-51d08425ef3c"),
+                            CategoryId = new Guid("f5185502-d3ef-432f-ad47-bcd912a12516"),
                             ItemsCount = 0,
                             Name = "Bathrooms"
                         },
                         new
                         {
-                            Id = new Guid("a1e88d83-7e9e-44f8-9a0b-48d3258085b3"),
-                            CategoryId = new Guid("d02ece08-fdc1-4e40-8967-568d8be5e006"),
+                            Id = new Guid("0d1c0428-27ff-43d4-a282-be1fd4af8a7c"),
+                            CategoryId = new Guid("f5185502-d3ef-432f-ad47-bcd912a12516"),
                             ItemsCount = 0,
                             Name = "Home Decoration & Accessories"
                         },
                         new
                         {
-                            Id = new Guid("9ac7733f-fdb5-47a8-9105-774a1344a19a"),
-                            CategoryId = new Guid("d02ece08-fdc1-4e40-8967-568d8be5e006"),
+                            Id = new Guid("59718b88-0da4-4c0b-a696-2087e792abfa"),
+                            CategoryId = new Guid("f5185502-d3ef-432f-ad47-bcd912a12516"),
                             ItemsCount = 0,
                             Name = "Garden & Outdoors"
                         },
                         new
                         {
-                            Id = new Guid("72c0cbb3-32ee-44e9-9e33-4ea77a6b0950"),
-                            CategoryId = new Guid("d02ece08-fdc1-4e40-8967-568d8be5e006"),
+                            Id = new Guid("03ddbfc1-e2bd-4fca-8f07-f1ba4d1d2990"),
+                            CategoryId = new Guid("f5185502-d3ef-432f-ad47-bcd912a12516"),
                             ItemsCount = 0,
                             Name = "Other Furniture & Decor"
                         },
                         new
                         {
-                            Id = new Guid("6f6a3b33-4efe-4ad3-bf7e-1d93d7d3686f"),
-                            CategoryId = new Guid("08b9f128-65d1-413b-ae94-183ee2279075"),
+                            Id = new Guid("2c4cb6aa-a81f-44c6-9164-8efda042e1a4"),
+                            CategoryId = new Guid("75f23edb-b981-466c-b301-d93c727d8f8c"),
                             ItemsCount = 0,
                             Name = "Pet Food & Treats"
                         },
                         new
                         {
-                            Id = new Guid("ae859903-0b8b-4b80-b158-b89596fb790e"),
-                            CategoryId = new Guid("08b9f128-65d1-413b-ae94-183ee2279075"),
+                            Id = new Guid("53a6128b-3e05-4302-8036-943b483b7d9d"),
+                            CategoryId = new Guid("75f23edb-b981-466c-b301-d93c727d8f8c"),
                             ItemsCount = 0,
                             Name = "Toys"
                         },
                         new
                         {
-                            Id = new Guid("a0a7b7c9-a282-4cfe-b865-44d880b49542"),
-                            CategoryId = new Guid("08b9f128-65d1-413b-ae94-183ee2279075"),
+                            Id = new Guid("1e8cc19b-7a07-4050-80a0-cff67784aa46"),
+                            CategoryId = new Guid("75f23edb-b981-466c-b301-d93c727d8f8c"),
                             ItemsCount = 0,
                             Name = "Pet Grooming"
                         },
                         new
                         {
-                            Id = new Guid("3c62fd70-f40b-4908-9f27-5886bf218223"),
-                            CategoryId = new Guid("08b9f128-65d1-413b-ae94-183ee2279075"),
+                            Id = new Guid("eb701043-a596-439b-9591-2a3f24c64ae0"),
+                            CategoryId = new Guid("75f23edb-b981-466c-b301-d93c727d8f8c"),
                             ItemsCount = 0,
                             Name = "Pet Accessories"
                         },
                         new
                         {
-                            Id = new Guid("d823ca37-3da5-4306-956d-fab37b73ceeb"),
-                            CategoryId = new Guid("08b9f128-65d1-413b-ae94-183ee2279075"),
+                            Id = new Guid("be3b5469-766f-4a3d-9166-633f4d29f398"),
+                            CategoryId = new Guid("75f23edb-b981-466c-b301-d93c727d8f8c"),
                             ItemsCount = 0,
                             Name = "Dogs"
                         },
                         new
                         {
-                            Id = new Guid("d693ca0f-cf0c-453d-9d42-bb54c52aebff"),
-                            CategoryId = new Guid("08b9f128-65d1-413b-ae94-183ee2279075"),
+                            Id = new Guid("87d4545c-68cb-4618-9476-c273e7f5a521"),
+                            CategoryId = new Guid("75f23edb-b981-466c-b301-d93c727d8f8c"),
                             ItemsCount = 0,
                             Name = "Cats"
                         },
                         new
                         {
-                            Id = new Guid("b70bcc13-5115-48f0-b453-b5e501233150"),
-                            CategoryId = new Guid("08b9f128-65d1-413b-ae94-183ee2279075"),
+                            Id = new Guid("75ec5627-cdea-44e2-ac25-fdd13a3739a3"),
+                            CategoryId = new Guid("75f23edb-b981-466c-b301-d93c727d8f8c"),
                             ItemsCount = 0,
                             Name = "Birds"
                         },
                         new
                         {
-                            Id = new Guid("983cd4cf-44e5-4eed-ace6-e104c703b8ef"),
-                            CategoryId = new Guid("08b9f128-65d1-413b-ae94-183ee2279075"),
+                            Id = new Guid("3f66ec52-4493-424b-93bd-1f9b2a2b77d2"),
+                            CategoryId = new Guid("75f23edb-b981-466c-b301-d93c727d8f8c"),
                             ItemsCount = 0,
                             Name = "Other Animals"
                         },
                         new
                         {
-                            Id = new Guid("7fa7cedf-b80c-461b-befd-210f4d97e2bf"),
-                            CategoryId = new Guid("08b9f128-65d1-413b-ae94-183ee2279075"),
+                            Id = new Guid("eed2e724-e1ff-40d2-83eb-094bd825fde8"),
+                            CategoryId = new Guid("75f23edb-b981-466c-b301-d93c727d8f8c"),
                             ItemsCount = 0,
                             Name = "Pet Services"
                         },
                         new
                         {
-                            Id = new Guid("14d53660-4d9a-44f2-babb-2662d91455e8"),
-                            CategoryId = new Guid("280ec89a-a20f-45f4-91fb-eed18e3b56ba"),
+                            Id = new Guid("5fd681e4-4e92-49e2-98d6-a1d195f49ae0"),
+                            CategoryId = new Guid("be75c329-a89f-4dd1-8613-eee0ea073d08"),
                             ItemsCount = 0,
                             Name = "Toys For Kids"
                         },
                         new
                         {
-                            Id = new Guid("90919b23-2a3c-4776-be56-15aaf2a62724"),
-                            CategoryId = new Guid("280ec89a-a20f-45f4-91fb-eed18e3b56ba"),
+                            Id = new Guid("284df366-3ba5-431b-b0d7-2bea56fe8391"),
+                            CategoryId = new Guid("be75c329-a89f-4dd1-8613-eee0ea073d08"),
                             ItemsCount = 0,
                             Name = "Strollers & Seats"
                         },
                         new
                         {
-                            Id = new Guid("5caa8c20-d4d0-4ddb-be85-d9267bfb414f"),
-                            CategoryId = new Guid("280ec89a-a20f-45f4-91fb-eed18e3b56ba"),
+                            Id = new Guid("4971ca48-7b40-480c-a94f-2e99f5f998be"),
+                            CategoryId = new Guid("be75c329-a89f-4dd1-8613-eee0ea073d08"),
                             ItemsCount = 0,
                             Name = "Kids & Babies Clothing"
                         },
                         new
                         {
-                            Id = new Guid("bd4d31f9-bcda-48eb-83d5-82db508a919f"),
-                            CategoryId = new Guid("280ec89a-a20f-45f4-91fb-eed18e3b56ba"),
+                            Id = new Guid("6c7f168d-9db6-4366-a550-722039cac503"),
+                            CategoryId = new Guid("be75c329-a89f-4dd1-8613-eee0ea073d08"),
                             ItemsCount = 0,
                             Name = "Cribs & Bedroom Furniture"
                         },
                         new
                         {
-                            Id = new Guid("47c16554-ae62-4c14-b7f5-029b9e37bf22"),
-                            CategoryId = new Guid("280ec89a-a20f-45f4-91fb-eed18e3b56ba"),
+                            Id = new Guid("d1526779-4c79-44ca-9f7d-faef97547aa4"),
+                            CategoryId = new Guid("be75c329-a89f-4dd1-8613-eee0ea073d08"),
                             ItemsCount = 0,
                             Name = "Bathing Accessories"
                         },
                         new
                         {
-                            Id = new Guid("2c98bd78-4605-4f7c-81d2-fa3351efd96b"),
-                            CategoryId = new Guid("280ec89a-a20f-45f4-91fb-eed18e3b56ba"),
+                            Id = new Guid("608ef5d1-be42-4aae-a030-64ff6a827cdc"),
+                            CategoryId = new Guid("be75c329-a89f-4dd1-8613-eee0ea073d08"),
                             ItemsCount = 0,
                             Name = "Feeding & Nursing"
                         },
                         new
                         {
-                            Id = new Guid("af621425-61b4-4a4c-b12a-597d6a18ac0b"),
-                            CategoryId = new Guid("280ec89a-a20f-45f4-91fb-eed18e3b56ba"),
+                            Id = new Guid("ad7431b7-808e-4c67-8e5b-9ac13cabe1e6"),
+                            CategoryId = new Guid("be75c329-a89f-4dd1-8613-eee0ea073d08"),
                             ItemsCount = 0,
                             Name = "Safety & Monitors"
                         },
                         new
                         {
-                            Id = new Guid("168f87ce-40e3-4202-9211-c26add776375"),
-                            CategoryId = new Guid("280ec89a-a20f-45f4-91fb-eed18e3b56ba"),
+                            Id = new Guid("2ebc8cb1-3f10-41b1-8729-da29519f3c8a"),
+                            CategoryId = new Guid("be75c329-a89f-4dd1-8613-eee0ea073d08"),
                             ItemsCount = 0,
                             Name = "Other for Kids & Babies"
                         },
                         new
                         {
-                            Id = new Guid("22e0722f-a192-4e13-b6de-df6e0ec01550"),
-                            CategoryId = new Guid("7d02e1ce-f08f-408b-b213-830efe85e688"),
+                            Id = new Guid("402db19a-0361-46ff-ae2d-86adcec6e180"),
+                            CategoryId = new Guid("165742b3-2f37-40aa-a705-c8fe185c48a5"),
                             ItemsCount = 0,
                             Name = "Bicycles & Accessories"
                         },
                         new
                         {
-                            Id = new Guid("84541a20-7f71-4b7c-89c0-5de17d6dd260"),
-                            CategoryId = new Guid("7d02e1ce-f08f-408b-b213-830efe85e688"),
+                            Id = new Guid("97fc1bf3-2a40-4dc4-9a68-56baf325cc0b"),
+                            CategoryId = new Guid("165742b3-2f37-40aa-a705-c8fe185c48a5"),
                             ItemsCount = 0,
                             Name = "Outdoors & Camping"
                         },
                         new
                         {
-                            Id = new Guid("fee07014-1b73-4464-bae5-f46c31ce3d68"),
-                            CategoryId = new Guid("7d02e1ce-f08f-408b-b213-830efe85e688"),
+                            Id = new Guid("7f6deb63-cc2a-49c7-a37f-46655265184b"),
+                            CategoryId = new Guid("165742b3-2f37-40aa-a705-c8fe185c48a5"),
                             ItemsCount = 0,
                             Name = "Gym Fitness & Combat Sports"
                         },
                         new
                         {
-                            Id = new Guid("f4bc258e-75c6-4317-b2e3-7047fe7b31cb"),
-                            CategoryId = new Guid("7d02e1ce-f08f-408b-b213-830efe85e688"),
+                            Id = new Guid("deaef38f-0983-44c5-b85d-1878ac5f7c2d"),
+                            CategoryId = new Guid("165742b3-2f37-40aa-a705-c8fe185c48a5"),
                             ItemsCount = 0,
                             Name = "Ball Sports"
                         },
                         new
                         {
-                            Id = new Guid("7ac253d3-3c68-4ef6-9dea-44b129d62fc0"),
-                            CategoryId = new Guid("7d02e1ce-f08f-408b-b213-830efe85e688"),
+                            Id = new Guid("917bcae0-0106-4c06-92c7-10e0195c2410"),
+                            CategoryId = new Guid("165742b3-2f37-40aa-a705-c8fe185c48a5"),
                             ItemsCount = 0,
                             Name = "Supplements & Nutrition"
                         },
                         new
                         {
-                            Id = new Guid("ba9a11ed-32f0-4856-8890-b2abc82d9e32"),
-                            CategoryId = new Guid("7d02e1ce-f08f-408b-b213-830efe85e688"),
+                            Id = new Guid("d58ff783-2379-48b1-b271-a9db3ed6a51b"),
+                            CategoryId = new Guid("165742b3-2f37-40aa-a705-c8fe185c48a5"),
                             ItemsCount = 0,
                             Name = "Billiard & Similar Games"
                         },
                         new
                         {
-                            Id = new Guid("77de3b09-bb1e-4cdb-9a00-11cb20aee274"),
-                            CategoryId = new Guid("7d02e1ce-f08f-408b-b213-830efe85e688"),
+                            Id = new Guid("8ed478d8-4f5c-4cbd-b98d-1151b8ab46c9"),
+                            CategoryId = new Guid("165742b3-2f37-40aa-a705-c8fe185c48a5"),
                             ItemsCount = 0,
                             Name = "Ski & Winter Sports"
                         },
                         new
                         {
-                            Id = new Guid("34c0a4e2-a2c7-407a-8c07-2c16b3855b6a"),
-                            CategoryId = new Guid("7d02e1ce-f08f-408b-b213-830efe85e688"),
+                            Id = new Guid("ddf79bc2-81c0-4fc9-aaef-fc3bfec41060"),
+                            CategoryId = new Guid("165742b3-2f37-40aa-a705-c8fe185c48a5"),
                             ItemsCount = 0,
                             Name = "Water Sports & Diving"
                         },
                         new
                         {
-                            Id = new Guid("f0be3b12-8240-4abc-82da-33d47179f61d"),
-                            CategoryId = new Guid("7d02e1ce-f08f-408b-b213-830efe85e688"),
+                            Id = new Guid("6d828e2f-59af-4037-b55b-eb81d2f0b46d"),
+                            CategoryId = new Guid("165742b3-2f37-40aa-a705-c8fe185c48a5"),
                             ItemsCount = 0,
                             Name = "Tennis & Racket Sports"
                         },
                         new
                         {
-                            Id = new Guid("c9722edf-0c30-4408-8264-18fb493eec89"),
-                            CategoryId = new Guid("7d02e1ce-f08f-408b-b213-830efe85e688"),
+                            Id = new Guid("09a26a6c-e956-4adc-9cdb-58f2916b34a3"),
+                            CategoryId = new Guid("165742b3-2f37-40aa-a705-c8fe185c48a5"),
                             ItemsCount = 0,
                             Name = "Other Sports"
                         },
                         new
                         {
-                            Id = new Guid("e42afd5b-d3d9-468e-84af-58120b4ff87f"),
-                            CategoryId = new Guid("8e84dac8-7c9a-4941-860a-0c867723a547"),
+                            Id = new Guid("0bb2fe1d-6d14-440b-9c81-5c7f24c302f8"),
+                            CategoryId = new Guid("73bac066-51dd-4204-8719-121b412359ff"),
                             ItemsCount = 0,
                             Name = "Antiques & Collectibles"
                         },
                         new
                         {
-                            Id = new Guid("6a11d5bc-54b0-423f-b2c3-55c816216bdf"),
-                            CategoryId = new Guid("8e84dac8-7c9a-4941-860a-0c867723a547"),
+                            Id = new Guid("94c6c187-5d62-4a9b-8923-b1dc1ac83395"),
+                            CategoryId = new Guid("73bac066-51dd-4204-8719-121b412359ff"),
                             ItemsCount = 0,
                             Name = "Musical Instruments"
                         },
                         new
                         {
-                            Id = new Guid("c38eccaa-9af6-40aa-a6d5-74fa72d8253e"),
-                            CategoryId = new Guid("8e84dac8-7c9a-4941-860a-0c867723a547"),
+                            Id = new Guid("06a4cd0c-3b03-4f77-8ae5-ac3d322d3a49"),
+                            CategoryId = new Guid("73bac066-51dd-4204-8719-121b412359ff"),
                             ItemsCount = 0,
                             Name = "Books"
                         },
                         new
                         {
-                            Id = new Guid("0bbfb5d1-6349-4e2a-94e8-80f090a7d73a"),
-                            CategoryId = new Guid("8e84dac8-7c9a-4941-860a-0c867723a547"),
+                            Id = new Guid("9f4f3803-5dfa-4288-bedf-e650c3c1db61"),
+                            CategoryId = new Guid("73bac066-51dd-4204-8719-121b412359ff"),
                             ItemsCount = 0,
                             Name = "Movies"
                         },
                         new
                         {
-                            Id = new Guid("c84f1651-599c-49b2-9781-fbc79c1014f2"),
-                            CategoryId = new Guid("8e84dac8-7c9a-4941-860a-0c867723a547"),
+                            Id = new Guid("610270e7-34b2-422a-9166-cc93825981af"),
+                            CategoryId = new Guid("73bac066-51dd-4204-8719-121b412359ff"),
                             ItemsCount = 0,
                             Name = "Games & Hobbies"
                         },
                         new
                         {
-                            Id = new Guid("1508bf18-bf35-48fa-9b22-d7760045c5f0"),
-                            CategoryId = new Guid("8e84dac8-7c9a-4941-860a-0c867723a547"),
+                            Id = new Guid("c37a5871-b893-4527-b8bc-710ceab682aa"),
+                            CategoryId = new Guid("73bac066-51dd-4204-8719-121b412359ff"),
                             ItemsCount = 0,
                             Name = "Other Items"
                         },
                         new
                         {
-                            Id = new Guid("c509201a-e175-4f59-a078-36b39d4fed30"),
-                            CategoryId = new Guid("d3de0f39-c955-4275-9486-21dbb0a132a4"),
+                            Id = new Guid("68c81600-7405-4bdc-ad0e-fae8f257891f"),
+                            CategoryId = new Guid("5c37f414-bff1-4df3-abb0-77e50965f74a"),
                             ItemsCount = 0,
                             Name = "Clothing For Men"
                         },
                         new
                         {
-                            Id = new Guid("37dda1d6-32f7-4057-924e-6def351ce696"),
-                            CategoryId = new Guid("d3de0f39-c955-4275-9486-21dbb0a132a4"),
+                            Id = new Guid("dc780468-063d-4c86-ab88-0ccd2eff2288"),
+                            CategoryId = new Guid("5c37f414-bff1-4df3-abb0-77e50965f74a"),
                             ItemsCount = 0,
                             Name = "Accessories For Men"
                         },
                         new
                         {
-                            Id = new Guid("ede6dba5-0fbc-427d-af10-7ef82cc16378"),
-                            CategoryId = new Guid("d3de0f39-c955-4275-9486-21dbb0a132a4"),
+                            Id = new Guid("f87db59d-9543-4c73-ae97-ee933d802033"),
+                            CategoryId = new Guid("5c37f414-bff1-4df3-abb0-77e50965f74a"),
                             ItemsCount = 0,
                             Name = "Clothing For Women"
                         },
                         new
                         {
-                            Id = new Guid("b314465d-8165-45aa-b38d-9c5bae95468c"),
-                            CategoryId = new Guid("d3de0f39-c955-4275-9486-21dbb0a132a4"),
+                            Id = new Guid("2afea95e-b986-4c2c-ba12-fae8de35d414"),
+                            CategoryId = new Guid("5c37f414-bff1-4df3-abb0-77e50965f74a"),
                             ItemsCount = 0,
                             Name = "Accessories For Women"
                         },
                         new
                         {
-                            Id = new Guid("94928198-be42-4363-b33a-9a62d295d498"),
-                            CategoryId = new Guid("d3de0f39-c955-4275-9486-21dbb0a132a4"),
+                            Id = new Guid("443a4be6-b6ff-411f-9dc9-6e4dfb89f661"),
+                            CategoryId = new Guid("5c37f414-bff1-4df3-abb0-77e50965f74a"),
                             ItemsCount = 0,
                             Name = "Makeup & Cosmetics"
                         },
                         new
                         {
-                            Id = new Guid("3889e141-1cf0-422d-aa47-b866fdbcbc53"),
-                            CategoryId = new Guid("d3de0f39-c955-4275-9486-21dbb0a132a4"),
+                            Id = new Guid("d6e73874-cb5a-4b63-82bc-f8038509ec1b"),
+                            CategoryId = new Guid("5c37f414-bff1-4df3-abb0-77e50965f74a"),
                             ItemsCount = 0,
                             Name = "Jewelry & Faux-Bijou"
                         },
                         new
                         {
-                            Id = new Guid("3e4a21c9-3c78-47a7-b6c3-9c7154031b93"),
-                            CategoryId = new Guid("d3de0f39-c955-4275-9486-21dbb0a132a4"),
+                            Id = new Guid("0642e6a6-1c87-41a9-997a-9271d5f706bd"),
+                            CategoryId = new Guid("5c37f414-bff1-4df3-abb0-77e50965f74a"),
                             ItemsCount = 0,
                             Name = "Watches"
                         },
                         new
                         {
-                            Id = new Guid("76595fcc-db53-4a1a-8257-8234e79fe020"),
-                            CategoryId = new Guid("d3de0f39-c955-4275-9486-21dbb0a132a4"),
+                            Id = new Guid("1e168bfb-1e26-469a-8dc5-651ffa4d0b42"),
+                            CategoryId = new Guid("5c37f414-bff1-4df3-abb0-77e50965f74a"),
                             ItemsCount = 0,
                             Name = "Other Fashion & Style"
                         },
                         new
                         {
-                            Id = new Guid("86fe8a8f-b2ad-4d95-9564-35a549411ac4"),
-                            CategoryId = new Guid("9c522c39-1cc2-44a2-88ad-5f5037e7eb8d"),
+                            Id = new Guid("764aa7fb-2bc9-49a7-a75d-fde491b6869e"),
+                            CategoryId = new Guid("0f9e2622-d8d1-45e3-a969-9d3b8bd618f6"),
                             ItemsCount = 0,
                             Name = "Home Services"
                         },
                         new
                         {
-                            Id = new Guid("a9689c8e-b34d-4f1b-87ff-3d8f22d1d79a"),
-                            CategoryId = new Guid("9c522c39-1cc2-44a2-88ad-5f5037e7eb8d"),
+                            Id = new Guid("1f3a144a-a62d-439a-b68d-0171505cd874"),
+                            CategoryId = new Guid("0f9e2622-d8d1-45e3-a969-9d3b8bd618f6"),
                             ItemsCount = 0,
                             Name = "Personal Services"
                         },
                         new
                         {
-                            Id = new Guid("d6bd1bc0-31f4-4b6e-bb72-ee4232a4d22a"),
-                            CategoryId = new Guid("9c522c39-1cc2-44a2-88ad-5f5037e7eb8d"),
+                            Id = new Guid("4470b708-92dc-43c1-bc01-1ad47eb0698b"),
+                            CategoryId = new Guid("0f9e2622-d8d1-45e3-a969-9d3b8bd618f6"),
                             ItemsCount = 0,
                             Name = "Professional Services"
                         },
                         new
                         {
-                            Id = new Guid("198e4a59-a278-402c-a64c-1285646d4794"),
-                            CategoryId = new Guid("9c522c39-1cc2-44a2-88ad-5f5037e7eb8d"),
+                            Id = new Guid("c60f89de-e85b-4f2a-80b7-19c456f99a41"),
+                            CategoryId = new Guid("0f9e2622-d8d1-45e3-a969-9d3b8bd618f6"),
                             ItemsCount = 0,
                             Name = "Events"
                         },
                         new
                         {
-                            Id = new Guid("85bf8b26-bd56-419b-939c-f85c654eb304"),
-                            CategoryId = new Guid("9c522c39-1cc2-44a2-88ad-5f5037e7eb8d"),
+                            Id = new Guid("440f0958-e2a7-46ad-b39f-ada2e0458c46"),
+                            CategoryId = new Guid("0f9e2622-d8d1-45e3-a969-9d3b8bd618f6"),
                             ItemsCount = 0,
                             Name = "Transport"
                         },
                         new
                         {
-                            Id = new Guid("5f1ffdc7-e583-4278-b921-39fb1514cd7f"),
-                            CategoryId = new Guid("9c522c39-1cc2-44a2-88ad-5f5037e7eb8d"),
+                            Id = new Guid("777b16b9-69a7-4235-a887-4847e649655d"),
+                            CategoryId = new Guid("0f9e2622-d8d1-45e3-a969-9d3b8bd618f6"),
                             ItemsCount = 0,
                             Name = "Other Services"
                         });
@@ -1973,6 +1973,18 @@ namespace Arzly.Api.Migrations
 
                     b.Property<int?>("Kilometers")
                         .HasColumnType("int");
+
+                    b.Property<string>("MotorcycleBrand")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MotorcycleCC")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MotorcycleFuelType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MotorcycleModel")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("MotorcycleType")
                         .HasColumnType("int");

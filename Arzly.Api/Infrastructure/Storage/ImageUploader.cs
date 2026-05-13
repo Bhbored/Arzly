@@ -3,6 +3,7 @@ using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Arzly.Shared.Constants;
+using SerilogTimings;
 
 namespace Arzly.Api.Infrastructure.Storage;
 
@@ -68,12 +69,17 @@ public class ImageUploader : IDisposable
     {
 
         var urls = new List<string>();
-        foreach (var (stream, fileName) in files)
+
+        using (Operation.Time("Time for Upload Images To cloudflare and providing valid urls"))
         {
-            var url = await UploadFile(userId, stream, fileName);
-            urls.Add(url);
+            foreach (var (stream, fileName) in files)
+            {
+                var url = await UploadFile(userId, stream, fileName);
+                urls.Add(url);
+            }
         }
         return urls;
+
     }
 
     public void Dispose()
