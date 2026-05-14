@@ -1,5 +1,6 @@
 using Arzly.Api.Application.Contracts;
 using Arzly.Api.Filters.ActionFilters;
+using Arzly.Api.Filters.ResultFilters;
 using Arzly.Shared.DTOs.Request.PickupLocation;
 using Arzly.Shared.DTOs.Response.PickupLocation;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,8 @@ namespace Arzly.Api.Controllers
 {
     [ApiController]
     [Route("arzly/[controller]")]
+    [JsonFormatter(UsePascalCase = true)]
+
     public class PickupLocationController : ControllerBase
     {
         private readonly ILogger<PickupLocationController> _logger;

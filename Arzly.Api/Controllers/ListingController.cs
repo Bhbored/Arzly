@@ -1,5 +1,6 @@
 using Arzly.Api.Application.Contracts;
 using Arzly.Api.Filters.ActionFilters;
+using Arzly.Api.Filters.ResultFilters;
 using Arzly.Shared.DTOs.Request.Listing;
 using Arzly.Shared.DTOs.Response.Listing;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ namespace Arzly.Api.Controllers
 {
     [ApiController]
     [Route("arzly/[controller]")]
+    [JsonFormatter(UsePascalCase = true)]
     public class ListingController : ControllerBase
     {
         private readonly ILogger<ListingController> _logger;
@@ -20,19 +22,7 @@ namespace Arzly.Api.Controllers
 
         #region fetch
 
-        //admin & support later
-        [HttpGet]
-        public async Task<ActionResult<List<ListingResponse>>> GetAll()
-        {
-            _logger.LogInformation("{Controller}.GetAll - Before",
-                GetType().Name);
-
-            var result = await _service.GetAllAsync();
-
-            _logger.LogInformation("{Controller}.GetAll - After",
-                GetType().Name);
-            return result;
-        }
+        
         [HttpGet("indexed")]
         public async Task<ActionResult<List<ListingResponse>>> IndexedListings([FromHeader] int pageSize = 10, [FromHeader] int currentPage = 0)
         {

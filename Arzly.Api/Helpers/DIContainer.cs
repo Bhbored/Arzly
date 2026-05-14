@@ -2,6 +2,7 @@
 using Arzly.Api.Application.Services;
 using Arzly.Api.Domain.Contracts;
 using Arzly.Api.Filters.ExceptionFilters;
+using Arzly.Api.Filters.ResultFilters;
 using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Arzly.Api.Infrastructure.Repositories;
 using Arzly.Api.Infrastructure.Storage;
@@ -30,16 +31,16 @@ namespace Arzly.Api.Helpers
             {
 
                 controller.Filters.Add<HandleExceptionFilter>();//global filter
+                controller.Filters.Add<ConditionalJsonResultFilter>();
 
             })
         .AddJsonOptions(options =>
         {
-            options.JsonSerializerOptions.PropertyNamingPolicy = null;
-            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         })
         .ConfigureApiBehaviorOptions(options =>
         {
-            options.SuppressModelStateInvalidFilter = true;//for built-in modelBinding i did a custom filter for that although never again
+            options.SuppressModelStateInvalidFilter = true;//for built-in modelBinding i did a custom filter for that although never again!!
         });
             return services;
 

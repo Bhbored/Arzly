@@ -1,0 +1,8 @@
+<span class="px-2 py-1 text-xs font-semibold rounded-full @Class">
+    @ChildContent
+</span>
+
+@code {
+    [Parameter] public string Class { get; set; } = "";
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

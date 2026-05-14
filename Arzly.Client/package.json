@@ -1,0 +1,11 @@
+{
+  "name": "arzly-client",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./wwwroot/css/app.css -o ./wwwroot/css/site.css",
+    "watch:css": "npx tailwindcss -i ./wwwroot/css/app.css -o ./wwwroot/css/site.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}

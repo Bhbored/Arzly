@@ -1,0 +1,4 @@
+window.arzly = {
+    toggleSidebar: function() {
+    }
+};

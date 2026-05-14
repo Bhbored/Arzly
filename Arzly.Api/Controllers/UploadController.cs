@@ -1,4 +1,5 @@
 ﻿using Arzly.Api.Application.Contracts;
+using Arzly.Api.Filters.ResultFilters;
 using Arzly.Api.Infrastructure.Storage;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,8 @@ namespace Arzly.Api.Controllers
 {
     [ApiController]
     [Route("arzly/[controller]")]
+    [JsonFormatter(UsePascalCase = true)]
+
     public class UploadController : ControllerBase
     {
         private readonly ImageUploader _imageUploader;

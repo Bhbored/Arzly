@@ -7,7 +7,16 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Blazor", policy =>
+    {
+        policy.WithOrigins("https://localhost:7251");
+        policy.AllowCredentials();
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+    });
+});
 builder.Host.UseSerilog((HostBuilderContext context, IServiceProvider services, LoggerConfiguration loggerConfiguration) =>
 {
 
@@ -38,7 +47,7 @@ app.UseHttpsRedirection();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpLogging();
-app.UseHttpsRedirection();
+app.UseCors("Blazor");
 app.UseAuthorization();
 app.MapControllers();
 

@@ -1,4 +1,5 @@
 using Arzly.Api.Application.Contracts;
+using Arzly.Api.Filters.ResultFilters;
 using Arzly.Shared.DTOs.Request.UserReport;
 using Arzly.Shared.DTOs.Response.UserReport;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,8 @@ namespace Arzly.Api.Controllers
 {
     [ApiController]
     [Route("arzly/[controller]")]
+    [JsonFormatter(UsePascalCase = true)]
+
     public class UserReportController : ControllerBase
     {
         private readonly IUserReportService _service;

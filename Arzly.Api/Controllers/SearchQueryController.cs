@@ -1,5 +1,6 @@
 using Arzly.Api.Application.Contracts;
 using Arzly.Api.Filters.ActionFilters;
+using Arzly.Api.Filters.ResultFilters;
 using Arzly.Shared.DTOs.Request.SearchQuery;
 using Arzly.Shared.DTOs.Response.SearchQuery;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,8 @@ namespace Arzly.Api.Controllers
 {
     [ApiController]
     [Route("arzly/[controller]")]
+    [JsonFormatter(UsePascalCase = true)]
+
     public class SearchQueryController : ControllerBase
     {
         private readonly ILogger<SearchQueryController> _logger;

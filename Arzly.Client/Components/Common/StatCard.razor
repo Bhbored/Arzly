@@ -1,0 +1,16 @@
+<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex items-center space-x-4">
+    <div class="p-3 rounded-lg @IconContainerClass">
+        @Icon
+    </div>
+    <div>
+        <p class="text-sm font-medium text-slate-500">@Label</p>
+        <p class="text-2xl font-bold text-slate-800">@Value</p>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; } = "";
+    [Parameter] public string Value { get; set; } = "";
+    [Parameter] public string IconContainerClass { get; set; } = "bg-blue-50 text-blue-600";
+    [Parameter] public RenderFragment? Icon { get; set; }
+}
