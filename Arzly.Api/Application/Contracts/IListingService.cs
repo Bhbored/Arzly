@@ -12,7 +12,7 @@ namespace Arzly.Api.Application.Contracts
 
         Task<List<ListingResponse>> GetListingByUserId(string? userId, int pageSize , int currentPage );
         Task<List<ListingResponse>> GetIndexedListings(int pageSzie , int currentPage);
-        Task<List<ListingResponse>> GetInitialListings(List<Guid> categoriesId);
+        Task<List<ListingResponse>> GetInitialListings(List<Guid> subcategoryIds);
 
 
 

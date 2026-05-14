@@ -1,4 +1,5 @@
 ﻿using Arzly.Api.Infrastructure.Identity;
+using Arzly.Shared.Enums;
 using Arzly.Shared.Enums.Listing;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,6 +22,8 @@ namespace Arzly.Api.Domain.Entities
         [Required(ErrorMessage = "Address is required.")]
         [MaxLength(500, ErrorMessage = "Address cannot exceed 500 characters.")]
         public string Address { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Base City is required.")]
+        public LocationPreset LocationPreset { get; set; }
 
         [MaxLength(200, ErrorMessage = "Notes cannot exceed 200 characters.")]
         public string? Notes { get; set; }

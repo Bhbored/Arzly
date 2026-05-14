@@ -78,12 +78,12 @@ namespace Arzly.Api.Controllers
             return Ok(result);
         }
         [HttpGet("initial-listings")]
-        public async Task<ActionResult<ListingResponse>> GetInitialListings([FromBody] List<Guid> categoriesId) 
+        public async Task<ActionResult<ListingResponse>> GetInitialListings([FromBody] List<Guid> subcategoryIds) 
         {
             _logger.LogInformation("{Controller}.GetInitialListings() - Before",
                 GetType().Name);
 
-            var result = await _service.GetInitialListings(categoriesId);
+            var result = await _service.GetInitialListings(subcategoryIds);
 
             _logger.LogInformation("{Controller}.GetInitialListings() - After",
                 GetType().Name);

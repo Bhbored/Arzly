@@ -18,7 +18,8 @@ namespace Arzly.Api.Mappings
                 Notes = entity.Notes,
                 IsDefault = entity.IsDefault,
                 Lon = entity.Lon,
-                Lat = entity.Lat
+                Lat = entity.Lat,
+                LocationPreset = entity.LocationPreset
             };
         }
 
@@ -32,7 +33,8 @@ namespace Arzly.Api.Mappings
                 Notes = request.Notes,
                 IsDefault = request.IsDefault,
                 Lon = request.Lon,
-                Lat = request.Lat
+                Lat = request.Lat,
+                LocationPreset = request.LocationPreset
             };
         }
 
@@ -46,7 +48,8 @@ namespace Arzly.Api.Mappings
                 Notes = request.Notes,
                 IsDefault = request.IsDefault,
                 Lon = request.Lon,
-                Lat = request.Lat
+                Lat = request.Lat,
+                LocationPreset = request.LocationPreset,
             };
         }
 
@@ -60,7 +63,8 @@ namespace Arzly.Api.Mappings
                 Notes = response.Notes,
                 IsDefault = response.IsDefault,
                 Lon = response.Lon,
-                Lat = response.Lat
+                Lat = response.Lat,
+                LocationPreset = response.LocationPreset
             };
         }
     }

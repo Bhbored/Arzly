@@ -22,7 +22,7 @@ namespace Arzly.Api.Domain.Entities
         public string? Description { get; set; }
 
         public int ItemsCount { get; set; }
-
+        public int Priority { get; set; }
         public virtual ICollection<Listing>? Listings { get; set; }
     }
 }

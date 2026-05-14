@@ -97,10 +97,10 @@ namespace Arzly.Api.Infrastructure.Repositories
                              .ToListAsync();
         }
 
-        public async Task<List<Listing>> GetInitialListings(Guid categoryId)
+        public async Task<List<Listing>> GetInitialListings(Guid subcategoryId)
         {
             return await _db.Listings
-                              .Where(x => x.CategoryId == categoryId)
+                              .Where(x => x.SubcategoryId == subcategoryId)
                               //&& x.Status == ListingStatus.Active || x.Status == ListingStatus.Sold
                               .OrderByDescending(x=>x.IsPromoted)
                               .Take(5)

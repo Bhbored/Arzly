@@ -21,6 +21,7 @@ namespace Arzly.Api.Domain.Entities
         [Url(ErrorMessage = "Image URL must be a valid URL.")]
         [MaxLength(2048, ErrorMessage = "Image URL cannot exceed 2048 characters.")]
         public string? ImageUrl { get; set; }
+        public int Priority { get; set; }
 
         public virtual ICollection<SubCategory>? SubCategories { get; set; }
         public virtual ICollection<Listing>? Listings { get; set; }

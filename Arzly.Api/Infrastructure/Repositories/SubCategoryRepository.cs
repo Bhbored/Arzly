@@ -21,8 +21,9 @@ namespace Arzly.Api.Infrastructure.Repositories
             _logger.LogInformation($"{GetType().Name} - GetByCategoryIdAsync has been reached");
 
             return await _db.SubCategories
-                .Where(x => x.CategoryId == categoryId)
                 .AsNoTracking()
+                .Where(x => x.CategoryId == categoryId)
+                .OrderBy(x=>x.Priority)
                 .ToListAsync();
         }
     }

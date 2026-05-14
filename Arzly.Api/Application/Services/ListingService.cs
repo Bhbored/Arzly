@@ -241,10 +241,10 @@ namespace Arzly.Api.Application.Services
             return responses;
         }
 
-        public async Task<List<ListingResponse>> GetInitialListings(List<Guid> categoriesId)
+        public async Task<List<ListingResponse>> GetInitialListings(List<Guid> subcategoryIds)
         {
             _logger.LogInformation($"{GetType().Name} - GetInitialListings Has been reached");
-            if (!categoriesId.Any())
+            if (!subcategoryIds.Any())
             {
                 _logger.LogError($"{GetType().Name} - Empty categoryNames provided in GetInitialListings");
                 throw new ArgumentNullException(ExceptionMessages.MissingCategoriesId);
@@ -254,9 +254,9 @@ namespace Arzly.Api.Application.Services
             using (Operation.Time("Time for Fetched initial Listings with location & details from Database"))
             {
 
-                foreach (Guid categoryId in categoriesId)
+                foreach (Guid subcategoryId in subcategoryIds)
                 {
-                    var items = await _listingRepo.GetInitialListings(categoryId);
+                    var items = await _listingRepo.GetInitialListings(subcategoryId);
                     entities.AddRange(items);
                 }
                 var response = entities

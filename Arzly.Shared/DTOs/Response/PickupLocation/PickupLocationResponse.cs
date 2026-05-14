@@ -1,5 +1,7 @@
-using System;
+using Arzly.Shared.Enums;
 using Arzly.Shared.Enums.Listing;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Arzly.Shared.DTOs.Response.PickupLocation
 {
@@ -9,6 +11,7 @@ namespace Arzly.Shared.DTOs.Response.PickupLocation
         public string UserId { get; set; } = string.Empty;
         public LocationLabel Label { get; set; }
         public string Address { get; set; } = string.Empty;
+        public LocationPreset LocationPreset { get; set; }
         public string? Notes { get; set; }
         public double Lat { get; set; }
         public double Lon { get; set; }
