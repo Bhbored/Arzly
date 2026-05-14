@@ -103,7 +103,7 @@ namespace Arzly.Api.Application.Services
         #endregion
 
 
-        #region fetch
+        #region admin & support
 
         public override async Task<List<ListingResponse>> GetAllAsync()
         {
@@ -123,6 +123,15 @@ namespace Arzly.Api.Application.Services
             return responses;
 
         }
+
+
+
+        #endregion
+
+
+        #region user 
+
+
 
         public override async Task<ListingResponse?> GetByIdAsync(Guid id)
         {
@@ -261,11 +270,6 @@ namespace Arzly.Api.Application.Services
         }
 
 
-        #endregion
-
-
-        #region create
-
         public override async Task<ListingResponse?> CreateAsync(ListingAddRequest? createDto, string? userId)
         {
             _logger.LogInformation($"{GetType().Name} - CreateAsync Has been reached");
@@ -319,9 +323,6 @@ namespace Arzly.Api.Application.Services
             return entity.ToResponse();
         }
 
-        #endregion
-
-        #region update
 
         public override async Task<ListingResponse?> UpdateAsync(ListingUpdateRequest? updateDto, string? userId)
         {
@@ -329,7 +330,9 @@ namespace Arzly.Api.Application.Services
 
             return await base.UpdateAsync(updateDto, userId);
         }
+
         #endregion
+
 
 
         #region Mapping
@@ -340,11 +343,6 @@ namespace Arzly.Api.Application.Services
             createDto.ToEntity();
 
         protected override Listing MapToEntity(ListingUpdateRequest updateDto) => updateDto.ToEntity();
-
-
-
-
-
 
         #endregion
 

@@ -21,6 +21,18 @@ namespace Arzly.Api.Infrastructure.Repositories
         }
 
 
+
+        #region admin & support
+
+
+
+
+
+        #endregion
+
+
+        #region user
+        #endregion 
         public override async Task<Listing?> GetByIdAsync(Guid id)
         {
             _logger.LogInformation($"{GetType().Name} - GetByIdAsync has been reached");

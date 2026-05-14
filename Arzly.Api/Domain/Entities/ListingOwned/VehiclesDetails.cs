@@ -41,5 +41,8 @@ namespace Arzly.Api.Domain.ListingOwned
         public PlateDigits? NumberOfDigits { get; set; }
         public TruckBrand? TruckBrand { get; set; }
         public BoatType? BoatType { get; set; }
+        public PartType? PartType { get; set; }
+        public VehicleType? VehicleType { get; set; }
+
     }
 }
