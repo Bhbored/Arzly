@@ -3,6 +3,7 @@ using Arzly.Api.Application.Services;
 using Arzly.Api.Domain.Contracts;
 using Arzly.Api.Filters.ExceptionFilters;
 using Arzly.Api.Filters.ResultFilters;
+using Arzly.Api.Helpers.GoogleMap;
 using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Arzly.Api.Infrastructure.Repositories;
 using Arzly.Api.Infrastructure.Storage;
@@ -85,7 +86,7 @@ namespace Arzly.Api.Helpers
             services.AddScoped<ITicketMessageService, TicketMessageService>();
             services.AddScoped<IUserService, UserService>();
 
-
+            services.AddHttpClient<GoogleMapsService>();
             //services.AddScoped<INotificationService, NotificationService>();
             //services.AddScoped<IUserActivityLogService, UserActivityLogService>();
             //services.AddScoped<IUserPreferenceService, UserPreferenceService>();
