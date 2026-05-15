@@ -24,7 +24,37 @@ namespace Arzly.Api.Infrastructure.Repositories
 
         #region admin & support
 
+        public  async Task<List<Listing>> GetAllListingAdmin(int pageSize, int currentPage)
+        {
+            _logger.LogInformation($"{GetType().Name} - GetAllListingAdmin has been reached");
 
+            return await _db.Listings
+                   .Skip(currentPage * pageSize)
+                   .Include(l => l.PickupLocation)
+                   .ToListAsync();
+        }
+
+        public async Task<Listing> UpdateAdmin(Listing entity)
+        {
+            _logger.LogInformation($"{GetType().Name} - UpdateAdmin has been reached");
+
+            var olderListing = await _db.Listings
+                .FirstOrDefaultAsync(x => x.Id == entity.Id);
+
+            if (olderListing != null)
+            {
+               
+                olderListing.Status = entity.Status;
+                olderListing.IsPromoted = entity.IsPromoted;
+                olderListing.PromotionType =entity.PromotionType;            
+                olderListing.UpdatedAt = DateTime.UtcNow;
+                await _db.SaveChangesAsync();
+                return olderListing;
+            }
+
+            return entity;
+        }
+      
 
 
 
@@ -41,14 +71,7 @@ namespace Arzly.Api.Infrastructure.Repositories
                 .Include(l => l.PickupLocation)
                 .FirstOrDefaultAsync(x => x.Id == id && x.Status == ListingStatus.Active || x.Status == ListingStatus.Sold);
         }
-        public override async Task<List<Listing>> GetAllAsync()
-        {
-            _logger.LogInformation($"{GetType().Name} - GetAllAsync has been reached");
-
-            return await _db.Listings
-                   .Include(l => l.PickupLocation)
-                   .ToListAsync();
-        }
+      
 
         public async Task<List<Listing>> GetFilteredListing(Expression<Func<Listing, bool>> predicate, int pageSize, int currentPage)
         {
@@ -56,7 +79,7 @@ namespace Arzly.Api.Infrastructure.Repositories
 
             return await _db.Listings
                 .Where(predicate)
-                //.Where(x=> x.Status == ListingStatus.Active || x.Status == ListingStatus.Sold)
+                .Where(x => x.Status == ListingStatus.Active)
                 .Skip(currentPage * pageSize)
                 .Take(pageSize)
                 .Include(l => l.PickupLocation)
@@ -79,7 +102,7 @@ namespace Arzly.Api.Infrastructure.Repositories
             _logger.LogInformation($"{GetType().Name} - GetIndexedListings has been reached");
 
             return await _db.Listings
-                //.Where(x=>x.Status == ListingStatus.Active || x.Status == ListingStatus.Sold)
+                .Where(x => x.Status == ListingStatus.Active)
                 .Skip(currentPage * pageSzie)
                 .Take(pageSzie)
                 .Include(l => l.PickupLocation)
@@ -89,8 +112,7 @@ namespace Arzly.Api.Infrastructure.Repositories
         public async Task<List<Listing>> GetListingByCategoryId(Guid categoryId, int pageSize, int currentPage)
         {
             return await _db.Listings 
-                             .Where(x => x.CategoryId == categoryId )
-                             //&& x.Status == ListingStatus.Active || x.Status == ListingStatus.Sold
+                             .Where(x => x.CategoryId == categoryId && x.Status == ListingStatus.Active)
                              .Skip(currentPage * pageSize)
                              .Take(pageSize)
                              .Include(x => x.PickupLocation)
@@ -100,8 +122,7 @@ namespace Arzly.Api.Infrastructure.Repositories
         public async Task<List<Listing>> GetInitialListings(Guid subcategoryId)
         {
             return await _db.Listings
-                              .Where(x => x.SubcategoryId == subcategoryId)
-                              //&& x.Status == ListingStatus.Active || x.Status == ListingStatus.Sold
+                              .Where(x => x.SubcategoryId == subcategoryId && x.Status == ListingStatus.Active)
                               .OrderByDescending(x=>x.IsPromoted)
                               .Take(5)
                               .Include(x => x.PickupLocation)
@@ -158,5 +179,6 @@ namespace Arzly.Api.Infrastructure.Repositories
             return true;
         }
 
+       
     }
 }

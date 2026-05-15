@@ -105,14 +105,16 @@ namespace Arzly.Api.Application.Services
 
         #region admin & support
 
-        public override async Task<List<ListingResponse>> GetAllAsync()
+
+
+        public async Task<List<ListingResponse>> GetAllListingAdmin(int pageSize, int currentPage)
         {
             _logger.LogInformation($"{GetType().Name} - GetAllAsync Has been reached");
 
             List<ListingResponse> responses = new();
             using (Operation.Time("Time for Fetched All Listings with location & details from Database"))
             {
-                var entities = await _listingRepo.GetAllAsync();
+                var entities = await _listingRepo.GetAllListingAdmin(pageSize, currentPage);
 
                 var response = entities
                     .Select(x => x.ToResponse())
@@ -121,10 +123,19 @@ namespace Arzly.Api.Application.Services
             }
 
             return responses;
-
         }
 
+        public async Task<ListingResponse?> UpdateAsyncAdmin(ListingUpdateRequest? updateDto)
+        {
+            if (updateDto == null)
+                throw new ArgumentNullException(ExceptionMessages.EmptyUpdateRequest);
 
+            var entity = MapToEntity(updateDto);
+            var updatedEntity = await _listingRepo
+                .UpdateAdmin(entity);
+
+            return MapToDto(updatedEntity);
+        }
 
         #endregion
 
@@ -343,6 +354,8 @@ namespace Arzly.Api.Application.Services
             createDto.ToEntity();
 
         protected override Listing MapToEntity(ListingUpdateRequest updateDto) => updateDto.ToEntity();
+
+
 
         #endregion
 

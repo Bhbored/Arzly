@@ -14,5 +14,9 @@ namespace Arzly.Api.Domain.Contracts
         Task<List<Listing>> GetListingByCategoryId(Guid categoryId, int pageSize, int currentPage);
         Task<List<Listing>> GetInitialListings(Guid subcategoryId);
         Task AddListingDetails(object details, Guid listingId);
+
+        //admin
+        Task<List<Listing>> GetAllListingAdmin(int pageSize, int currentPage);
+        Task<Listing> UpdateAdmin(Listing entity);
     }
 }

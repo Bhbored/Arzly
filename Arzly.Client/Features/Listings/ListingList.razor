@@ -1,4 +1,5 @@
 @inject IListingApiClient ListingApi
+@inject Arzly.Client.Services.RightSliderService SliderService
 
 <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
     <div class="p-6 border-b border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -68,7 +69,7 @@
                             </td>
                             <td class="px-6 py-4 text-slate-500 text-sm">@l.CreatedAt.ToString("MMM dd, yyyy")</td>
                             <td class="px-6 py-4 text-right">
-                                <button class="text-slate-400 hover:text-primary">
+                                <button class="text-slate-400 hover:text-primary" @onclick="async () => await ShowListing(l)" title="View">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -126,4 +127,21 @@
         ListingStatus.Deleted => "neutral",
         _ => "neutral"
     };
+
+    private async Task ShowListing(ListingResponse l)
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            ["Listing"] = l,
+            ["OnSaved"] = EventCallback.Factory.Create<ListingResponse>(this, (ListingResponse updated) =>
+            {
+                var idx = listings.FindIndex(x => x.Id == updated.Id);
+                if (idx >= 0) listings[idx] = updated;
+                else listings.Insert(0, updated);
+                StateHasChanged();
+            })
+        };
+
+        SliderService.OpenComponent(typeof(Arzly.Client.Shared.ListingEditor), parameters, l.Title);
+    }
 }

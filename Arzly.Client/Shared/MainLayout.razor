@@ -1,4 +1,6 @@
+@using Microsoft.AspNetCore.Components
 @inherits LayoutComponentBase
+@inject Arzly.Client.Services.RightSliderService SliderService
 
 <div class="flex h-screen overflow-hidden bg-background text-on-background font-body-md text-body-md">
     <!-- Sidebar -->
@@ -24,13 +26,48 @@
             </div>
         </main>
     </div>
+
+    @if (SliderService.IsOpen)
+    {
+        <!-- Right sliding panel -->
+        <RightSlider IsOpen="@SliderService.IsOpen" IsOpenChanged="@(v => SliderService.SetIsOpen(v))" Title="@SliderService.Title">
+            @if (SliderService.ComponentType is not null)
+            {
+                <DynamicComponent Type="@SliderService.ComponentType" Parameters="@SliderService.Parameters" />
+            }
+        </RightSlider>
+    }
+
+    <!-- Floating trigger button -->
+    <button class="fixed bottom-6 right-6 z-50 bg-primary text-white p-3 rounded-full shadow-lg" @onclick="ToggleRightSlider" aria-label="Open side panel">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </button>
+
+    <Toasts />
 </div>
 
 @code {
     private bool isSidebarOpen = false;
 
+    protected override void OnInitialized()
+    {
+        SliderService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        SliderService.OnChange -= StateHasChanged;
+    }
+
     private void ToggleSidebar()
     {
         isSidebarOpen = !isSidebarOpen;
+    }
+
+    private void ToggleRightSlider()
+    {
+        SliderService.SetIsOpen(!SliderService.IsOpen);
     }
 }

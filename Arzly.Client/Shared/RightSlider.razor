@@ -1,0 +1,30 @@
+@using Microsoft.AspNetCore.Components
+
+<div class="fixed inset-y-0 right-0 z-50 flex pointer-events-none">
+    <!-- Backdrop -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 pointer-events-auto @(IsOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none")" @onclick="Close"></div>
+
+    <!-- Panel -->
+    <div class="relative h-full bg-white dark:bg-surface-variant text-on-surface transform transition-transform duration-300 ease-in-out shadow-lg w-[35%] max-w-[480px] @(IsOpen ? "translate-x-0" : "translate-x-full")">
+        <div class="p-4 border-b flex justify-between items-center">
+            <h3 class="text-lg font-semibold">@Title</h3>
+            <button class="p-2 rounded hover:bg-gray-100" @onclick="Close" aria-label="Close panel">✕</button>
+        </div>
+        <div class="p-4 overflow-auto h-full">
+            @ChildContent
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
+
+    private Task Close()
+    {
+        IsOpen = false;
+        return IsOpenChanged.InvokeAsync(IsOpen);
+    }
+}

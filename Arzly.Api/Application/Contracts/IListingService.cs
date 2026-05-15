@@ -16,5 +16,11 @@ namespace Arzly.Api.Application.Contracts
 
 
 
+
+
+        //admin 
+
+        Task<List<ListingResponse>> GetAllListingAdmin(int pageSize, int currentPage);//id later with identity logic
+        Task<ListingResponse?> UpdateAsyncAdmin(ListingUpdateRequest? updateDto);
     }
 }

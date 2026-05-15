@@ -49,5 +49,6 @@ namespace Arzly.Api.Mappings
                 ImageUrl = response.ImageUrl
             };
         }
+      
     }
 }

@@ -67,7 +67,9 @@ namespace Arzly.Client.Services
         public static IServiceCollection RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
         {
             return services.RegisterHttpLogging()
-                           .RegisterHttpClient(configuration);
+                           .RegisterHttpClient(configuration)
+                           .AddSingleton<RightSliderService>()
+                           .AddSingleton<ToastService>();
         }
     }
 }

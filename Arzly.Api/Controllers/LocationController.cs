@@ -1,4 +1,5 @@
-﻿using Arzly.Api.Helpers.GoogleMap;
+﻿using Arzly.Api.Application.Contracts;
+using Arzly.Api.Helpers.GoogleMap;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,18 +11,18 @@ namespace Arzly.Api.Controllers
     {
         private readonly GoogleMapsService _googleMaps;
         private readonly ILogger<LocationController> _logger;
-
         public LocationController(GoogleMapsService googleMaps, ILogger<LocationController> logger)
         {
             _googleMaps = googleMaps;
             _logger = logger;
         }
 
-      
+
         [HttpGet("autocomplete")]
         public async Task<IActionResult> Autocomplete([FromQuery] string input)
         {
             _logger.LogInformation("{Controller}.Autocomplete({Input}) - Before", GetType().Name, input);
+
 
             if (string.IsNullOrWhiteSpace(input))
                 return BadRequest(new { error = "Input is required." });
@@ -31,11 +32,12 @@ namespace Arzly.Api.Controllers
             return Ok(results);
         }
 
-      
+
         [HttpGet("place-details")]
-        public async Task<IActionResult> GetPlaceDetails([FromQuery] string placeId)
+        public async Task<IActionResult> GetPlaceDetails([FromQuery] string placeId )
         {
             _logger.LogInformation("{Controller}.GetPlaceDetails({PlaceId}) - Before", GetType().Name, placeId);
+
 
             if (string.IsNullOrWhiteSpace(placeId))
                 return BadRequest(new { error = "Place ID is required." });
@@ -55,7 +57,7 @@ namespace Arzly.Api.Controllers
             return Ok(result);
         }
 
-      
+
         [HttpGet("static-map")]
         public IActionResult GetStaticMap(
             [FromQuery] double lat,

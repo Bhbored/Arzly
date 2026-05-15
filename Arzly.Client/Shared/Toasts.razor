@@ -1,0 +1,25 @@
+@inject Arzly.Client.Services.ToastService ToastService
+
+<div class="fixed top-4 right-4 z-50 space-y-2">
+    @foreach (var t in ToastService.Items)
+    {
+        <div class="max-w-sm w-full bg-white shadow rounded p-3 border-l-4 @(t.Type == "success" ? "border-primary" : "border-bark-red")">
+            <div class="flex justify-between items-start gap-2">
+                <div class="text-sm text-slate-800">@t.Message</div>
+                <button class="text-slate-400" @onclick="() => ToastService.Remove(t.Id)">✕</button>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        ToastService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        ToastService.OnChange -= StateHasChanged;
+    }
+}
