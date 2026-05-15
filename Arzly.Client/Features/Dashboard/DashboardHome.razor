@@ -1,51 +1,128 @@
-@inject IListingApiClient ListingApi
+﻿@inject IListingApiClient ListingApi
 @inject IJobListingApiClient JobApi
 @inject ICategoryApiClient CategoryApi
 @inject IReportApiClient ReportApi
 
-<div class="space-y-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard Label="Total Listings" Value="@totalListings.ToString()" IconContainerClass="bg-blue-50 text-blue-600">
-            <Icon>
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                </svg>
-            </Icon>
-        </StatCard>
-        
-        <StatCard Label="Job Listings" Value="@totalJobs.ToString()" IconContainerClass="bg-green-50 text-green-600">
-            <Icon>
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-            </Icon>
-        </StatCard>
-
-        <StatCard Label="Categories" Value="@totalCategories.ToString()" IconContainerClass="bg-purple-50 text-purple-600">
-            <Icon>
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                </svg>
-            </Icon>
-        </StatCard>
-
-        <StatCard Label="Pending Reports" Value="@pendingReports.ToString()" IconContainerClass="bg-red-50 text-red-600">
-            <Icon>
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-            </Icon>
-        </StatCard>
+<div>
+    <div class="mb-8 flex justify-between items-end">
+        <div>
+            <h2 class="font-headline-xl text-headline-xl text-on-surface mb-2">Dashboard Overview</h2>
+            <p class="text-stone font-body-md text-body-md">Platform metrics and recent activity across Arzly.</p>
+        </div>
+        <div class="flex gap-3">
+            <button class="px-4 py-2 bg-surface border border-outline-variant rounded-lg text-primary font-body-md text-body-md flex items-center gap-2 hover:bg-surface-container-low transition-colors">
+                <span class="material-symbols-outlined text-[20px]">download</span>
+                Export Report
+            </button>
+        </div>
     </div>
 
-    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="p-6 border-b border-slate-200 flex justify-between items-center">
-            <h2 class="text-lg font-bold text-slate-800">Recent Listings</h2>
+    <!-- KPI Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="bg-surface rounded-xl p-5 cedar-shadow border border-outline-variant/30 flex flex-col justify-between">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">list_alt</span>
+                </div>
+                <span class="text-forest font-data-mono text-data-mono flex items-center gap-1">+12% <span class="material-symbols-outlined text-[14px]">trending_up</span></span>
+            </div>
+            <div>
+                <p class="text-stone font-body-sm text-body-sm mb-1">Total Listings</p>
+                <p class="font-headline-md text-headline-md text-on-surface">@totalListings</p>
+            </div>
+        </div>
+
+        <div class="bg-surface rounded-xl p-5 cedar-shadow border border-outline-variant/30 flex flex-col justify-between">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-10 h-10 rounded-lg bg-primary-container/10 flex items-center justify-center text-primary-container">
+                    <span class="material-symbols-outlined">check_circle</span>
+                </div>
+                <span class="text-forest font-data-mono text-data-mono flex items-center gap-1">+5% <span class="material-symbols-outlined text-[14px]">trending_up</span></span>
+            </div>
+            <div>
+                <p class="text-stone font-body-sm text-body-sm mb-1">Active Listings</p>
+                <p class="font-headline-md text-headline-md text-on-surface">@totalJobs</p>
+            </div>
+        </div>
+
+        <div class="bg-surface rounded-xl p-5 cedar-shadow border border-outline-variant/30 flex flex-col justify-between relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-16 h-16 bg-harvest/10 rounded-bl-full -z-10"></div>
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-10 h-10 rounded-lg bg-secondary-container/30 flex items-center justify-center text-harvest">
+                    <span class="material-symbols-outlined">pending_actions</span>
+                </div>
+                <span class="bg-harvest text-on-secondary px-2 py-0.5 rounded-full font-label-caps text-label-caps">124 REQ</span>
+            </div>
+            <div>
+                <p class="text-stone font-body-sm text-body-sm mb-1">Pending Listings</p>
+                <p class="font-headline-md text-headline-md text-on-surface">432</p>
+            </div>
+        </div>
+
+        <div class="bg-surface rounded-xl p-5 cedar-shadow border border-outline-variant/30 flex flex-col justify-between">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">work</span>
+                </div>
+            </div>
+            <div>
+                <p class="text-stone font-body-sm text-body-sm mb-1">Total Job Listings</p>
+                <p class="font-headline-md text-headline-md text-on-surface">@totalJobs</p>
+            </div>
+        </div>        <!-- Second row of small KPIs -->
+        <div class="bg-surface rounded-xl p-5 cedar-shadow border border-outline-variant/30 flex flex-col justify-between">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">group</span>
+                </div>
+            </div>
+            <div>
+                <p class="text-stone font-body-sm text-body-sm mb-1">Active Users</p>
+                <p class="font-headline-md text-headline-md text-on-surface">8,540</p>
+            </div>
+        </div>        <div class="bg-surface rounded-xl p-5 cedar-shadow border border-bark-red/20 flex flex-col justify-between">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-10 h-10 rounded-lg bg-error-container flex items-center justify-center text-error">
+                    <span class="material-symbols-outlined">confirmation_number</span>
+                </div>
+                <span class="text-bark-red font-data-mono text-data-mono flex items-center gap-1">+2 <span class="material-symbols-outlined text-[14px]">trending_up</span></span>
+            </div>
+            <div>
+                <p class="text-stone font-body-sm text-body-sm mb-1">Open Tickets</p>
+                <p class="font-headline-md text-headline-md text-bark-red">14</p>
+            </div>
+        </div>        <div class="bg-surface rounded-xl p-5 cedar-shadow border border-bark-red/20 flex flex-col justify-between">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-10 h-10 rounded-lg bg-error-container flex items-center justify-center text-error">
+                    <span class="material-symbols-outlined">report</span>
+                </div>
+            </div>
+            <div>
+                <p class="text-stone font-body-sm text-body-sm mb-1">Pending Reports</p>
+                <p class="font-headline-md text-headline-md text-bark-red">@pendingReports</p>
+            </div>
+        </div>        <div class="bg-surface rounded-xl p-5 cedar-shadow border border-outline-variant/30 flex flex-col justify-between">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">chat</span>
+                </div>
+            </div>
+            <div>
+                <p class="text-stone font-body-sm text-body-sm mb-1">Today's Chats</p>
+                <p class="font-headline-md text-headline-md text-on-surface">1,204</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Listings table -->
+    <div class="bg-surface rounded-xl cedar-shadow border border-outline-variant overflow-hidden">
+        <div class="p-6 border-b border-outline-variant flex justify-between items-center">
+            <h2 class="text-lg font-bold text-on-surface">Recent Listings</h2>
             <a href="listings" class="text-primary text-sm font-medium hover:underline">View All</a>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-left">
-                <thead class="bg-slate-50 border-b border-slate-200 text-xs uppercase text-slate-500 font-semibold">
+                <thead class="bg-surface-container-low border-b border-outline-variant text-xs uppercase text-stone font-semibold">
                     <tr>
                         <th class="px-6 py-3">Listing</th>
                         <th class="px-6 py-3">Price</th>
@@ -53,17 +130,17 @@
                         <th class="px-6 py-3">Created</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100">
+                <tbody class="divide-y divide-surface-variant">
                     @if (isLoading)
                     {
                         <tr>
-                            <td colspan="4" class="px-6 py-12 text-center text-slate-400">Loading...</td>
+                            <td colspan="4" class="px-6 py-12 text-center text-stone">Loading...</td>
                         </tr>
                     }
                     else if (!recentListings.Any())
                     {
                         <tr>
-                            <td colspan="4" class="px-6 py-12 text-center text-slate-400">No listings found</td>
+                            <td colspan="4" class="px-6 py-12 text-center text-stone">No listings found</td>
                         </tr>
                     }
                     else
@@ -73,17 +150,15 @@
                             <tr>
                                 <td class="px-6 py-4">
                                     <div class="flex items-center">
-                                        <div class="w-10 h-10 rounded bg-slate-100 mr-3"></div>
-                                        <span class="font-medium text-slate-700">@l.Title</span>
+                                        <div class="w-10 h-10 rounded bg-surface-container-low mr-3"></div>
+                                        <span class="font-medium text-on-surface">@l.Title</span>
                                     </div>
                                 </td>
-                                <td class="px-6 py-4 text-slate-600">@l.Price.ToString("C")</td>
+                                <td class="px-6 py-4 text-on-surface-variant">@l.Price.ToString("C")</td>
                                 <td class="px-6 py-4">
-                                    <Badge Class="@GetStatusClass(l.Status)">
-                                        @l.Status
-                                    </Badge>
+                                    <Badge Variant="@GetStatusVariant(l.Status)">@l.Status</Badge>
                                 </td>
-                                <td class="px-6 py-4 text-slate-500 text-sm">@l.CreatedAt.ToString("MMM dd, yyyy")</td>
+                                <td class="px-6 py-4 text-stone text-sm">@l.CreatedAt.ToString("MMM dd, yyyy")</td>
                             </tr>
                         }
                     }
@@ -126,12 +201,13 @@
         }
     }
 
-    private string GetStatusClass(ListingStatus status) => status switch
+    private string GetStatusVariant(ListingStatus status) => status switch
     {
-        ListingStatus.Active => "bg-green-100 text-green-700",
-        ListingStatus.Pending => "bg-amber-100 text-amber-700",
-        ListingStatus.Sold => "bg-blue-100 text-blue-700",
-        ListingStatus.Deleted => "bg-slate-100 text-slate-700",
-        _ => "bg-slate-100 text-slate-700"
+        ListingStatus.Active => "success",
+        ListingStatus.Pending => "pending",
+        ListingStatus.Sold => "sold",
+        ListingStatus.Deleted => "neutral",
+        _ => "neutral"
     };
 }
+

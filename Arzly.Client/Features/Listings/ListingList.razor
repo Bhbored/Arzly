@@ -62,7 +62,7 @@
                             </td>
                             <td class="px-6 py-4 text-slate-700 font-medium">@l.Price.ToString("C")</td>
                             <td class="px-6 py-4">
-                                <Badge Class="@GetStatusClass(l.Status)">
+                                <Badge Variant="@GetStatusVariant(l.Status)">
                                     @l.Status
                                 </Badge>
                             </td>
@@ -118,12 +118,12 @@
         }
     }
 
-    private string GetStatusClass(ListingStatus status) => status switch
+    private string GetStatusVariant(ListingStatus status) => status switch
     {
-        ListingStatus.Active => "bg-green-100 text-green-700",
-        ListingStatus.Pending => "bg-amber-100 text-amber-700",
-        ListingStatus.Sold => "bg-blue-100 text-blue-700",
-        ListingStatus.Deleted => "bg-slate-100 text-slate-700",
-        _ => "bg-slate-100 text-slate-700"
+        ListingStatus.Active => "success",
+        ListingStatus.Pending => "pending",
+        ListingStatus.Sold => "sold",
+        ListingStatus.Deleted => "neutral",
+        _ => "neutral"
     };
 }

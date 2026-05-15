@@ -34,3 +34,8 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
 }
+
+/* Cedar shadow utilities (from provided UI) */
+.cedar-shadow-sm { box-shadow: 0 1px 2px 0 rgba(23, 57, 1, 0.05); }
+.cedar-shadow { box-shadow: 0 4px 6px -1px rgba(23, 57, 1, 0.08), 0 2px 4px -1px rgba(23, 57, 1, 0.04); }
+.cedar-shadow-lg { box-shadow: 0 10px 15px -3px rgba(23, 57, 1, 0.12), 0 4px 6px -2px rgba(23, 57, 1, 0.05); }

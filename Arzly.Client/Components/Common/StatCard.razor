@@ -1,16 +1,16 @@
-<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex items-center space-x-4">
+<div class="bg-surface rounded-xl p-5 cedar-shadow border border-outline-variant flex items-center space-x-4">
     <div class="p-3 rounded-lg @IconContainerClass">
         @Icon
     </div>
     <div>
-        <p class="text-sm font-medium text-slate-500">@Label</p>
-        <p class="text-2xl font-bold text-slate-800">@Value</p>
+        <p class="text-sm font-medium text-stone">@Label</p>
+        <p class="text-headline-md font-headline-md text-on-surface">@Value</p>
     </div>
 </div>
 
 @code {
     [Parameter] public string Label { get; set; } = "";
     [Parameter] public string Value { get; set; } = "";
-    [Parameter] public string IconContainerClass { get; set; } = "bg-blue-50 text-blue-600";
+    [Parameter] public string IconContainerClass { get; set; } = "bg-surface-container-low text-primary";
     [Parameter] public RenderFragment? Icon { get; set; }
 }

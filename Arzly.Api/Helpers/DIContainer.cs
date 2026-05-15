@@ -28,17 +28,19 @@ namespace Arzly.Api.Helpers
 
         public static IServiceCollection RegisterControllers(this IServiceCollection services)
         {
+            services.AddScoped<ConditionalJsonResultFilter>();
             services.AddControllers(controller =>
             {
 
-                controller.Filters.Add<HandleExceptionFilter>();//global filter
+                controller.Filters.Add<HandleExceptionFilter>();
                 controller.Filters.Add<ConditionalJsonResultFilter>();
 
             })
-        .AddJsonOptions(options =>
-        {
-            options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-        })
+         .AddJsonOptions(options =>
+                {
+
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                })
         .ConfigureApiBehaviorOptions(options =>
         {
             options.SuppressModelStateInvalidFilter = true;//for built-in modelBinding i did a custom filter for that although never again!!

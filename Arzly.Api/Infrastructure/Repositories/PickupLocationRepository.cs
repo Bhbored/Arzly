@@ -26,6 +26,7 @@ namespace Arzly.Api.Infrastructure.Repositories
                 matchingLocation.Address = entity.Address;
                 matchingLocation.Notes = entity.Notes;
                 matchingLocation.IsDefault = entity.IsDefault;
+                matchingLocation.LocationPreset = entity.LocationPreset;
                 await _db.SaveChangesAsync();
                 return matchingLocation;
             }
