@@ -1,7 +1,9 @@
 ﻿using Arzly.Api.Domain.Contracts;
 using Arzly.Api.Domain.Entities;
 using Arzly.Api.Domain.ListingOwned;
+using Arzly.Api.Helpers;
 using Arzly.Api.Infrastructure.Data.DataBaseContext;
+using Arzly.Shared.Enums;
 using Arzly.Shared.Enums.Listing;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -21,10 +23,9 @@ namespace Arzly.Api.Infrastructure.Repositories
         }
 
 
-
         #region admin & support
 
-        public  async Task<List<Listing>> GetAllListingAdmin(int pageSize, int currentPage)
+        public async Task<List<Listing>> GetAllListingAdmin(int pageSize, int currentPage)
         {
             _logger.LogInformation($"{GetType().Name} - GetAllListingAdmin has been reached");
 
@@ -43,10 +44,10 @@ namespace Arzly.Api.Infrastructure.Repositories
 
             if (olderListing != null)
             {
-               
+
                 olderListing.Status = entity.Status;
                 olderListing.IsPromoted = entity.IsPromoted;
-                olderListing.PromotionType =entity.PromotionType;            
+                olderListing.PromotionType = entity.PromotionType;
                 olderListing.UpdatedAt = DateTime.UtcNow;
                 await _db.SaveChangesAsync();
                 return olderListing;
@@ -54,7 +55,7 @@ namespace Arzly.Api.Infrastructure.Repositories
 
             return entity;
         }
-      
+
 
 
 
@@ -62,7 +63,7 @@ namespace Arzly.Api.Infrastructure.Repositories
 
 
         #region user
-        #endregion 
+        #endregion
         public override async Task<Listing?> GetByIdAsync(Guid id)
         {
             _logger.LogInformation($"{GetType().Name} - GetByIdAsync has been reached");
@@ -71,7 +72,7 @@ namespace Arzly.Api.Infrastructure.Repositories
                 .Include(l => l.PickupLocation)
                 .FirstOrDefaultAsync(x => x.Id == id && x.Status == ListingStatus.Active || x.Status == ListingStatus.Sold);
         }
-      
+
 
         public async Task<List<Listing>> GetFilteredListing(Expression<Func<Listing, bool>> predicate, int pageSize, int currentPage)
         {
@@ -109,21 +110,65 @@ namespace Arzly.Api.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<Listing>> GetListingByCategoryId(Guid categoryId, int pageSize, int currentPage)
+        public async Task<List<Listing>> GetListingByCategoryId(Guid categoryId, int pageSize, int currentPage, string? searchString,
+            LocationPreset? preset, double minPrice, double maxPrice)
         {
-            return await _db.Listings 
-                             .Where(x => x.CategoryId == categoryId && x.Status == ListingStatus.Active)
-                             .Skip(currentPage * pageSize)
-                             .Take(pageSize)
-                             .Include(x => x.PickupLocation)
-                             .ToListAsync();
+            var query = _db.Listings
+        .Where(x => x.CategoryId == categoryId && x.Status == ListingStatus.Active)
+        .Where(x => x.Price >= minPrice && x.Price <= maxPrice);
+
+            if (!string.IsNullOrWhiteSpace(searchString))
+            {
+                query = query.Where(x => x.Title.Contains(searchString));
+            }
+
+            if (preset != null)
+            {
+                query = query.Where(x => x.PickupLocation.LocationPreset == preset);
+            }
+
+            return await query
+                .Skip(currentPage * pageSize)
+                .Take(pageSize)
+                .Include(x => x.PickupLocation)
+                .ToListAsync();
+
+
+        }
+
+        public async Task<List<Listing>> GetListingBySubCategoryId(Guid subcategoryId, int pageSize, int currentPage, string? searchString,
+            LocationPreset? preset, object? details, double minPrice, double maxPrice)
+        {
+            var query = _db.Listings
+        .Where(x => x.SubcategoryId == subcategoryId && x.Status == ListingStatus.Active)
+        .Where(x => x.Price >= minPrice && x.Price <= maxPrice);
+
+            if (!string.IsNullOrWhiteSpace(searchString))
+            {
+                query = query.Where(x => x.Title.Contains(searchString));
+            }
+
+            if (preset != null)
+            {
+                query = query.Where(x => x.PickupLocation.LocationPreset == preset);
+            }
+
+            if (details != null)
+                query = ListingFilterHelper.Apply(query, details);
+
+            return await query
+                .Skip(currentPage * pageSize)
+                .Take(pageSize)
+                .Include(x => x.PickupLocation)
+                .ToListAsync();
+
         }
 
         public async Task<List<Listing>> GetInitialListings(Guid subcategoryId)
         {
             return await _db.Listings
                               .Where(x => x.SubcategoryId == subcategoryId && x.Status == ListingStatus.Active)
-                              .OrderByDescending(x=>x.IsPromoted)
+                              .OrderByDescending(x => x.IsPromoted)
                               .Take(5)
                               .Include(x => x.PickupLocation)
                               .ToListAsync();
@@ -145,7 +190,6 @@ namespace Arzly.Api.Infrastructure.Repositories
 
             return base.AddAsync(entity);
         }
-        //promotion and status (active rejected ) update will be another admin support endpoint
         public override async Task<Listing> Update(Listing entity)
         {
             var olderListing = await _db.Listings
@@ -179,6 +223,6 @@ namespace Arzly.Api.Infrastructure.Repositories
             return true;
         }
 
-       
+
     }
 }

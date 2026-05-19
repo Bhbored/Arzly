@@ -3,6 +3,7 @@ using Arzly.Api.Filters.ActionFilters;
 using Arzly.Api.Filters.ResultFilters;
 using Arzly.Shared.DTOs.Request.Listing;
 using Arzly.Shared.DTOs.Response.Listing;
+using Arzly.Shared.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Arzly.Api.Controllers
@@ -22,7 +23,7 @@ namespace Arzly.Api.Controllers
 
         #region fetch
 
-        
+
         [HttpGet("indexed")]
         public async Task<ActionResult<List<ListingResponse>>> IndexedListings([FromHeader] int pageSize = 10, [FromHeader] int currentPage = 0)
         {
@@ -78,7 +79,7 @@ namespace Arzly.Api.Controllers
             return Ok(result);
         }
         [HttpGet("initial-listings")]
-        public async Task<ActionResult<ListingResponse>> GetInitialListings([FromBody] List<Guid> subcategoryIds) 
+        public async Task<ActionResult<ListingResponse>> GetInitialListings([FromBody] List<Guid> subcategoryIds)
         {
             _logger.LogInformation("{Controller}.GetInitialListings() - Before",
                 GetType().Name);
@@ -90,17 +91,49 @@ namespace Arzly.Api.Controllers
             return Ok(result);
         }
 
-        [HttpGet("category-listing")]
-        public async Task<ActionResult<ListingResponse>> GetByCategoryId(Guid? CategoryId, [FromHeader] int pageSize = 10,
+        [HttpGet("category-listing/{CategoryId:guid}")]
+        public async Task<ActionResult<ListingResponse>> GetByCategoryId(Guid? CategoryId,
+            [FromHeader] string? searchString,
+            [FromBody] LocationPreset? preset,
+            [FromHeader] string order = "desc",
+            [FromHeader] string orderByPrice = "desc",
+            [FromHeader] double minPrice = 0,
+            [FromHeader] double maxPrice = double.MaxValue,
+            [FromHeader] int pageSize = 10,
             [FromHeader] int currentPage = 0)
         {
             _logger.LogInformation("{Controller}.GetByCategoryId({CategoryId}) - Before",
                 GetType().Name, CategoryId);
 
-            var result = await _service.GetListingByCategoryId(CategoryId.Value, pageSize, currentPage);
+            var result = await _service.GetListingByCategoryId(CategoryId.Value, pageSize,
+                currentPage, searchString, preset, order, orderByPrice, minPrice, maxPrice);
 
             _logger.LogInformation("{Controller}.GetByCategoryId({CategoryId}) - After",
                 GetType().Name, CategoryId);
+            return Ok(result);
+        }
+
+        [HttpGet("subcategory-listing/{subcategoryId:guid}")]
+        public async Task<ActionResult<ListingResponse>> GetBySubacategoryId(Guid? subcategoryId,
+            [FromHeader] LocationPreset? preset,
+            [FromHeader] Guid? catgeoroyId,
+            [FromHeader] string? searchString,
+            [FromBody] object? details,
+            [FromHeader] string order = "desc",
+            [FromHeader] string orderByPrice = "desc",
+            [FromHeader] double minPrice = 0,
+            [FromHeader] double maxPrice = double.MaxValue,
+            [FromHeader] int pageSize = 10,
+            [FromHeader] int currentPage = 0)
+        {
+            _logger.LogInformation("{Controller}.GetByCategoryId({CategoryId}) - Before",
+                GetType().Name, subcategoryId);
+
+            var result = await _service.GetListingBySubCategoryId(subcategoryId.Value, catgeoroyId.Value,pageSize,
+                currentPage, searchString, preset, details, order, orderByPrice, minPrice, maxPrice);
+
+            _logger.LogInformation("{Controller}.GetByCategoryId({CategoryId}) - After",
+                GetType().Name, subcategoryId);
             return Ok(result);
         }
         #endregion

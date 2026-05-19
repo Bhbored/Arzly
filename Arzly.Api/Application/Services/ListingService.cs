@@ -6,9 +6,12 @@ using Arzly.Api.Mappings;
 using Arzly.Shared.Constants;
 using Arzly.Shared.DTOs.Request.Listing;
 using Arzly.Shared.DTOs.Response.Listing;
+using Arzly.Shared.Enums;
 using Azure.Core;
+using Microsoft.AspNetCore.Http.HttpResults;
 using SerilogTimings;
 using System.Reflection;
+using System.Runtime.ConstrainedExecution;
 using System.Text.Json;
 
 namespace Arzly.Api.Application.Services
@@ -111,7 +114,7 @@ namespace Arzly.Api.Application.Services
         {
             _logger.LogInformation($"{GetType().Name} - GetAllAsync Has been reached");
 
-            List<ListingResponse> responses = new();
+            List<ListingResponse> responses = [];
             using (Operation.Time("Time for Fetched All Listings with location & details from Database"))
             {
                 var entities = await _listingRepo.GetAllListingAdmin(pageSize, currentPage);
@@ -142,8 +145,6 @@ namespace Arzly.Api.Application.Services
 
         #region user 
 
-
-
         public override async Task<ListingResponse?> GetByIdAsync(Guid id)
         {
             _logger.LogInformation($"{GetType().Name} - GetByIdAsync Has been reached");
@@ -164,7 +165,9 @@ namespace Arzly.Api.Application.Services
             return await AssignOneLocation_Details_Page(entity, MapToDto(entity));
         }
 
-        public async Task<List<ListingResponse>> GetListingByCategoryId(Guid categoryId, int pageSize, int currentPage)
+
+        public async Task<List<ListingResponse>> GetListingByCategoryId(Guid categoryId, int pageSize, int currentPage, string? searchString,
+            LocationPreset? preset, string order, string orderByPrice, double minPrice, double maxPrice)
         {
             _logger.LogInformation($"{GetType().Name} - GetListingByCategoryId Has been reached");
             if (categoryId == Guid.Empty)
@@ -172,14 +175,86 @@ namespace Arzly.Api.Application.Services
                 _logger.LogError($"{GetType().Name} - GetListingByCategoryId No id was provided  {nameof(categoryId)}");
                 throw new ArgumentNullException(ExceptionMessages.MissingId);
             }
-            List<ListingResponse> responses = new();
-            var entities = await _listingRepo.GetListingByCategoryId(categoryId, pageSize, currentPage);
-            var response = entities
-                .Select(x => x.ToResponse())
-                .ToList();
-            responses = await AssignLocation_Details(entities, responses);
-            return responses;
+            using (Operation.Time("Time for Fetched Listings ByCategoryId with location & details from Database"))
+            {
+                List<ListingResponse> responses = [];
+                var entities = await _listingRepo.GetListingByCategoryId(categoryId, pageSize, currentPage, searchString, preset, minPrice, maxPrice);
+                var response = entities
+                    .Select(x => x.ToResponse())
+                    .ToList();
+                responses = await AssignLocation_Details(entities, response);
+
+                responses = order == "desc" ? responses
+                    .OrderByDescending(x => x.CreatedAt)
+                    .ToList() : responses
+                    .OrderBy(x => x.CreatedAt)
+                    .ToList();
+
+                responses = orderByPrice == "desc" ? responses
+                    .OrderByDescending(x => x.Price)
+                    .ToList() : responses
+                    .OrderBy(x => x.Price)
+                    .ToList();
+                return responses;
+            }
+
         }
+
+
+        public async Task<List<ListingResponse>> GetListingBySubCategoryId(Guid subcategoryId, Guid categoryId, int pageSize, int currentPage,
+           string? searchString, LocationPreset? preset, object? details, string order, string orderByPrice, double minPrice, double maxPrice)
+        {
+            _logger.LogInformation($"{GetType().Name} - GetListingBySubCategoryId Has been reached");
+            if (categoryId == Guid.Empty || subcategoryId == Guid.Empty)
+            {
+                _logger.LogError($"{GetType().Name} - GetListingBySubCategoryId No id was provided  {nameof(categoryId)}");
+                throw new ArgumentNullException(ExceptionMessages.MissingId);
+            }
+
+            using (Operation.Time("Time for Fetched Listings BySubcategoryId with location & details from Database"))
+            {
+                List<ListingResponse> responses = [];
+                List<Listing>? entities = [];
+                if (details != null)
+                {
+                    Type detailType = await GetDetailTypeFromCategoryId(categoryId);
+
+                    var jsonString = JsonSerializer.Serialize(details, _jsonOptions);
+
+                    var serializedDetails = JsonSerializer.
+                        Deserialize(jsonString, detailType, _jsonOptions);
+
+                    entities = await _listingRepo.GetListingBySubCategoryId(subcategoryId, pageSize, currentPage, searchString, preset,
+                        serializedDetails, minPrice, maxPrice);
+
+                }
+                else
+                {
+                    entities = await _listingRepo.GetListingBySubCategoryId(subcategoryId, pageSize, currentPage,
+                        searchString, preset, null, minPrice, maxPrice);
+
+                }
+
+                var response = entities
+                    .Select(x => x.ToResponse())
+                    .ToList();
+                responses = await AssignLocation_Details(entities, response);
+
+                responses = order == "desc" ? responses
+                    .OrderByDescending(x => x.CreatedAt)
+                    .ToList() : responses
+                    .OrderBy(x => x.CreatedAt)
+                    .ToList();
+
+                responses = orderByPrice == "desc" ? responses
+                    .OrderByDescending(x => x.Price)
+                    .ToList() : responses
+                    .OrderBy(x => x.Price)
+                    .ToList();
+                return responses;
+            }
+        }
+
 
         public async Task<List<ListingResponse>> GetFilteredListing(string searchBy, string searchString, int pageSize, int currentPage)
         {
@@ -187,8 +262,8 @@ namespace Arzly.Api.Application.Services
 
             if (string.IsNullOrWhiteSpace(searchBy) || string.IsNullOrWhiteSpace(searchString))
                 return new List<ListingResponse>();
-            List<Listing> listings = new();
-            List<ListingResponse> responses = new();
+            List<Listing> listings = [];
+            List<ListingResponse> responses = [];
             using (Operation.Time("Time for Fetched filtered Listings with location & details from Database"))
             {
 
@@ -220,7 +295,7 @@ namespace Arzly.Api.Application.Services
             //this will change when identity is integrated
             var user = await _userService
                             .GetByFireBaseIdAsync(userId);
-            List<ListingResponse> responses = new();
+            List<ListingResponse> responses = [];
             using (Operation.Time("Time for Fetched Listings ByUserId with location & details from Database"))
             {
                 var entities = await _listingRepo.GetListingByUserId(user.Id, pageSize, currentPage);
@@ -239,7 +314,7 @@ namespace Arzly.Api.Application.Services
         {
             _logger.LogInformation($"{GetType().Name} - GetIndexedListings Has been reached");
 
-            List<ListingResponse> responses = new();
+            List<ListingResponse> responses = [];
             using (Operation.Time("Time for Fetched indexed Listings with location & details from Database"))
             {
                 var entities = await _listingRepo.GetIndexedListings(pageSzie, currentPage);
@@ -260,8 +335,8 @@ namespace Arzly.Api.Application.Services
                 _logger.LogError($"{GetType().Name} - Empty categoryNames provided in GetInitialListings");
                 throw new ArgumentNullException(ExceptionMessages.MissingCategoriesId);
             }
-            List<ListingResponse> responses = new();
-            List<Listing> entities = new();
+            List<ListingResponse> responses = [];
+            List<Listing> entities = [];
             using (Operation.Time("Time for Fetched initial Listings with location & details from Database"))
             {
 
@@ -279,6 +354,13 @@ namespace Arzly.Api.Application.Services
             return responses;
 
         }
+
+
+
+
+
+
+
 
 
         public override async Task<ListingResponse?> CreateAsync(ListingAddRequest? createDto, string? userId)
@@ -335,6 +417,7 @@ namespace Arzly.Api.Application.Services
         }
 
 
+
         public override async Task<ListingResponse?> UpdateAsync(ListingUpdateRequest? updateDto, string? userId)
         {
             await _userService.GetByIdAsync(userId);//if he's not available it will throw , identity affected later
@@ -354,6 +437,8 @@ namespace Arzly.Api.Application.Services
             createDto.ToEntity();
 
         protected override Listing MapToEntity(ListingUpdateRequest updateDto) => updateDto.ToEntity();
+
+
 
 
 
