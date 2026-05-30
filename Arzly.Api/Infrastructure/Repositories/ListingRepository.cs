@@ -70,7 +70,7 @@ namespace Arzly.Api.Infrastructure.Repositories
 
             return await _db.Listings
                 .Include(l => l.PickupLocation)
-                .FirstOrDefaultAsync(x => x.Id == id && x.Status == ListingStatus.Active || x.Status == ListingStatus.Sold);
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
 
@@ -111,11 +111,11 @@ namespace Arzly.Api.Infrastructure.Repositories
         }
 
         public async Task<List<Listing>> GetListingByCategoryId(Guid categoryId, int pageSize, int currentPage, string? searchString,
-            LocationPreset? preset, double minPrice, double maxPrice)
+      LocationPreset? preset, double minPrice, double maxPrice, string order, string orderByPrice)
         {
-            var query = _db.Listings
-        .Where(x => x.CategoryId == categoryId && x.Status == ListingStatus.Active)
-        .Where(x => x.Price >= minPrice && x.Price <= maxPrice);
+            IQueryable<Listing> query = _db.Listings
+                .Where(x => x.CategoryId == categoryId && x.Status == ListingStatus.Active)
+                .Where(x => x.Price >= minPrice && x.Price <= maxPrice);
 
             if (!string.IsNullOrWhiteSpace(searchString))
             {
@@ -127,17 +127,35 @@ namespace Arzly.Api.Infrastructure.Repositories
                 query = query.Where(x => x.PickupLocation.LocationPreset == preset);
             }
 
-            return await query
+            IOrderedQueryable<Listing> orderedQuery;
+
+            if (order.Equals("desc"))
+            {
+                orderedQuery = query.OrderByDescending(x => x.CreatedAt);
+            }
+            else
+            {
+                orderedQuery = query.OrderBy(x => x.CreatedAt);
+            }
+
+            if (orderByPrice.Equals("desc"))
+            {
+                orderedQuery = orderedQuery.ThenByDescending(x => x.Price);
+            }
+            else
+            {
+                orderedQuery = orderedQuery.ThenBy(x => x.Price);
+            }
+
+            return await orderedQuery
                 .Skip(currentPage * pageSize)
                 .Take(pageSize)
                 .Include(x => x.PickupLocation)
                 .ToListAsync();
-
-
         }
 
         public async Task<List<Listing>> GetListingBySubCategoryId(Guid subcategoryId, int pageSize, int currentPage, string? searchString,
-            LocationPreset? preset, object? details, double minPrice, double maxPrice)
+            LocationPreset? preset, object? details, double minPrice, double maxPrice, string order, string orderByPrice)
         {
             var query = _db.Listings
         .Where(x => x.SubcategoryId == subcategoryId && x.Status == ListingStatus.Active)
@@ -156,7 +174,27 @@ namespace Arzly.Api.Infrastructure.Repositories
             if (details != null)
                 query = ListingFilterHelper.Apply(query, details);
 
-            return await query
+            IOrderedQueryable<Listing> orderedQuery;
+
+            if (order.Equals("desc"))
+            {
+                orderedQuery = query.OrderByDescending(x => x.CreatedAt);
+            }
+            else
+            {
+                orderedQuery = query.OrderBy(x => x.CreatedAt);
+            }
+
+            if (orderByPrice.Equals("desc"))
+            {
+                orderedQuery = orderedQuery.ThenByDescending(x => x.Price);
+            }
+            else
+            {
+                orderedQuery = orderedQuery.ThenBy(x => x.Price);
+            }
+
+            return await orderedQuery
                 .Skip(currentPage * pageSize)
                 .Take(pageSize)
                 .Include(x => x.PickupLocation)

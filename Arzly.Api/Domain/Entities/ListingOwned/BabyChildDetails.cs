@@ -7,6 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace Arzly.Api.Domain.ListingOwned
 {
+    
     public class BabyChildDetails
     {
         [Key, ForeignKey(nameof(Listing))]

@@ -154,15 +154,18 @@ namespace Arzly.Api.Application.Services
                 _logger.LogError($"{GetType().Name} - Empty id provided in GetByIdAsync");
                 throw new ArgumentNullException(ExceptionMessages.MissingId);
             }
-
-            var entity = await _listingRepo.GetByIdAsync(id);
-            if (entity is null)
+            using (Operation.Time("Time for Fetched Listings ById with location & details from Database"))
             {
-                _logger.LogError($"{GetType().Name} - No Listing found with id {{Id}} in GetByIdAsync", id);
-                throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {id}");
+                var entity = await _listingRepo.GetByIdAsync(id);
+                if (entity is null)
+                {
+                    _logger.LogError($"{GetType().Name} - No Listing found with id {{Id}} in GetByIdAsync", id);
+                    throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {id}");
+                }
+
+                return await AssignOneLocation_Details_Page(entity, MapToDto(entity));
             }
 
-            return await AssignOneLocation_Details_Page(entity, MapToDto(entity));
         }
 
 
@@ -178,23 +181,13 @@ namespace Arzly.Api.Application.Services
             using (Operation.Time("Time for Fetched Listings ByCategoryId with location & details from Database"))
             {
                 List<ListingResponse> responses = [];
-                var entities = await _listingRepo.GetListingByCategoryId(categoryId, pageSize, currentPage, searchString, preset, minPrice, maxPrice);
+                var entities = await _listingRepo.GetListingByCategoryId(categoryId, pageSize, currentPage, searchString, preset,
+                    minPrice, maxPrice, order, orderByPrice);
                 var response = entities
                     .Select(x => x.ToResponse())
                     .ToList();
                 responses = await AssignLocation_Details(entities, response);
 
-                responses = order == "desc" ? responses
-                    .OrderByDescending(x => x.CreatedAt)
-                    .ToList() : responses
-                    .OrderBy(x => x.CreatedAt)
-                    .ToList();
-
-                responses = orderByPrice == "desc" ? responses
-                    .OrderByDescending(x => x.Price)
-                    .ToList() : responses
-                    .OrderBy(x => x.Price)
-                    .ToList();
                 return responses;
             }
 
@@ -225,13 +218,13 @@ namespace Arzly.Api.Application.Services
                         Deserialize(jsonString, detailType, _jsonOptions);
 
                     entities = await _listingRepo.GetListingBySubCategoryId(subcategoryId, pageSize, currentPage, searchString, preset,
-                        serializedDetails, minPrice, maxPrice);
+                        serializedDetails, minPrice, maxPrice, order, orderByPrice);
 
                 }
                 else
                 {
                     entities = await _listingRepo.GetListingBySubCategoryId(subcategoryId, pageSize, currentPage,
-                        searchString, preset, null, minPrice, maxPrice);
+                        searchString, preset, null, minPrice, maxPrice, order, orderByPrice);
 
                 }
 
@@ -240,17 +233,6 @@ namespace Arzly.Api.Application.Services
                     .ToList();
                 responses = await AssignLocation_Details(entities, response);
 
-                responses = order == "desc" ? responses
-                    .OrderByDescending(x => x.CreatedAt)
-                    .ToList() : responses
-                    .OrderBy(x => x.CreatedAt)
-                    .ToList();
-
-                responses = orderByPrice == "desc" ? responses
-                    .OrderByDescending(x => x.Price)
-                    .ToList() : responses
-                    .OrderBy(x => x.Price)
-                    .ToList();
                 return responses;
             }
         }
@@ -351,14 +333,11 @@ namespace Arzly.Api.Application.Services
                 responses = await AssignLocation_Details(entities, response);
             }
 
+            responses = responses.OrderByDescending(x => x.CreatedAt).ToList();
+
             return responses;
 
         }
-
-
-
-
-
 
 
 

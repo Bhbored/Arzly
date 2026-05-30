@@ -13,9 +13,9 @@ namespace Arzly.Api.Domain.Contracts
         Task<List<Listing>> GetListingByUserId(string id, int pageSize, int currentPage);
         Task<List<Listing>> GetIndexedListings(int pageSzie, int currentPage);
         Task<List<Listing>> GetListingByCategoryId(Guid categoryId, int pageSize, int currentPage, string? searchString,
-            LocationPreset? preset, double minPrice, double maxPrice);
+            LocationPreset? preset, double minPrice, double maxPrice, string order, string orderByPrice);
         Task<List<Listing>> GetListingBySubCategoryId(Guid subcategoryId, int pageSize, int currentPage, string? searchString,
-            LocationPreset? preset, object? details,double minPrice, double maxPrice);
+            LocationPreset? preset, object? details,double minPrice, double maxPrice, string order, string orderByPrice);
         Task<List<Listing>> GetInitialListings(Guid subcategoryId);
         Task AddListingDetails(object details, Guid listingId);
 
