@@ -18,7 +18,7 @@ namespace Arzly.Shared.DTOs.Response.Listing
         public DateTime? UpdatedAt { get; set; }
 
         // Owner
-        public string OwnerId { get; set; } = string.Empty;
+        public Guid OwnerId { get; set; }
 
         public Guid CategoryId { get; set; }
 

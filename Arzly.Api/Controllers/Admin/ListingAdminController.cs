@@ -1,3 +1,4 @@
+using Arzly.Api.Application.Contracts.Listings;
 ﻿using Arzly.Api.Application.Contracts;
 using Arzly.Api.Filters.ActionFilters;
 using Arzly.Api.Filters.ResultFilters;
@@ -9,8 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Arzly.Api.Controllers.Admin
 {
-    [Route("arzly/admin/[controller]")]
+    [Route("arzly/v{version:apiVersion}/admin/[controller]")]
     [ApiController]
+    [Authorize("admin")]
     public class ListingAdminController : ControllerBase
     {
         private readonly ILogger<ListingAdminController> _logger;
@@ -35,7 +37,7 @@ namespace Arzly.Api.Controllers.Admin
         }
 
         [HttpPut("[action]")]
-        [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(ListingController) })]
+        [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(ListingAdminController) })]
         public async Task<ActionResult<ListingResponse?>> Update([FromBody] ListingUpdateRequest? request)
         {
             _logger.LogInformation("{Controller}.Update({Id}) - Before",

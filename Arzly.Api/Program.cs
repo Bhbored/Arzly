@@ -1,18 +1,10 @@
 using Arzly.Api.Helpers;
+using Microsoft.OpenApi;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("Blazor", policy =>
-    {
-        policy.WithOrigins("https://localhost:7251");
-        policy.AllowCredentials();
-        policy.AllowAnyHeader();
-        policy.AllowAnyMethod();
-    });
-});
+
 builder.Host.UseSerilog((HostBuilderContext context, IServiceProvider services, LoggerConfiguration loggerConfiguration) =>
 {
 
@@ -25,7 +17,12 @@ builder.Services.RegisterDependencies(builder.Configuration);
 
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo() { Title = "Arzly", Version = "1.0" });
+
+    //options.SwaggerDoc("v2", new OpenApiInfo() { Title = "Arzly", Version = "2.0" });
+});
 
 var app = builder.Build();
 
@@ -40,11 +37,17 @@ if (app.Environment.IsDevelopment())
 }
 app.UseHsts();
 app.UseHttpsRedirection();
-app.UseSwagger();
-app.UseSwaggerUI();
-app.UseHttpLogging();
 app.UseCors("Blazor");
+
+app.UseAuthentication();
 app.UseAuthorization();
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "1.0");
+    //options.SwaggerEndpoint("/swagger/v2/swagger.json", "2.0");
+});
+app.UseHttpLogging();
 app.MapControllers();
 
 app.Run();

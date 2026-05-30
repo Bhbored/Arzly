@@ -11,16 +11,16 @@ namespace Arzly.Api.Domain.Entities
         public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required(ErrorMessage = "Reporter ID is required.")]
-        public string ReporterId { get; set; } = string.Empty;
+        public Guid ReporterId { get; set; }
 
         [ForeignKey(nameof(ReporterId))]
-        public virtual AppUser Reporter { get; set; } = null!;
+        public virtual ApplicationUser Reporter { get; set; } = null!;
 
         [Required(ErrorMessage = "Reported user ID is required.")]
-        public string ReportedUserId { get; set; } = string.Empty;
+        public Guid ReportedUserId { get; set; }
 
         [ForeignKey(nameof(ReportedUserId))]
-        public virtual AppUser ReportedUser { get; set; } = null!;
+        public virtual ApplicationUser ReportedUser { get; set; } = null!;
 
         public Guid? ChatId { get; set; }
 
@@ -37,7 +37,7 @@ namespace Arzly.Api.Domain.Entities
 
         public bool IsResolved { get; set; } = false;
 
-        public string? ResolvedById { get; set; }
+        public Guid? ResolvedById { get; set; }
 
         public DateTime? ResolvedAt { get; set; }
     }

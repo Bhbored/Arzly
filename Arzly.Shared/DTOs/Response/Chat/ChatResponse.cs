@@ -10,8 +10,8 @@ namespace Arzly.Shared.DTOs.Response.Chat
         public bool IsDeleted { get; set; }
         public bool IsDiscontinued { get; set; }
         public DateTime LastActivity { get; set; }
-        public string InitiatorId { get; set; } = string.Empty;
-        public string ReceiverId { get; set; } = string.Empty;
+        public Guid InitiatorId { get; set; }
+        public Guid ReceiverId { get; set; }
         public Guid ListingId { get; set; }
     }
 }

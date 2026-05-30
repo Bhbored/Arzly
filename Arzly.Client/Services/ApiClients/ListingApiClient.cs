@@ -1,4 +1,5 @@
 using Arzly.Client.Services.Contracts;
+using Arzly.Client.Services.Contracts.Listings;
 using Arzly.Shared.DTOs.Request.Listing;
 using Arzly.Shared.DTOs.Response.Listing;
 

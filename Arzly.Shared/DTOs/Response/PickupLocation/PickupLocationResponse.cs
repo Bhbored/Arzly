@@ -8,7 +8,7 @@ namespace Arzly.Shared.DTOs.Response.PickupLocation
     public class PickupLocationResponse
     {
         public Guid Id { get; set; }
-        public string UserId { get; set; } = string.Empty;
+        public Guid UserId { get; set; }
         public LocationLabel Label { get; set; }
         public string Address { get; set; } = string.Empty;
         public LocationPreset LocationPreset { get; set; }

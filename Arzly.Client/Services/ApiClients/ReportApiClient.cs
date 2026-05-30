@@ -1,4 +1,5 @@
 using Arzly.Client.Services.Contracts;
+using Arzly.Client.Services.Contracts.Support;
 using Arzly.Shared.DTOs.Response.UserReport;
 
 namespace Arzly.Client.Services.ApiClients;

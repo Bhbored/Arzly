@@ -14,8 +14,7 @@ namespace Arzly.Api.Infrastructure.Data.Configurations.Listings
                    .HasForeignKey(s => s.CategoryId)
                    .OnDelete(DeleteBehavior.Cascade);
 
-            foreach (var item in CategorySeed.Data)
-                entity.HasData(item);
+
         }
     }
 }

@@ -1,4 +1,5 @@
 using Arzly.Client.Services.Contracts;
+using Arzly.Client.Services.Contracts.Categories;
 using Arzly.Shared.DTOs.Response.Category;
 
 namespace Arzly.Client.Services.ApiClients;

@@ -11,10 +11,10 @@ namespace Arzly.Api.Domain.Entities
         public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required(ErrorMessage = "Actor ID is required.")]
-        public string ActorId { get; set; } = string.Empty;
+        public Guid ActorId { get; set; }
 
         [ForeignKey(nameof(ActorId))]
-        public virtual AppUser Actor { get; set; } = null!;
+        public virtual ApplicationUser Actor { get; set; } = null!;
 
         [Required(ErrorMessage = "Actor role is required.")]
         [MaxLength(50, ErrorMessage = "Actor role cannot exceed 50 characters.")]

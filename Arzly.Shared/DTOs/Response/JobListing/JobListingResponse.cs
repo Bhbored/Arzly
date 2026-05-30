@@ -23,7 +23,7 @@ namespace Arzly.Shared.DTOs.Response.JobListing
         public double? SalaryMin { get; set; }
         public double? SalaryMax { get; set; }
         public List<JobLanguage>? Languages { get; set; }
-        public string OwnerId { get; set; } = string.Empty;
+        public Guid OwnerId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? ExpiresAt { get; set; }
         public JobStatus Status { get; set; }

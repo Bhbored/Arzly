@@ -8,10 +8,10 @@ namespace Arzly.Shared.DTOs.Request.TicketMessage
         public Guid TicketId { get; set; }
 
         [Required(ErrorMessage = "Sender ID is required.")]
-        public string SenderId { get; set; } = string.Empty;
+        public Guid SenderId { get; set; }
 
         [Required(ErrorMessage = "Receiver ID is required.")]
-        public string ReceiverId { get; set; } = string.Empty;
+        public Guid ReceiverId { get; set; }
 
         [Required(ErrorMessage = "Message is required.")]
         [MaxLength(3000, ErrorMessage = "Message cannot exceed 3000 characters.")]

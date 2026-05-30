@@ -58,7 +58,7 @@ namespace Arzly.Shared.DTOs.Request.JobListing
         public List<JobLanguage>? Languages { get; set; }
 
         [Required(ErrorMessage = "Owner ID is required.")]
-        public string OwnerId { get; set; } = string.Empty;
+        public Guid OwnerId { get; set; }
 
         public DateTime? ExpiresAt { get; set; }
     }

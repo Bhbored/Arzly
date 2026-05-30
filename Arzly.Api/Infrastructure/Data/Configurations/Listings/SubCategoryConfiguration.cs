@@ -9,8 +9,7 @@ namespace Arzly.Api.Infrastructure.Data.Configurations.Listings
     {
         public void Configure(EntityTypeBuilder<SubCategory> entity)
         {
-            foreach (var item in SubCategorySeed.Data)
-                entity.HasData(item);
+
         }
     }
 }

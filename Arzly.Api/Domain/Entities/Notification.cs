@@ -11,18 +11,18 @@ namespace Arzly.Api.Domain.Entities
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public string? UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         public Guid? ChatterId {  get; set; }
 
         public Guid? ListingId {  get; set; }
 
         [ForeignKey(nameof(ChatterId))]
-        public virtual AppUser? Chatter { get; set; }
+        public virtual ApplicationUser? Chatter { get; set; }
         [ForeignKey(nameof(ListingId))]
         public virtual Listing? Listing { get; set; }
         [ForeignKey(nameof(UserId))]
-        public virtual AppUser? User { get; set; }
+        public virtual ApplicationUser? User { get; set; }
 
         [Required(ErrorMessage = "Title is required.")]
         [MaxLength(200, ErrorMessage = "Title cannot exceed 200 characters.")]

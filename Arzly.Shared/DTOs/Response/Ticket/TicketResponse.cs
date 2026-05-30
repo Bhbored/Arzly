@@ -11,8 +11,8 @@ namespace Arzly.Shared.DTOs.Response.Ticket
         public DateTime CreatedAt { get; set; }
         public DateTime? LastUpdatedAt { get; set; }
         public DateTime? ClosedAt { get; set; }
-        public string UserId { get; set; } = string.Empty;
-        public string? AssignedToId { get; set; }
+        public Guid UserId { get; set; }
+        public Guid? AssignedToId { get; set; }
         public Guid? ListingId { get; set; }
     }
 }

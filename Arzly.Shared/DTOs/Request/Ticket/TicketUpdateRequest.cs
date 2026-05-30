@@ -14,7 +14,7 @@ namespace Arzly.Shared.DTOs.Request.Ticket
 
         public TicketStatus Status { get; set; }
         public TicketPriority Priority { get; set; }
-        public string? AssignedToId { get; set; }
+        public Guid? AssignedToId { get; set; }
         public DateTime? ClosedAt { get; set; }
     }
 }

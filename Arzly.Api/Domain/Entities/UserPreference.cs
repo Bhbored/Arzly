@@ -8,9 +8,9 @@ namespace Arzly.Api.Domain.Entities
     public class UserPreference
     {
         [Key, ForeignKey(nameof(User))]
-        public string UserId { get; set; } = string.Empty;
+        public Guid UserId { get; set; }
 
-        public virtual AppUser User { get; set; } = null!;
+        public virtual ApplicationUser User { get; set; } = null!;
 
         public ThemeMode Theme { get; set; } = ThemeMode.System;
         public LanguageCode Language { get; set; } = LanguageCode.En;

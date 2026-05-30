@@ -16,14 +16,14 @@ namespace Arzly.Api.Domain.Entities
         public virtual Chat Chat { get; set; } = null!;
 
         [Required(ErrorMessage = "Sender ID is required.")]
-        public string SenderId { get; set; } = string.Empty;
+        public Guid SenderId { get; set; }
 
         [ForeignKey(nameof(SenderId))]
-        public virtual AppUser Sender { get; set; } = null!;
+        public virtual ApplicationUser Sender { get; set; } = null!;
         [Required(ErrorMessage = "Receiver ID is required.")]
-        public string ReceiverId { get; set; } = string.Empty;
+        public Guid ReceiverId { get; set; }
         [ForeignKey(nameof(ReceiverId))]
-        public virtual AppUser Receiver { get; set; } = null!;
+        public virtual ApplicationUser Receiver { get; set; } = null!;
 
         [Required(ErrorMessage = "Message text is required.")]
         [MaxLength(2000, ErrorMessage = "Message cannot exceed 2000 characters.")]

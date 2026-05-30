@@ -6,7 +6,7 @@ namespace Arzly.Shared.DTOs.Request.UserPreference
     public class UserPreferenceAddRequest
     {
         [Required(ErrorMessage = "User ID is required.")]
-        public string UserId { get; set; } = string.Empty;
+        public Guid UserId { get; set; }
 
         public ThemeMode Theme { get; set; }
         public LanguageCode Language { get; set; }

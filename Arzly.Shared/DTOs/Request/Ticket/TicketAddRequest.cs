@@ -12,7 +12,7 @@ namespace Arzly.Shared.DTOs.Request.Ticket
         public TicketPriority Priority { get; set; }
 
         [Required(ErrorMessage = "User ID is required.")]
-        public string UserId { get; set; } = string.Empty;
+        public Guid UserId { get; set; }
 
         public Guid? ListingId { get; set; }
     }

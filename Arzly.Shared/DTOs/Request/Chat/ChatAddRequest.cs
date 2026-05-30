@@ -9,10 +9,10 @@ namespace Arzly.Shared.DTOs.Request.Chat
         public ChatRole ContextRole { get; set; }
 
         [Required(ErrorMessage = "Initiator ID is required.")]
-        public string InitiatorId { get; set; } = string.Empty;
+        public Guid InitiatorId { get; set; }
 
         [Required(ErrorMessage = "Receiver ID is required.")]
-        public string ReceiverId { get; set; } = string.Empty;
+        public Guid ReceiverId { get; set; }
 
         public Guid? ListingId { get; set; }
     }

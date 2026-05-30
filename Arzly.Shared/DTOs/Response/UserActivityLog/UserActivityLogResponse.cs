@@ -6,7 +6,7 @@ namespace Arzly.Shared.DTOs.Response.UserActivityLog
     public class UserActivityLogResponse
     {
         public Guid Id { get; set; }
-        public string ActorId { get; set; } = string.Empty;
+        public Guid ActorId { get; set; }
         public string ActorRole { get; set; } = string.Empty;
         public ActivityActionType ActionType { get; set; }
         public ActivityTargetType TargetType { get; set; }

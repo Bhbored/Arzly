@@ -61,7 +61,7 @@ namespace Arzly.Api.Domain.Entities
 
         // Foreign keys
         [Required(ErrorMessage = "Owner ID is required.")]
-        public string OwnerId { get; set; } = string.Empty;
+        public Guid OwnerId { get; set; }
 
         [Required(ErrorMessage = "Category ID is required.")]
         public Guid CategoryId { get; set; }
@@ -74,7 +74,7 @@ namespace Arzly.Api.Domain.Entities
 
         // Navigation properties
         [ForeignKey(nameof(OwnerId))]
-        public virtual AppUser Owner { get; set; } = null!;
+        public virtual ApplicationUser Owner { get; set; } = null!;
 
         [ForeignKey(nameof(CategoryId))]
         public virtual Category Category { get; set; } = null!;

@@ -5,7 +5,7 @@ namespace Arzly.Shared.DTOs.Request.Notification
 {
     public class NotificationAddRequest
     {
-        public string? UserId { get; set; }
+        public Guid? UserId { get; set; }
         public Guid? ChatterId { get; set; }
         public Guid? ListingId { get; set; }
 

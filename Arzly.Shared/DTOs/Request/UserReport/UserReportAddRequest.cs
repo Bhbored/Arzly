@@ -6,10 +6,10 @@ namespace Arzly.Shared.DTOs.Request.UserReport
     public class UserReportAddRequest
     {
         [Required(ErrorMessage = "Reporter ID is required.")]
-        public string ReporterId { get; set; } = string.Empty;
+        public Guid ReporterId { get; set; }
 
         [Required(ErrorMessage = "Reported user ID is required.")]
-        public string ReportedUserId { get; set; } = string.Empty;
+        public Guid ReportedUserId { get; set; }
 
         public Guid? ChatId { get; set; }
 

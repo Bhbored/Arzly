@@ -16,10 +16,10 @@ namespace Arzly.Api.Domain.Entities
         public virtual Ticket Ticket { get; set; } = null!;
 
         [Required(ErrorMessage = "Uploader ID is required.")]
-        public string UploaderId { get; set; } = string.Empty;
+        public Guid UploaderId { get; set; }
 
         [ForeignKey(nameof(UploaderId))]
-        public virtual AppUser Uploader { get; set; } = null!;
+        public virtual ApplicationUser Uploader { get; set; } = null!;
 
         [Required(ErrorMessage = "File URL is required.")]
         [Url(ErrorMessage = "File URL must be a valid URL.")]

@@ -6,7 +6,7 @@ namespace Arzly.Shared.DTOs.Request.UserActivityLog
     public class UserActivityLogAddRequest
     {
         [Required(ErrorMessage = "Actor ID is required.")]
-        public string ActorId { get; set; } = string.Empty;
+        public Guid ActorId { get; set; }
 
         [Required(ErrorMessage = "Actor role is required.")]
         [MaxLength(50, ErrorMessage = "Actor role cannot exceed 50 characters.")]

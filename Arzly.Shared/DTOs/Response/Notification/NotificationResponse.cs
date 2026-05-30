@@ -5,7 +5,7 @@ namespace Arzly.Shared.DTOs.Response.Notification
     public class NotificationResponse
     {
         public Guid Id { get; set; }
-        public string? UserId { get; set; }
+        public Guid? UserId { get; set; }
         public Guid? ChatterId { get; set; }
         public Guid? ListingId { get; set; }
         public string Title { get; set; } = string.Empty;

@@ -72,10 +72,10 @@ namespace Arzly.Api.Domain.Entities
 
 
         [Required(ErrorMessage = "Owner ID is required.")]
-        public string OwnerId { get; set; } = string.Empty;
+        public Guid OwnerId { get; set; }
 
         [ForeignKey(nameof(OwnerId))]
-        public virtual AppUser Owner { get; set; } = null!;
+        public virtual ApplicationUser Owner { get; set; } = null!;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? ExpiresAt { get; set; }

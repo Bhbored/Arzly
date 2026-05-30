@@ -4,5 +4,5 @@ using System.Text;
 
 namespace Arzly.Shared.Enums
 {
-    public enum AuthMethod { Firebase, Identity }
+    public enum AuthMethod { Firebase, Email }
 }

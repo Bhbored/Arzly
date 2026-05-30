@@ -7,7 +7,7 @@ namespace Arzly.Shared.DTOs.Request.PickupLocation
     public class PickupLocationAddRequest
     {
         [Required(ErrorMessage = "User ID is required.")]
-        public string UserId { get; set; } = string.Empty;
+        public Guid UserId { get; set; }
 
         public LocationLabel Label { get; set; }
 

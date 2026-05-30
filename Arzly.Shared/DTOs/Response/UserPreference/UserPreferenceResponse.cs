@@ -4,7 +4,7 @@ namespace Arzly.Shared.DTOs.Response.UserPreference
 {
     public class UserPreferenceResponse
     {
-        public string UserId { get; set; } = string.Empty;
+        public Guid UserId { get; set; }
         public ThemeMode Theme { get; set; }
         public LanguageCode Language { get; set; }
         public bool PushNotifications { get; set; }

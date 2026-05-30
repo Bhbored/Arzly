@@ -21,20 +21,20 @@ namespace Arzly.Api.Domain.Entities
 
         // Foreign keys
         [Required(ErrorMessage = "Initiator ID is required.")]
-        public string InitiatorId { get; set; } = string.Empty;
+        public Guid InitiatorId { get; set; }
 
         [Required(ErrorMessage = "Receiver ID is required.")]
-        public string ReceiverId { get; set; } = string.Empty;
+        public Guid ReceiverId { get; set; }
 
         public Guid? ListingId { get; set; }
         public Guid? JobListingId { get; set; }
 
         // Navigation
         [ForeignKey(nameof(InitiatorId))]
-        public virtual AppUser Initiator { get; set; } = null!;
+        public virtual ApplicationUser Initiator { get; set; } = null!;
 
         [ForeignKey(nameof(ReceiverId))]
-        public virtual AppUser Receiver { get; set; } = null!;
+        public virtual ApplicationUser Receiver { get; set; } = null!;
 
         [ForeignKey(nameof(ListingId))]
         public virtual Listing? Listing { get; set; }

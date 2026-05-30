@@ -23,18 +23,18 @@ namespace Arzly.Api.Domain.Entities
 
         // Foreign keys
         [Required(ErrorMessage = "User ID is required.")]
-        public string UserId { get; set; } = string.Empty; 
+        public Guid UserId { get; set; } 
 
-        public string? AssignedToId { get; set; } 
+        public Guid? AssignedToId { get; set; } 
 
         public Guid? ListingId { get; set; } 
 
         // Navigation
         [ForeignKey(nameof(UserId))]
-        public virtual AppUser User { get; set; } = null!;
+        public virtual ApplicationUser User { get; set; } = null!;
 
         [ForeignKey(nameof(AssignedToId))]
-        public virtual AppUser? AssignedTo { get; set; }
+        public virtual ApplicationUser? AssignedTo { get; set; }
 
         [ForeignKey(nameof(ListingId))]
         public virtual Listing? RelatedListing { get; set; }
