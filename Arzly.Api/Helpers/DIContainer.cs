@@ -99,7 +99,7 @@ namespace Arzly.Api.Helpers
         public static IServiceCollection RegisterJwtToken(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<IJwtService, JwtService>();
-
+            services.AddScoped<IAuthService, AuthService>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

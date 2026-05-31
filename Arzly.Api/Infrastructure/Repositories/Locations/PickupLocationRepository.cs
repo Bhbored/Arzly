@@ -50,7 +50,7 @@ namespace Arzly.Api.Infrastructure.Repositories.Locations
             if (entity !=null)
             {
                 entity.IsDeleted = true;
-                entity.DeletedAt = DateTime.UtcNow;
+                entity.DeletedAt = DateTime.Now;
 
             }
             var rows = await _db.SaveChangesAsync();

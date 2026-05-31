@@ -27,7 +27,6 @@ namespace Arzly.Api.Mappings
         {
             return new PickupLocation
             {
-                UserId = request.UserId,
                 Label = request.Label,
                 Address = request.Address,
                 Notes = request.Notes,

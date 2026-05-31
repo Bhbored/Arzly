@@ -1,8 +1,9 @@
-using Arzly.Api.Application.Contracts.Communications;
 using Arzly.Api.Application.Contracts;
+using Arzly.Api.Application.Contracts.Communications;
 using Arzly.Api.Filters.ResultFilters;
 using Arzly.Shared.DTOs.Request.Chat;
 using Arzly.Shared.DTOs.Response.Chat;
+using Arzly.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Arzly.Api.Controllers.v1.Communications
@@ -52,7 +53,7 @@ namespace Arzly.Api.Controllers.v1.Communications
             _logger.LogInformation("{Controller}.Create - Before",
                 GetType().Name);
 
-            var result = await _service.CreateAsync(createDto, null);
+            var result = await _service.CreateAsync(createDto, User.GetUserId());
 
             _logger.LogInformation("{Controller}.Create - After",
                 GetType().Name);
@@ -65,7 +66,7 @@ namespace Arzly.Api.Controllers.v1.Communications
             _logger.LogInformation("{Controller}.Update({Id}) - Before",
                 GetType().Name, updateDto);
 
-            var result = await _service.UpdateAsync(updateDto,null);
+            var result = await _service.UpdateAsync(updateDto, User.GetUserId());
 
             _logger.LogInformation("{Controller}.Update({Id}) - After",
                 GetType().Name, updateDto);

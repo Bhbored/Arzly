@@ -1,9 +1,10 @@
-using Arzly.Api.Application.Contracts.Listings;
 using Arzly.Api.Application.Contracts;
+using Arzly.Api.Application.Contracts.Listings;
 using Arzly.Api.Filters.ActionFilters;
 using Arzly.Api.Filters.ResultFilters;
 using Arzly.Shared.DTOs.Request.SearchQuery;
 using Arzly.Shared.DTOs.Response.SearchQuery;
+using Arzly.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Arzly.Api.Controllers.v1.Listings
@@ -44,7 +45,7 @@ namespace Arzly.Api.Controllers.v1.Listings
         public async Task<ActionResult<SearchQueryResponse>> Create([FromBody] SearchQueryAddRequest? request)
         {
             _logger.LogInformation("{Controller}.Create - Before", GetType().Name);
-            var result = await _service.CreateAsync(request, null);
+            var result = await _service.CreateAsync(request, User.GetUserId());
             _logger.LogInformation("{Controller}.Create - After", GetType().Name);
             return CreatedAtAction(nameof(GetById), new { id = result?.Id }, result);
         }
@@ -54,7 +55,7 @@ namespace Arzly.Api.Controllers.v1.Listings
         public async Task<ActionResult<SearchQueryResponse?>> Update([FromBody] SearchQueryUpdateRequest? request)
         {
             _logger.LogInformation("{Controller}.Update({Id}) - Before", GetType().Name, request?.Id);
-            var result = await _service.UpdateAsync(request, null);
+            var result = await _service.UpdateAsync(request, User.GetUserId());
             _logger.LogInformation("{Controller}.Update({Id}) - After", GetType().Name, request?.Id);
             return Ok(result);
         }

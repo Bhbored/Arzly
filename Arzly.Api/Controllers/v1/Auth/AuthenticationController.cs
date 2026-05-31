@@ -33,17 +33,18 @@ namespace Arzly.Api.Controllers.v1.Auth
                     ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
                 return Problem(errorMessage, statusCode: StatusCodes.Status400BadRequest);
             }
-            if (!await _authService.IsEmailAlreadyRegistered(registerDTO.Email))
+            if (await _authService.IsEmailAlreadyRegistered(registerDTO.Email))
             {
                 return Conflict(new { error = "An account with this email already exists" });
             }
             var (response, error) = await _authService.RegisterUser(registerDTO);
 
-            if (response != null)
+            if (response == null)
             {
-                return Ok(response);
+                return Problem(error, statusCode: StatusCodes.Status400BadRequest);
+
             }
-            return Problem(error, statusCode: StatusCodes.Status400BadRequest);
+            return Ok(response);
         }
 
 
@@ -56,11 +57,13 @@ namespace Arzly.Api.Controllers.v1.Auth
                 return Problem(errorMessage, statusCode: StatusCodes.Status400BadRequest);
             }
             var response = await _authService.LoginUser(loginDTO);
-            if (response != null)
+            if (response == null)
             {
-                return Ok(response);
+                return Problem("Invalid email or password", statusCode: StatusCodes.Status404NotFound);
+
             }
-            return Problem("Invalid email or password", statusCode: StatusCodes.Status404NotFound);
+            return Ok(response);
+
         }
 
         [HttpGet("logout")]
@@ -78,14 +81,15 @@ namespace Arzly.Api.Controllers.v1.Auth
                 return BadRequest("Invalid client request");
             var response = await _authService.GenerateRefreshToken(tokenModel);
 
-            if (response != null)
-                return Ok(response);
-            return Problem("JWT Token expired, kindly login Again",
-                statusCode: StatusCodes.Status401Unauthorized);
+            if (response == null)
+                return Problem("JWT Token expired, kindly login Again",
+               statusCode: StatusCodes.Status401Unauthorized);
+            return Ok(response);
+
         }
 
 
-       
+
 
     }
 }

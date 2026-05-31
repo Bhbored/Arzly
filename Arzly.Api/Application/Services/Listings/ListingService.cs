@@ -1,9 +1,7 @@
 using Arzly.Api.Application.Contracts.Listings;
 using Arzly.Api.Domain.Contracts.Listings;
 using Arzly.Api.Application.Contracts;
-using Arzly.Api.Domain.Contracts;
 using Arzly.Api.Domain.Contracts.Categories;
-using Arzly.Api.Domain.Contracts.Listings;
 using Arzly.Api.Domain.Contracts.Locations;
 using Arzly.Api.Domain.Entities;
 using Arzly.Api.Domain.ListingOwned;
@@ -337,7 +335,7 @@ namespace Arzly.Api.Application.Services.Listings
 
 
 
-        public override async Task<ListingResponse?> CreateAsync(ListingAddRequest? createDto, string? userId)
+        public override async Task<ListingResponse?> CreateAsync(ListingAddRequest? createDto, Guid userId)
         {
             _logger.LogInformation($"{GetType().Name} - CreateAsync Has been reached");
 
@@ -352,7 +350,6 @@ namespace Arzly.Api.Application.Services.Listings
                 _logger.LogError($"{GetType().Name} - Empty Listing Details provided in CreateAsync");
                 throw new ArgumentException(ExceptionMessages.NoAttachedDetails);
             }
-            //identity affected later
 
             var requestLocation = await _pickupLocationRepository
                 .GetByIdAsync(createDto.PickupLocationId);
@@ -368,7 +365,8 @@ namespace Arzly.Api.Application.Services.Listings
             var entity = createDto.ToEntity();
             entity.Id = Guid.NewGuid();
 
-            // TODO: set OwnerId from authenticated user
+            entity.OwnerId = userId;
+           
             await _listingRepo.AddAsync(entity);
 
 
@@ -389,10 +387,8 @@ namespace Arzly.Api.Application.Services.Listings
 
 
 
-        public override async Task<ListingResponse?> UpdateAsync(ListingUpdateRequest? updateDto, string? userId)
+        public async override Task<ListingResponse?> UpdateAsync(ListingUpdateRequest? updateDto, Guid userId)
         {
-            // TODO: validate authenticated user
-
             return await base.UpdateAsync(updateDto, userId);
         }
 

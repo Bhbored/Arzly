@@ -5,6 +5,7 @@ using Arzly.Api.Filters.ResultFilters;
 using Arzly.Shared.DTOs.Request.PickupLocation;
 using Arzly.Shared.DTOs.Response.PickupLocation;
 using Microsoft.AspNetCore.Mvc;
+using Arzly.Shared.Extensions;
 
 namespace Arzly.Api.Controllers.v1.Locations
 {
@@ -36,7 +37,7 @@ namespace Arzly.Api.Controllers.v1.Locations
             _logger.LogInformation("{Controller}.GetByUserId - Before",
                 GetType().Name);
 
-            var result = await _service.GetByUserId(null);
+            var result = await _service.GetByUserId(User.GetUserId());
 
             _logger.LogInformation("{Controller}.GetByUserId - After",
                 GetType().Name);
@@ -57,7 +58,7 @@ namespace Arzly.Api.Controllers.v1.Locations
         public async Task<ActionResult<PickupLocationResponse>> Create([FromBody] PickupLocationAddRequest? request)
         {
             _logger.LogInformation("{Controller}.Create - Before", GetType().Name);
-            var result = await _service.CreateAsync(request, null);
+            var result = await _service.CreateAsync(request, User.GetUserId());
             _logger.LogInformation("{Controller}.Create - After", GetType().Name);
             return CreatedAtAction(nameof(GetById), new { id = result?.Id }, result);
         }
@@ -67,7 +68,7 @@ namespace Arzly.Api.Controllers.v1.Locations
         public async Task<ActionResult<PickupLocationResponse?>> Update([FromBody] PickupLocationUpdateRequest? request)
         {
             _logger.LogInformation("{Controller}.Update({Id}) - Before", GetType().Name, request?.Id);
-            var result = await _service.UpdateAsync(request, null);
+            var result = await _service.UpdateAsync(request, User.GetUserId());
             _logger.LogInformation("{Controller}.Update({Id}) - After", GetType().Name, request?.Id);
             return Ok(result);
         }
@@ -76,7 +77,7 @@ namespace Arzly.Api.Controllers.v1.Locations
         public async Task<ActionResult> Delete(Guid? id)
         {
             _logger.LogInformation("{Controller}.Delete({Id}) - Before", GetType().Name, id);
-            await _service.SoftDeleteLocation(id.Value, null);
+            await _service.SoftDeleteLocation(id.Value);
             _logger.LogInformation("{Controller}.Delete({Id}) - After", GetType().Name, id);
             return NoContent();
         }

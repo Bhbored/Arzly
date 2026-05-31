@@ -8,8 +8,8 @@
     {
         Task<List<TDto>> GetAllAsync();
         Task<TDto?> GetByIdAsync(TKey? id);
-        Task<TDto?> CreateAsync(TCreateDto? createDto,string? userId);
-        Task<TDto?> UpdateAsync(TUpdateDto? updateDto, string? userId);
+        Task<TDto?> CreateAsync(TCreateDto? createDto,TKey? userId);
+        Task<TDto?> UpdateAsync(TUpdateDto? updateDto, TKey? userId);
         Task<bool> DeleteAsync(TKey? id);
     }
 }

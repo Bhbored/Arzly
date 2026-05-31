@@ -6,6 +6,7 @@ using Arzly.Shared.DTOs.Request.Listing;
 using Arzly.Shared.DTOs.Response.Listing;
 using Arzly.Shared.Enums;
 using Microsoft.AspNetCore.Mvc;
+using Arzly.Shared.Extensions;
 
 namespace Arzly.Api.Controllers.v1.Listings
 {
@@ -71,7 +72,7 @@ namespace Arzly.Api.Controllers.v1.Listings
             _logger.LogInformation("{Controller}.GetByUserId - Before",
                 GetType().Name);
 
-            var result = await _service.GetListingByUserId(null, pageSize, currentPage);
+            var result = await _service.GetListingByUserId(User.GetUserId(), pageSize, currentPage);
 
             _logger.LogInformation("{Controller}.GetByUserId - After",
                 GetType().Name);
@@ -145,7 +146,7 @@ namespace Arzly.Api.Controllers.v1.Listings
             _logger.LogInformation("{Controller}.Create - Before",
                 GetType().Name);
 
-            var result = await _service.CreateAsync(request, null);
+            var result = await _service.CreateAsync(request, User.GetUserId());
 
             _logger.LogInformation("{Controller}.Create - After",
                 GetType().Name);
@@ -163,7 +164,7 @@ namespace Arzly.Api.Controllers.v1.Listings
             _logger.LogInformation("{Controller}.Update({Id}) - Before",
                 GetType().Name, request);
 
-            var result = await _service.UpdateAsync(request, null);
+            var result = await _service.UpdateAsync(request, User.GetUserId());
 
             _logger.LogInformation("{Controller}.Update({Id}) - After",
                 GetType().Name, request);

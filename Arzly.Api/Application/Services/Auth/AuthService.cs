@@ -53,7 +53,8 @@ namespace Arzly.Api.Application.Services.Auth
             {
                 Email = registerDTO.Email,
                 UserName = registerDTO.Email,
-                PublicName = registerDTO.Email.Split("@")[0],
+                PublicName = registerDTO.FullName,
+                PhoneNumber = registerDTO.PhoneNumber
 
             };
 
@@ -100,7 +101,7 @@ namespace Arzly.Api.Application.Services.Auth
 
             ApplicationUser? user = await _userManager.FindByEmailAsync(email);
 
-            if (user == null || user.RefreshToken != tokenModel.RefreshToken || user.RefreshTokenExpirateDate <= DateTime.UtcNow)
+            if (user == null || user.RefreshToken != tokenModel.RefreshToken || user.RefreshTokenExpirateDate <= DateTime.Now)
             {
                 throw new ArgumentException("Invalid refresh token");
             }

@@ -4,6 +4,7 @@ using Arzly.Api.Filters.ResultFilters;
 using Arzly.Shared.DTOs.Request.SubCategory;
 using Arzly.Shared.DTOs.Response.SubCategory;
 using Microsoft.AspNetCore.Mvc;
+using Arzly.Shared.Extensions;
 
 namespace Arzly.Api.Controllers.v1.Categories
 {
@@ -65,7 +66,7 @@ namespace Arzly.Api.Controllers.v1.Categories
             _logger.LogInformation("{Controller}.Create - Before",
                 GetType().Name);
 
-            var result = await _service.CreateAsync(createDto,null);
+            var result = await _service.CreateAsync(createDto,User.GetUserId());
 
             _logger.LogInformation("{Controller}.Create - After",
                 GetType().Name);
@@ -78,7 +79,7 @@ namespace Arzly.Api.Controllers.v1.Categories
             _logger.LogInformation("{Controller}.Update({Id}) - Before",
                 GetType().Name, updateDto);
 
-            var result = await _service.UpdateAsync(updateDto,null);
+            var result = await _service.UpdateAsync(updateDto,User.GetUserId());
 
             _logger.LogInformation("{Controller}.Update({Id}) - After",
                 GetType().Name, updateDto);

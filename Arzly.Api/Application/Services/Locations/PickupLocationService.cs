@@ -2,7 +2,6 @@ using Arzly.Api.Application.Contracts.Locations;
 using Arzly.Api.Domain.Contracts.Locations;
 using Arzly.Api.Application.Contracts;
 using Arzly.Api.Domain.Contracts;
-using Arzly.Api.Domain.Contracts.Locations;
 using Arzly.Api.Domain.Entities;
 using Arzly.Api.Mappings;
 using Arzly.Shared.Constants;
@@ -28,12 +27,12 @@ namespace Arzly.Api.Application.Services.Locations
         {
             _logger.LogInformation($"{GetType().Name} - GetByUserId Has been reached");
 
-            var entities = await _pickupLocationRepo.GetByUserId(userId ?? Guid.Empty);
+            var entities = await _pickupLocationRepo.GetByUserId(userId.Value);
 
             return entities.Select(x => MapToDto(x)).ToList();
         }
 
-        public override async Task<PickupLocationResponse?> UpdateAsync(PickupLocationUpdateRequest? updateDto, string? userId)
+        public override async Task<PickupLocationResponse?> UpdateAsync(PickupLocationUpdateRequest? updateDto, Guid userId)
         {
             _logger.LogInformation($"{GetType().Name} - UpadateAsync Has been reached");
 
@@ -48,7 +47,7 @@ namespace Arzly.Api.Application.Services.Locations
             return (await _pickupLocationRepo.Update(updatedrequest)).ToResponse();
 
         }
-        public override async Task<PickupLocationResponse?> CreateAsync(PickupLocationAddRequest? createDto, string? userId)
+        public override async Task<PickupLocationResponse?> CreateAsync(PickupLocationAddRequest? createDto, Guid userId)
         {
             _logger.LogInformation($"{GetType().Name} - CreateAsync Has been reached");
 
@@ -59,14 +58,13 @@ namespace Arzly.Api.Application.Services.Locations
                 throw new ArgumentNullException(ExceptionMessages.EmptyAddRequest);
             }
 
-            //comment this for now till the location service is done
             if (createDto.Lon == 0 || createDto.Lat == 0)
             {
                 _logger.LogError($"{GetType().Name} - Empty Coordination for the location provided in CreateAsync");
                 throw new ArgumentException(ExceptionMessages.NoCoordinationFound);
             }
 
-            var userLocations = await _pickupLocationRepo.GetByUserId(userId != null ? Guid.Parse(userId) : Guid.Empty);
+            var userLocations = await _pickupLocationRepo.GetByUserId(userId);
             if (userLocations.Select(x => x.ToResponse()).ToList().Any(x => x.Equals(createDto)))
             {
                 _logger.LogError($"{GetType().Name} - Empty Coordination for the location provided in CreateAsync");
@@ -75,12 +73,12 @@ namespace Arzly.Api.Application.Services.Locations
 
             var entity = MapToEntity(createDto);
             entity.Id = Guid.NewGuid();
-            // TODO: set UserId from authenticated user
+            entity.UserId = userId;
             await _pickupLocationRepo.AddAsync(entity);
             return MapToDto(entity);
         }
 
-        public async Task<bool> SoftDeleteLocation(Guid id, string? userId)
+        public async Task<bool> SoftDeleteLocation(Guid id)
         {
             _logger.LogInformation($"{GetType().Name} - SoftDeleteLocation Has been reached");
 

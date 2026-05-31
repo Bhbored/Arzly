@@ -1,5 +1,6 @@
 using Arzly.Api.Filters.ResultFilters;
 using Arzly.Api.Infrastructure.Storage;
+using Arzly.Shared.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +26,7 @@ namespace Arzly.Api.Controllers.v1.Upload
                 GetType().Name);
 
             using var stream = file.OpenReadStream();
-            var url = await _imageUploader.UploadFile(Guid.Empty.ToString(), stream, file.FileName);
+            var url = await _imageUploader.UploadFile(User.GetUserId().ToString(), stream, file.FileName);
 
             _logger.LogInformation("{Controller}.UploadImage - After",
                 GetType().Name);
@@ -39,7 +40,7 @@ namespace Arzly.Api.Controllers.v1.Upload
                 GetType().Name);
 
             var fileData = files.Select(f => (f.OpenReadStream(), f.FileName)).ToList();
-            var urls = await _imageUploader.UploadFiles(Guid.Empty.ToString(), fileData);
+            var urls = await _imageUploader.UploadFiles(User.GetUserId().ToString(), fileData);
 
             _logger.LogInformation("{Controller}.UploadImages - After",
                 GetType().Name);
