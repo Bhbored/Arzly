@@ -431,6 +431,21 @@ namespace Arzly.Api.Application.Services.Listings
             return entity.ToResponse();
         }
 
+        public async override Task<bool> DeleteAsync(Guid id)
+        {
+            if (id == null)
+                throw new ArgumentNullException(ExceptionMessages.MissingId);
+
+            if (id is Guid guid && guid == Guid.Empty)
+            {
+                throw new ArgumentNullException(ExceptionMessages.MissingId);
+            }
+            var entity = await _listingRepo.GetByIdAsync(id);
+            if (entity == null) return false;
+
+            return await _listingRepo.Delete(entity);
+        }
+
         #endregion
 
 

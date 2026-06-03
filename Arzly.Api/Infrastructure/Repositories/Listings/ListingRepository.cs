@@ -272,9 +272,10 @@ namespace Arzly.Api.Infrastructure.Repositories.Listings
         }
         public async override Task<bool> Delete(Listing entity)
         {
-            var olderListing = await _db.Listings
-               .FirstOrDefaultAsync(x => x.Id == entity.Id);
-            olderListing?.IsDeleted = true;
+
+            entity?.IsDeleted = true;
+            entity?.DeletedAt = DateTime.Now;
+            await _db.SaveChangesAsync();
             return true;
         }
 

@@ -177,11 +177,15 @@ namespace Arzly.Api.Controllers.v1.Listings
             _logger.LogInformation("{Controller}.Delete({Id}) - Before",
                 GetType().Name, id);
 
-            await _service.DeleteAsync(id.Value);
+            if (await _service.DeleteAsync(id.Value))
+            {
+                return NoContent();
 
+            }
             _logger.LogInformation("{Controller}.Delete({Id}) - After",
                 GetType().Name, id);
-            return NoContent();
+            return NotFound();
+
         }
 
     }
