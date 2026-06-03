@@ -24,6 +24,12 @@ builder.Services.AddSwaggerGen(options =>
     //options.SwaggerDoc("v2", new OpenApiInfo() { Title = "Arzly", Version = "2.0" });
 });
 
+builder.Services.AddHsts(options =>
+{
+    options.MaxAge = TimeSpan.FromDays(365);
+    options.IncludeSubDomains = true;
+    options.Preload = true;
+});
 var app = builder.Build();
 
 
@@ -35,7 +41,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
-app.UseHsts();
+else
+{
+    app.UseHsts();
+}
 app.UseHttpsRedirection();
 app.UseCors("Blazor");
 

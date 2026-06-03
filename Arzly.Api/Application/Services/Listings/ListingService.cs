@@ -1,7 +1,6 @@
 using Arzly.Api.Application.Contracts.Listings;
-using Arzly.Api.Domain.Contracts.Listings;
-using Arzly.Api.Application.Contracts;
 using Arzly.Api.Domain.Contracts.Categories;
+using Arzly.Api.Domain.Contracts.Listings;
 using Arzly.Api.Domain.Contracts.Locations;
 using Arzly.Api.Domain.Entities;
 using Arzly.Api.Domain.ListingOwned;
@@ -10,11 +9,8 @@ using Arzly.Shared.Constants;
 using Arzly.Shared.DTOs.Request.Listing;
 using Arzly.Shared.DTOs.Response.Listing;
 using Arzly.Shared.Enums;
-using Azure.Core;
 using Microsoft.AspNetCore.Http.HttpResults;
 using SerilogTimings;
-using System.Reflection;
-using System.Runtime.ConstrainedExecution;
 using System.Text.Json;
 
 namespace Arzly.Api.Application.Services.Listings
@@ -389,7 +385,50 @@ namespace Arzly.Api.Application.Services.Listings
 
         public async override Task<ListingResponse?> UpdateAsync(ListingUpdateRequest? updateDto, Guid userId)
         {
-            return await base.UpdateAsync(updateDto, userId);
+            _logger.LogInformation($"{GetType().Name} - UpdateAsync Has been reached");
+
+            if (updateDto is null)
+            {
+                _logger.LogError($"{GetType().Name} - Empty UpdateAsync provided in CreateAsync");
+                throw new ArgumentNullException(ExceptionMessages.EmptyAddRequest);
+            }
+
+            if (updateDto.ListingDetails is null)
+            {
+                _logger.LogError($"{GetType().Name} - Empty Listing Details provided in CreateAsync");
+                throw new ArgumentException(ExceptionMessages.NoAttachedDetails);
+            }
+
+            var requestLocation = await _pickupLocationRepository
+                .GetByIdAsync(updateDto.PickupLocationId);
+
+            if (requestLocation is null)
+            {
+                _logger.LogError($"{GetType().Name} - Missing pickup location with id {{PickupLocationId}} in CreateAsync",
+                    updateDto.PickupLocationId);
+                throw new ArgumentNullException(ExceptionMessages.MissingPickUpLocation);
+            }
+
+
+            var entity = updateDto.ToEntity();
+
+
+            await _listingRepo.Update(entity);
+
+
+
+            if (updateDto.ListingDetails.HasValue)
+            {
+                Type detailType = await GetDetailTypeFromCategoryId(updateDto.CategoryId);
+
+                var details = updateDto
+                    .ListingDetails
+                    .Value.Deserialize(detailType, _jsonOptions);
+                await _listingRepo.UpdateListingDetails(details!, entity.Id);
+            }
+
+
+            return entity.ToResponse();
         }
 
         #endregion

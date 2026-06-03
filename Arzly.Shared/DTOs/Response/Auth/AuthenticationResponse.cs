@@ -6,6 +6,7 @@ namespace Arzly.Shared.DTOs.Response.Auth
 {
     public class AuthenticationResponse
     {
+        public Guid UserId { get; set; }
         public string? PublicName { get; set; }
         public string? Email { get; set; }
         public string? PublicLocation { get; set; }

@@ -1,6 +1,4 @@
 using Arzly.Api.Domain.Contracts.Listings;
-﻿using Arzly.Api.Domain.Contracts;
-using Arzly.Api.Domain.Contracts.Listings;
 using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Microsoft.EntityFrameworkCore;
 namespace Arzly.Api.Infrastructure.Repositories.Listings

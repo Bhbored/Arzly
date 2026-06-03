@@ -15,12 +15,14 @@ namespace Arzly.Api.Domain.Contracts.Listings
         Task<List<Listing>> GetListingByCategoryId(Guid categoryId, int pageSize, int currentPage, string? searchString,
             LocationPreset? preset, double minPrice, double maxPrice, string order, string orderByPrice);
         Task<List<Listing>> GetListingBySubCategoryId(Guid subcategoryId, int pageSize, int currentPage, string? searchString,
-            LocationPreset? preset, object? details,double minPrice, double maxPrice, string order, string orderByPrice);
+            LocationPreset? preset, object? details, double minPrice, double maxPrice, string order, string orderByPrice);
         Task<List<Listing>> GetInitialListings(Guid subcategoryId);
         Task AddListingDetails(object details, Guid listingId);
+        Task UpdateListingDetails(object details, Guid listingId);
 
-        //admin
-        Task<List<Listing>> GetAllListingAdmin(int pageSize, int currentPage);
+
+            //admin
+            Task<List<Listing>> GetAllListingAdmin(int pageSize, int currentPage);
         Task<Listing> UpdateAdmin(Listing entity);
     }
 }

@@ -1,15 +1,11 @@
 using Arzly.Api.Domain.Contracts.Listings;
-﻿using Arzly.Api.Domain.Contracts;
-using Arzly.Api.Domain.Contracts.Listings;
 using Arzly.Api.Domain.Entities;
-using Arzly.Api.Domain.ListingOwned;
 using Arzly.Api.Helpers;
 using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Arzly.Shared.Enums;
 using Arzly.Shared.Enums.Listing;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using System.Text.Json;
 
 namespace Arzly.Api.Infrastructure.Repositories.Listings
 {
@@ -221,6 +217,25 @@ namespace Arzly.Api.Infrastructure.Repositories.Listings
             {
                 listingIdProperty.SetValue(details, listingId);
             }
+
+            await _db.AddAsync(details);
+            await _db.SaveChangesAsync();
+        }
+        public async Task UpdateListingDetails(object details, Guid listingId)
+        {
+            var listingIdProperty = details.GetType().GetProperty("ListingId");
+            if (listingIdProperty != null)
+            {
+                listingIdProperty.SetValue(details, listingId);
+            }
+
+            var existingDetails = await _db.FindAsync(details.GetType(), listingId);
+
+            if (existingDetails != null)
+            {
+                _db.Remove(existingDetails);
+            }
+
             await _db.AddAsync(details);
             await _db.SaveChangesAsync();
         }

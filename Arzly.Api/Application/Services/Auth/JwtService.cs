@@ -49,6 +49,7 @@ namespace Arzly.Api.Application.Services.Auth
 
             return new AuthenticationResponse()
             {
+                UserId = user.Id,
                 Token = token,
                 Email = user.Email,
                 PublicName = user.PublicName,

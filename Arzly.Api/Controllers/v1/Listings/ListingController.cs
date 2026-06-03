@@ -164,11 +164,11 @@ namespace Arzly.Api.Controllers.v1.Listings
             _logger.LogInformation("{Controller}.Update({Id}) - Before",
                 GetType().Name, request);
 
-            var result = await _service.UpdateAsync(request, User.GetUserId());
+             await _service.UpdateAsync(request, User.GetUserId());
 
             _logger.LogInformation("{Controller}.Update({Id}) - After",
                 GetType().Name, request);
-            return Ok(result);
+            return NoContent();
         }
 
         [HttpDelete("[action]/{id:guid}")]

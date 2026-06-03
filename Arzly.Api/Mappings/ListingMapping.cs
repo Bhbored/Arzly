@@ -59,6 +59,7 @@ namespace Arzly.Api.Mappings
         {
             return new Listing
             {
+                Id = request.Id,
                 Title = request.Title,
                 Description = request.Description,
                 Price = request.Price,
