@@ -8,7 +8,7 @@ namespace Arzly.Api.Infrastructure.Data.SeedData
         {
             new Category
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("A1B2C3D4-0001-0001-0001-000000000001"),
             Name = "Vehicles",
             Description = "Cars, motorcycles, boats, trucks and accessories",
             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/vehicles.png",
@@ -17,7 +17,7 @@ namespace Arzly.Api.Infrastructure.Data.SeedData
         },
         new Category
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("A1B2C3D4-0001-0001-0001-000000000002"),
             Name = "Real Estate",
             Description = "Apartments, villas, land and commercial properties",
             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/real-estate.png",
@@ -25,7 +25,7 @@ namespace Arzly.Api.Infrastructure.Data.SeedData
         },
         new Category
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("A1B2C3D4-0001-0001-0001-000000000003"),
             Name = "Phones & Gadgets",
             Description = "Smartphones, tablets, watches and accessories",
             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/phones%26gadgets.png",
@@ -33,7 +33,7 @@ namespace Arzly.Api.Infrastructure.Data.SeedData
         },
         new Category
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("A1B2C3D4-0001-0001-0001-000000000004"),
             Name = "Electronics & Appliances",
             Description = "TVs, laptops, cameras, kitchen and home appliances",
             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/electronics%26appliances.png",
@@ -41,7 +41,7 @@ namespace Arzly.Api.Infrastructure.Data.SeedData
         },
         new Category
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("A1B2C3D4-0001-0001-0001-000000000005"),
             Name = "Furniture & Decor",
             Description = "Home and office furniture, lighting, rugs and decor",
             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/furniture%26decor.png",
@@ -49,7 +49,7 @@ namespace Arzly.Api.Infrastructure.Data.SeedData
         },
         new Category
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("A1B2C3D4-0001-0001-0001-000000000006"),
             Name = "Pets",
             Description = "Dogs, cats, birds, fish and pet supplies",
             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/pets.png",
@@ -57,7 +57,7 @@ namespace Arzly.Api.Infrastructure.Data.SeedData
         },
         new Category
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("A1B2C3D4-0001-0001-0001-000000000007"),
             Name = "Kids & Babies",
             Description = "Toys, strollers, clothing and baby gear",
             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/kids%26babies.png",
@@ -65,7 +65,7 @@ namespace Arzly.Api.Infrastructure.Data.SeedData
         },
         new Category
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("A1B2C3D4-0001-0001-0001-000000000008"),
             Name = "Sports & Equipment",
             Description = "Gym equipment, bicycles, camping and fitness gear",
             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/sports%26equipment.png",
@@ -73,7 +73,7 @@ namespace Arzly.Api.Infrastructure.Data.SeedData
         },
         new Category
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("A1B2C3D4-0001-0001-0001-000000000009"),
             Name = "Hobbies",
             Description = "Books, music, art, collectibles and musical instruments",
             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/hobbies.png",
@@ -81,7 +81,7 @@ namespace Arzly.Api.Infrastructure.Data.SeedData
         },
         new Category
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("A1B2C3D4-0001-0001-0001-00000000000A"),
             Name = "Fashion & Style",
             Description = "Clothing, shoes, bags, jewelry and cosmetics",
             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/fshion%26style.png",
@@ -89,7 +89,7 @@ namespace Arzly.Api.Infrastructure.Data.SeedData
         },
         new Category
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("A1B2C3D4-0001-0001-0001-00000000000B"),
             Name = "Services",
             Description = "Home repair, cleaning, tutoring, moving and more",
             ImageUrl = "https://pub-05bb3464ec5d47b78fd741bfcf94d2ec.r2.dev/categories-images/services.png",

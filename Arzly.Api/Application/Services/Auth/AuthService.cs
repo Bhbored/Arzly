@@ -1,4 +1,6 @@
 ﻿using Arzly.Api.Application.Contracts.Auth;
+using Arzly.Api.Domain.Contracts.Users;
+using Arzly.Api.Domain.Entities;
 using Arzly.Api.Infrastructure.Identity;
 using Arzly.Shared.DTOs.Request.Auth;
 using Arzly.Shared.DTOs.Response.Auth;
@@ -13,13 +15,15 @@ namespace Arzly.Api.Application.Services.Auth
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IJwtService _jwtService;
+        private readonly IUserProfileRepository _profileRepository;
         public AuthService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-            RoleManager<ApplicationRole> roleManager, IJwtService jwtService)
+            RoleManager<ApplicationRole> roleManager, IJwtService jwtService, IUserProfileRepository profileRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _jwtService = jwtService;
+            _profileRepository = profileRepository;
         }
 
         public async Task<AuthenticationResponse?> LoginUser(LoginDTO loginDTO)
@@ -36,7 +40,7 @@ namespace Arzly.Api.Application.Services.Auth
                     throw new ArgumentNullException("No User Found with this Email");
                 }
                 var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
-                var authenticationResponse = _jwtService.CreateJwtToken(user,role);
+                var authenticationResponse = _jwtService.CreateJwtToken(user, role);
                 user.RefreshToken = authenticationResponse.RefreshToken;
 
                 user.RefreshTokenExpirateDate = authenticationResponse.RefreshTokenExpirateDate;
@@ -53,7 +57,6 @@ namespace Arzly.Api.Application.Services.Auth
             {
                 Email = registerDTO.Email,
                 UserName = registerDTO.Email,
-                PublicName = registerDTO.FullName,
                 PhoneNumber = registerDTO.PhoneNumber
 
             };
@@ -81,6 +84,17 @@ namespace Arzly.Api.Application.Services.Auth
 
                 user.RefreshTokenExpirateDate = authenticationResponse.RefreshTokenExpirateDate;
                 await _userManager.UpdateAsync(user);
+
+
+                var userProfle = new UserProfile()
+                {
+                    FullName = registerDTO.FullName,
+                    Email = registerDTO.Email,
+                    UserId = user.Id,
+                    UpdateddAt = DateTime.UtcNow,
+                    PhoneNumber = user.PhoneNumber
+                };
+                await _profileRepository.AddAsync(userProfle);
                 return (authenticationResponse, null);
             }
             else
@@ -107,7 +121,7 @@ namespace Arzly.Api.Application.Services.Auth
             }
             var userRole = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
 
-            AuthenticationResponse authenticationResponse = _jwtService.CreateJwtToken(user,userRole);
+            AuthenticationResponse authenticationResponse = _jwtService.CreateJwtToken(user, userRole);
 
             user.RefreshToken = authenticationResponse.RefreshToken;
             user.RefreshTokenExpirateDate = authenticationResponse.RefreshTokenExpirateDate;

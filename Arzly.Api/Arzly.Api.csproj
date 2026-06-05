@@ -39,7 +39,6 @@
 	<ItemGroup>
 		<Folder Include="Application\Validators\" />
 		<Folder Include="Filters\ResourceFilters\" />
-		<Folder Include="Infrastructure\Data\Configurations\" />
 		<Folder Include="Middlewares\" />
 		<Folder Include="Hubs\" />
 	</ItemGroup>

@@ -27,7 +27,6 @@ namespace Arzly.Api.Application.Services.Auth
      new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
      new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString()),
      new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-     new Claim(ClaimTypes.Name, user.PublicName),
      new Claim(ClaimTypes.Email, user.Email),
      new Claim(ClaimTypes.Role, role)
      };
@@ -52,7 +51,6 @@ namespace Arzly.Api.Application.Services.Auth
                 UserId = user.Id,
                 Token = token,
                 Email = user.Email,
-                PublicName = user.PublicName,
                 Expiration = expiration,
                 RefreshToken = GenerateRefreshToken(),
                 RefreshTokenExpirateDate = DateTime.Now.AddDays(Convert.ToInt32(_configuration["RefreshToken:EXPIRATION_DAYS"]))

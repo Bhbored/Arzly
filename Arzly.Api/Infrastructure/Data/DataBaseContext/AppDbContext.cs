@@ -22,6 +22,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
 
         #region phase 1 dbsets
 
+        public virtual DbSet<UserProfile> UserProfiles { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<SubCategory> SubCategories { get; set; }
         public virtual DbSet<Listing> Listings { get; set; }
@@ -78,7 +79,6 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                 new ApplicationRole { Id = Guid.Parse("00000000-0000-0000-0000-000000000003"), Name = "user", NormalizedName = "USER" }
             );
 
-            foreach (var item in ApplicationUserSeed.Users) modelBuilder.Entity<ApplicationUser>().HasData(item);
             foreach (var item in CategorySeed.Data) modelBuilder.Entity<Category>().HasData(item);
             foreach (var item in SubCategorySeed.Data) modelBuilder.Entity<SubCategory>().HasData(item);
         }

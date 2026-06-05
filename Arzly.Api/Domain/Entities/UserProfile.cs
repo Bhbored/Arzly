@@ -1,0 +1,48 @@
+﻿using Arzly.Api.Infrastructure.Identity;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Arzly.Api.Domain.Entities
+{
+    public class UserProfile
+    {
+        [Key]
+        public Guid UserId { get; set; }
+
+        [MaxLength(100)]
+        [RegularExpression(@"^[a-zA-Z0-9\s\-_.]+$", ErrorMessage = "Public name can only contain letters, numbers, spaces, hyphens, underscores, and periods.")]
+        public string? FullName { get; set; }
+
+        [MaxLength(100)]
+        [RegularExpression(@"^[a-zA-Z0-9\s\-_.]+$", ErrorMessage = "Public name can only contain letters, numbers, spaces, hyphens, underscores, and periods.")]
+        public string? PublicName { get; set; }
+
+        [EmailAddress]
+        [MaxLength(256)]
+        public string? Email { get; set; }
+
+        [Phone]
+        [MaxLength(20)]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Phone number should contain digits only")]
+        public string? PhoneNumber { get; set; }
+
+        [Url]
+        [MaxLength(2048)]
+        public string? ProfileImageUrl { get; set; }
+
+        [MaxLength(500)]
+        public string? StoreDescription { get; set; }
+
+        public bool IsStore { get; set; } = false;
+
+        [MaxLength(200)]
+        public string? PublicLocation { get; set; }
+        public bool IsVerified { get; set; } = false;
+        public DateTime? UpdateddAt { get; set; }
+
+        public DateTime? LastActiveAt { get; set; }
+
+        [ForeignKey(nameof(UserId))]
+        public virtual ApplicationUser User { get; set; } = null!;
+    }
+}
