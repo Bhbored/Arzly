@@ -1,13 +1,14 @@
 ﻿using Arzly.Api.Application.Contracts.Auth;
 using Arzly.Api.Infrastructure.Identity;
 using Arzly.Shared.DTOs.Request.Auth;
+using Arzly.Shared.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Arzly.Api.Controllers.v1.Auth
 {
-    [AllowAnonymous]
     public class AuthenticationController : CustomeControllerBase
     {
 
@@ -23,7 +24,7 @@ namespace Arzly.Api.Controllers.v1.Auth
         }
 
 
-
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> PostRegister(RegisterDTO registerDTO)
         {
@@ -47,7 +48,7 @@ namespace Arzly.Api.Controllers.v1.Auth
             return Ok(response);
         }
 
-
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> PostLogin(LoginDTO loginDTO)
         {
@@ -65,7 +66,7 @@ namespace Arzly.Api.Controllers.v1.Auth
             return Ok(response);
 
         }
-
+        [AllowAnonymous]
         [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {
@@ -74,6 +75,8 @@ namespace Arzly.Api.Controllers.v1.Auth
             return NoContent();
         }
 
+
+        [AllowAnonymous]
         [HttpPost("generate-new-jwt-token")]
         public async Task<IActionResult> GenerateNewAccessToken(TokenModel tokenModel)
         {
@@ -88,7 +91,16 @@ namespace Arzly.Api.Controllers.v1.Auth
 
         }
 
-
+        [HttpPost("change-password")]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+        {
+            var userid = User.GetUserId();
+            var result = await _authService.ChangePassword(request, userid);
+            if (string.IsNullOrEmpty(result.error) || !result.isSuccess)
+                return Problem(statusCode: StatusCodes.Status401Unauthorized, detail: result.error);
+            return Ok(new { message = "Password changed successfully." });
+        }
 
 
     }

@@ -2,6 +2,7 @@
 using Arzly.Api.Domain.Contracts.Users;
 using Arzly.Api.Domain.Entities;
 using Arzly.Api.Infrastructure.Identity;
+using Arzly.Shared.Constants;
 using Arzly.Shared.DTOs.Request.Auth;
 using Arzly.Shared.DTOs.Response.Auth;
 using Microsoft.AspNetCore.Identity;
@@ -57,7 +58,8 @@ namespace Arzly.Api.Application.Services.Auth
             {
                 Email = registerDTO.Email,
                 UserName = registerDTO.Email,
-                PhoneNumber = registerDTO.PhoneNumber
+                PhoneNumber = registerDTO.PhoneNumber,
+
 
             };
 
@@ -136,6 +138,21 @@ namespace Arzly.Api.Application.Services.Auth
         {
             ApplicationUser? user = await _userManager.FindByEmailAsync(email);
             return user != null;
+        }
+
+        public async Task<(bool isSuccess, string? error)> ChangePassword(ChangePasswordRequest request, Guid userId)
+        {
+            if (userId == Guid.Empty)
+                return (false, ExceptionMessages.MissingId);
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user is null)
+                return (false, ExceptionMessages.NoObjectWithId);
+            var result = await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
+            string errorMessage = string.Join(" | ", result.Errors.Select(e => e.Description));
+            if (!result.Succeeded)
+                return (false, errorMessage);
+            return (true, null);
+
         }
     }
 }

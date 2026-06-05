@@ -30,6 +30,7 @@ namespace Arzly.Api.Mappings
             return new UserProfile
             {
                 UserId = request.UserId,
+                LastActiveAt = request.LastActiveAt,
                 FullName = request.FullName,
                 PublicName = request.PublicName,
                 Email = request.Email,

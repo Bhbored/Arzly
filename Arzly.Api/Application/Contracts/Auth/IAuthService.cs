@@ -9,5 +9,6 @@ namespace Arzly.Api.Application.Contracts.Auth
         Task<AuthenticationResponse?> LoginUser(LoginDTO loginDTO);
         Task<AuthenticationResponse?> GenerateRefreshToken(TokenModel tokenModel);
         Task<bool> IsEmailAlreadyRegistered(string email);
+        Task<(bool isSuccess, string? error)> ChangePassword(ChangePasswordRequest request,Guid userId);
     }
 }

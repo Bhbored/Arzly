@@ -21,6 +21,8 @@ using Arzly.Api.Domain.Contracts.Users;
 using Arzly.Api.Filters.ExceptionFilters;
 using Arzly.Api.Filters.ResultFilters;
 using Arzly.Api.Helpers.GoogleMap;
+using Arzly.Api.Hubs.Contracts;
+using Arzly.Api.Hubs.Services;
 using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Arzly.Api.Infrastructure.Identity;
 using Arzly.Api.Infrastructure.Repositories.Categories;
@@ -204,6 +206,10 @@ namespace Arzly.Api.Helpers
             services.AddScoped<IUserProfileService, UserProfileService>();
 
             services.AddHttpClient<GoogleMapsService>();
+            services.AddScoped<IEmailService, EmailService>();
+
+
+
             //services.AddScoped<INotificationService, NotificationService>();
             //services.AddScoped<IUserActivityLogService, UserActivityLogService>();
             //services.AddScoped<IUserPreferenceService, UserPreferenceService>();

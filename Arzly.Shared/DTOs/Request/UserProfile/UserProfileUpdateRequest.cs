@@ -24,6 +24,9 @@ namespace Arzly.Shared.DTOs.Request.UserProfile
         [RegularExpression("^[0-9]*$", ErrorMessage = "Phone number should contain digits only")]
         public string? PhoneNumber { get; set; }
 
+        public DateTime? LastActiveAt { get; set; }
+
+
         [Url]
         [MaxLength(2048)]
         public string? ProfileImageUrl { get; set; }

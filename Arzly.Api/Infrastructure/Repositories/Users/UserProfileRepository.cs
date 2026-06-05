@@ -23,10 +23,12 @@ namespace Arzly.Api.Infrastructure.Repositories.Users
             oldentity.FullName = entity.FullName;
             oldentity.PhoneNumber = entity.PhoneNumber;
             oldentity.PublicName = entity.PublicName;
+            oldentity.UpdateddAt = DateTime.UtcNow;
             oldentity.IsStore = entity.IsStore;
             oldentity.ProfileImageUrl = entity.ProfileImageUrl;
             oldentity.StoreDescription = entity.StoreDescription;
             oldentity.PublicLocation = entity.PublicLocation;
+            oldentity.LastActiveAt = entity.LastActiveAt;
             await _db.SaveChangesAsync();
             return oldentity;
 
