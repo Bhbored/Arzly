@@ -1,5 +1,5 @@
 using Arzly.Api.Domain.Contracts.Listings;
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Listings;
 using Arzly.Api.Helpers;
 using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Arzly.Shared.Enums;

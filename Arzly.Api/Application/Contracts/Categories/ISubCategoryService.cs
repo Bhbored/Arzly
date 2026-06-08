@@ -1,4 +1,4 @@
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Listings;
 using Arzly.Shared.DTOs.Request.SubCategory;
 using Arzly.Shared.DTOs.Response.SubCategory;
 

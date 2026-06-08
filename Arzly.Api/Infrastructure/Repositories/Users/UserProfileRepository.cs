@@ -1,5 +1,5 @@
 ﻿using Arzly.Api.Domain.Contracts.Users;
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Users;
 using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Arzly.Shared.Constants;
 using Microsoft.EntityFrameworkCore;

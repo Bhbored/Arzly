@@ -1,4 +1,4 @@
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Support;
 using Arzly.Shared.DTOs.Request.TicketMessage;
 using Arzly.Shared.DTOs.Response.TicketMessage;
 

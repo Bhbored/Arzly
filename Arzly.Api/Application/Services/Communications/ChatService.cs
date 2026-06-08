@@ -3,7 +3,7 @@ using Arzly.Api.Domain.Contracts.Communications;
 using Arzly.Api.Application.Contracts;
 using Arzly.Api.Domain.Contracts;
 using Arzly.Api.Domain.Contracts.Communications;
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Communications;
 using Arzly.Api.Mappings;
 using Arzly.Shared.DTOs.Request.Chat;
 using Arzly.Shared.DTOs.Response.Chat;

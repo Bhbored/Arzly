@@ -1,4 +1,4 @@
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Support;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

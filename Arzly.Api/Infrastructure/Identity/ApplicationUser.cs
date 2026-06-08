@@ -1,4 +1,7 @@
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Communications;
+using Arzly.Api.Domain.Entities.Listings;
+using Arzly.Api.Domain.Entities.Support;
+using Arzly.Api.Domain.Entities.Users;
 using Arzly.Shared.Enums;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;

@@ -1,4 +1,5 @@
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Listings;
+using Arzly.Api.Domain.Entities.Users;
 using Arzly.Shared.DTOs.Request.SearchQuery;
 using Arzly.Shared.DTOs.Response.SearchQuery;
 

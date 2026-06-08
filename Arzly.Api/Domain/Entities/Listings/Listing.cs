@@ -1,3 +1,4 @@
+using Arzly.Api.Domain.Entities.Communications;
 using Arzly.Api.Domain.ListingOwned;
 using Arzly.Api.Infrastructure.Identity;
 using Arzly.Shared.Enums.JobListing;
@@ -5,7 +6,7 @@ using Arzly.Shared.Enums.Listing;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Arzly.Api.Domain.Entities
+namespace Arzly.Api.Domain.Entities.Listings
 {
     public class Listing
     {
@@ -89,7 +90,6 @@ namespace Arzly.Api.Domain.Entities
         public virtual ICollection<SavedListing>? SavedByUsers { get; set; }
 
        
-
 
         //pre-owned
 

@@ -1,4 +1,4 @@
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Listings;
 using Arzly.Shared.Enums.ListingOwned.HomeAndLiving;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

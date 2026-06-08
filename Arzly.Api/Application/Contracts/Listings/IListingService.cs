@@ -1,4 +1,4 @@
-﻿using Arzly.Api.Domain.Entities;
+﻿using Arzly.Api.Domain.Entities.Listings;
 using Arzly.Shared.DTOs.Request.Listing;
 using Arzly.Shared.DTOs.Response.Listing;
 using Arzly.Shared.Enums;

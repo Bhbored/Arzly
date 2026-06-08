@@ -1,4 +1,4 @@
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Users;
 using Arzly.Shared.DTOs.Request.UserProfile;
 using Arzly.Shared.DTOs.Response.UserProfile;
 

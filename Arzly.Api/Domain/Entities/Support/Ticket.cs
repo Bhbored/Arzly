@@ -1,9 +1,10 @@
-﻿using Arzly.Api.Infrastructure.Identity;
+using Arzly.Api.Domain.Entities.Listings;
+using Arzly.Api.Infrastructure.Identity;
 using Arzly.Shared.Enums.Ticket;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Arzly.Api.Domain.Entities
+namespace Arzly.Api.Domain.Entities.Support
 {
     public class Ticket
     {

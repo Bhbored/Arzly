@@ -1,4 +1,4 @@
-//using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Communications;
 
 //namespace Arzly.Api.Domain.Contracts.Communications
 //{

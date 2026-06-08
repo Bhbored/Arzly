@@ -1,11 +1,12 @@
-﻿using Arzly.Api.Infrastructure.Identity;
+using Arzly.Api.Domain.Entities.Communications;
+using Arzly.Api.Infrastructure.Identity;
 using Arzly.Shared.Enums;
 using Arzly.Shared.Enums.JobListing;
 using Arzly.Shared.Enums.Listing;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Arzly.Api.Domain.Entities
+namespace Arzly.Api.Domain.Entities.Listings
 {
     public class JobListing
     {

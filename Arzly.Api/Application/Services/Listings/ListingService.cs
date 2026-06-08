@@ -2,7 +2,7 @@ using Arzly.Api.Application.Contracts.Listings;
 using Arzly.Api.Domain.Contracts.Categories;
 using Arzly.Api.Domain.Contracts.Listings;
 using Arzly.Api.Domain.Contracts.Locations;
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Listings;
 using Arzly.Api.Domain.ListingOwned;
 using Arzly.Api.Mappings;
 using Arzly.Shared.Constants;

@@ -1,8 +1,8 @@
-﻿using Arzly.Api.Infrastructure.Identity;
+using Arzly.Api.Infrastructure.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Arzly.Api.Domain.Entities
+namespace Arzly.Api.Domain.Entities.Support
 {
     public class TicketMessage
     {

@@ -1,4 +1,4 @@
-//using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Communications;
 //using Arzly.Shared.DTOs.Request.Notification;
 //using Arzly.Shared.DTOs.Response.Notification;
 

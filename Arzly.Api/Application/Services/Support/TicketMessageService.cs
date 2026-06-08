@@ -3,7 +3,7 @@ using Arzly.Api.Domain.Contracts.Support;
 using Arzly.Api.Application.Contracts;
 using Arzly.Api.Domain.Contracts;
 using Arzly.Api.Domain.Contracts.Support;
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Support;
 using Arzly.Api.Mappings;
 using Arzly.Shared.DTOs.Request.TicketMessage;
 using Arzly.Shared.DTOs.Response.TicketMessage;

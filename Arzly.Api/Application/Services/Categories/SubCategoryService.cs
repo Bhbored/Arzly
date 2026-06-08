@@ -3,7 +3,7 @@ using Arzly.Api.Domain.Contracts.Categories;
 using Arzly.Api.Application.Contracts;
 using Arzly.Api.Domain.Contracts;
 using Arzly.Api.Domain.Contracts.Categories;
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Listings;
 using Arzly.Api.Mappings;
 using Arzly.Shared.Constants;
 using Arzly.Shared.DTOs.Request.SubCategory;

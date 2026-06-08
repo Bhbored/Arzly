@@ -1,4 +1,4 @@
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Listings;
 using Arzly.Api.Domain.ListingOwned;
 
 namespace Arzly.Api.Helpers.ListingFilters

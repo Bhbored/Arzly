@@ -1,4 +1,4 @@
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Users;
 using Arzly.Api.Infrastructure.Data.SeedData;
 using Arzly.Api.Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;

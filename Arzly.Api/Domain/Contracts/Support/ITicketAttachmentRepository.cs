@@ -1,4 +1,4 @@
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Support;
 
 namespace Arzly.Api.Domain.Contracts.Support
 {

@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 
-namespace Arzly.Api.Domain.Entities
+namespace Arzly.Api.Domain.Entities.Listings
 {
     public class Category
     {

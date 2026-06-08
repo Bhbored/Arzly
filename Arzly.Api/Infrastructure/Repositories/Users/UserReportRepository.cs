@@ -1,7 +1,7 @@
 using Arzly.Api.Domain.Contracts.Users;
 using Arzly.Api.Domain.Contracts;
 using Arzly.Api.Domain.Contracts.Users;
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Users;
 using Arzly.Api.Infrastructure.Data.DataBaseContext;
 
 namespace Arzly.Api.Infrastructure.Repositories.Users

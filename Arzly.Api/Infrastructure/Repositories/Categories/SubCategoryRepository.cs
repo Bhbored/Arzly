@@ -1,7 +1,7 @@
 using Arzly.Api.Domain.Contracts.Categories;
 using Arzly.Api.Domain.Contracts;
 using Arzly.Api.Domain.Contracts.Categories;
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Listings;
 using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Microsoft.EntityFrameworkCore;
 

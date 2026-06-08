@@ -1,4 +1,7 @@
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Communications;
+using Arzly.Api.Domain.Entities.Listings;
+using Arzly.Api.Domain.Entities.Support;
+using Arzly.Api.Domain.Entities.Users;
 using Arzly.Api.Domain.ListingOwned;
 using Arzly.Api.Infrastructure.Data.SeedData;
 using Arzly.Api.Infrastructure.Identity;

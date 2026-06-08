@@ -1,4 +1,4 @@
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Listings;
 
 namespace Arzly.Api.Infrastructure.Data.SeedData
 {

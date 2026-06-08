@@ -1,6 +1,6 @@
 ﻿using Arzly.Api.Application.Contracts.Auth;
 using Arzly.Api.Domain.Contracts.Users;
-using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Users;
 using Arzly.Api.Infrastructure.Identity;
 using Arzly.Shared.Constants;
 using Arzly.Shared.DTOs.Request.Auth;

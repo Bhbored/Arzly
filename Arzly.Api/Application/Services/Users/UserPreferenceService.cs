@@ -2,7 +2,7 @@ using Arzly.Api.Application.Contracts.Users;
 using Arzly.Api.Domain.Contracts.Users;
 //using Arzly.Api.Application.Contracts;
 //using Arzly.Api.Domain.Contracts;
-//using Arzly.Api.Domain.Entities;
+using Arzly.Api.Domain.Entities.Users;
 //using Arzly.Api.Mappings;
 //using Arzly.Shared.DTOs.Request.UserPreference;
 //using Arzly.Shared.DTOs.Response.UserPreference;
