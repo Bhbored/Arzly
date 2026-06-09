@@ -1,7 +1,10 @@
 ﻿using Arzly.Api.Application.Contracts.Auth;
 using Arzly.Api.Infrastructure.Identity;
 using Arzly.Shared.DTOs.Request.Auth;
+using Arzly.Shared.DTOs.Response.Auth;
+using Arzly.Shared.Enums;
 using Arzly.Shared.Extensions;
+using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -66,6 +69,23 @@ namespace Arzly.Api.Controllers.v1.Auth
             return Ok(response);
 
         }
+
+
+        [AllowAnonymous]
+        [HttpPost("google-auth")]
+        public async Task<IActionResult> GoogleAuth([FromBody] GoogleAuthRequest request)
+        {
+            
+            var result  = await _authService.SignInWithGoogle(request);
+
+            if (result.response == null)
+                return Problem(result.error ?? "Google authentication failed", statusCode: 400);
+
+            return Ok(result.response);
+        }
+
+       
+
         [AllowAnonymous]
         [HttpGet("logout")]
         public async Task<IActionResult> Logout()

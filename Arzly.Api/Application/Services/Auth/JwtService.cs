@@ -51,6 +51,7 @@ namespace Arzly.Api.Application.Services.Auth
                 UserId = user.Id,
                 Token = token,
                 Email = user.Email,
+                FirebaseId = user.FirebaseUid,
                 Expiration = expiration,
                 RefreshToken = GenerateRefreshToken(),
                 RefreshTokenExpirateDate = DateTime.Now.AddDays(Convert.ToInt32(_configuration["RefreshToken:EXPIRATION_DAYS"]))

@@ -8,6 +8,7 @@ namespace Arzly.Shared.DTOs.Response.Auth
     {
         public Guid UserId { get; set; }
         public string? Email { get; set; }
+        public string? FirebaseId { get; set; }
         public string? Token { get; set; } = string.Empty;
         public DateTime Expiration { get; set; }
         public string? RefreshToken { get; set; } = string.Empty;

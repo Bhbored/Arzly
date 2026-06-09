@@ -5,7 +5,10 @@ using Arzly.Api.Infrastructure.Identity;
 using Arzly.Shared.Constants;
 using Arzly.Shared.DTOs.Request.Auth;
 using Arzly.Shared.DTOs.Response.Auth;
+using Arzly.Shared.Enums;
+using Google.Apis.Auth;
 using Microsoft.AspNetCore.Identity;
+using System.Data;
 using System.Security.Claims;
 
 namespace Arzly.Api.Application.Services.Auth
@@ -17,14 +20,17 @@ namespace Arzly.Api.Application.Services.Auth
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IJwtService _jwtService;
         private readonly IUserProfileRepository _profileRepository;
+        private readonly IConfiguration _configuration;
         public AuthService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-            RoleManager<ApplicationRole> roleManager, IJwtService jwtService, IUserProfileRepository profileRepository)
+            RoleManager<ApplicationRole> roleManager, IJwtService jwtService, IUserProfileRepository profileRepository,
+            IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _jwtService = jwtService;
             _profileRepository = profileRepository;
+            _configuration = configuration;
         }
 
         public async Task<AuthenticationResponse?> LoginUser(LoginDTO loginDTO)
@@ -52,6 +58,86 @@ namespace Arzly.Api.Application.Services.Auth
             return null;
         }
 
+        public async Task<(AuthenticationResponse? response, string? error)> SignInWithGoogle(GoogleAuthRequest request)
+        {
+            var payload = await ValidateGoogleToken(request.IdToken);
+            if (payload == null)
+                return (null, "Invalid Google token");
+
+            var email = payload.Email;
+            var googleId = payload.Subject;
+            var name = payload.Name;
+
+            if (string.IsNullOrEmpty(email))
+                return (null, "Email not provided by Google");
+
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                user = await CreateNewGoogleUser(email, googleId, name);
+                if (user == null)
+                    return (null, "Failed to create user");
+            }
+            else if (user.AuthMethod != AuthMethod.Firebase)
+            {
+                user.FirebaseUid = googleId;
+                user.AuthMethod = AuthMethod.Firebase;    
+                await _userManager.UpdateAsync(user);
+            }
+
+            await _signInManager.SignInAsync(user, isPersistent: false);
+
+            var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault() ?? "user";
+            var authResponse = _jwtService.CreateJwtToken(user, role);
+
+            user.RefreshToken = authResponse.RefreshToken;
+            user.RefreshTokenExpirateDate = authResponse.RefreshTokenExpirateDate;
+            await _userManager.UpdateAsync(user);
+
+            return (authResponse, null);
+        }
+
+        private async Task<GoogleJsonWebSignature.Payload?> ValidateGoogleToken(string idToken)
+        {
+            try
+            {
+                var settings = new GoogleJsonWebSignature.ValidationSettings
+                {
+                    Audience = new[] { $"{_configuration["Authentication:Google:ClientId"]}" }
+                };
+                return await GoogleJsonWebSignature.ValidateAsync(idToken, settings);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private async Task<ApplicationUser?> CreateNewGoogleUser(string email, string googleId, string? name)
+        {
+            var user = new ApplicationUser
+            {
+                UserName = email,
+                Email = email,
+                AuthMethod = AuthMethod.Firebase,
+                FirebaseUid = googleId,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            var createResult = await _userManager.CreateAsync(user);
+            if (!createResult.Succeeded)
+                return null;
+
+            if (await _roleManager.FindByNameAsync("user") == null)
+            {
+                ApplicationRole role = new() { Name = "user", NormalizedName = "USER" };
+                await _roleManager.CreateAsync(role);
+            }
+            await _userManager.AddToRoleAsync(user, "user");
+
+            return user;
+        }
         public async Task<(AuthenticationResponse? response, string? error)> RegisterUser(RegisterDTO registerDTO)
         {
             ApplicationUser user = new ApplicationUser()
@@ -59,7 +145,6 @@ namespace Arzly.Api.Application.Services.Auth
                 Email = registerDTO.Email,
                 UserName = registerDTO.Email,
                 PhoneNumber = registerDTO.PhoneNumber,
-
 
             };
 
@@ -121,7 +206,7 @@ namespace Arzly.Api.Application.Services.Auth
             {
                 throw new ArgumentException("Invalid refresh token");
             }
-            var userRole = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+            var userRole = (await _userManager.GetRolesAsync(user)).FirstOrDefault() ?? "user";
 
             AuthenticationResponse authenticationResponse = _jwtService.CreateJwtToken(user, userRole);
 
@@ -154,5 +239,7 @@ namespace Arzly.Api.Application.Services.Auth
             return (true, null);
 
         }
+
+        
     }
 }

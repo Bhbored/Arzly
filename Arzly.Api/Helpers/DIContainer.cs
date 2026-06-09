@@ -49,6 +49,16 @@ namespace Arzly.Api.Helpers
 {
     public static class DIContainer
     {
+
+        public static IServiceCollection RegisterApiVersioning(this IServiceCollection services,IConfiguration configuration)
+        {
+            services.AddAuthentication().AddGoogleOpenIdConnect(googleOptions =>
+            {
+                googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+                googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+            });
+            return services;
+        }
         public static IServiceCollection RegisterApiVersioning(this IServiceCollection services)
         {
             var apiVersioningBuilder = services.AddApiVersioning(config =>
