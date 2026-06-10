@@ -1,3 +1,5 @@
+using Arzly.Shared.DTOs.Response.Listing;
+
 namespace Arzly.Shared.DTOs.Response.SavedListing
 {
     public class SavedListingResponse
@@ -6,6 +8,6 @@ namespace Arzly.Shared.DTOs.Response.SavedListing
         public Guid UserId { get; set; }
         public Guid ListingId { get; set; }
         public DateTime SavedAt { get; set; }
-        public DateTime? DeletedAt { get; set; }
+        public ListingResponse? Listing { get; set; }
     }
 }

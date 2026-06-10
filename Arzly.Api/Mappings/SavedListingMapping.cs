@@ -14,7 +14,6 @@ namespace Arzly.Api.Mappings
                 UserId = entity.UserId,
                 ListingId = entity.ListingId,
                 SavedAt = entity.SavedAt,
-                DeletedAt = entity.DeletedAt
             };
         }
 
@@ -27,22 +26,8 @@ namespace Arzly.Api.Mappings
             };
         }
 
-        public static SavedListing ToEntity(this SavedListingUpdateRequest request)
-        {
-            return new SavedListing
-            {
-                Id = request.Id,
-                DeletedAt = request.DeletedAt
-            };
-        }
+       
 
-        public static SavedListingUpdateRequest ToUpdateRequest(this SavedListingResponse response)
-        {
-            return new SavedListingUpdateRequest
-            {
-                Id = response.Id,
-                DeletedAt = response.DeletedAt
-            };
-        }
+       
     }
 }

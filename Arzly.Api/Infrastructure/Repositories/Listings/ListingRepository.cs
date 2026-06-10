@@ -79,6 +79,7 @@ namespace Arzly.Api.Infrastructure.Repositories.Listings
             return await _db.Listings
                 .Where(predicate)
                 .Where(x => x.Status == ListingStatus.Active)
+                .OrderByDescending(x=>x.CreatedAt)
                 .Skip(currentPage * pageSize)
                 .Take(pageSize)
                 .Include(l => l.PickupLocation)
@@ -91,6 +92,7 @@ namespace Arzly.Api.Infrastructure.Repositories.Listings
 
             return await _db.Listings
                 .Where(l => l.OwnerId == id)
+                .OrderByDescending(x=>x.CreatedAt)
                 .Skip(currentPage * pageSize)
                 .Take(pageSize)
                 .Include(l => l.PickupLocation)
@@ -102,6 +104,7 @@ namespace Arzly.Api.Infrastructure.Repositories.Listings
 
             return await _db.Listings
                 .Where(x => x.Status == ListingStatus.Active)
+                .OrderByDescending(x => x.CreatedAt)
                 .Skip(currentPage * pageSzie)
                 .Take(pageSzie)
                 .Include(l => l.PickupLocation)
@@ -205,6 +208,7 @@ namespace Arzly.Api.Infrastructure.Repositories.Listings
             return await _db.Listings
                               .Where(x => x.SubcategoryId == subcategoryId && x.Status == ListingStatus.Active)
                               .OrderByDescending(x => x.IsPromoted)
+                              .OrderByDescending(x=>x.CreatedAt)
                               .Take(5)
                               .Include(x => x.PickupLocation)
                               .ToListAsync();

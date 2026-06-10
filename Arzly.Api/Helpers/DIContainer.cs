@@ -50,7 +50,7 @@ namespace Arzly.Api.Helpers
     public static class DIContainer
     {
 
-        public static IServiceCollection RegisterApiVersioning(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection RegisterGoogleAuthClient(this IServiceCollection services,IConfiguration configuration)
         {
             services.AddAuthentication().AddGoogleOpenIdConnect(googleOptions =>
             {
@@ -258,7 +258,8 @@ namespace Arzly.Api.Helpers
         }
         public static IServiceCollection RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            return services.RegisterCors(configuration)
+            return services.RegisterGoogleAuthClient(configuration)
+                .RegisterCors(configuration)
                             .RegisterApiVersioning()
                             .RegisterIdentity()
                             .RegisterJwtToken(configuration)

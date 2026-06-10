@@ -19,7 +19,7 @@ namespace Arzly.Api.Infrastructure.Data.Configurations.Listings
                   .OnDelete(DeleteBehavior.Cascade);
 
             entity.HasIndex(s => new { s.UserId, s.ListingId }).IsUnique();
-            entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted);
+            entity.HasQueryFilter(v => v.Listing != null && !v.Listing.IsDeleted && v.DeletedAt == null);
         }
     }
 }

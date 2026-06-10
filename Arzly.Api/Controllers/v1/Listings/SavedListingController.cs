@@ -21,13 +21,13 @@ namespace Arzly.Api.Controllers.v1.Listings
             _logger = logger;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<SavedListingResponse>>> GetAll()
+        [HttpGet("user-saved-listings")]
+        public async Task<ActionResult<List<SavedListingResponse>>> GetUserSavedListings()
         {
             _logger.LogInformation("{Controller}.GetAll - Before",
                 GetType().Name);
 
-            var result = await _service.GetAllAsync();
+            var result = await _service.GetAllAsync(User.GetUserId());
 
             _logger.LogInformation("{Controller}.GetAll - After",
                 GetType().Name);
@@ -60,18 +60,7 @@ namespace Arzly.Api.Controllers.v1.Listings
             return CreatedAtAction(nameof(GetById), new { id = result?.Id }, result);
         }
 
-        [HttpPut("[action]")]
-        public async Task<ActionResult<SavedListingResponse>> Update([FromBody] SavedListingUpdateRequest updateDto)
-        {
-            _logger.LogInformation("{Controller}.Update({Id}) - Before",
-                GetType().Name, updateDto);
-
-            var result = await _service.UpdateAsync(updateDto, User.GetUserId());
-
-            _logger.LogInformation("{Controller}.Update({Id}) - After",
-                GetType().Name, updateDto);
-            return Ok(result);
-        }
+      
 
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> Delete(Guid id)

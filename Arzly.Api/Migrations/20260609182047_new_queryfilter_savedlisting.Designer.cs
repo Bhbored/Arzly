@@ -4,6 +4,7 @@ using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arzly.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260609182047_new_queryfilter_savedlisting")]
+    partial class new_queryfilter_savedlisting
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2206,21 +2209,21 @@ namespace Arzly.Api.Migrations
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000001"),
-                            ConcurrencyStamp = "2a5a5b8a-0c84-4638-b46c-859200017c56",
+                            ConcurrencyStamp = "0796b43b-f911-4181-85ea-fe14fc87a85d",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000002"),
-                            ConcurrencyStamp = "8bce1766-61c7-479b-9254-5a9f6e5e97ab",
+                            ConcurrencyStamp = "9ace4d2f-317b-4470-a9f8-6926fd65e707",
                             Name = "support",
                             NormalizedName = "SUPPORT"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000003"),
-                            ConcurrencyStamp = "5b89b013-13b1-4148-a62e-3fdeb2379d13",
+                            ConcurrencyStamp = "b2359009-c6b5-48c8-a267-8aa8503532e2",
                             Name = "user",
                             NormalizedName = "USER"
                         });
