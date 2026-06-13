@@ -79,7 +79,7 @@ namespace Arzly.Api.Infrastructure.Repositories.Listings
             return await _db.Listings
                 .Where(predicate)
                 .Where(x => x.Status == ListingStatus.Active)
-                .OrderByDescending(x=>x.CreatedAt)
+                .OrderByDescending(x => x.CreatedAt)
                 .Skip(currentPage * pageSize)
                 .Take(pageSize)
                 .Include(l => l.PickupLocation)
@@ -92,7 +92,7 @@ namespace Arzly.Api.Infrastructure.Repositories.Listings
 
             return await _db.Listings
                 .Where(l => l.OwnerId == id)
-                .OrderByDescending(x=>x.CreatedAt)
+                .OrderByDescending(x => x.CreatedAt)
                 .Skip(currentPage * pageSize)
                 .Take(pageSize)
                 .Include(l => l.PickupLocation)
@@ -203,15 +203,20 @@ namespace Arzly.Api.Infrastructure.Repositories.Listings
 
         }
 
-        public async Task<List<Listing>> GetInitialListings(Guid subcategoryId)
+        public async Task<List<Listing>> GetInitialListings(Guid subcategoryId, LocationPreset? location)
         {
-            return await _db.Listings
-                              .Where(x => x.SubcategoryId == subcategoryId && x.Status == ListingStatus.Active)
-                              .OrderByDescending(x => x.IsPromoted)
-                              .OrderByDescending(x=>x.CreatedAt)
-                              .Take(5)
-                              .Include(x => x.PickupLocation)
-                              .ToListAsync();
+
+            var query = _db.Listings
+                              .Where(x => x.SubcategoryId == subcategoryId && x.Status == ListingStatus.Active);
+            if (location != null)
+                query = query.Where(x => x.PickupLocation.LocationPreset == location);
+            return await query
+                                .OrderByDescending(x => x.IsPromoted)
+                                .OrderByDescending(x => x.CreatedAt)
+                                .Take(5)
+                                .Include(x => x.PickupLocation)
+                                .ToListAsync();
+
         }
 
         public async Task AddListingDetails(object details, Guid listingId)

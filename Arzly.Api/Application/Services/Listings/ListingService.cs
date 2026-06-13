@@ -20,6 +20,7 @@ namespace Arzly.Api.Application.Services.Listings
         private readonly IListingRepository _listingRepo;
         private readonly IPickupLocationRepository _pickupLocationRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly ISubCategoryRepository _subCategoryRepository;
         private readonly JsonSerializerOptions _jsonOptions;
         private readonly IListingOwnedRepository _listingOwnedRepository;
         private readonly ILogger<ListingService> _logger;
@@ -27,7 +28,7 @@ namespace Arzly.Api.Application.Services.Listings
 
         public ListingService(IListingRepository repository, IPickupLocationRepository pickupLocationRepository
             , IListingOwnedRepository listingOwnedRepository, ILogger<ListingService> logger, ICategoryRepository categoryRepository,
-            JsonSerializerOptions jsonOptions)
+            ISubCategoryRepository subCategoryRepository, JsonSerializerOptions jsonOptions)
             : base(repository)
         {
             _listingRepo = repository;
@@ -35,6 +36,7 @@ namespace Arzly.Api.Application.Services.Listings
             _listingOwnedRepository = listingOwnedRepository;
             _logger = logger;
             _categoryRepository = categoryRepository;
+            _subCategoryRepository = subCategoryRepository;
             _jsonOptions = jsonOptions;
         }
 
@@ -298,22 +300,33 @@ namespace Arzly.Api.Application.Services.Listings
             return responses;
         }
 
-        public async Task<List<ListingResponse>> GetInitialListings(List<Guid> subcategoryIds)
+        public async Task<List<ListingResponse>> GetInitialListings(List<string> subcategoriesTitle, LocationPreset? location)
         {
-            _logger.LogInformation($"{GetType().Name} - GetInitialListings Has been reached");
-            if (!subcategoryIds.Any())
+            _logger.LogInformation("GetInitialListings started. Count: {Count}, Location: {Location}", subcategoriesTitle.Count, location);
+            if (!subcategoriesTitle.Any())
             {
-                _logger.LogError($"{GetType().Name} - Empty categoryNames provided in GetInitialListings");
+                _logger.LogError("GetInitialListings: empty subcategoriesTitle");
                 throw new ArgumentNullException(ExceptionMessages.MissingCategoriesId);
             }
+
+            List<Guid> subcategoryIds = [];
+            foreach (string title in subcategoriesTitle)
+            {
+                var subcategory = await _subCategoryRepository.GetByTitleAsync(title);
+                if (subcategory != null)
+                {
+                    subcategoryIds.Add(subcategory.Id);
+                }
+            }
+
             List<ListingResponse> responses = [];
             List<Listing> entities = [];
-            using (Operation.Time("Time for Fetched initial Listings with location & details from Database"))
+            using (Operation.Time("Fetched initial listings"))
             {
-
                 foreach (Guid subcategoryId in subcategoryIds)
                 {
-                    var items = await _listingRepo.GetInitialListings(subcategoryId);
+                    _logger.LogDebug("Fetching listings for SubcategoryId: {SubcategoryId}, Location: {Location}", subcategoryId, location);
+                    var items = await _listingRepo.GetInitialListings(subcategoryId, location);
                     entities.AddRange(items);
                 }
                 var response = entities
@@ -322,10 +335,10 @@ namespace Arzly.Api.Application.Services.Listings
                 responses = await AssignLocation_Details(entities, response);
             }
 
+            _logger.LogInformation("GetInitialListings completed. Count: {Count}", responses.Count);
             responses = responses.OrderByDescending(x => x.CreatedAt).ToList();
 
             return responses;
-
         }
 
 

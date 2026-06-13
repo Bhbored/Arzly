@@ -28,5 +28,14 @@ namespace Arzly.Api.Infrastructure.Repositories.Categories
                 .OrderBy(x=>x.Priority)
                 .ToListAsync();
         }
+
+        public async Task<SubCategory?> GetByTitleAsync(string title)
+        {
+            _logger.LogInformation($"{GetType().Name} - GetByTitleAsync has been reached");
+
+            return await _db.SubCategories
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Name == title);
+        }
     }
 }

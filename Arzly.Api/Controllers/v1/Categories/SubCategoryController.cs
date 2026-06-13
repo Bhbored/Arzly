@@ -47,6 +47,19 @@ namespace Arzly.Api.Controllers.v1.Categories
             return Ok(result);
         }
 
+        [HttpGet("by-title/{title}")]
+        public async Task<ActionResult<SubCategoryResponse>> GetByTitle(string title)
+        {
+            _logger.LogInformation("{Controller}.GetByTitle({Title}) - Before",
+                GetType().Name, title);
+
+            var result = await _service.GetByTitleAsync(title);
+
+            _logger.LogInformation("{Controller}.GetByTitle({Title}) - After",
+                GetType().Name, title);
+            return result == null ? NotFound() : Ok(result);
+        }
+
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<SubCategoryResponse>> GetById(Guid id)
         {

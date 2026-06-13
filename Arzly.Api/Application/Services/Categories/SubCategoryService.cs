@@ -52,6 +52,27 @@ namespace Arzly.Api.Application.Services.Categories
             return responses;
         }
 
+        public async Task<SubCategoryResponse?> GetByTitleAsync(string title)
+        {
+            _logger.LogInformation($"{GetType().Name} - GetByTitleAsync has been reached");
+
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                _logger.LogError($"{GetType().Name} - Empty title provided in GetByTitleAsync");
+                throw new ArgumentNullException(ExceptionMessages.MissingCategoriesId);
+            }
+
+            SubCategoryResponse? response;
+            using (Operation.Time("Time for Fetched SubCategory by title from Database"))
+            {
+                var entity = await _subCategoryRepository.GetByTitleAsync(title);
+                response = entity == null ? null : MapToDto(entity);
+            }
+
+            _logger.LogInformation($"{GetType().Name} - GetByTitleAsync returned {{Found}}", response != null);
+            return response;
+        }
+
         protected override SubCategoryResponse MapToDto(SubCategory entity) => entity.ToResponse();
         protected override SubCategory MapToEntity(SubCategoryAddRequest createDto) => createDto.ToEntity();
         protected override SubCategory MapToEntity(SubCategoryUpdateRequest updateDto) => updateDto.ToEntity();
