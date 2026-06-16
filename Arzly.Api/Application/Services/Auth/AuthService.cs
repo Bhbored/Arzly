@@ -135,6 +135,15 @@ namespace Arzly.Api.Application.Services.Auth
                 await _roleManager.CreateAsync(role);
             }
             await _userManager.AddToRoleAsync(user, "user");
+            var userProfle = new UserProfile()
+            {
+                FullName = name,
+                Email = email,
+                UserId = user.Id,
+                UpdateddAt = DateTime.UtcNow,
+                PhoneNumber = user.PhoneNumber
+            };
+            await _profileRepository.AddAsync(userProfle);
 
             return user;
         }

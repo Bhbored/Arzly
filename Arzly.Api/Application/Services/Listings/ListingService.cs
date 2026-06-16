@@ -237,7 +237,8 @@ namespace Arzly.Api.Application.Services.Listings
         }
 
 
-        public async Task<List<ListingResponse>> GetFilteredListing(string searchBy, string searchString, int pageSize, int currentPage)
+        public async Task<List<ListingResponse>> GetFilteredListing(string searchBy, string searchString, LocationPreset? preset, string order,
+            string orderByPrice, double minPrice, double maxPrice, int pageSize, int currentPage)
         {
             _logger.LogInformation($"{GetType().Name} - GetFilteredListing Has been reached");
 
@@ -250,7 +251,8 @@ namespace Arzly.Api.Application.Services.Listings
 
                 listings = searchBy switch
                 {
-                    nameof(ListingResponse.Title) => await _listingRepo.GetFilteredListing(l => l.Title.Contains(searchString), pageSize, currentPage),
+                    nameof(ListingResponse.Title) => await _listingRepo.GetFilteredListing(
+                        l => l.Title.Contains(searchString), pageSize, currentPage, preset, minPrice, maxPrice, order, orderByPrice),
                     //more cases to come
                     _ => await _listingRepo.GetIndexedListings(pageSize, currentPage)
                 };
@@ -262,6 +264,17 @@ namespace Arzly.Api.Application.Services.Listings
 
             return responses;
 
+        }
+
+        public async Task<List<string>> GetFilteredListingTitles(string searchString)
+        {
+            _logger.LogInformation($"{GetType().Name} - GetFilteredListingTitles Has been reached");
+
+            if (string.IsNullOrWhiteSpace(searchString))
+                return new List<string>();
+            var listings = await _listingRepo
+                .GetFilteredListingTitles(l => l.Title.Contains(searchString));
+            return listings;
         }
 
         public async Task<List<ListingResponse>> GetListingByUserId(Guid? userId, int pageSize, int currentPage)
@@ -375,7 +388,7 @@ namespace Arzly.Api.Application.Services.Listings
             entity.Id = Guid.NewGuid();
 
             entity.OwnerId = userId;
-           
+
             await _listingRepo.AddAsync(entity);
 
 

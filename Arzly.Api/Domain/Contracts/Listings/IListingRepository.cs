@@ -8,7 +8,9 @@ namespace Arzly.Api.Domain.Contracts.Listings
 {
     public interface IListingRepository : IBaseRepository<Listing, Guid>
     {
-        Task<List<Listing>> GetFilteredListing(Expression<Func<Listing, bool>> predicate, int pageSize, int currentPage);
+        Task<List<Listing>> GetFilteredListing(Expression<Func<Listing, bool>> predicate, int pageSize, int currentPage,
+            LocationPreset? preset, double minPrice, double maxPrice, string order, string orderByPrice);
+        Task<List<string>> GetFilteredListingTitles(Expression<Func<Listing, bool>> predicate);
 
         Task<List<Listing>> GetListingByUserId(Guid id, int pageSize, int currentPage);
         Task<List<Listing>> GetIndexedListings(int pageSzie, int currentPage);

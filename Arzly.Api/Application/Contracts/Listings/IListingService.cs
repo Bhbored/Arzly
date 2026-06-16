@@ -12,7 +12,9 @@ namespace Arzly.Api.Application.Contracts.Listings
 
         Task<List<ListingResponse>> GetListingByCategoryId(Guid categoryId, int pageSize, int currentPage, string? searchString,
             LocationPreset? preset, string order, string orderByPrice, double minPrice, double maxPrice);
-        Task<List<ListingResponse>> GetFilteredListing(string searchBy, string searchString, int pageSize , int currentPage);
+        Task<List<ListingResponse>> GetFilteredListing(string searchBy, string searchString, LocationPreset? preset, string order,
+            string orderByPrice, double minPrice, double maxPrice, int pageSize, int currentPage);
+        Task<List<string>> GetFilteredListingTitles(string searchString);
 
         Task<List<ListingResponse>> GetListingByUserId(Guid? userId, int pageSize , int currentPage );
         Task<List<ListingResponse>> GetIndexedListings(int pageSzie , int currentPage);

@@ -72,17 +72,59 @@ namespace Arzly.Api.Infrastructure.Repositories.Listings
         }
 
 
-        public async Task<List<Listing>> GetFilteredListing(Expression<Func<Listing, bool>> predicate, int pageSize, int currentPage)
+        public async Task<List<Listing>> GetFilteredListing(Expression<Func<Listing, bool>> predicate, int pageSize, int currentPage,
+            LocationPreset? preset, double minPrice, double maxPrice, string order, string orderByPrice)
         {
             _logger.LogInformation($"{GetType().Name} - GetFilteredListing has been reached");
 
-            return await _db.Listings
+            IQueryable<Listing> query = _db.Listings
                 .Where(predicate)
                 .Where(x => x.Status == ListingStatus.Active)
-                .OrderByDescending(x => x.CreatedAt)
+                .Where(x => x.Price >= minPrice && x.Price <= maxPrice);
+
+            if (preset != null)
+            {
+                query = query.Where(x => x.PickupLocation.LocationPreset == preset);
+            }
+
+            IOrderedQueryable<Listing> orderedQuery;
+
+            if (order.Equals("desc"))
+            {
+                orderedQuery = query.OrderByDescending(x => x.CreatedAt);
+            }
+            else
+            {
+                orderedQuery = query.OrderBy(x => x.CreatedAt);
+            }
+
+            if (orderByPrice.Equals("desc"))
+            {
+                orderedQuery = orderedQuery.ThenByDescending(x => x.Price);
+            }
+            else
+            {
+                orderedQuery = orderedQuery.ThenBy(x => x.Price);
+            }
+
+            return await orderedQuery
                 .Skip(currentPage * pageSize)
                 .Take(pageSize)
                 .Include(l => l.PickupLocation)
+                .ToListAsync();
+        }
+
+        public async Task<List<string>> GetFilteredListingTitles(Expression<Func<Listing, bool>> predicate)
+        {
+            _logger.LogInformation($"{GetType().Name} - GetFilteredListingTitles has been reached");
+
+            return await _db.Listings
+                .AsNoTracking()
+                .Where(predicate)
+                .Where(x => x.Status == ListingStatus.Active)
+                .OrderByDescending(x => x.CreatedAt)
+                .Take(10)
+                .Select(x => x.Title)
                 .ToListAsync();
         }
 

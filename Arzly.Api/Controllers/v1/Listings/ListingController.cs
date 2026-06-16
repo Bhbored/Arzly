@@ -7,6 +7,7 @@ using Arzly.Shared.DTOs.Response.Listing;
 using Arzly.Shared.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Arzly.Shared.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Arzly.Api.Controllers.v1.Listings
 {
@@ -38,15 +39,37 @@ namespace Arzly.Api.Controllers.v1.Listings
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<List<ListingResponse>>> GetFilteredListing(string searchBy, string searchString,
-            [FromHeader] int pageSize = 10, [FromHeader] int currentPage = 0)
+        public async Task<ActionResult<List<ListingResponse>>> GetFilteredListing(
+            [FromQuery] string searchBy,
+            [FromQuery] string searchString,
+            [FromQuery] LocationPreset? preset,
+            [FromQuery] string order = "desc",
+            [FromQuery] string orderByPrice = "desc",
+            [FromQuery] double minPrice = 0,
+            [FromQuery] double maxPrice = double.MaxValue,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] int currentPage = 0)
         {
             _logger.LogInformation("{Controller}.GetAll - Before",
                 GetType().Name);
 
-            var result = await _service.GetFilteredListing(searchBy, searchString, pageSize, currentPage);
+            var result = await _service.GetFilteredListing(searchBy, searchString, preset, order, orderByPrice, minPrice, maxPrice, pageSize, currentPage);
 
             _logger.LogInformation("{Controller}.GetAll - After",
+                GetType().Name);
+            return result;
+        }
+
+        [HttpGet("search-titles")]
+        public async Task<ActionResult<List<string>>> GetFilteredListingTitles(
+            [FromQuery] string searchString)
+        {
+            _logger.LogInformation("{Controller}.GetFilteredListingTitles - Before",
+                GetType().Name);
+
+            var result = await _service.GetFilteredListingTitles(searchString);
+
+            _logger.LogInformation("{Controller}.GetFilteredListingTitles - After",
                 GetType().Name);
             return result;
         }
@@ -130,7 +153,7 @@ namespace Arzly.Api.Controllers.v1.Listings
             _logger.LogInformation("{Controller}.GetByCategoryId({CategoryId}) - Before",
                 GetType().Name, subcategoryId);
 
-            var result = await _service.GetListingBySubCategoryId(subcategoryId.Value, catgeoroyId.Value,pageSize,
+            var result = await _service.GetListingBySubCategoryId(subcategoryId.Value, catgeoroyId.Value, pageSize,
                 currentPage, searchString, preset, details, order, orderByPrice, minPrice, maxPrice);
 
             _logger.LogInformation("{Controller}.GetByCategoryId({CategoryId}) - After",
@@ -165,7 +188,7 @@ namespace Arzly.Api.Controllers.v1.Listings
             _logger.LogInformation("{Controller}.Update({Id}) - Before",
                 GetType().Name, request);
 
-             await _service.UpdateAsync(request, User.GetUserId());
+            await _service.UpdateAsync(request, User.GetUserId());
 
             _logger.LogInformation("{Controller}.Update({Id}) - After",
                 GetType().Name, request);
