@@ -207,7 +207,7 @@ namespace Arzly.Api.Helpers
             services.AddScoped<ITicketService, TicketService>();
             services.AddScoped<IUserReportService, UserReportService>();
             services.AddScoped<ISavedListingService, SavedListingService>();
-            services.AddScoped<IChatMessageService, ChatMessageService>();
+
             services.AddScoped<IPickupLocationService, PickupLocationService>();
             services.AddScoped<ISearchQueryService, SearchQueryService>();
             services.AddScoped<IJobListingService, JobListingService>();
@@ -235,7 +235,7 @@ namespace Arzly.Api.Helpers
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<IUserReportRepository, UserReportRepository>();
             services.AddScoped<ISavedListingRepository, SavedListingRepository>();
-            services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
+
             services.AddScoped<IPickupLocationRepository, PickupLocationRepository>();
             services.AddScoped<ISearchQueryRepository, SearchQueryRepository>();
             services.AddScoped<IJobListingRepository, JobListingRepository>();

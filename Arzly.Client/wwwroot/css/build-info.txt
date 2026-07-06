@@ -1,2 +1,0 @@
-Tailwind build timestamp: 2026-05-14T23:09:00+03:00
-Files modified by assistant: App.razor, MainLayout.razor, NavMenu.razor, TopNav.razor, StatCard.razor, Badge.razor, DashboardHome.razor, Listings/ListingList.razor, JobListings/JobListingList.razor, Reports/ReportList.razor, tailwind.config.js, package.json, wwwroot/css/app.css, wwwroot/css/site.css

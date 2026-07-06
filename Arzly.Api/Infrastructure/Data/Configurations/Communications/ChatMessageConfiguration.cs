@@ -26,6 +26,8 @@ namespace Arzly.Api.Infrastructure.Data.Configurations.Communications
                  .HasForeignKey(m => m.ReceiverId)
                  .OnDelete(DeleteBehavior.Restrict);
 
+            entity.Property(m => m.IsRead).HasDefaultValue(false);
+
             entity.HasQueryFilter(cm => !cm.IsDeleted &&
                 !cm.Chat.IsDeleted &&
                 (cm.Chat.Listing == null || !cm.Chat.Listing.IsDeleted) &&

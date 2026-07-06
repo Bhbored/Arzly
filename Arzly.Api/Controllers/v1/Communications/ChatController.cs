@@ -1,4 +1,3 @@
-using Arzly.Api.Application.Contracts;
 using Arzly.Api.Application.Contracts.Communications;
 using Arzly.Api.Filters.ResultFilters;
 using Arzly.Shared.DTOs.Request.Chat;
@@ -22,54 +21,76 @@ namespace Arzly.Api.Controllers.v1.Communications
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ChatResponse>>> GetAll()
+        public async Task<ActionResult<List<ChatResponse>>> GetUserChats(
+            [FromQuery] bool IsArchived =false,
+            [FromQuery] bool IsDiscontinued=false,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] int currentPage = 0)
         {
-            _logger.LogInformation("{Controller}.GetAll - Before",
+            _logger.LogInformation("{Controller}.GetUserChats - Before",
                 GetType().Name);
 
-            var result = await _service.GetAllAsync();
+            var result = await _service.GetUserChatsAsync(User.GetUserId(), IsArchived, IsDiscontinued, pageSize, currentPage);
 
-            _logger.LogInformation("{Controller}.GetAll - After",
+            _logger.LogInformation("{Controller}.GetUserChats - After",
                 GetType().Name);
             return Ok(result);
         }
 
+
+        
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<ChatResponse>> GetById(Guid id)
+        public async Task<ActionResult<ChatResponse>> GetByIdWithMessages(
+            Guid id,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] int currentPage = 0)
         {
-            _logger.LogInformation("{Controller}.GetById({Id}) - Before",
+            _logger.LogInformation("{Controller}.GetByIdWithMessages({Id}) - Before",
                 GetType().Name, id);
 
-            var result = await _service.GetByIdAsync(id);
+            var result = await _service.GetByIdWithMessagesAsync(id, pageSize, currentPage);
 
-            _logger.LogInformation("{Controller}.GetById({Id}) - After",
+            _logger.LogInformation("{Controller}.GetByIdWithMessages({Id}) - After",
                 GetType().Name, id);
             return Ok(result);
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ChatResponse>> Create([FromBody] ChatAddRequest createDto)
+        public async Task<ActionResult<ChatResponse>> StartNewChat([FromBody] ChatAddRequest createDto)
         {
-            _logger.LogInformation("{Controller}.Create - Before",
+            _logger.LogInformation("{Controller}.StartNewChat - Before",
                 GetType().Name);
 
-            var result = await _service.CreateAsync(createDto, User.GetUserId());
+            var result = await _service.StartNewChatAsync(createDto, User.GetUserId());
 
-            _logger.LogInformation("{Controller}.Create - After",
+            _logger.LogInformation("{Controller}.StartNewChat - After",
                 GetType().Name);
-            return CreatedAtAction(nameof(GetById), new { id = result?.Id }, result);
+            return CreatedAtAction(nameof(GetByIdWithMessages), new { id = result?.Id }, result);
         }
 
-        [HttpPut("[action]")]
-        public async Task<ActionResult<ChatResponse>> Update([FromBody] ChatUpdateRequest updateDto)
+        [HttpPut("[action]/{id:guid}")]
+        public async Task<ActionResult<ChatResponse>> ToggleArchive(Guid id)
         {
-            _logger.LogInformation("{Controller}.Update({Id}) - Before",
-                GetType().Name, updateDto);
+            _logger.LogInformation("{Controller}.ToggleArchive({Id}) - Before",
+                GetType().Name, id);
 
-            var result = await _service.UpdateAsync(updateDto, User.GetUserId());
+            var result = await _service.ToggleArchiveAsync(id, User.GetUserId());
 
-            _logger.LogInformation("{Controller}.Update({Id}) - After",
-                GetType().Name, updateDto);
+            _logger.LogInformation("{Controller}.ToggleArchive({Id}) - After",
+                GetType().Name, id);
+            return Ok(result);
+        }
+
+        [HttpPut("[action]/{id:guid}")]
+        public async Task<ActionResult<ChatResponse>> MarkDiscontinued(Guid id)
+        {
+            _logger.LogInformation("{Controller}.MarkDiscontinued({Id}) - Before",
+                GetType().Name, id);
+
+            var result = await _service.MarkDiscontinuedAsync(id, User.GetUserId());
+
+            _logger.LogInformation("{Controller}.MarkDiscontinued({Id}) - After",
+                GetType().Name, id);
             return Ok(result);
         }
 
@@ -83,6 +104,32 @@ namespace Arzly.Api.Controllers.v1.Communications
 
             _logger.LogInformation("{Controller}.Delete({Id}) - After",
                 GetType().Name, id);
+            return NoContent();
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest sendDto)
+        {
+            _logger.LogInformation("{Controller}.SendMessage - Before",
+                GetType().Name);
+
+            var result = await _service.SendMessageAsync(sendDto.ChatId, sendDto.Text, User.GetUserId());
+
+            _logger.LogInformation("{Controller}.SendMessage - After",
+                GetType().Name);
+            return CreatedAtAction(nameof(GetByIdWithMessages), new { id = sendDto.ChatId }, result);
+        }
+
+        [HttpPut("[action]")]
+        public async Task<ActionResult> MarkMessageAsRead([FromBody] MarkMessageAsReadRequest readDto)
+        {
+            _logger.LogInformation("{Controller}.MarkMessageAsRead({MessageId}) - Before",
+                GetType().Name, readDto.MessageId);
+
+            await _service.MarkMessageAsReadAsync(readDto.MessageId, User.GetUserId());
+
+            _logger.LogInformation("{Controller}.MarkMessageAsRead({MessageId}) - After",
+                GetType().Name, readDto.MessageId);
             return NoContent();
         }
     }

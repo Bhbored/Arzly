@@ -1,3 +1,4 @@
+using Arzly.Shared.DTOs.Response.ChatMessage;
 using Arzly.Shared.Enums;
 
 namespace Arzly.Shared.DTOs.Response.Chat
@@ -12,6 +13,8 @@ namespace Arzly.Shared.DTOs.Response.Chat
         public DateTime LastActivity { get; set; }
         public Guid InitiatorId { get; set; }
         public Guid ReceiverId { get; set; }
-        public Guid ListingId { get; set; }
+        public Guid? ListingId { get; set; }
+        public Guid? JobListingId { get; set; }
+        public List<ChatMessageResponse>? Messages { get; set; }
     }
 }

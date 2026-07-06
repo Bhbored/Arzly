@@ -12,18 +12,15 @@ namespace Arzly.Api.Domain.Entities.Communications
         [Required(ErrorMessage = "Chat ID is required.")]
         public Guid ChatId { get; set; }
 
-        [ForeignKey(nameof(ChatId))]
-        public virtual Chat Chat { get; set; } = null!;
+      
 
         [Required(ErrorMessage = "Sender ID is required.")]
         public Guid SenderId { get; set; }
 
-        [ForeignKey(nameof(SenderId))]
-        public virtual ApplicationUser Sender { get; set; } = null!;
+
         [Required(ErrorMessage = "Receiver ID is required.")]
         public Guid ReceiverId { get; set; }
-        [ForeignKey(nameof(ReceiverId))]
-        public virtual ApplicationUser Receiver { get; set; } = null!;
+
 
         [Required(ErrorMessage = "Message text is required.")]
         [MaxLength(2000, ErrorMessage = "Message cannot exceed 2000 characters.")]
@@ -32,7 +29,17 @@ namespace Arzly.Api.Domain.Entities.Communications
         public DateTime? DeletedAt { get; set; }
         public DateTime SentAt { get; set; } = DateTime.UtcNow;
 
-        public bool IsRead { get; set; }
+        public bool IsRead { get; set; }=false;
         public DateTime? ReadAt { get; set; }
+
+
+        [ForeignKey(nameof(ReceiverId))]
+        public virtual ApplicationUser Receiver { get; set; } = null!;
+
+        [ForeignKey(nameof(SenderId))]
+        public virtual ApplicationUser Sender { get; set; } = null!;
+        [ForeignKey(nameof(ChatId))]
+        public virtual Chat Chat { get; set; } = null!;
+
     }
 }
