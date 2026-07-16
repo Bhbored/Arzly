@@ -62,6 +62,8 @@ namespace Arzly.Api.Controllers.v1.Communications
                 GetType().Name, listingId);
 
             var result = await _service.GetByListingIdWithMessagesAsync(listingId);
+            if (result is null)
+                return NotFound();
 
             _logger.LogInformation("{Controller}.GetByListingId({ListingId}) - After",
                 GetType().Name, listingId);

@@ -10,6 +10,8 @@ namespace Arzly.Api.Domain.Contracts.Communications
         Task<Chat?> GetByListingIdWithMessagesAsync(Guid listingId);
         Task<Chat> CreateAsync(Chat entity);
         Task<Chat> UpdateAsync(Chat entity);
+        Task<bool> GetIsArchivedAsync(Guid id);
+        Task<bool> GetIsDiscontinuedAsync(Guid id);
         Task<bool> SoftDeleteAsync(Guid id);
         Task<ChatMessage> AddMessageAsync(ChatMessage message);
         Task<ChatMessage?> GetMessageByIdAsync(Guid messageId);

@@ -85,7 +85,7 @@ namespace Arzly.Api.Application.Services.Communications
             return entity.ToResponse();
         }
 
-        public async Task<ChatResponse> GetByListingIdWithMessagesAsync(Guid listingId)
+        public async Task<ChatResponse?> GetByListingIdWithMessagesAsync(Guid listingId)
         {
             _logger.LogInformation("{Service}.GetByListingIdWithMessagesAsync({ListingId}) - Before", GetType().Name, listingId);
 
@@ -98,8 +98,8 @@ namespace Arzly.Api.Application.Services.Communications
             var entity = await _repository.GetByListingIdWithMessagesAsync(listingId);
             if (entity is null)
             {
-                _logger.LogError("{Service}.GetByListingIdWithMessagesAsync - No Chat found with listingId {ListingId}", GetType().Name, listingId);
-                throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {listingId}");
+                _logger.LogInformation("{Service}.GetByListingIdWithMessagesAsync - No Chat found with listingId {ListingId}", GetType().Name, listingId);
+                return null;
             }
 
             _logger.LogInformation("{Service}.GetByListingIdWithMessagesAsync({ListingId}) - After", GetType().Name, listingId);
@@ -148,6 +148,7 @@ namespace Arzly.Api.Application.Services.Communications
                 throw new ArgumentNullException(ExceptionMessages.MissingId);
             }
 
+            var currentValue = await _repository.GetIsArchivedAsync(id);
             var entity = await _repository.GetByIdWithMessagesAsync(id);
             if (entity is null)
             {
@@ -155,7 +156,7 @@ namespace Arzly.Api.Application.Services.Communications
                 throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {id}");
             }
 
-            entity.IsArchived = !entity.IsArchived;
+            entity.IsArchived = !currentValue;
             entity.LastActivity = DateTime.UtcNow;
             var updated = await _repository.UpdateAsync(entity);
 
@@ -173,6 +174,7 @@ namespace Arzly.Api.Application.Services.Communications
                 throw new ArgumentNullException(ExceptionMessages.MissingId);
             }
 
+            var currentValue = await _repository.GetIsDiscontinuedAsync(id);
             var entity = await _repository.GetByIdWithMessagesAsync(id);
             if (entity is null)
             {
@@ -180,11 +182,11 @@ namespace Arzly.Api.Application.Services.Communications
                 throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {id}");
             }
 
-            entity.IsDiscontinued = true;
+            entity.IsDiscontinued = !currentValue;
             entity.LastActivity = DateTime.UtcNow;
             var updated = await _repository.UpdateAsync(entity);
 
-            _logger.LogInformation("{Service}.MarkDiscontinuedAsync({Id}) - After", GetType().Name, id);
+            _logger.LogInformation("{Service}.MarkDiscontinuedAsync({Id}) - After, IsDiscontinued {IsDiscontinued}", GetType().Name, id, updated.IsDiscontinued);
             return updated.ToResponse();
         }
 

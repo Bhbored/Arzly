@@ -14,6 +14,7 @@ namespace Arzly.Api.Infrastructure.Data.Configurations.Communications
             entity.HasIndex(c => c.JobListingId);
             entity.HasIndex(c => c.LastActivity);
             entity.HasIndex(c => c.IsArchived);
+            entity.HasIndex(c => c.IsDiscontinued);
 
             entity.Property(c => c.ListingTitle).HasMaxLength(200);
             entity.Property(c => c.PersonName).HasMaxLength(200).IsRequired();

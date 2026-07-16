@@ -90,6 +90,28 @@ namespace Arzly.Api.Infrastructure.Repositories.Communications
             return existing;
         }
 
+        public async Task<bool> GetIsArchivedAsync(Guid id)
+        {
+            _logger.LogInformation("{Repo}.GetIsArchivedAsync({Id})", GetType().Name, id);
+
+            return await _db.Chats
+                .AsNoTracking()
+                .Where(c => c.Id == id)
+                .Select(c => c.IsArchived)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> GetIsDiscontinuedAsync(Guid id)
+        {
+            _logger.LogInformation("{Repo}.GetIsDiscontinuedAsync({Id})", GetType().Name, id);
+
+            return await _db.Chats
+                .AsNoTracking()
+                .Where(c => c.Id == id)
+                .Select(c => c.IsDiscontinued)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<bool> SoftDeleteAsync(Guid id)
         {
             _logger.LogInformation("{Repo}.SoftDeleteAsync({Id})", GetType().Name, id);
