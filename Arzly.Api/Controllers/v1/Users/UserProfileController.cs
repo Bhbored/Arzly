@@ -19,7 +19,7 @@ namespace Arzly.Api.Controllers.v1.Users
             _logger = logger;
         }
         [HttpGet("{userId:guid}")]
-        public async Task<ActionResult<UserProfileResponse>> GetCurrent(Guid userId)
+        public async Task<ActionResult<UserProfileResponse>> GetOthersPprofile(Guid userId)
         {
             _logger.LogInformation("{Controller}.GetCurrent({UserId}) - Before",
                 GetType().Name, userId);
