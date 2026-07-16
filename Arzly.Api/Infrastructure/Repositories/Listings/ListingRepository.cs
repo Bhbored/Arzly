@@ -321,6 +321,15 @@ namespace Arzly.Api.Infrastructure.Repositories.Listings
 
             return entity;
         }
+        public async Task<string?> GetTitleByIdAsync(Guid listingId)
+        {
+            return await _db.Listings
+                .AsNoTracking()
+                .Where(l => l.Id == listingId)
+                .Select(l => l.Title)
+                .FirstOrDefaultAsync();
+        }
+
         public async override Task<bool> Delete(Listing entity)
         {
 

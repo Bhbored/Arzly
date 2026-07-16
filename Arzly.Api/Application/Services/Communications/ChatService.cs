@@ -1,4 +1,6 @@
 using Arzly.Api.Application.Contracts.Communications;
+using Arzly.Api.Application.Contracts.Listings;
+using Arzly.Api.Application.Contracts.Users;
 using Arzly.Api.Domain.Contracts.Communications;
 using Arzly.Api.Domain.Entities.Communications;
 using Arzly.Api.Mappings;
@@ -11,11 +13,15 @@ namespace Arzly.Api.Application.Services.Communications
     public class ChatService : IChatService
     {
         private readonly IChatRepository _repository;
+        private readonly IListingService _listingService;
+        private readonly IUserProfileService _userProfileService;
         private readonly ILogger<ChatService> _logger;
 
-        public ChatService(IChatRepository repository, ILogger<ChatService> logger)
+        public ChatService(IChatRepository repository, IListingService listingService, IUserProfileService userProfileService, ILogger<ChatService> logger)
         {
             _repository = repository;
+            _listingService = listingService;
+            _userProfileService = userProfileService;
             _logger = logger;
         }
 
@@ -79,6 +85,27 @@ namespace Arzly.Api.Application.Services.Communications
             return entity.ToResponse();
         }
 
+        public async Task<ChatResponse> GetByListingIdWithMessagesAsync(Guid listingId)
+        {
+            _logger.LogInformation("{Service}.GetByListingIdWithMessagesAsync({ListingId}) - Before", GetType().Name, listingId);
+
+            if (listingId == Guid.Empty)
+            {
+                _logger.LogError("{Service}.GetByListingIdWithMessagesAsync - Empty listingId provided", GetType().Name);
+                throw new ArgumentNullException(ExceptionMessages.MissingId);
+            }
+
+            var entity = await _repository.GetByListingIdWithMessagesAsync(listingId);
+            if (entity is null)
+            {
+                _logger.LogError("{Service}.GetByListingIdWithMessagesAsync - No Chat found with listingId {ListingId}", GetType().Name, listingId);
+                throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {listingId}");
+            }
+
+            _logger.LogInformation("{Service}.GetByListingIdWithMessagesAsync({ListingId}) - After", GetType().Name, listingId);
+            return entity.ToResponse();
+        }
+
         public async Task<ChatResponse> StartNewChatAsync(ChatAddRequest createDto, Guid userId)
         {
             _logger.LogInformation("{Service}.StartNewChatAsync - Before", GetType().Name);
@@ -98,6 +125,13 @@ namespace Arzly.Api.Application.Services.Communications
             var entity = createDto.ToEntity();
             entity.Id = Guid.NewGuid();
             entity.LastActivity = DateTime.UtcNow;
+
+            if (entity.ListingId.HasValue)
+                entity.ListingTitle = await _listingService.GetTitleByIdAsync(entity.ListingId.Value);
+
+            var receiverProfile = await _userProfileService.GetByIdAsync(entity.ReceiverId);
+            entity.PersonName = receiverProfile?.FullName ?? string.Empty;
+
             await _repository.CreateAsync(entity);
 
             _logger.LogInformation("{Service}.StartNewChatAsync - After, created Chat with id {Id}", GetType().Name, entity.Id);

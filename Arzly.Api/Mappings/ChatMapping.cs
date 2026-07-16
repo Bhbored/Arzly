@@ -21,6 +21,8 @@ namespace Arzly.Api.Mappings
                 ReceiverId = entity.ReceiverId,
                 ListingId = entity.ListingId,
                 JobListingId = entity.JobListingId,
+                ListingTitle = entity.ListingTitle,
+                PersonName = entity.PersonName,
                 Messages = entity.Messages?
                     .OrderBy(m => m.SentAt)
                     .Select(m => m.ToMessageResponse())

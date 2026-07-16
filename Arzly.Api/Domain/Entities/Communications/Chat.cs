@@ -30,6 +30,9 @@ namespace Arzly.Api.Domain.Entities.Communications
         public Guid? ListingId { get; set; }
         public Guid? JobListingId { get; set; }
 
+        public string? ListingTitle { get; set; }
+        public string PersonName { get; set; } = string.Empty;
+
         // Navigation
         [ForeignKey(nameof(InitiatorId))]
         public virtual ApplicationUser Initiator { get; set; } = null!;

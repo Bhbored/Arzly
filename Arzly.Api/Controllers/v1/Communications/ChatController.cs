@@ -19,7 +19,7 @@ namespace Arzly.Api.Controllers.v1.Communications
             _service = service;
             _logger = logger;
         }
-
+        
         [HttpGet]
         public async Task<ActionResult<List<ChatResponse>>> GetUserChats(
             [FromQuery] bool IsArchived =false,
@@ -42,7 +42,7 @@ namespace Arzly.Api.Controllers.v1.Communications
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ChatResponse>> GetByIdWithMessages(
             Guid id,
-            [FromQuery] int pageSize = 10,
+            [FromQuery] int pageSize = 20,
             [FromQuery] int currentPage = 0)
         {
             _logger.LogInformation("{Controller}.GetByIdWithMessages({Id}) - Before",
@@ -52,6 +52,19 @@ namespace Arzly.Api.Controllers.v1.Communications
 
             _logger.LogInformation("{Controller}.GetByIdWithMessages({Id}) - After",
                 GetType().Name, id);
+            return Ok(result);
+        }
+
+        [HttpGet("[action]/{listingId:guid}")]
+        public async Task<ActionResult<ChatResponse>> GetByListingId(Guid listingId)
+        {
+            _logger.LogInformation("{Controller}.GetByListingId({ListingId}) - Before",
+                GetType().Name, listingId);
+
+            var result = await _service.GetByListingIdWithMessagesAsync(listingId);
+
+            _logger.LogInformation("{Controller}.GetByListingId({ListingId}) - After",
+                GetType().Name, listingId);
             return Ok(result);
         }
 

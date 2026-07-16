@@ -4,6 +4,7 @@ using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arzly.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260716104612_added_litlingTitle_personName_chat")]
+    partial class added_litlingTitle_personName_chat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,7 +84,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasIndex("ReceiverId");
 
-                    b.ToTable("Chats", (string)null);
+                    b.ToTable("Chats");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Communications.ChatMessage", b =>
@@ -131,7 +134,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasIndex("SentAt");
 
-                    b.ToTable("ChatMessages", (string)null);
+                    b.ToTable("ChatMessages");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Listings.Category", b =>
@@ -161,7 +164,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -383,7 +386,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasIndex("Status");
 
-                    b.ToTable("JobListings", (string)null);
+                    b.ToTable("JobListings");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Listings.Listing", b =>
@@ -481,7 +484,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasIndex("SubcategoryId");
 
-                    b.ToTable("Listings", (string)null);
+                    b.ToTable("Listings");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Listings.PickupLocation", b =>
@@ -527,7 +530,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PickupLocations", (string)null);
+                    b.ToTable("PickupLocations");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Listings.SavedListing", b =>
@@ -555,7 +558,7 @@ namespace Arzly.Api.Migrations
                     b.HasIndex("UserId", "ListingId")
                         .IsUnique();
 
-                    b.ToTable("SavedListings", (string)null);
+                    b.ToTable("SavedListings");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Listings.SubCategory", b =>
@@ -586,7 +589,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("SubCategories", (string)null);
+                    b.ToTable("SubCategories");
 
                     b.HasData(
                         new
@@ -1330,7 +1333,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tickets", (string)null);
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Support.TicketAttachment", b =>
@@ -1372,7 +1375,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasIndex("UploaderId");
 
-                    b.ToTable("TicketAttachments", (string)null);
+                    b.ToTable("TicketAttachments");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Support.TicketMessage", b =>
@@ -1411,7 +1414,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasIndex("TicketId");
 
-                    b.ToTable("TicketMessages", (string)null);
+                    b.ToTable("TicketMessages");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Users.SearchQuery", b =>
@@ -1437,7 +1440,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("SearchQueries", (string)null);
+                    b.ToTable("SearchQueries");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Users.UserActivityLog", b =>
@@ -1492,7 +1495,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasIndex("Timestamp");
 
-                    b.ToTable("UserActivityLogs", (string)null);
+                    b.ToTable("UserActivityLogs");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Users.UserPreference", b =>
@@ -1517,7 +1520,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("UserPreferences", (string)null);
+                    b.ToTable("UserPreferences");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Users.UserProfile", b =>
@@ -1574,7 +1577,7 @@ namespace Arzly.Api.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("UserProfiles", (string)null);
+                    b.ToTable("UserProfiles");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Users.UserReport", b =>
@@ -1623,7 +1626,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasIndex("ReporterId");
 
-                    b.ToTable("UserReports", (string)null);
+                    b.ToTable("UserReports");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.BabyChildDetails", b =>
@@ -1651,7 +1654,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasKey("ListingId");
 
-                    b.ToTable("BabyChildDetails", (string)null);
+                    b.ToTable("BabyChildDetails");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.ElectronicsDetails", b =>
@@ -1739,7 +1742,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasKey("ListingId");
 
-                    b.ToTable("ElectronicsDetails", (string)null);
+                    b.ToTable("ElectronicsDetails");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.FashionDetails", b =>
@@ -1776,7 +1779,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasKey("ListingId");
 
-                    b.ToTable("FashionDetails", (string)null);
+                    b.ToTable("FashionDetails");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.FurnitureDetails", b =>
@@ -1810,7 +1813,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasKey("ListingId");
 
-                    b.ToTable("FurnitureDetails", (string)null);
+                    b.ToTable("FurnitureDetails");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.HobbiesDetails", b =>
@@ -1841,7 +1844,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasKey("ListingId");
 
-                    b.ToTable("HobbiesDetails", (string)null);
+                    b.ToTable("HobbiesDetails");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.PetsDetails", b =>
@@ -1893,7 +1896,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasKey("ListingId");
 
-                    b.ToTable("PetsDetails", (string)null);
+                    b.ToTable("PetsDetails");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.PhonesDetails", b =>
@@ -1939,7 +1942,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasKey("ListingId");
 
-                    b.ToTable("PhonesDetails", (string)null);
+                    b.ToTable("PhonesDetails");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.RealEstateDetails", b =>
@@ -2009,7 +2012,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasKey("ListingId");
 
-                    b.ToTable("RealEstateDetails", (string)null);
+                    b.ToTable("RealEstateDetails");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.ServicesDetails", b =>
@@ -2040,7 +2043,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasKey("ListingId");
 
-                    b.ToTable("ServicesDetails", (string)null);
+                    b.ToTable("ServicesDetails");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.SportsDetails", b =>
@@ -2086,7 +2089,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasKey("ListingId");
 
-                    b.ToTable("SportsDetails", (string)null);
+                    b.ToTable("SportsDetails");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.ListingOwned.VehiclesDetails", b =>
@@ -2183,7 +2186,7 @@ namespace Arzly.Api.Migrations
 
                     b.HasKey("ListingId");
 
-                    b.ToTable("VehiclesDetails", (string)null);
+                    b.ToTable("VehiclesDetails");
                 });
 
             modelBuilder.Entity("Arzly.Api.Infrastructure.Identity.ApplicationRole", b =>

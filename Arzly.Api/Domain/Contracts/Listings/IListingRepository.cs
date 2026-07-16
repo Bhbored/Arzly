@@ -26,5 +26,6 @@ namespace Arzly.Api.Domain.Contracts.Listings
             //admin
             Task<List<Listing>> GetAllListingAdmin(int pageSize, int currentPage);
         Task<Listing> UpdateAdmin(Listing entity);
+        Task<string?> GetTitleByIdAsync(Guid listingId);
     }
 }

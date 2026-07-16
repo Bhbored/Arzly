@@ -27,5 +27,6 @@ namespace Arzly.Api.Application.Contracts.Listings
 
         Task<List<ListingResponse>> GetAllListingAdmin(int pageSize, int currentPage);//id later with identity logic
         Task<ListingResponse?> UpdateAsyncAdmin(ListingUpdateRequest? updateDto);
+        Task<string?> GetTitleByIdAsync(Guid listingId);
     }
 }

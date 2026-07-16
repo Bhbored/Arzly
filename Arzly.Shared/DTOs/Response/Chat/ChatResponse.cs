@@ -15,6 +15,8 @@ namespace Arzly.Shared.DTOs.Response.Chat
         public Guid ReceiverId { get; set; }
         public Guid? ListingId { get; set; }
         public Guid? JobListingId { get; set; }
+        public string? ListingTitle { get; set; }
+        public string PersonName { get; set; } = string.Empty;
         public List<ChatMessageResponse>? Messages { get; set; }
     }
 }

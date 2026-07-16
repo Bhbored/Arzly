@@ -139,6 +139,12 @@ namespace Arzly.Api.Application.Services.Listings
             return MapToDto(updatedEntity);
         }
 
+        public async Task<string?> GetTitleByIdAsync(Guid listingId)
+        {
+            if (listingId == Guid.Empty) return null;
+            return await _listingRepo.GetTitleByIdAsync(listingId);
+        }
+
         #endregion
 
 

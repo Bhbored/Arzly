@@ -15,6 +15,9 @@ namespace Arzly.Api.Infrastructure.Data.Configurations.Communications
             entity.HasIndex(c => c.LastActivity);
             entity.HasIndex(c => c.IsArchived);
 
+            entity.Property(c => c.ListingTitle).HasMaxLength(200);
+            entity.Property(c => c.PersonName).HasMaxLength(200).IsRequired();
+
             entity.HasOne(c => c.Initiator)
                  .WithMany(u => u.ChatsInitiated)
                  .HasForeignKey(c => c.InitiatorId)

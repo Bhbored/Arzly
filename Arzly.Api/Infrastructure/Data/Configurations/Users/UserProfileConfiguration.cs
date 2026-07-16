@@ -9,6 +9,8 @@ namespace Arzly.Api.Infrastructure.Data.Configurations.Users
 
         public void Configure(EntityTypeBuilder<UserProfile> entity)
         {
+            entity.HasQueryFilter(p => p.User != null && !p.User.IsDeleted);
+
             entity.HasIndex(u => u.UserId).IsUnique();
             entity.HasIndex(u => u.IsStore);
             entity.HasIndex(u => u.IsVerified);

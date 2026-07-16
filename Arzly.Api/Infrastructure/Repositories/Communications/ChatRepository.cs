@@ -53,6 +53,16 @@ namespace Arzly.Api.Infrastructure.Repositories.Communications
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
+        public async Task<Chat?> GetByListingIdWithMessagesAsync(Guid listingId)
+        {
+            _logger.LogInformation("{Repo}.GetByListingIdWithMessagesAsync({ListingId})", GetType().Name, listingId);
+
+            return await _db.Chats
+                .Include(c => c.Messages!
+                    .OrderBy(m => m.SentAt))
+                .FirstOrDefaultAsync(c => c.ListingId == listingId);
+        }
+
         public async Task<Chat> CreateAsync(Chat entity)
         {
             _logger.LogInformation("{Repo}.CreateAsync", GetType().Name);
