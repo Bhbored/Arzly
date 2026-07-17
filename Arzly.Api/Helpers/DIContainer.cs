@@ -50,6 +50,8 @@ namespace Arzly.Api.Helpers
     public static class DIContainer
     {
 
+
+
         public static IServiceCollection RegisterGoogleAuthClient(this IServiceCollection services,IConfiguration configuration)
         {
             services.AddAuthentication().AddGoogleOpenIdConnect(googleOptions =>

@@ -47,7 +47,7 @@ namespace Arzly.Api.Infrastructure.Repositories.Communications
 
             return await _db.Chats
                 .Include(c => c.Messages!
-                    .OrderBy(m => m.SentAt)
+                    .OrderByDescending(m => m.SentAt)
                     .Skip(currentPage * pageSize)
                     .Take(pageSize))
                 .FirstOrDefaultAsync(c => c.Id == id);

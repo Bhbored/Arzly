@@ -1,5 +1,6 @@
 using Arzly.Shared.DTOs.Request.Chat;
 using Arzly.Shared.DTOs.Response.Chat;
+using Arzly.Shared.DTOs.Response.ChatMessage;
 
 namespace Arzly.Api.Application.Contracts.Communications
 {
@@ -14,6 +15,7 @@ namespace Arzly.Api.Application.Contracts.Communications
         Task<ChatResponse> MarkDiscontinuedAsync(Guid id, Guid userId);
         Task DeleteAsync(Guid id);
         Task<ChatResponse> SendMessageAsync(Guid chatId, string text, Guid userId);
+        Task<ChatMessageResponse> SendMessageAndGetMessageAsync(Guid chatId, string text, Guid userId);
         Task MarkMessageAsReadAsync(Guid messageId, Guid userId);
     }
 }

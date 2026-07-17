@@ -1,4 +1,5 @@
 using Arzly.Api.Helpers;
+using Arzly.Api.Hubs;
 using Microsoft.OpenApi;
 using Serilog;
 
@@ -12,7 +13,7 @@ builder.Host.UseSerilog((HostBuilderContext context, IServiceProvider services, 
     .ReadFrom.Configuration(context.Configuration)
     .ReadFrom.Services(services);
 });
-
+builder.Services.AddSignalR();
 builder.Services.RegisterDependencies(builder.Configuration);
 
 
@@ -58,5 +59,5 @@ app.UseSwaggerUI(options =>
 });
 app.UseHttpLogging();
 app.MapControllers();
-
+app.MapHub<ChatHub>("/arzly/v1.0/hubs/chat");
 app.Run();

@@ -7,6 +7,7 @@ using Arzly.Api.Mappings;
 using Arzly.Shared.Constants;
 using Arzly.Shared.DTOs.Request.Chat;
 using Arzly.Shared.DTOs.Response.Chat;
+using Arzly.Shared.DTOs.Response.ChatMessage;
 
 namespace Arzly.Api.Application.Services.Communications
 {
@@ -251,6 +252,47 @@ namespace Arzly.Api.Application.Services.Communications
 
             _logger.LogInformation("{Service}.SendMessageAsync({ChatId}) - After", GetType().Name, chatId);
             return chat!.ToResponse();
+        }
+
+        public async Task<ChatMessageResponse> SendMessageAndGetMessageAsync(Guid chatId, string text, Guid userId)
+        {
+            _logger.LogInformation("{Service}.SendMessageAndGetMessageAsync({ChatId}) - Before", GetType().Name, chatId);
+
+            if (chatId == Guid.Empty)
+            {
+                _logger.LogError("{Service}.SendMessageAndGetMessageAsync - Empty chatId provided", GetType().Name);
+                throw new ArgumentNullException(ExceptionMessages.MissingId);
+            }
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                _logger.LogError("{Service}.SendMessageAndGetMessageAsync - Empty message text provided", GetType().Name);
+                throw new ArgumentNullException(ExceptionMessages.EmptyAddRequest);
+            }
+
+            var chat = await _repository.GetByIdWithMessagesAsync(chatId);
+            if (chat is null)
+            {
+                _logger.LogError("{Service}.SendMessageAndGetMessageAsync - No Chat found with id {ChatId}", GetType().Name, chatId);
+                throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {chatId}");
+            }
+
+            Guid receiverId = chat.InitiatorId == userId ? chat.ReceiverId : chat.InitiatorId;
+
+            var message = new ChatMessage
+            {
+                Id = Guid.NewGuid(),
+                ChatId = chatId,
+                SenderId = userId,
+                ReceiverId = receiverId,
+                Text = text,
+                SentAt = DateTime.UtcNow
+            };
+
+            await _repository.AddMessageAsync(message);
+
+            _logger.LogInformation("{Service}.SendMessageAndGetMessageAsync({ChatId}) - After", GetType().Name, chatId);
+            return message.ToMessageResponse();
         }
 
         public async Task MarkMessageAsReadAsync(Guid messageId, Guid userId)
