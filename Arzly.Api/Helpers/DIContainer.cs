@@ -50,15 +50,16 @@ namespace Arzly.Api.Helpers
     public static class DIContainer
     {
 
-
-
-        public static IServiceCollection RegisterGoogleAuthClient(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection RegisterGoogleAuthClient(this IServiceCollection services, IConfiguration configuration, IHostEnvironment? environment = null)
         {
-            services.AddAuthentication().AddGoogleOpenIdConnect(googleOptions =>
+            if (environment?.IsEnvironment("Test") != true)
             {
-                googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
-                googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-            });
+                services.AddAuthentication().AddGoogleOpenIdConnect(googleOptions =>
+                {
+                    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+                    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+                });
+            }
             return services;
         }
         public static IServiceCollection RegisterApiVersioning(this IServiceCollection services)
@@ -79,13 +80,16 @@ namespace Arzly.Api.Helpers
 
         public static IServiceCollection RegisterCors(this IServiceCollection services, IConfiguration configuration)
         {
+            var origins = configuration.GetSection("AllowedOrigins").Get<string[]>();
             services.AddCors(options =>
             {
                 options.AddPolicy("Blazor", policy =>
                 {
-                    policy.WithOrigins(configuration.GetSection("AllowedOrigins").Get<string[]>()
-                        ?? throw new ArgumentNullException("no origins added"));
-                    policy.AllowCredentials();
+                    if (origins is not null)
+                    {
+                        policy.WithOrigins(origins);
+                        policy.AllowCredentials();
+                    }
                     policy.AllowAnyHeader();
                     policy.AllowAnyMethod();
                 });
@@ -178,13 +182,16 @@ namespace Arzly.Api.Helpers
 
         }
 
-        public static IServiceCollection RegisterDataBase(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection RegisterDataBase(this IServiceCollection services, IConfiguration configuration, IHostEnvironment? environment = null)
         {
-            services.AddDbContext<AppDbContext>(options =>
+            if (environment?.IsEnvironment("Test") != true)
             {
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-            });
-            services.AddScoped<DbContext>(sp => sp.GetRequiredService<AppDbContext>());
+                services.AddDbContext<AppDbContext>(options =>
+                {
+                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                });
+                services.AddScoped<DbContext>(sp => sp.GetRequiredService<AppDbContext>());
+            }
             return services;
         }
 
@@ -258,15 +265,15 @@ namespace Arzly.Api.Helpers
             services.AddScoped<ImageUploader>();
             return services;
         }
-        public static IServiceCollection RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection RegisterDependencies(this IServiceCollection services, IConfiguration configuration, IHostEnvironment? environment = null)
         {
-            return services.RegisterGoogleAuthClient(configuration)
+            return services.RegisterGoogleAuthClient(configuration, environment)
                 .RegisterCors(configuration)
                             .RegisterApiVersioning()
                             .RegisterIdentity()
                             .RegisterJwtToken(configuration)
                             .RegisterControllers()
-                            .RegisterDataBase(configuration)
+                            .RegisterDataBase(configuration, environment)
                             .RegisterHttpLogging()
                             .RegisterJsonOptions()
                             .RegisterStorageServices()

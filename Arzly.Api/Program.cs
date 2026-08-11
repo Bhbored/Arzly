@@ -14,7 +14,7 @@ builder.Host.UseSerilog((HostBuilderContext context, IServiceProvider services, 
     .ReadFrom.Services(services);
 });
 builder.Services.AddSignalR();
-builder.Services.RegisterDependencies(builder.Configuration);
+builder.Services.RegisterDependencies(builder.Configuration, builder.Environment);
 
 
 builder.Services.AddEndpointsApiExplorer();
