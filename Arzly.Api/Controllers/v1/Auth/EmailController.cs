@@ -30,7 +30,7 @@ namespace Arzly.Api.Controllers.v1.Auth
             if (userId == Guid.Empty)
                 return Unauthorized();
 
-            await _emailService.SendEmailVerificationAsync(userId.ToString());
+            await _emailService.SendEmailVerificationAsync(userId.ToString(), HttpContext.RequestAborted);
             return Ok(new { message = "Verification code sent to your email." });
         }
 
@@ -42,7 +42,8 @@ namespace Arzly.Api.Controllers.v1.Auth
             if (userId == Guid.Empty)
                 return Unauthorized();
 
-            var result = await _emailService.ConfirmEmailWithCodeAsync(userId.ToString(), request.Code);
+            var result = await _emailService.ConfirmEmailWithCodeAsync(
+                userId.ToString(), request.Code, HttpContext.RequestAborted);
             if (!result.Succeeded)
                 return BadRequest(result.Errors);
 
@@ -53,7 +54,7 @@ namespace Arzly.Api.Controllers.v1.Auth
         [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
         {
-            await _emailService.SendPasswordResetAsync(request.Email);
+            await _emailService.SendPasswordResetAsync(request.Email, HttpContext.RequestAborted);
             return Ok(new { message = "If the email exists, a reset code has been sent." });
         }
 
@@ -61,7 +62,8 @@ namespace Arzly.Api.Controllers.v1.Auth
         [AllowAnonymous]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
         {
-            var result = await _emailService.ResetPasswordAsync(request.Email, request.Code, request.NewPassword);
+            var result = await _emailService.ResetPasswordAsync(
+                request.Email, request.Code, request.NewPassword, HttpContext.RequestAborted);
             if (!result.Succeeded)
                 return BadRequest(result.Errors);
 

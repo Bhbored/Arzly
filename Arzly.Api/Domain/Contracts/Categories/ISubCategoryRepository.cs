@@ -6,5 +6,7 @@ namespace Arzly.Api.Domain.Contracts.Categories
     {
         Task<List<SubCategory>> GetByCategoryIdAsync(Guid categoryId);
         Task<SubCategory?> GetByTitleAsync(string title);
+        Task<bool> NameExistsAsync(Guid categoryId, string name, Guid? excludingId = null);
+        Task<bool> HasListingsAsync(Guid id);
     }
 }

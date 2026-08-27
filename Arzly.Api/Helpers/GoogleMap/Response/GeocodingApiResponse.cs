@@ -9,6 +9,6 @@ namespace Arzly.Api.Helpers.GoogleMap.Response
         public List<GeocodingResult> Results { get; set; } = new();
 
         [JsonPropertyName("status")]
-        public string Status { get; set; }
+        public string Status { get; set; } = null!;
     }
 }

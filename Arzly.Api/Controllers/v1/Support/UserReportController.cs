@@ -5,6 +5,8 @@ using Arzly.Shared.DTOs.Request.UserReport;
 using Arzly.Shared.DTOs.Response.UserReport;
 using Arzly.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Arzly.Api.Controllers.v1.Support
 {
@@ -22,6 +24,7 @@ namespace Arzly.Api.Controllers.v1.Support
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin,support")]
         public async Task<ActionResult<List<UserReportResponse>>> GetAll()
         {
             _logger.LogInformation("{Controller}.GetAll - Before",
@@ -40,7 +43,8 @@ namespace Arzly.Api.Controllers.v1.Support
             _logger.LogInformation("{Controller}.GetById({Id}) - Before",
                 GetType().Name, id);
 
-            var result = await _service.GetByIdAsync(id);
+            var canModerate = User.IsInRole("admin") || User.IsInRole("support");
+            var result = await _service.GetByIdAsync(id, User.GetUserId(), canModerate);
 
             _logger.LogInformation("{Controller}.GetById({Id}) - After",
                 GetType().Name, id);
@@ -48,6 +52,7 @@ namespace Arzly.Api.Controllers.v1.Support
         }
 
         [HttpPost("[action]")]
+        [EnableRateLimiting("reports")]
         public async Task<ActionResult<UserReportResponse>> Create([FromBody] UserReportAddRequest createDto)
         {
             _logger.LogInformation("{Controller}.Create - Before",
@@ -61,12 +66,13 @@ namespace Arzly.Api.Controllers.v1.Support
         }
 
         [HttpPut("[action]")]
+        [Authorize(Roles = "admin,support")]
         public async Task<ActionResult<UserReportResponse>> Update([FromBody] UserReportUpdateRequest updateDto)
         {
             _logger.LogInformation("{Controller}.Update({Id}) - Before",
                 GetType().Name, updateDto);
 
-            var result = await _service.UpdateAsync(updateDto, User.GetUserId());
+            var result = await _service.ResolveAsync(updateDto.Id, User.GetUserId(), updateDto.IsResolved);
 
             _logger.LogInformation("{Controller}.Update({Id}) - After",
                 GetType().Name, updateDto);
@@ -74,6 +80,7 @@ namespace Arzly.Api.Controllers.v1.Support
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Delete(Guid id)
         {
             _logger.LogInformation("{Controller}.Delete({Id}) - Before",

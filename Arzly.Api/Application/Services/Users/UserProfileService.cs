@@ -34,7 +34,11 @@ namespace Arzly.Api.Application.Services.Users
             if (updateDto == null)
                 throw new ArgumentNullException(ExceptionMessages.EmptyUpdateRequest);
 
+            if (updateDto.UserId != userId)
+                throw new UnauthorizedAccessException("A user can only update their own profile");
+
             var entity = updateDto.ToEntity();
+            entity.UserId = userId;
             var updatedEntity = await _repository.Update(entity);
             return updatedEntity.ToResponse();
         }

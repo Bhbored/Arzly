@@ -29,7 +29,7 @@ A classified advertisements platform built with **.NET 10**, **ASP.NET Core Web 
 Arzly.slnx
 ├── Arzly.Api/           ASP.NET Core Web API (http://localhost:5215)
 ├── Arzly.Shared/        Class library — DTOs, enums, constants, extensions
-└── integrationTESTS/    xUnit test project (stub)
+└── integrationTESTS/    xUnit integration tests with isolated test DI/auth
 ```
 
 ### Project Map
@@ -213,7 +213,7 @@ Key settings in `Arzly.Api/appsettings.json`:
     "DefaultConnection": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Arzly;..."
   },
   "AllowedOrigins": ["https://localhost:7251"],
-  "JwtSettings": {
+  "jwt": {
     "Issuer": "...",
     "Audience": "...",
     "EXPIRATION_MINUTES": 1,
@@ -232,16 +232,26 @@ Key settings in `Arzly.Api/appsettings.json`:
   "GoogleMaps": {
     "ApiKey": "..."
   },
-  "EmailSettings": {
-    "SmtpServer": "smtp.gmail.com",
-    "Port": 587,
-    "SenderEmail": "...",
+  "Email": {
+    "Host": "smtp.gmail.com",
+    "Port": "587",
+    "Username": "...",
     "Password": "..."
   }
 }
 ```
 
-> **⚠️ Security**: Development secrets are currently in `appsettings.Development.json`. Move sensitive values to environment variables, user secrets, or a secrets manager before deploying.
+Sensitive values are intentionally blank in committed settings. Supply database, JWT, OAuth, object-storage, maps, and SMTP credentials through environment variables, .NET user secrets, or a deployment secret store. Production startup requires at least one valid HTTP(S) entry in `AllowedOrigins`.
+
+Operational probes are exposed anonymously at `/health/live`, `/health/ready`, and `/health/dependencies`. Readiness includes database connectivity and validates required external-service configuration; the dependency endpoint isolates the external configuration result. Every response includes an `X-Correlation-ID` that is also attached to structured request and exception logs. Abuse-prone endpoints use configurable fixed-window limits under `RateLimits`.
+
+Image uploads allow only JPEG, PNG, and WebP files, validate their declared type, extension, and binary signature, enforce a 10 MB per-file limit, a 10-file batch limit, and a 50 MB combined batch limit.
+
+External calls are bounded and cancellation-aware. Google Maps uses a 10-second timeout and retries transient network, 408, 429, and 5xx failures up to three total attempts. Cloudflare R2 uses a 30-second timeout and rolls back objects already written when a batch upload partially fails. SMTP uses `Email:TimeoutMilliseconds` (15 seconds by default) and is not automatically retried because delivery may have succeeded before a timeout, which could duplicate security emails.
+
+Authenticated users can delete only R2 image URLs whose host, path, user prefix, GUID filename, and supported extension match an object owned by them through `DELETE /arzly/v1.0/Upload/uploaded-image`. Successful listing updates clean up images removed from the listing. Soft-deleted listing images remain available during the restoration window and are removed by the permanent purge process after retention expires.
+
+Expired soft-deleted listings can be previewed and permanently purged by administrators through `GET /arzly/v1.0/admin/ListingAdmin/purge-preview` and `POST /arzly/v1.0/admin/ListingAdmin/purge-expired`. Purges are capped at 100 listings per batch, cascade through configured dependent data, clean owned R2 images, and retain immutable `ListingPurged` audit entries. `Retention:SoftDeletedListingsDays` defaults to 30. The scheduled worker is disabled by default; enable `Retention:ScheduledPurgeEnabled` only after setting `Retention:SystemActorId` to a real retained user account used for auditable system actions.
 
 ---
 
@@ -270,9 +280,10 @@ dotnet test
 
 - **Phase 1** ✅ — Core classifieds functionality (categories, listings, auth, users)
 - **Phase 2** 🚧 — Chat, support tickets, notifications (tables exist, services in progress)
-- **Client** ❌ — No frontend exists yet (future Blazor or other SPA)
-- **Tests** ❌ — Test project is a stub with no actual tests
-- **CI/CD** ❌ — No workflows configured
+- **Mobile** 🚧 — A separate Flutter client exists at `../../mobile/arzly`
+- **Admin** ❌ — The planned React TypeScript dashboard at `../../front-admin` has not been scaffolded
+- **Tests** 🚧 — Category and subcategory integration tests exist; other endpoint groups still need coverage
+- **CI** 🚧 — A baseline GitHub Actions build/test workflow is configured; deployment is not
 
 ### Known Security Items
 

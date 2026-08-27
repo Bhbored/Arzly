@@ -1,13 +1,12 @@
 ﻿using Arzly.Api.Application.Contracts.Auth;
-using Arzly.Api.Infrastructure.Identity;
 using Arzly.Shared.DTOs.Request.Auth;
 using Arzly.Shared.DTOs.Response.Auth;
 using Arzly.Shared.Enums;
 using Arzly.Shared.Extensions;
 using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using System.Security.Claims;
 
 namespace Arzly.Api.Controllers.v1.Auth
@@ -15,20 +14,16 @@ namespace Arzly.Api.Controllers.v1.Auth
     public class AuthenticationController : CustomeControllerBase
     {
 
-        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IAuthService _authService;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        public AuthenticationController(UserManager<ApplicationUser> userManager, IAuthService authService,
-            SignInManager<ApplicationUser> signInManager)
+        public AuthenticationController(IAuthService authService)
         {
             _authService = authService;
-            _userManager = userManager;
-            _signInManager = signInManager;
         }
 
 
         [AllowAnonymous]
         [HttpPost("register")]
+        [EnableRateLimiting("auth")]
         public async Task<IActionResult> PostRegister(RegisterDTO registerDTO)
         {
             if (ModelState.IsValid == false)
@@ -53,6 +48,7 @@ namespace Arzly.Api.Controllers.v1.Auth
 
         [AllowAnonymous]
         [HttpPost("login")]
+        [EnableRateLimiting("auth")]
         public async Task<IActionResult> PostLogin(LoginDTO loginDTO)
         {
             if (ModelState.IsValid == false)
@@ -73,6 +69,7 @@ namespace Arzly.Api.Controllers.v1.Auth
 
         [AllowAnonymous]
         [HttpPost("google-auth")]
+        [EnableRateLimiting("auth")]
         public async Task<IActionResult> GoogleAuth([FromBody] GoogleAuthRequest request)
         {
             
@@ -84,13 +81,12 @@ namespace Arzly.Api.Controllers.v1.Auth
             return Ok(result.response);
         }
 
-       
 
-        [AllowAnonymous]
         [HttpGet("logout")]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            await _authService.LogoutAsync(User.GetUserId());
 
             return NoContent();
         }
@@ -98,6 +94,7 @@ namespace Arzly.Api.Controllers.v1.Auth
 
         [AllowAnonymous]
         [HttpPost("generate-new-jwt-token")]
+        [EnableRateLimiting("auth")]
         public async Task<IActionResult> GenerateNewAccessToken(TokenModel tokenModel)
         {
             if (tokenModel == null)
@@ -117,7 +114,7 @@ namespace Arzly.Api.Controllers.v1.Auth
         {
             var userid = User.GetUserId();
             var result = await _authService.ChangePassword(request, userid);
-            if (string.IsNullOrEmpty(result.error) || !result.isSuccess)
+            if (!result.isSuccess)
                 return Problem(statusCode: StatusCodes.Status401Unauthorized, detail: result.error);
             return Ok(new { message = "Password changed successfully." });
         }

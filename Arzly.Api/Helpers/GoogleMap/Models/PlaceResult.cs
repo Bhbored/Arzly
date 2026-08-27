@@ -2,9 +2,9 @@
 {
     public class PlaceResult
     {
-        public string PlaceId { get; set; }
-        public string MainText { get; set; }
-        public string SecondaryText { get; set; }
-        public string FullText { get; set; }
+        public string PlaceId { get; set; } = null!;
+        public string MainText { get; set; } = null!;
+        public string SecondaryText { get; set; } = null!;
+        public string FullText { get; set; } = null!;
     }
 }

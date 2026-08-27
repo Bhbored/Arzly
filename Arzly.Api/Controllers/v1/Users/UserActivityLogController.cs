@@ -52,7 +52,7 @@
 //        }
 
 //        [HttpPost("[action]")]
-//        [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(UserActivityLogController) })]
+
 //        public async Task<ActionResult<UserActivityLogResponse>> Create([FromBody] UserActivityLogAddRequest? request)
 //        {
 //            try

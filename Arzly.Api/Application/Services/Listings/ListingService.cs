@@ -2,16 +2,22 @@ using Arzly.Api.Application.Contracts.Listings;
 using Arzly.Api.Domain.Contracts.Categories;
 using Arzly.Api.Domain.Contracts.Listings;
 using Arzly.Api.Domain.Contracts.Locations;
+using Arzly.Api.Domain.Contracts.Users;
 using Arzly.Api.Domain.Entities.Listings;
+using Arzly.Api.Domain.Entities.Users;
 using Arzly.Api.Domain.ListingOwned;
 using Arzly.Api.Mappings;
 using Arzly.Shared.Constants;
 using Arzly.Shared.DTOs.Request.Listing;
 using Arzly.Shared.DTOs.Response.Listing;
 using Arzly.Shared.Enums;
+using Arzly.Shared.Enums.Listing;
+using Arzly.Shared.Enums.Activity;
+using Arzly.Shared.DTOs.Response.UserActivityLog;
 using Microsoft.AspNetCore.Http.HttpResults;
 using SerilogTimings;
 using System.Text.Json;
+using Arzly.Api.Infrastructure.Storage;
 
 namespace Arzly.Api.Application.Services.Listings
 {
@@ -24,11 +30,14 @@ namespace Arzly.Api.Application.Services.Listings
         private readonly JsonSerializerOptions _jsonOptions;
         private readonly IListingOwnedRepository _listingOwnedRepository;
         private readonly ILogger<ListingService> _logger;
+        private readonly IUserActivityLogRepository _activityLogRepository;
+        private readonly IImageUploader _imageUploader;
 
 
         public ListingService(IListingRepository repository, IPickupLocationRepository pickupLocationRepository
             , IListingOwnedRepository listingOwnedRepository, ILogger<ListingService> logger, ICategoryRepository categoryRepository,
-            ISubCategoryRepository subCategoryRepository, JsonSerializerOptions jsonOptions)
+            ISubCategoryRepository subCategoryRepository, JsonSerializerOptions jsonOptions,
+            IUserActivityLogRepository activityLogRepository, IImageUploader imageUploader)
             : base(repository)
         {
             _listingRepo = repository;
@@ -38,6 +47,8 @@ namespace Arzly.Api.Application.Services.Listings
             _categoryRepository = categoryRepository;
             _subCategoryRepository = subCategoryRepository;
             _jsonOptions = jsonOptions;
+            _activityLogRepository = activityLogRepository;
+            _imageUploader = imageUploader;
         }
 
 
@@ -138,6 +149,71 @@ namespace Arzly.Api.Application.Services.Listings
 
             return MapToDto(updatedEntity);
         }
+
+        public async Task<ListingResponse> GetByIdAdminAsync(Guid id)
+        {
+            if (id == Guid.Empty)
+                throw new ArgumentException(ExceptionMessages.MissingId);
+            var entity = await _listingRepo.GetByIdAdminAsync(id)
+                ?? throw new ArgumentException(ExceptionMessages.NoObjectWithId);
+            return await AssignOneLocation_Details_Page(entity, entity.ToResponse());
+        }
+
+        public async Task<ListingResponse> SetStatusAdminAsync(Guid id, ListingStatus status, Guid actorId, string actorRole)
+        {
+            if (status == ListingStatus.Deleted)
+                throw new ArgumentException("Use the delete operation for deleted listings");
+            var entity = await _listingRepo.SetStatusAdminAsync(id, status)
+                ?? throw new ArgumentException(ExceptionMessages.NoObjectWithId);
+            await AddModerationAudit(entity.Id, actorId, actorRole,
+                status == ListingStatus.Active ? ActivityActionType.ListingApproved : ActivityActionType.ListingUpdated,
+                $"Status changed to {status}");
+            return entity.ToResponse();
+        }
+
+        public async Task<ListingResponse> RejectAdminAsync(
+            Guid id, string reason, Guid actorId, string actorRole)
+        {
+            if (string.IsNullOrWhiteSpace(reason) || reason.Trim().Length > 1000)
+                throw new ArgumentException("A rejection reason between 1 and 1000 characters is required");
+            var entity = await _listingRepo.RejectAdminAsync(id, reason.Trim())
+                ?? throw new ArgumentException(ExceptionMessages.NoObjectWithId);
+            await AddModerationAudit(entity.Id, actorId, actorRole,
+                ActivityActionType.ListingRejected, reason.Trim());
+            return entity.ToResponse();
+        }
+
+        public async Task DeleteAdminAsync(Guid id, Guid actorId, string actorRole)
+        {
+            if (!await _listingRepo.DeleteAdminAsync(id))
+                throw new ArgumentException(ExceptionMessages.NoObjectWithId);
+            await AddModerationAudit(id, actorId, actorRole,
+                ActivityActionType.ListingModerationDeleted, "Listing deleted by moderation");
+        }
+
+        public async Task<ListingResponse> RestoreAdminAsync(Guid id, Guid actorId, string actorRole)
+        {
+            var entity = await _listingRepo.RestoreAdminAsync(id)
+                ?? throw new ArgumentException(ExceptionMessages.NoObjectWithId);
+            await AddModerationAudit(id, actorId, actorRole,
+                ActivityActionType.ListingRestored, "Listing restored to pending review");
+            return entity.ToResponse();
+        }
+
+        public async Task<List<UserActivityLogResponse>> GetModerationHistoryAsync(
+            Guid id, int pageSize, int currentPage) =>
+            (await _activityLogRepository.GetByTargetAsync(
+                ActivityTargetType.Listing, id.ToString(), Math.Clamp(pageSize, 1, 100), Math.Max(currentPage, 0)))
+            .Select(x => x.ToResponse()).ToList();
+
+        private Task AddModerationAudit(
+            Guid listingId, Guid actorId, string actorRole, ActivityActionType action, string details) =>
+            _activityLogRepository.AddAsync(new UserActivityLog
+            {
+                ActorId = actorId, ActorRole = actorRole, ActionType = action,
+                TargetType = ActivityTargetType.Listing, TargetId = listingId.ToString(),
+                Details = details, Timestamp = DateTime.UtcNow, IsSuccess = true
+            });
 
         public async Task<string?> GetTitleByIdAsync(Guid listingId)
         {
@@ -389,6 +465,9 @@ namespace Arzly.Api.Application.Services.Listings
                 throw new ArgumentNullException(ExceptionMessages.MissingPickUpLocation);
             }
 
+            if (requestLocation.UserId != userId)
+                throw new UnauthorizedAccessException("The pickup location does not belong to the current user");
+
 
             var entity = createDto.ToEntity();
             entity.Id = Guid.NewGuid();
@@ -431,6 +510,13 @@ namespace Arzly.Api.Application.Services.Listings
                 throw new ArgumentException(ExceptionMessages.NoAttachedDetails);
             }
 
+            var existingListing = await _listingRepo.GetByIdAsync(updateDto.Id);
+            if (existingListing is null)
+                throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {updateDto.Id}");
+
+            if (existingListing.OwnerId != userId)
+                throw new UnauthorizedAccessException("The listing does not belong to the current user");
+
             var requestLocation = await _pickupLocationRepository
                 .GetByIdAsync(updateDto.PickupLocationId);
 
@@ -441,8 +527,14 @@ namespace Arzly.Api.Application.Services.Listings
                 throw new ArgumentNullException(ExceptionMessages.MissingPickUpLocation);
             }
 
+            if (requestLocation.UserId != userId)
+                throw new UnauthorizedAccessException("The pickup location does not belong to the current user");
+
 
             var entity = updateDto.ToEntity();
+
+            var previousImageUrls = GetImageUrls(existingListing);
+            var retainedImageUrls = GetImageUrls(entity);
 
 
             await _listingRepo.Update(entity);
@@ -459,21 +551,34 @@ namespace Arzly.Api.Application.Services.Listings
                 await _listingRepo.UpdateListingDetails(details!, entity.Id);
             }
 
+            await DeleteRemovedImagesAsync(previousImageUrls.Except(retainedImageUrls), userId);
+
 
             return entity.ToResponse();
         }
 
         public async override Task<bool> DeleteAsync(Guid id)
         {
-            if (id == null)
-                throw new ArgumentNullException(ExceptionMessages.MissingId);
-
             if (id is Guid guid && guid == Guid.Empty)
             {
                 throw new ArgumentNullException(ExceptionMessages.MissingId);
             }
             var entity = await _listingRepo.GetByIdAsync(id);
             if (entity == null) return false;
+
+            return await _listingRepo.Delete(entity);
+        }
+
+        public async Task<bool> DeleteAsync(Guid id, Guid userId)
+        {
+            if (id == Guid.Empty)
+                throw new ArgumentNullException(ExceptionMessages.MissingId);
+
+            var entity = await _listingRepo.GetByIdAsync(id);
+            if (entity is null) return false;
+
+            if (entity.OwnerId != userId)
+                throw new UnauthorizedAccessException("The listing does not belong to the current user");
 
             return await _listingRepo.Delete(entity);
         }
@@ -490,6 +595,33 @@ namespace Arzly.Api.Application.Services.Listings
             createDto.ToEntity();
 
         protected override Listing MapToEntity(ListingUpdateRequest updateDto) => updateDto.ToEntity();
+
+        private static HashSet<string> GetImageUrls(Listing listing)
+        {
+            var urls = new HashSet<string>(StringComparer.Ordinal);
+            if (!string.IsNullOrWhiteSpace(listing.PrimaryImageUrl))
+                urls.Add(listing.PrimaryImageUrl);
+            if (listing.ImagesUrl is not null)
+                urls.UnionWith(listing.ImagesUrl.Where(url => !string.IsNullOrWhiteSpace(url)));
+            return urls;
+        }
+
+        private async Task DeleteRemovedImagesAsync(IEnumerable<string> urls, Guid ownerId)
+        {
+            foreach (var url in urls)
+            {
+                try
+                {
+                    await _imageUploader.DeleteFile(ownerId.ToString(), url);
+                }
+                catch (Exception exception)
+                {
+                    _logger.LogError(exception,
+                        "Listing update succeeded but removed image cleanup failed. ListingOwnerId: {OwnerId}",
+                        ownerId);
+                }
+            }
+        }
 
 
 

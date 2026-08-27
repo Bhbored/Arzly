@@ -26,6 +26,9 @@ namespace Arzly.Api.Domain.Entities.Listings
 
         public ListingStatus Status { get; set; } = ListingStatus.Pending;
 
+        [MaxLength(1000)]
+        public string? RejectionReason { get; set; }
+
         [Url(ErrorMessage = "Primary image URL must be a valid URL.")]
         [MaxLength(2048, ErrorMessage = "Primary image URL cannot exceed 2048 characters.")]
         public string? PrimaryImageUrl { get; set; }

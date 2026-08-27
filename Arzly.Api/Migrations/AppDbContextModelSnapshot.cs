@@ -136,6 +136,75 @@ namespace Arzly.Api.Migrations
                     b.ToTable("ChatMessages");
                 });
 
+            modelBuilder.Entity("Arzly.Api.Domain.Entities.Communications.Notification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ActionType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<Guid?>("ChatterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeepLink")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("ExpiresAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsBroadcast")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("ListingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Metadata")
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)");
+
+                    b.Property<DateTime?>("ReadAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Source")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChatterId");
+
+                    b.HasIndex("ExpiresAt");
+
+                    b.HasIndex("ListingId");
+
+                    b.HasIndex("UserId", "CreatedAt");
+
+                    b.HasIndex("UserId", "IsRead");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Listings.Category", b =>
                 {
                     b.Property<Guid>("Id")
@@ -162,6 +231,9 @@ namespace Arzly.Api.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Categories");
 
@@ -455,6 +527,10 @@ namespace Arzly.Api.Migrations
                     b.Property<int?>("PromotionType")
                         .HasColumnType("int");
 
+                    b.Property<string>("RejectionReason")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -586,7 +662,8 @@ namespace Arzly.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CategoryId", "Name")
+                        .IsUnique();
 
                     b.ToTable("SubCategories");
 
@@ -1577,6 +1654,24 @@ namespace Arzly.Api.Migrations
                         .IsUnique();
 
                     b.ToTable("UserProfiles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("00000000-0000-0000-0000-00000000000a"),
+                            Email = "bourhan-admin@gmail.com",
+                            FullName = "Arzly Admin",
+                            IsStore = false,
+                            IsVerified = false
+                        },
+                        new
+                        {
+                            UserId = new Guid("00000000-0000-0000-0000-00000000000b"),
+                            Email = "bourhan-support@gmail.com",
+                            FullName = "Arzly Support",
+                            IsStore = false,
+                            IsVerified = false
+                        });
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Users.UserReport", b =>
@@ -2219,21 +2314,21 @@ namespace Arzly.Api.Migrations
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000001"),
-                            ConcurrencyStamp = "d3f6835c-ab84-4f92-b19d-3622ba8c431c",
+                            ConcurrencyStamp = "5ba3ae6f-8015-4213-bd5c-482c6e684d66",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000002"),
-                            ConcurrencyStamp = "24a7d37d-3cde-4310-9bf8-62eae5368257",
+                            ConcurrencyStamp = "e485bfa3-254f-47ad-81de-225789f04724",
                             Name = "support",
                             NormalizedName = "SUPPORT"
                         },
                         new
                         {
                             Id = new Guid("00000000-0000-0000-0000-000000000003"),
-                            ConcurrencyStamp = "36887550-f3dd-4d71-a594-cfda2bc49de2",
+                            ConcurrencyStamp = "fe14f4dd-7cc7-4192-be64-003fe999513e",
                             Name = "user",
                             NormalizedName = "USER"
                         });
@@ -2341,6 +2436,48 @@ namespace Arzly.Api.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-00000000000a"),
+                            AccessFailedCount = 0,
+                            AuthMethod = 1,
+                            ConcurrencyStamp = "13bf12aa-1c6f-45c7-9a97-390992d8f06e",
+                            CreatedAt = new DateTime(2026, 8, 11, 13, 35, 53, 933, DateTimeKind.Utc).AddTicks(5696),
+                            Email = "bourhan-admin@gmail.com",
+                            EmailConfirmed = true,
+                            IsBanned = false,
+                            IsDeleted = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "BOURHAN-ADMIN@GMAIL.COM",
+                            NormalizedUserName = "BOURHAN-ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAN/OwCjwTSTKWuGvMdIbh4RP/Pb6CxIXOJ6pJOSbrRU9I9dy9UIHeWFB7N2G0yqow==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "ADMIN-SEED-STAMP",
+                            TwoFactorEnabled = false,
+                            UserName = "bourhan-admin@gmail.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-00000000000b"),
+                            AccessFailedCount = 0,
+                            AuthMethod = 1,
+                            ConcurrencyStamp = "d36dc50e-1d76-4990-ae5c-969308e1c7e6",
+                            CreatedAt = new DateTime(2026, 8, 11, 13, 35, 53, 933, DateTimeKind.Utc).AddTicks(5954),
+                            Email = "bourhan-support@gmail.com",
+                            EmailConfirmed = true,
+                            IsBanned = false,
+                            IsDeleted = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "BOURHAN-SUPPORT@GMAIL.COM",
+                            NormalizedUserName = "BOURHAN-SUPPORT@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJqqzmJDfcitN17c37+dIhknC8cUFSKBicxS7Wc/mfMugQZw3qJVIoRcLAcOtR0RNA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "SUPPORT-SEED-STAMP",
+                            TwoFactorEnabled = false,
+                            UserName = "bourhan-support@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -2425,6 +2562,18 @@ namespace Arzly.Api.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("00000000-0000-0000-0000-00000000000a"),
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000001")
+                        },
+                        new
+                        {
+                            UserId = new Guid("00000000-0000-0000-0000-00000000000b"),
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000002")
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -2504,6 +2653,30 @@ namespace Arzly.Api.Migrations
                     b.Navigation("Receiver");
 
                     b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("Arzly.Api.Domain.Entities.Communications.Notification", b =>
+                {
+                    b.HasOne("Arzly.Api.Infrastructure.Identity.ApplicationUser", "Chatter")
+                        .WithMany()
+                        .HasForeignKey("ChatterId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Arzly.Api.Domain.Entities.Listings.Listing", "Listing")
+                        .WithMany()
+                        .HasForeignKey("ListingId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Arzly.Api.Infrastructure.Identity.ApplicationUser", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Chatter");
+
+                    b.Navigation("Listing");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Arzly.Api.Domain.Entities.Listings.JobListing", b =>
@@ -2983,6 +3156,8 @@ namespace Arzly.Api.Migrations
                     b.Navigation("JobListings");
 
                     b.Navigation("Listings");
+
+                    b.Navigation("Notifications");
 
                     b.Navigation("Preferences");
 

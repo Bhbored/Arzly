@@ -46,8 +46,10 @@ namespace Arzly.Api.Application.Services.Auth
                 {
                     throw new ArgumentNullException("No User Found with this Email");
                 }
+                if (IsBanActive(user))
+                    return null;
                 var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
-                var authenticationResponse = _jwtService.CreateJwtToken(user, role);
+                var authenticationResponse = _jwtService.CreateJwtToken(user, role!);
                 user.RefreshToken = authenticationResponse.RefreshToken;
 
                 user.RefreshTokenExpirateDate = authenticationResponse.RefreshTokenExpirateDate;
@@ -175,7 +177,7 @@ namespace Arzly.Api.Application.Services.Auth
 
                 var userRole = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
 
-                var authenticationResponse = _jwtService.CreateJwtToken(user, userRole);
+                var authenticationResponse = _jwtService.CreateJwtToken(user, userRole!);
                 user.RefreshToken = authenticationResponse.RefreshToken;
 
                 user.RefreshTokenExpirateDate = authenticationResponse.RefreshTokenExpirateDate;
@@ -201,20 +203,24 @@ namespace Arzly.Api.Application.Services.Auth
         }
         public async Task<AuthenticationResponse?> GenerateRefreshToken(TokenModel tokenModel)
         {
-            ClaimsPrincipal? principal = _jwtService.GetPrincipleFromJwtToken(tokenModel.Token);
-            if (principal == null)
+            ClaimsPrincipal? principal;
+            try
             {
-                throw new ArgumentException("Invalid jwt access token");
+                principal = _jwtService.GetPrincipleFromJwtToken(tokenModel.Token);
             }
+            catch
+            {
+                return null;
+            }
+            if (principal == null)
+                return null;
 
             string? email = principal.FindFirstValue(ClaimTypes.Email);
 
-            ApplicationUser? user = await _userManager.FindByEmailAsync(email);
+            ApplicationUser? user = await _userManager.FindByEmailAsync(email!);
 
-            if (user == null || user.RefreshToken != tokenModel.RefreshToken || user.RefreshTokenExpirateDate <= DateTime.Now)
-            {
-                throw new ArgumentException("Invalid refresh token");
-            }
+            if (user == null || IsBanActive(user) || user.RefreshToken != tokenModel.RefreshToken || user.RefreshTokenExpirateDate <= DateTime.UtcNow)
+                return null;
             var userRole = (await _userManager.GetRolesAsync(user)).FirstOrDefault() ?? "user";
 
             AuthenticationResponse authenticationResponse = _jwtService.CreateJwtToken(user, userRole);
@@ -248,6 +254,20 @@ namespace Arzly.Api.Application.Services.Auth
             return (true, null);
 
         }
+
+        public async Task LogoutAsync(Guid userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user is null)
+                return;
+
+            user.RefreshToken = null;
+            user.RefreshTokenExpirateDate = null;
+            await _userManager.UpdateAsync(user);
+        }
+
+        private static bool IsBanActive(ApplicationUser user) =>
+            user.IsBanned && (user.BanExpiresAt is null || user.BanExpiresAt > DateTime.UtcNow);
 
         
     }

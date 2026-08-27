@@ -1,6 +1,7 @@
 ﻿using Arzly.Api.Domain.Entities.Listings;
 using Arzly.Shared.DTOs.Response.Listing;
 using Arzly.Shared.Enums;
+using Arzly.Shared.Enums.Listing;
 using System.Linq.Expressions;
 using System.Text.Json;
 
@@ -25,6 +26,11 @@ namespace Arzly.Api.Domain.Contracts.Listings
 
             //admin
             Task<List<Listing>> GetAllListingAdmin(int pageSize, int currentPage);
+            Task<Listing?> GetByIdAdminAsync(Guid id);
+            Task<Listing?> SetStatusAdminAsync(Guid id, ListingStatus status);
+            Task<Listing?> RejectAdminAsync(Guid id, string reason);
+            Task<bool> DeleteAdminAsync(Guid id);
+            Task<Listing?> RestoreAdminAsync(Guid id);
         Task<Listing> UpdateAdmin(Listing entity);
         Task<string?> GetTitleByIdAsync(Guid listingId);
     }

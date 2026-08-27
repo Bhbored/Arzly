@@ -9,6 +9,7 @@ namespace Arzly.Api.Infrastructure.Data.Configurations.Listings
     {
         public void Configure(EntityTypeBuilder<Category> entity)
         {
+            entity.HasIndex(x => x.Name).IsUnique();
             entity.HasMany(c => c.SubCategories)
                    .WithOne(s => s.Category)
                    .HasForeignKey(s => s.CategoryId)

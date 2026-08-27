@@ -35,7 +35,7 @@
 //        }
 
 //        [HttpPut("[action]/{userId}")]
-//        [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(UserPreferenceController) })]
+
 //        public async Task<ActionResult<UserPreferenceResponse?>> Update([FromBody] UserPreferenceUpdateRequest? request)
 //        {
 //            try

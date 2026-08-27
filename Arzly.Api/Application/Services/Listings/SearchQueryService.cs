@@ -2,7 +2,6 @@ using Arzly.Api.Application.Contracts.Listings;
 using Arzly.Api.Domain.Contracts.Listings;
 using Arzly.Api.Application.Contracts;
 using Arzly.Api.Domain.Contracts;
-using Arzly.Api.Domain.Contracts.Listings;
 using Arzly.Api.Domain.Entities.Listings;
 using Arzly.Api.Domain.Entities.Users;
 using Arzly.Api.Mappings;

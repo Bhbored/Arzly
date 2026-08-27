@@ -25,7 +25,7 @@ namespace Arzly.Api.Controllers.v1.Locations
             if (string.IsNullOrWhiteSpace(input))
                 return BadRequest(new { error = "Input is required." });
 
-            var results = await _googleMaps.AutocompleteAsync(input);
+            var results = await _googleMaps.AutocompleteAsync(input, HttpContext.RequestAborted);
             _logger.LogInformation("{Controller}.Autocomplete({Input}) - After", GetType().Name, input);
             return Ok(results);
         }
@@ -40,7 +40,7 @@ namespace Arzly.Api.Controllers.v1.Locations
             if (string.IsNullOrWhiteSpace(placeId))
                 return BadRequest(new { error = "Place ID is required." });
 
-            var result = await _googleMaps.GetPlaceDetailsAsync(placeId);
+            var result = await _googleMaps.GetPlaceDetailsAsync(placeId, HttpContext.RequestAborted);
             _logger.LogInformation("{Controller}.GetPlaceDetails({PlaceId}) - After", GetType().Name, placeId);
             return Ok(result);
         }
@@ -50,7 +50,7 @@ namespace Arzly.Api.Controllers.v1.Locations
         {
             _logger.LogInformation("{Controller}.ReverseGeocode({Lat}, {Lng}) - Before", GetType().Name, lat, lng);
 
-            var result = await _googleMaps.ReverseGeocodeAsync(lat, lng);
+            var result = await _googleMaps.ReverseGeocodeAsync(lat, lng, HttpContext.RequestAborted);
             _logger.LogInformation("{Controller}.ReverseGeocode({Lat}, {Lng}) - After", GetType().Name, lat, lng);
             return Ok(result);
         }

@@ -14,16 +14,16 @@ namespace Arzly.Api.Infrastructure.Repositories.Listings
             _dbSet = context;
         }
 
-        public async Task<SavedListing?> GetByIdAsync(Guid id)
+        public async Task<SavedListing?> GetByIdAsync(Guid id, Guid userId)
         {
             return await _dbSet.SavedListings
-                .FirstOrDefaultAsync(s => s.Id == id);
+                .FirstOrDefaultAsync(s => s.Id == id && s.UserId == userId);
         }
-        public async Task<SavedListing?> GetByListingIdAsync(Guid listingId)
+        public async Task<SavedListing?> GetByListingIdAsync(Guid listingId, Guid userId)
         {
             return await _dbSet.SavedListings
                .IgnoreQueryFilters()
-               .FirstOrDefaultAsync(s => s.ListingId == listingId);
+               .FirstOrDefaultAsync(s => s.ListingId == listingId && s.UserId == userId);
         }
 
         public async Task<SavedListing> CreateAsync(SavedListing entity)
@@ -42,10 +42,10 @@ namespace Arzly.Api.Infrastructure.Repositories.Listings
                 .ToListAsync();
         }
 
-        public async Task<bool> SoftDeleteAsync(Guid id)
+        public async Task<bool> SoftDeleteAsync(Guid id, Guid userId)
         {
             var entity = await _dbSet.SavedListings
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId);
             if (entity is null) return false;
 
             entity.DeletedAt = DateTime.UtcNow;
@@ -53,11 +53,11 @@ namespace Arzly.Api.Infrastructure.Repositories.Listings
             return true;
         }
 
-        public async Task<bool> UndeleteAsync(Guid id)
+        public async Task<bool> UndeleteAsync(Guid id, Guid userId)
         {
             var entity = await _dbSet.SavedListings
                 .IgnoreQueryFilters()
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId);
 
             if (entity is null) return false;
 

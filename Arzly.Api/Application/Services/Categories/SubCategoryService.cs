@@ -2,7 +2,6 @@ using Arzly.Api.Application.Contracts.Categories;
 using Arzly.Api.Domain.Contracts.Categories;
 using Arzly.Api.Application.Contracts;
 using Arzly.Api.Domain.Contracts;
-using Arzly.Api.Domain.Contracts.Categories;
 using Arzly.Api.Domain.Entities.Listings;
 using Arzly.Api.Mappings;
 using Arzly.Shared.Constants;
@@ -76,5 +75,41 @@ namespace Arzly.Api.Application.Services.Categories
         protected override SubCategoryResponse MapToDto(SubCategory entity) => entity.ToResponse();
         protected override SubCategory MapToEntity(SubCategoryAddRequest createDto) => createDto.ToEntity();
         protected override SubCategory MapToEntity(SubCategoryUpdateRequest updateDto) => updateDto.ToEntity();
+
+        public override async Task<SubCategoryResponse?> CreateAsync(SubCategoryAddRequest? createDto, Guid userId)
+        {
+            if (createDto is null) throw new ArgumentNullException(nameof(createDto));
+            if (await _categoryRepository.GetByIdAsync(createDto.CategoryId) is null)
+                throw new ArgumentException(ExceptionMessages.NoCategoryWithId);
+            var name = createDto.Name.Trim();
+            if (await _subCategoryRepository.NameExistsAsync(createDto.CategoryId, name))
+                throw new ArgumentException("A subcategory with this name already exists in the category");
+            var entity = createDto.ToEntity();
+            entity.Name = name;
+            await _subCategoryRepository.AddAsync(entity);
+            return entity.ToResponse();
+        }
+
+        public override async Task<SubCategoryResponse?> UpdateAsync(SubCategoryUpdateRequest? updateDto, Guid userId)
+        {
+            if (updateDto is null) throw new ArgumentNullException(nameof(updateDto));
+            if (await _categoryRepository.GetByIdAsync(updateDto.CategoryId) is null)
+                throw new ArgumentException(ExceptionMessages.NoCategoryWithId);
+            var name = updateDto.Name.Trim();
+            if (await _subCategoryRepository.NameExistsAsync(updateDto.CategoryId, name, updateDto.Id))
+                throw new ArgumentException("A subcategory with this name already exists in the category");
+            var entity = updateDto.ToEntity();
+            entity.Name = name;
+            return (await _subCategoryRepository.Update(entity)).ToResponse();
+        }
+
+        public override async Task<bool> DeleteAsync(Guid id)
+        {
+            if (await _subCategoryRepository.HasListingsAsync(id))
+                throw new ArgumentException("A subcategory with listings cannot be deleted");
+            var entity = await _subCategoryRepository.GetByIdAsync(id)
+                ?? throw new ArgumentException("Subcategory not found");
+            return await _subCategoryRepository.Delete(entity);
+        }
     }
 }

@@ -40,7 +40,7 @@ namespace Arzly.Api.Controllers.v1.Listings
             _logger.LogInformation("{Controller}.GetById({Id}) - Before",
                 GetType().Name, id);
 
-            var result = await _service.GetByIdAsync(id);
+            var result = await _service.GetByIdAsync(id, User.GetUserId());
 
             _logger.LogInformation("{Controller}.GetById({Id}) - After",
                 GetType().Name, id);
@@ -68,7 +68,7 @@ namespace Arzly.Api.Controllers.v1.Listings
             _logger.LogInformation("{Controller}.Delete({Id}) - Before",
                 GetType().Name, id);
 
-            await _service.DeleteAsync(id);
+            await _service.DeleteAsync(id, User.GetUserId());
 
             _logger.LogInformation("{Controller}.Delete({Id}) - After",
                 GetType().Name, id);

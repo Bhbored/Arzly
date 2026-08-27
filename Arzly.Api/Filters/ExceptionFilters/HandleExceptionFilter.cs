@@ -17,7 +17,7 @@ namespace Arzly.Api.Filters.ExceptionFilters
                 GetType().Name, nameof(OnExceptionAsync));
             var env = context.HttpContext.RequestServices.GetService<IHostEnvironment>();
 
-            _logger.LogError("Exception: {ExceptionType} - {Message}",
+            _logger.LogError(context.Exception, "Exception: {ExceptionType} - {Message}",
                 context.Exception.GetType().Name,
                 context.Exception.Message);
 
@@ -37,7 +37,8 @@ namespace Arzly.Api.Filters.ExceptionFilters
                 success = false,
                 message = env?.IsDevelopment() == true
                     ? context.Exception.Message
-                    : "An error occurred"
+                    : "An error occurred",
+                correlationId = context.HttpContext.TraceIdentifier
             };
 
             context.HttpContext.Response.ContentType = "application/json";

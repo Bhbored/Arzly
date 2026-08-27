@@ -5,12 +5,12 @@ namespace Arzly.Api.Helpers.GoogleMap.Models
     public class PlacePrediction
     {
         [JsonPropertyName("placeId")]
-        public string PlaceId { get; set; }
+        public string PlaceId { get; set; } = null!;
 
         [JsonPropertyName("text")]
-        public TextWithMatches Text { get; set; }
+        public TextWithMatches Text { get; set; } = null!;
 
         [JsonPropertyName("structuredFormat")]
-        public StructuredFormat StructuredFormat { get; set; }
+        public StructuredFormat StructuredFormat { get; set; } = null!;
     }
 }

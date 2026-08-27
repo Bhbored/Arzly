@@ -1,6 +1,5 @@
 using Arzly.Api.Domain.Contracts.Locations;
 using Arzly.Api.Domain.Contracts;
-using Arzly.Api.Domain.Contracts.Locations;
 using Arzly.Api.Domain.Entities.Listings;
 using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Microsoft.EntityFrameworkCore;

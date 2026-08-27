@@ -17,6 +17,7 @@ namespace Arzly.Api.Mappings
                 Price = entity.Price,
                 IsPriceNegotiable = entity.IsPriceNegotiable,
                 Status = entity.Status,
+                RejectionReason = entity.RejectionReason,
                 PrimaryImageUrl = entity.PrimaryImageUrl,
                 ImagesUrl = entity.ImagesUrl,
                 CreatedAt = entity.CreatedAt,

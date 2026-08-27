@@ -5,6 +5,7 @@ using Arzly.Api.Domain.Entities.Users;
 using Arzly.Api.Domain.ListingOwned;
 using Arzly.Api.Infrastructure.Data.SeedData;
 using Arzly.Api.Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -17,11 +18,6 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
-        public AppDbContext()
-        {
-
-        }
-
 
         #region phase 1 dbsets
 
@@ -36,7 +32,6 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
         public virtual DbSet<UserActivityLog> UserActivityLogs { get; set; }
         public virtual DbSet<UserPreference> UserPreferences { get; set; }
         public virtual DbSet<UserReport> UserReports { get; set; }
-        // Listing Owned Details
         public virtual DbSet<BabyChildDetails> BabyChildDetails { get; set; }
         public virtual DbSet<ElectronicsDetails> ElectronicsDetails { get; set; }
         public virtual DbSet<FashionDetails> FashionDetails { get; set; }
@@ -62,7 +57,6 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
 
         #endregion
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.ConfigureWarnings(warnings =>
@@ -71,6 +65,7 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                 warnings.Ignore(RelationalEventId.OptionalDependentWithAllNullPropertiesWarning);
             });
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -81,6 +76,10 @@ namespace Arzly.Api.Infrastructure.Data.DataBaseContext
                 new ApplicationRole { Id = Guid.Parse("00000000-0000-0000-0000-000000000002"), Name = "support", NormalizedName = "SUPPORT" },
                 new ApplicationRole { Id = Guid.Parse("00000000-0000-0000-0000-000000000003"), Name = "user", NormalizedName = "USER" }
             );
+
+            foreach (var item in UserSeed.Users) modelBuilder.Entity<ApplicationUser>().HasData(item);
+            foreach (var item in UserSeed.UserRoles) modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(item);
+            foreach (var item in UserSeed.Profiles) modelBuilder.Entity<UserProfile>().HasData(item);
 
             foreach (var item in CategorySeed.Data) modelBuilder.Entity<Category>().HasData(item);
             foreach (var item in SubCategorySeed.Data) modelBuilder.Entity<SubCategory>().HasData(item);

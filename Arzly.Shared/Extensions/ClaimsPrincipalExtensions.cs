@@ -10,7 +10,7 @@ namespace Arzly.Shared.Extensions
         public static Guid GetUserId(this ClaimsPrincipal principal)
         {
             string? id = principal.FindFirstValue(ClaimTypes.NameIdentifier);
-            return Guid.Parse(id);
+            return Guid.Parse(id!);
         }
     }
 }

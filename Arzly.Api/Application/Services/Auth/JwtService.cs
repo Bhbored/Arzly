@@ -20,18 +20,18 @@ namespace Arzly.Api.Application.Services.Auth
 
         public AuthenticationResponse CreateJwtToken(ApplicationUser user,string role)
         {
-            DateTime expiration = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["Jwt:EXPIRATION_MINUTES"]));
+            DateTime expiration = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["Jwt:EXPIRATION_MINUTES"]));
 
             Claim[] claims = new Claim[] {
      new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
      new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-     new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString()),
+     new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()),
      new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-     new Claim(ClaimTypes.Email, user.Email),
+     new Claim(ClaimTypes.Email, user.Email!),
      new Claim(ClaimTypes.Role, role)
      };
 
-            SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
 
             SigningCredentials signingCredentials = new(securityKey, SecurityAlgorithms.HmacSha256);
 
@@ -54,7 +54,7 @@ namespace Arzly.Api.Application.Services.Auth
                 FirebaseId = user.FirebaseUid,
                 Expiration = expiration,
                 RefreshToken = GenerateRefreshToken(),
-                RefreshTokenExpirateDate = DateTime.Now.AddDays(Convert.ToInt32(_configuration["RefreshToken:EXPIRATION_DAYS"]))
+                RefreshTokenExpirateDate = DateTime.UtcNow.AddDays(Convert.ToInt32(_configuration["RefreshToken:EXPIRATION_DAYS"]))
             };
         }
 
@@ -76,7 +76,7 @@ namespace Arzly.Api.Application.Services.Auth
                 ValidateIssuer = true,
                 ValidIssuer = _configuration["jwt:Issuer"],
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["jwt:Key"])),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["jwt:Key"]!)),
                 ValidateLifetime = false
             };
             JwtSecurityTokenHandler jwtSecurityTokenHandler = new();

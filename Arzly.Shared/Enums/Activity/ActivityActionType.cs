@@ -50,6 +50,14 @@ namespace Arzly.Shared.Enums.Activity
         UserBanned,
         UserUnbanned,
         ListingFlagged,
-        ListingUnflagged
+        ListingUnflagged,
+        ListingApproved,
+        ListingRejected,
+        ListingRestored,
+        ListingModerationDeleted,
+        ListingPurged,
+        UserRoleChanged,
+        NotificationTargeted,
+        NotificationBroadcast
     }
 }

@@ -4,6 +4,7 @@ using Arzly.Shared.DTOs.Request.Chat;
 using Arzly.Shared.DTOs.Response.Chat;
 using Arzly.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Arzly.Api.Controllers.v1.Communications
 {
@@ -48,7 +49,7 @@ namespace Arzly.Api.Controllers.v1.Communications
             _logger.LogInformation("{Controller}.GetByIdWithMessages({Id}) - Before",
                 GetType().Name, id);
 
-            var result = await _service.GetByIdWithMessagesAsync(id, pageSize, currentPage);
+            var result = await _service.GetByIdWithMessagesAsync(id, User.GetUserId(), pageSize, currentPage);
 
             _logger.LogInformation("{Controller}.GetByIdWithMessages({Id}) - After",
                 GetType().Name, id);
@@ -61,7 +62,7 @@ namespace Arzly.Api.Controllers.v1.Communications
             _logger.LogInformation("{Controller}.GetByListingId({ListingId}) - Before",
                 GetType().Name, listingId);
 
-            var result = await _service.GetByListingIdWithMessagesAsync(listingId);
+            var result = await _service.GetByListingIdWithMessagesAsync(listingId, User.GetUserId());
             if (result is null)
                 return NotFound();
 
@@ -71,6 +72,7 @@ namespace Arzly.Api.Controllers.v1.Communications
         }
 
         [HttpPost("[action]")]
+        [EnableRateLimiting("messaging")]
         public async Task<ActionResult<ChatResponse>> StartNewChat([FromBody] ChatAddRequest createDto)
         {
             _logger.LogInformation("{Controller}.StartNewChat - Before",
@@ -115,7 +117,7 @@ namespace Arzly.Api.Controllers.v1.Communications
             _logger.LogInformation("{Controller}.Delete({Id}) - Before",
                 GetType().Name, id);
 
-            await _service.DeleteAsync(id);
+            await _service.DeleteAsync(id, User.GetUserId());
 
             _logger.LogInformation("{Controller}.Delete({Id}) - After",
                 GetType().Name, id);
@@ -123,6 +125,7 @@ namespace Arzly.Api.Controllers.v1.Communications
         }
 
         [HttpPost("[action]")]
+        [EnableRateLimiting("messaging")]
         public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest sendDto)
         {
             _logger.LogInformation("{Controller}.SendMessage - Before",

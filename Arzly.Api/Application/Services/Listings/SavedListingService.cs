@@ -41,7 +41,7 @@ namespace Arzly.Api.Application.Services.Listings
             return result;
         }
 
-        public async Task<SavedListingResponse?> GetByIdAsync(Guid id)
+        public async Task<SavedListingResponse?> GetByIdAsync(Guid id, Guid userId)
         {
             _logger.LogInformation("{Service}.GetByIdAsync({Id}) - Before", GetType().Name, id);
 
@@ -51,11 +51,11 @@ namespace Arzly.Api.Application.Services.Listings
                 throw new ArgumentNullException(ExceptionMessages.MissingId);
             }
 
-            var entity = await _repository.GetByIdAsync(id);
+            var entity = await _repository.GetByIdAsync(id, userId);
             if (entity is null)
             {
                 _logger.LogError("{Service}.GetByIdAsync - No SavedListing found with id {Id}", GetType().Name, id);
-                throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {id}");
+                throw new UnauthorizedAccessException("The saved listing does not belong to the current user");
             }
 
             _logger.LogInformation("{Service}.GetByIdAsync({Id}) - After", GetType().Name, id);
@@ -78,10 +78,12 @@ namespace Arzly.Api.Application.Services.Listings
                 throw new ArgumentNullException(ExceptionMessages.MissingId);
             }
 
-            var oldentity = await _repository.GetByListingIdAsync(createDto.ListingId);
+            await _listingService.GetByIdAsync(createDto.ListingId);
+
+            var oldentity = await _repository.GetByListingIdAsync(createDto.ListingId, userId);
             if (oldentity != null)
             {
-                await _repository.UndeleteAsync(oldentity.Id);
+                await _repository.UndeleteAsync(oldentity.Id, userId);
                 oldentity.DeletedAt = null;
                 return oldentity.ToResponse();
             }
@@ -100,7 +102,7 @@ namespace Arzly.Api.Application.Services.Listings
 
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id, Guid userId)
         {
             _logger.LogInformation("{Service}.DeleteAsync({Id}) - Before", GetType().Name, id);
 
@@ -110,17 +112,17 @@ namespace Arzly.Api.Application.Services.Listings
                 throw new ArgumentNullException(ExceptionMessages.MissingId);
             }
 
-            var deleted = await _repository.SoftDeleteAsync(id);
+            var deleted = await _repository.SoftDeleteAsync(id, userId);
             if (!deleted)
             {
                 _logger.LogError("{Service}.DeleteAsync - No SavedListing found with id {Id}", GetType().Name, id);
-                throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {id}");
+                throw new UnauthorizedAccessException("The saved listing does not belong to the current user");
             }
 
             _logger.LogInformation("{Service}.DeleteAsync({Id}) - After", GetType().Name, id);
         }
 
-        public async Task UndeleteAsync(Guid id)
+        public async Task UndeleteAsync(Guid id, Guid userId)
         {
             _logger.LogInformation("{Service}.UndeleteAsync({Id}) - Before", GetType().Name, id);
 
@@ -130,11 +132,11 @@ namespace Arzly.Api.Application.Services.Listings
                 throw new ArgumentNullException(ExceptionMessages.MissingId);
             }
 
-            var restored = await _repository.UndeleteAsync(id);
+            var restored = await _repository.UndeleteAsync(id, userId);
             if (!restored)
             {
                 _logger.LogError("{Service}.UndeleteAsync - No SavedListing found with id {Id}", GetType().Name, id);
-                throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {id}");
+                throw new UnauthorizedAccessException("The saved listing does not belong to the current user");
             }
 
             _logger.LogInformation("{Service}.UndeleteAsync({Id}) - After", GetType().Name, id);

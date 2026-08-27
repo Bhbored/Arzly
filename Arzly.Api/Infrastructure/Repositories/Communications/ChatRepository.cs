@@ -20,7 +20,7 @@ namespace Arzly.Api.Infrastructure.Repositories.Communications
         {
             _logger.LogInformation("{Repo}.GetUserChatsAsync({UserId})", GetType().Name, userId);
 
-            return await _db.Chats
+            return await VisibleChats()
                 .AsNoTracking()
                 .Where(c => (c.InitiatorId == userId || c.ReceiverId == userId)
                     && c.IsArchived == isArchived
@@ -35,7 +35,7 @@ namespace Arzly.Api.Infrastructure.Repositories.Communications
         {
             _logger.LogInformation("{Repo}.GetByIdWithMessagesAsync({Id})", GetType().Name, id);
 
-            return await _db.Chats
+            return await VisibleChats()
                 .Include(c => c.Messages!
                     .OrderBy(m => m.SentAt))
                 .FirstOrDefaultAsync(c => c.Id == id);
@@ -45,7 +45,7 @@ namespace Arzly.Api.Infrastructure.Repositories.Communications
         {
             _logger.LogInformation("{Repo}.GetByIdWithMessagesAsync({Id}, pageSize: {PageSize}, currentPage: {CurrentPage})", GetType().Name, id, pageSize, currentPage);
 
-            return await _db.Chats
+            return await VisibleChats()
                 .Include(c => c.Messages!
                     .OrderByDescending(m => m.SentAt)
                     .Skip(currentPage * pageSize)
@@ -53,14 +53,15 @@ namespace Arzly.Api.Infrastructure.Repositories.Communications
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<Chat?> GetByListingIdWithMessagesAsync(Guid listingId)
+        public async Task<Chat?> GetByListingIdWithMessagesAsync(Guid listingId, Guid userId)
         {
             _logger.LogInformation("{Repo}.GetByListingIdWithMessagesAsync({ListingId})", GetType().Name, listingId);
 
-            return await _db.Chats
+            return await VisibleChats()
                 .Include(c => c.Messages!
                     .OrderBy(m => m.SentAt))
-                .FirstOrDefaultAsync(c => c.ListingId == listingId);
+                .FirstOrDefaultAsync(c => c.ListingId == listingId &&
+                    (c.InitiatorId == userId || c.ReceiverId == userId));
         }
 
         public async Task<Chat> CreateAsync(Chat entity)
@@ -71,6 +72,10 @@ namespace Arzly.Api.Infrastructure.Repositories.Communications
             await _db.SaveChangesAsync();
             return entity;
         }
+
+        private IQueryable<Chat> VisibleChats() => _db.Chats.Where(c =>
+            (c.ListingId == null || _db.Listings.Any(l => l.Id == c.ListingId)) &&
+            (c.JobListingId == null || _db.JobListings.Any(j => j.Id == c.JobListingId)));
 
         public async Task<Chat> UpdateAsync(Chat entity)
         {

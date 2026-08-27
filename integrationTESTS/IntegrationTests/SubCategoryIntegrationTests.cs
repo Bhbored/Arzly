@@ -13,6 +13,7 @@ public class SubCategoryIntegrationTests : IClassFixture<CustomWebApplicationFac
 
     private readonly CustomWebApplicationFactory _factory;
     private readonly HttpClient _client;
+    private readonly HttpClient _adminClient;
     private readonly ITestOutputHelper _output;
 
     public SubCategoryIntegrationTests(CustomWebApplicationFactory factory, ITestOutputHelper output)
@@ -21,6 +22,8 @@ public class SubCategoryIntegrationTests : IClassFixture<CustomWebApplicationFac
         _output = output;
         _factory.ResetDatabase();
         _client = factory.CreateClient();
+        _adminClient = factory.CreateClient();
+        _adminClient.DefaultRequestHeaders.Add(TestAuthHandler.RoleHeader, "admin");
     }
 
     [Fact]
@@ -102,7 +105,7 @@ public class SubCategoryIntegrationTests : IClassFixture<CustomWebApplicationFac
         };
 
         _output.WriteLine($"POST /arzly/v1.0/SubCategory/Create Name={request.Name}, CategoryId={request.CategoryId}");
-        var createResponse = await _client.PostAsJsonAsync("/arzly/v1.0/SubCategory/Create", request);
+        var createResponse = await _adminClient.PostAsJsonAsync("/arzly/v1.0/SubCategory/Create", request);
         _output.WriteLine($"Create Response: {(int)createResponse.StatusCode} {createResponse.StatusCode}");
         Assert.Equal(HttpStatusCode.Created, createResponse.StatusCode);
 
@@ -135,7 +138,7 @@ public class SubCategoryIntegrationTests : IClassFixture<CustomWebApplicationFac
         };
 
         _output.WriteLine($"POST /arzly/v1.0/SubCategory/Create Name={request.Name}");
-        var response = await _client.PostAsJsonAsync("/arzly/v1.0/SubCategory/Create", request);
+        var response = await _adminClient.PostAsJsonAsync("/arzly/v1.0/SubCategory/Create", request);
         _output.WriteLine($"Response: {(int)response.StatusCode} {response.StatusCode}");
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
 
@@ -153,7 +156,7 @@ public class SubCategoryIntegrationTests : IClassFixture<CustomWebApplicationFac
             CategoryId = VehiclesCategoryId,
             Name = "Original Name"
         };
-        var createResponse = await _client.PostAsJsonAsync("/arzly/v1.0/SubCategory/Create", createRequest);
+        var createResponse = await _adminClient.PostAsJsonAsync("/arzly/v1.0/SubCategory/Create", createRequest);
         var created = await createResponse.Content.ReadFromJsonAsync<SubCategoryResponse>();
         Assert.NotNull(created);
         _output.WriteLine($"Created subcategory Id={created.Id}");
@@ -167,7 +170,7 @@ public class SubCategoryIntegrationTests : IClassFixture<CustomWebApplicationFac
         };
 
         _output.WriteLine($"PUT /arzly/v1.0/SubCategory/Update Name={updateRequest.Name}");
-        var updateResponse = await _client.PutAsJsonAsync("/arzly/v1.0/SubCategory/Update", updateRequest);
+        var updateResponse = await _adminClient.PutAsJsonAsync("/arzly/v1.0/SubCategory/Update", updateRequest);
         _output.WriteLine($"Update Response: {(int)updateResponse.StatusCode} {updateResponse.StatusCode}");
         Assert.Equal(HttpStatusCode.OK, updateResponse.StatusCode);
 
@@ -186,13 +189,13 @@ public class SubCategoryIntegrationTests : IClassFixture<CustomWebApplicationFac
             CategoryId = VehiclesCategoryId,
             Name = "To Delete"
         };
-        var createResponse = await _client.PostAsJsonAsync("/arzly/v1.0/SubCategory/Create", createRequest);
+        var createResponse = await _adminClient.PostAsJsonAsync("/arzly/v1.0/SubCategory/Create", createRequest);
         var created = await createResponse.Content.ReadFromJsonAsync<SubCategoryResponse>();
         Assert.NotNull(created);
         _output.WriteLine($"Created subcategory Id={created.Id}");
 
         _output.WriteLine($"DELETE /arzly/v1.0/SubCategory/{created.Id}");
-        var deleteResponse = await _client.DeleteAsync($"/arzly/v1.0/SubCategory/{created.Id}");
+        var deleteResponse = await _adminClient.DeleteAsync($"/arzly/v1.0/SubCategory/{created.Id}");
         _output.WriteLine($"Delete Response: {(int)deleteResponse.StatusCode} {deleteResponse.StatusCode}");
         Assert.Equal(HttpStatusCode.NoContent, deleteResponse.StatusCode);
     }

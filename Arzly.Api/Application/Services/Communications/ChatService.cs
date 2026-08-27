@@ -44,7 +44,7 @@ namespace Arzly.Api.Application.Services.Communications
             return result;
         }
 
-        public async Task<ChatResponse> GetByIdWithMessagesAsync(Guid id)
+        public async Task<ChatResponse> GetByIdWithMessagesAsync(Guid id, Guid userId)
         {
             _logger.LogInformation("{Service}.GetByIdWithMessagesAsync({Id}) - Before", GetType().Name, id);
 
@@ -61,11 +61,13 @@ namespace Arzly.Api.Application.Services.Communications
                 throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {id}");
             }
 
+            EnsureParticipant(entity, userId);
+
             _logger.LogInformation("{Service}.GetByIdWithMessagesAsync({Id}) - After", GetType().Name, id);
             return entity.ToResponse();
         }
 
-        public async Task<ChatResponse> GetByIdWithMessagesAsync(Guid id, int pageSize, int currentPage)
+        public async Task<ChatResponse> GetByIdWithMessagesAsync(Guid id, Guid userId, int pageSize, int currentPage)
         {
             _logger.LogInformation("{Service}.GetByIdWithMessagesAsync({Id}, {PageSize}, {CurrentPage}) - Before", GetType().Name, id, pageSize, currentPage);
 
@@ -82,11 +84,13 @@ namespace Arzly.Api.Application.Services.Communications
                 throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {id}");
             }
 
+            EnsureParticipant(entity, userId);
+
             _logger.LogInformation("{Service}.GetByIdWithMessagesAsync({Id}) - After", GetType().Name, id);
             return entity.ToResponse();
         }
 
-        public async Task<ChatResponse?> GetByListingIdWithMessagesAsync(Guid listingId)
+        public async Task<ChatResponse?> GetByListingIdWithMessagesAsync(Guid listingId, Guid userId)
         {
             _logger.LogInformation("{Service}.GetByListingIdWithMessagesAsync({ListingId}) - Before", GetType().Name, listingId);
 
@@ -96,7 +100,7 @@ namespace Arzly.Api.Application.Services.Communications
                 throw new ArgumentNullException(ExceptionMessages.MissingId);
             }
 
-            var entity = await _repository.GetByListingIdWithMessagesAsync(listingId);
+            var entity = await _repository.GetByListingIdWithMessagesAsync(listingId, userId);
             if (entity is null)
             {
                 _logger.LogInformation("{Service}.GetByListingIdWithMessagesAsync - No Chat found with listingId {ListingId}", GetType().Name, listingId);
@@ -125,7 +129,11 @@ namespace Arzly.Api.Application.Services.Communications
 
             var entity = createDto.ToEntity();
             entity.Id = Guid.NewGuid();
+            entity.InitiatorId = userId;
             entity.LastActivity = DateTime.UtcNow;
+
+            if (entity.ReceiverId == userId)
+                throw new ArgumentException("A user cannot start a chat with themselves");
 
             if (entity.ListingId.HasValue)
                 entity.ListingTitle = await _listingService.GetTitleByIdAsync(entity.ListingId.Value);
@@ -149,13 +157,15 @@ namespace Arzly.Api.Application.Services.Communications
                 throw new ArgumentNullException(ExceptionMessages.MissingId);
             }
 
-            var currentValue = await _repository.GetIsArchivedAsync(id);
             var entity = await _repository.GetByIdWithMessagesAsync(id);
             if (entity is null)
             {
                 _logger.LogError("{Service}.ToggleArchiveAsync - No Chat found with id {Id}", GetType().Name, id);
                 throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {id}");
             }
+
+            EnsureParticipant(entity, userId);
+            var currentValue = entity.IsArchived;
 
             entity.IsArchived = !currentValue;
             entity.LastActivity = DateTime.UtcNow;
@@ -175,13 +185,15 @@ namespace Arzly.Api.Application.Services.Communications
                 throw new ArgumentNullException(ExceptionMessages.MissingId);
             }
 
-            var currentValue = await _repository.GetIsDiscontinuedAsync(id);
             var entity = await _repository.GetByIdWithMessagesAsync(id);
             if (entity is null)
             {
                 _logger.LogError("{Service}.MarkDiscontinuedAsync - No Chat found with id {Id}", GetType().Name, id);
                 throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {id}");
             }
+
+            EnsureParticipant(entity, userId);
+            var currentValue = entity.IsDiscontinued;
 
             entity.IsDiscontinued = !currentValue;
             entity.LastActivity = DateTime.UtcNow;
@@ -191,7 +203,7 @@ namespace Arzly.Api.Application.Services.Communications
             return updated.ToResponse();
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id, Guid userId)
         {
             _logger.LogInformation("{Service}.DeleteAsync({Id}) - Before", GetType().Name, id);
 
@@ -201,6 +213,11 @@ namespace Arzly.Api.Application.Services.Communications
                 throw new ArgumentNullException(ExceptionMessages.MissingId);
             }
 
+            var entity = await _repository.GetByIdWithMessagesAsync(id);
+            if (entity is null)
+                throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {id}");
+
+            EnsureParticipant(entity, userId);
             var deleted = await _repository.SoftDeleteAsync(id);
             if (!deleted)
             {
@@ -227,12 +244,20 @@ namespace Arzly.Api.Application.Services.Communications
                 throw new ArgumentNullException(ExceptionMessages.EmptyAddRequest);
             }
 
+            if (text.Length > 2000)
+            {
+                _logger.LogError("{Service}.SendMessageAsync - Message text exceeds 2000 characters", GetType().Name);
+                throw new ArgumentException("Message cannot exceed 2000 characters.");
+            }
+
             var chat = await _repository.GetByIdWithMessagesAsync(chatId);
             if (chat is null)
             {
                 _logger.LogError("{Service}.SendMessageAsync - No Chat found with id {ChatId}", GetType().Name, chatId);
                 throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {chatId}");
             }
+
+            EnsureParticipant(chat, userId);
 
             Guid receiverId = chat.InitiatorId == userId ? chat.ReceiverId : chat.InitiatorId;
 
@@ -270,12 +295,20 @@ namespace Arzly.Api.Application.Services.Communications
                 throw new ArgumentNullException(ExceptionMessages.EmptyAddRequest);
             }
 
+            if (text.Length > 2000)
+            {
+                _logger.LogError("{Service}.SendMessageAndGetMessageAsync - Message text exceeds 2000 characters", GetType().Name);
+                throw new ArgumentException("Message cannot exceed 2000 characters.");
+            }
+
             var chat = await _repository.GetByIdWithMessagesAsync(chatId);
             if (chat is null)
             {
                 _logger.LogError("{Service}.SendMessageAndGetMessageAsync - No Chat found with id {ChatId}", GetType().Name, chatId);
                 throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {chatId}");
             }
+
+            EnsureParticipant(chat, userId);
 
             Guid receiverId = chat.InitiatorId == userId ? chat.ReceiverId : chat.InitiatorId;
 
@@ -305,6 +338,18 @@ namespace Arzly.Api.Application.Services.Communications
                 throw new ArgumentNullException(ExceptionMessages.MissingId);
             }
 
+            var message = await _repository.GetMessageByIdAsync(messageId);
+            if (message is null)
+                throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {messageId}");
+
+            var chat = await _repository.GetByIdWithMessagesAsync(message.ChatId);
+            if (chat is null)
+                throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {message.ChatId}");
+
+            EnsureParticipant(chat, userId);
+            if (message.ReceiverId != userId)
+                throw new UnauthorizedAccessException("Only the message receiver can mark it as read");
+
             var marked = await _repository.MarkMessageAsReadAsync(messageId, userId);
             if (!marked)
             {
@@ -313,6 +358,12 @@ namespace Arzly.Api.Application.Services.Communications
             }
 
             _logger.LogInformation("{Service}.MarkMessageAsReadAsync({MessageId}) - After", GetType().Name, messageId);
+        }
+
+        private static void EnsureParticipant(Chat chat, Guid userId)
+        {
+            if (chat.InitiatorId != userId && chat.ReceiverId != userId)
+                throw new UnauthorizedAccessException("The current user is not a participant in this chat");
         }
     }
 }

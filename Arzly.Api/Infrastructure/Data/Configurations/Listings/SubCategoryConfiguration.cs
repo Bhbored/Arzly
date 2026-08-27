@@ -9,7 +9,7 @@ namespace Arzly.Api.Infrastructure.Data.Configurations.Listings
     {
         public void Configure(EntityTypeBuilder<SubCategory> entity)
         {
-
+            entity.HasIndex(x => new { x.CategoryId, x.Name }).IsUnique();
         }
     }
 }

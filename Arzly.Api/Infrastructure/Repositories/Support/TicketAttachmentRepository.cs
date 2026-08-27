@@ -1,6 +1,5 @@
 using Arzly.Api.Domain.Contracts.Support;
 using Arzly.Api.Domain.Contracts;
-using Arzly.Api.Domain.Contracts.Support;
 using Arzly.Api.Domain.Entities.Support;
 using Microsoft.EntityFrameworkCore;
 

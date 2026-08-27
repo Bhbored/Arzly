@@ -1,4 +1,5 @@
 ﻿using Arzly.Api.Application.Contracts.Auth;
+using Arzly.Api.Application.Contracts.Admin;
 using Arzly.Api.Application.Contracts.Categories;
 using Arzly.Api.Application.Contracts.Communications;
 using Arzly.Api.Application.Contracts.Listings;
@@ -6,6 +7,7 @@ using Arzly.Api.Application.Contracts.Locations;
 using Arzly.Api.Application.Contracts.Support;
 using Arzly.Api.Application.Contracts.Users;
 using Arzly.Api.Application.Services.Auth;
+using Arzly.Api.Application.Services.Admin;
 using Arzly.Api.Application.Services.Categories;
 using Arzly.Api.Application.Services.Communications;
 using Arzly.Api.Application.Services.Listings;
@@ -19,12 +21,15 @@ using Arzly.Api.Domain.Contracts.Locations;
 using Arzly.Api.Domain.Contracts.Support;
 using Arzly.Api.Domain.Contracts.Users;
 using Arzly.Api.Filters.ExceptionFilters;
+using Arzly.Api.Filters.HubFilters;
 using Arzly.Api.Filters.ResultFilters;
 using Arzly.Api.Helpers.GoogleMap;
 using Arzly.Api.Hubs.Contracts;
 using Arzly.Api.Hubs.Services;
 using Arzly.Api.Infrastructure.Data.DataBaseContext;
 using Arzly.Api.Infrastructure.Identity;
+using Arzly.Api.Infrastructure.Health;
+using Arzly.Api.Infrastructure.HostedServices;
 using Arzly.Api.Infrastructure.Repositories.Categories;
 using Arzly.Api.Infrastructure.Repositories.Communications;
 using Arzly.Api.Infrastructure.Repositories.Listings;
@@ -39,8 +44,11 @@ using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Threading.RateLimiting;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -78,14 +86,27 @@ namespace Arzly.Api.Helpers
             return services;
         }
 
-        public static IServiceCollection RegisterCors(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection RegisterCors(
+            this IServiceCollection services,
+            IConfiguration configuration,
+            IHostEnvironment? environment = null)
         {
-            var origins = configuration.GetSection("AllowedOrigins").Get<string[]>();
+            var origins = configuration.GetSection("AllowedOrigins").Get<string[]>() ?? [];
+            origins = origins.Where(origin =>
+            {
+                if (!Uri.TryCreate(origin, UriKind.Absolute, out var uri) ||
+                    (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps))
+                    throw new InvalidOperationException($"Invalid CORS origin: {origin}");
+                return true;
+            }).Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
+            if (environment?.IsProduction() == true && origins.Length == 0)
+                throw new InvalidOperationException("AllowedOrigins must contain at least one production client origin");
+
             services.AddCors(options =>
             {
-                options.AddPolicy("Blazor", policy =>
+                options.AddPolicy("ArzlyClients", policy =>
                 {
-                    if (origins is not null)
+                    if (origins.Length > 0)
                     {
                         policy.WithOrigins(origins);
                         policy.AllowCredentials();
@@ -95,6 +116,51 @@ namespace Arzly.Api.Helpers
                 });
             });
             return services;
+        }
+
+        public static IServiceCollection RegisterHealthAndRateLimiting(
+            this IServiceCollection services,
+            IConfiguration configuration)
+        {
+            services.AddHealthChecks()
+                .AddCheck<DatabaseHealthCheck>("database", tags: ["ready"])
+                .AddCheck<ExternalServicesConfigurationHealthCheck>(
+                    "external-configuration",
+                    tags: ["ready", "dependencies"]);
+
+            services.AddRateLimiter(options =>
+            {
+                options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+                AddFixedWindowPolicy(options, configuration, "auth", "Auth", 10, TimeSpan.FromMinutes(1));
+                AddFixedWindowPolicy(options, configuration, "uploads", "Uploads", 20, TimeSpan.FromMinutes(1));
+                AddFixedWindowPolicy(options, configuration, "messaging", "Messaging", 60, TimeSpan.FromMinutes(1));
+                AddFixedWindowPolicy(options, configuration, "reports", "Reports", 10, TimeSpan.FromMinutes(5));
+                AddFixedWindowPolicy(options, configuration, "broadcasts", "Broadcasts", 10, TimeSpan.FromMinutes(1));
+            });
+            return services;
+        }
+
+        private static void AddFixedWindowPolicy(
+            RateLimiterOptions options,
+            IConfiguration configuration,
+            string policyName,
+            string configurationName,
+            int defaultLimit,
+            TimeSpan defaultWindow)
+        {
+            var permitLimit = configuration.GetValue<int?>(
+                $"RateLimits:{configurationName}:PermitLimit") ?? defaultLimit;
+            var windowSeconds = configuration.GetValue<int?>(
+                $"RateLimits:{configurationName}:WindowSeconds") ?? (int)defaultWindow.TotalSeconds;
+            options.AddPolicy(policyName, context => RateLimitPartition.GetFixedWindowLimiter(
+                context.User.Identity?.Name ?? context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                _ => new FixedWindowRateLimiterOptions
+                {
+                    PermitLimit = Math.Max(1, permitLimit),
+                    Window = TimeSpan.FromSeconds(Math.Max(1, windowSeconds)),
+                    QueueLimit = 0,
+                    AutoReplenishment = true
+                }));
         }
 
         public static IServiceCollection RegisterIdentity(this IServiceCollection services)
@@ -173,13 +239,32 @@ namespace Arzly.Api.Helpers
                 {
 
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                })
-        .ConfigureApiBehaviorOptions(options =>
-        {
-            options.SuppressModelStateInvalidFilter = true;//for built-in modelBinding i did a custom filter for that although never again!!
-        });
+                 });
             return services;
 
+        }
+
+        public static IServiceCollection RegisterSignalR(this IServiceCollection services, IConfiguration configuration)
+        {
+            var permitLimit = configuration.GetValue<int?>("RateLimits:Messaging:PermitLimit") ?? 60;
+            var windowSeconds = configuration.GetValue<int?>("RateLimits:Messaging:WindowSeconds") ?? 60;
+
+            services.AddSingleton<PartitionedRateLimiter<string>>(_ =>
+                PartitionedRateLimiter.Create<string, string>(context =>
+                    RateLimitPartition.GetFixedWindowLimiter(context, _ => new FixedWindowRateLimiterOptions
+                    {
+                        PermitLimit = Math.Max(1, permitLimit),
+                        Window = TimeSpan.FromSeconds(Math.Max(1, windowSeconds)),
+                        QueueLimit = 0,
+                        AutoReplenishment = true
+                    })));
+
+            services.AddSignalR(options =>
+            {
+                options.AddFilter<RateLimitHubFilter>();
+            });
+
+            return services;
         }
 
         public static IServiceCollection RegisterDataBase(this IServiceCollection services, IConfiguration configuration, IHostEnvironment? environment = null)
@@ -223,13 +308,21 @@ namespace Arzly.Api.Helpers
             services.AddScoped<ITicketAttachmentService, TicketAttachmentService>();
             services.AddScoped<ITicketMessageService, TicketMessageService>();
             services.AddScoped<IUserProfileService, UserProfileService>();
+            services.AddScoped<IUserModerationService, UserModerationService>();
+            services.AddScoped<IAdminStatisticsService, AdminStatisticsService>();
+            services.AddScoped<IAdminAuditService, AdminAuditService>();
+            services.AddScoped<IListingPurgeService, ListingPurgeService>();
+            services.AddHostedService<ListingPurgeBackgroundService>();
 
-            services.AddHttpClient<GoogleMapsService>();
+            services.AddHttpClient<GoogleMapsService>(client =>
+            {
+                client.Timeout = TimeSpan.FromSeconds(10);
+            });
             services.AddScoped<IEmailService, EmailService>();
 
 
 
-            //services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<INotificationService, NotificationService>();
             //services.AddScoped<IUserActivityLogService, UserActivityLogService>();
             //services.AddScoped<IUserPreferenceService, UserPreferenceService>();
             return services;
@@ -252,8 +345,9 @@ namespace Arzly.Api.Helpers
             services.AddScoped<ITicketMessageRepository, TicketMessageRepository>();
             services.AddScoped<IListingOwnedRepository, ListingOwnedRepository>();
             services.AddScoped<IUserProfileRepository, UserProfileRepository>();
+            services.AddScoped<IUserActivityLogRepository, UserActivityLogRepository>();
 
-            //services.AddScoped<INotificationRepository, NotificationRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
             //services.AddScoped<IUserActivityLogRepository, UserActivityLogRepository>();
             //services.AddScoped<IUserPreferenceRepository, UserPreferenceRepository>();
             return services;
@@ -262,17 +356,20 @@ namespace Arzly.Api.Helpers
 
         public static IServiceCollection RegisterStorageServices(this IServiceCollection services)
         {
-            services.AddScoped<ImageUploader>();
+            services.AddSingleton<IR2ObjectStorage, R2ObjectStorage>();
+            services.AddScoped<IImageUploader, ImageUploader>();
             return services;
         }
         public static IServiceCollection RegisterDependencies(this IServiceCollection services, IConfiguration configuration, IHostEnvironment? environment = null)
         {
             return services.RegisterGoogleAuthClient(configuration, environment)
-                .RegisterCors(configuration)
+                .RegisterCors(configuration, environment)
                             .RegisterApiVersioning()
+                            .RegisterHealthAndRateLimiting(configuration)
                             .RegisterIdentity()
                             .RegisterJwtToken(configuration)
                             .RegisterControllers()
+                            .RegisterSignalR(configuration)
                             .RegisterDataBase(configuration, environment)
                             .RegisterHttpLogging()
                             .RegisterJsonOptions()

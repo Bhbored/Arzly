@@ -1,6 +1,6 @@
 using Arzly.Api.Application.Contracts.Listings;
 using Arzly.Api.Application.Contracts;
-using Arzly.Api.Filters.ActionFilters;
+
 using Arzly.Api.Filters.ResultFilters;
 using Arzly.Shared.DTOs.Request.Listing;
 using Arzly.Shared.DTOs.Response.Listing;
@@ -75,12 +75,12 @@ namespace Arzly.Api.Controllers.v1.Listings
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<ListingResponse>> GetByListingId(Guid? id)
+        public async Task<ActionResult<ListingResponse>> GetByListingId(Guid id)
         {
             _logger.LogInformation("{Controller}.GetById({Id}) - Before",
                 GetType().Name, id);
 
-            var result = await _service.GetByIdAsync(id.Value);
+            var result = await _service.GetByIdAsync(id);
 
             _logger.LogInformation("{Controller}.GetById({Id}) - After",
                 GetType().Name, id);
@@ -116,7 +116,7 @@ namespace Arzly.Api.Controllers.v1.Listings
         }
 
         [HttpGet("category-listing/{CategoryId:guid}")]
-        public async Task<ActionResult<ListingResponse>> GetByCategoryId(Guid? CategoryId,
+        public async Task<ActionResult<ListingResponse>> GetByCategoryId(Guid CategoryId,
             [FromHeader] string? searchString,
             [FromBody] LocationPreset? preset,
             [FromHeader] string order = "desc",
@@ -129,7 +129,7 @@ namespace Arzly.Api.Controllers.v1.Listings
             _logger.LogInformation("{Controller}.GetByCategoryId({CategoryId}) - Before",
                 GetType().Name, CategoryId);
 
-            var result = await _service.GetListingByCategoryId(CategoryId.Value, pageSize,
+            var result = await _service.GetListingByCategoryId(CategoryId, pageSize,
                 currentPage, searchString, preset, order, orderByPrice, minPrice, maxPrice);
 
             _logger.LogInformation("{Controller}.GetByCategoryId({CategoryId}) - After",
@@ -138,7 +138,7 @@ namespace Arzly.Api.Controllers.v1.Listings
         }
 
         [HttpGet("subcategory-listing/{subcategoryId:guid}")]
-        public async Task<ActionResult<ListingResponse>> GetBySubacategoryId(Guid? subcategoryId,
+        public async Task<ActionResult<ListingResponse>> GetBySubacategoryId(Guid subcategoryId,
             [FromHeader] LocationPreset? preset,
             [FromHeader] Guid? catgeoroyId,
             [FromHeader] string? searchString,
@@ -153,7 +153,7 @@ namespace Arzly.Api.Controllers.v1.Listings
             _logger.LogInformation("{Controller}.GetByCategoryId({CategoryId}) - Before",
                 GetType().Name, subcategoryId);
 
-            var result = await _service.GetListingBySubCategoryId(subcategoryId.Value, catgeoroyId.Value, pageSize,
+            var result = await _service.GetListingBySubCategoryId(subcategoryId, catgeoroyId!.Value, pageSize,
                 currentPage, searchString, preset, details, order, orderByPrice, minPrice, maxPrice);
 
             _logger.LogInformation("{Controller}.GetByCategoryId({CategoryId}) - After",
@@ -164,7 +164,6 @@ namespace Arzly.Api.Controllers.v1.Listings
 
 
         [HttpPost("[action]")]
-        [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(ListingController) })]
         public async Task<ActionResult<ListingResponse>> Create([FromBody] ListingAddRequest? request)
         {
             _logger.LogInformation("{Controller}.Create - Before",
@@ -182,7 +181,6 @@ namespace Arzly.Api.Controllers.v1.Listings
         }
 
         [HttpPut("[action]")]
-        [TypeFilter(typeof(ModelBindingFilter), Arguments = new object[] { typeof(ListingController) })]
         public async Task<ActionResult<ListingResponse?>> Update([FromBody] ListingUpdateRequest? request)
         {
             _logger.LogInformation("{Controller}.Update({Id}) - Before",
@@ -196,12 +194,12 @@ namespace Arzly.Api.Controllers.v1.Listings
         }
 
         [HttpDelete("[action]/{id:guid}")]
-        public async Task<ActionResult> Delete(Guid? id)
+        public async Task<ActionResult> Delete(Guid id)
         {
             _logger.LogInformation("{Controller}.Delete({Id}) - Before",
                 GetType().Name, id);
 
-            if (await _service.DeleteAsync(id.Value))
+            if (await _service.DeleteAsync(id, User.GetUserId()))
             {
                 return NoContent();
 

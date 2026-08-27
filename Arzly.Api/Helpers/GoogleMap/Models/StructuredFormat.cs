@@ -5,9 +5,9 @@ namespace Arzly.Api.Helpers.GoogleMap.Models
     public class StructuredFormat
     {
         [JsonPropertyName("mainText")]
-        public TextWithMatches MainText { get; set; }
+        public TextWithMatches MainText { get; set; } = null!;
 
         [JsonPropertyName("secondaryText")]
-        public TextWithMatches SecondaryText { get; set; }
+        public TextWithMatches SecondaryText { get; set; } = null!;
     }
 }

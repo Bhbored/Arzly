@@ -15,17 +15,20 @@ namespace Arzly.Api.Hubs.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
         private readonly IUserProfileRepository _userProfileRepository;
+        private readonly ILogger<EmailService> _logger;
 
         public EmailService(UserManager<ApplicationUser> userManager, IConfiguration configuration
-            , IUserProfileRepository userProfileRepository)
+            , IUserProfileRepository userProfileRepository, ILogger<EmailService> logger)
         {
             _userManager = userManager;
             _configuration = configuration;
             _userProfileRepository = userProfileRepository;
+            _logger = logger;
         }
 
-        public async Task SendEmailVerificationAsync(string userId)
+        public async Task SendEmailVerificationAsync(string userId, CancellationToken cancellationToken = default)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var user = await _userManager.FindByIdAsync(userId);
             if (user is null) return;
             if (user.EmailConfirmed) return;
@@ -39,11 +42,12 @@ namespace Arzly.Api.Hubs.Services
             <p>This code expires in 10 minutes.</p>
             """;
 
-            await SendAsync(user.Email!, "Your Arzly verification code", body);
+            await SendAsync(user.Email!, "Your Arzly verification code", body, cancellationToken);
         }
 
-        public async Task<IdentityResult> ConfirmEmailWithCodeAsync(string userId, string code)
+        public async Task<IdentityResult> ConfirmEmailWithCodeAsync(string userId, string code, CancellationToken cancellationToken = default)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var user = await _userManager.FindByIdAsync(userId);
             if (user is null)
                 return IdentityResult.Failed(new IdentityError { Description = "User not found." });
@@ -66,8 +70,9 @@ namespace Arzly.Api.Hubs.Services
             return IdentityResult.Success;
         }
 
-        public async Task SendPasswordResetAsync(string email)
+        public async Task SendPasswordResetAsync(string email, CancellationToken cancellationToken = default)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var user = await _userManager.FindByEmailAsync(email);
             if (user is null || !user.EmailConfirmed) return;
 
@@ -81,11 +86,12 @@ namespace Arzly.Api.Hubs.Services
             <p>If you didn't request this, ignore this email.</p>
             """;
 
-            await SendAsync(email, "Reset your Arzly password", body);
+            await SendAsync(email, "Reset your Arzly password", body, cancellationToken);
         }
 
-        public async Task<IdentityResult> ResetPasswordAsync(string email, string code, string newPassword)
+        public async Task<IdentityResult> ResetPasswordAsync(string email, string code, string newPassword, CancellationToken cancellationToken = default)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var user = await _userManager.FindByEmailAsync(email);
             if (user is null)
                 return IdentityResult.Failed(new IdentityError { Description = "Invalid request." });
@@ -98,26 +104,44 @@ namespace Arzly.Api.Hubs.Services
             return await _userManager.ResetPasswordAsync(user, resetToken, newPassword);
         }
 
-        private async Task SendAsync(string to, string subject, string body)
+        private async Task SendAsync(string to, string subject, string body, CancellationToken cancellationToken)
         {
             var email = new MimeMessage();
-            email.From.Add(new MailboxAddress("Arzly", _configuration["Email:Username"]));
+            email.From.Add(new MailboxAddress("Arzly", _configuration["Email:Username"]!));
             email.To.Add(new MailboxAddress("", to));
             email.Subject = subject;
             email.Body = new TextPart("html") { Text = body };
 
-            using var smtp = new SmtpClient();
-            await smtp.ConnectAsync(
-                _configuration["Email:Host"],
-                int.Parse(_configuration["Email:Port"]!),
-                SecureSocketOptions.StartTls);
+            using var smtp = new SmtpClient
+            {
+                Timeout = _configuration.GetValue<int?>("Email:TimeoutMilliseconds") ?? 15000
+            };
+            try
+            {
+                await smtp.ConnectAsync(
+                    _configuration["Email:Host"]!,
+                    int.Parse(_configuration["Email:Port"]!),
+                    SecureSocketOptions.StartTls,
+                    cancellationToken);
 
-            await smtp.AuthenticateAsync(
-                _configuration["Email:Username"],
-                _configuration["Email:Password"]);
+                await smtp.AuthenticateAsync(
+                    _configuration["Email:Username"]!,
+                    _configuration["Email:Password"]!,
+                    cancellationToken);
 
-            await smtp.SendAsync(email);
-            await smtp.DisconnectAsync(true);
+                await smtp.SendAsync(email, cancellationToken);
+                await smtp.DisconnectAsync(true, cancellationToken);
+                _logger.LogInformation("Email sent. Subject: {Subject}", subject);
+            }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+            {
+                throw;
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "Failed to send email. Subject: {Subject}", subject);
+                throw;
+            }
         }
     }
 }

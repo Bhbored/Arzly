@@ -5,6 +5,6 @@ namespace Arzly.Api.Helpers.GoogleMap.Models
     public class DisplayName
     {
         [JsonPropertyName("text")]
-        public string Text { get; set; }
+        public string Text { get; set; } = null!;
     }
 }

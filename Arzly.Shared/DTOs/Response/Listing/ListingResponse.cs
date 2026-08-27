@@ -12,6 +12,7 @@ namespace Arzly.Shared.DTOs.Response.Listing
         public double Price { get; set; }
         public bool IsPriceNegotiable { get; set; }
         public ListingStatus Status { get; set; }
+        public string? RejectionReason { get; set; }
         public string? PrimaryImageUrl { get; set; }
         public List<string>? ImagesUrl { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -54,6 +55,5 @@ namespace Arzly.Shared.DTOs.Response.Listing
 
     }
 }
-
 
 

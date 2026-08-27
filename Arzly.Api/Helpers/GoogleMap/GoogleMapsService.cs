@@ -2,6 +2,7 @@
 using Arzly.Api.Helpers.GoogleMap.Response;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json.Serialization;
+using System.Globalization;
 
 namespace Arzly.Api.Helpers.GoogleMap
 {
@@ -20,7 +21,7 @@ namespace Arzly.Api.Helpers.GoogleMap
         }
 
       
-        public async Task<List<PlaceResult>> AutocompleteAsync(string input)
+        public async Task<List<PlaceResult>> AutocompleteAsync(string input, CancellationToken cancellationToken = default)
         {
             _logger.LogInformation("{Service}.AutocompleteAsync({Input}) - Before", GetType().Name, input);
 
@@ -36,15 +37,16 @@ namespace Arzly.Api.Helpers.GoogleMap
                 includedRegionCodes = new[] { "LB" }
             };
 
-            var request = new HttpRequestMessage(HttpMethod.Post,
-                "https://places.googleapis.com/v1/places:autocomplete");
-            request.Headers.Add("X-Goog-Api-Key", _apiKey);
-            request.Content = JsonContent.Create(requestBody);
+            using var response = await SendWithRetryAsync(() =>
+            {
+                var request = new HttpRequestMessage(HttpMethod.Post,
+                    "https://places.googleapis.com/v1/places:autocomplete");
+                request.Headers.Add("X-Goog-Api-Key", _apiKey);
+                request.Content = JsonContent.Create(requestBody);
+                return request;
+            }, cancellationToken);
 
-            var response = await _httpClient.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-
-            var result = await response.Content.ReadFromJsonAsync<AutocompleteResponse>();
+            var result = await response.Content.ReadFromJsonAsync<AutocompleteResponse>(cancellationToken);
 
             _logger.LogInformation("{Service}.AutocompleteAsync - Found {Count} suggestions", GetType().Name, result?.Suggestions.Count ?? 0);
 
@@ -58,21 +60,22 @@ namespace Arzly.Api.Helpers.GoogleMap
         }
 
       
-        public async Task<PlaceDetailsResult> GetPlaceDetailsAsync(string placeId)
+        public async Task<PlaceDetailsResult> GetPlaceDetailsAsync(string placeId, CancellationToken cancellationToken = default)
         {
             _logger.LogInformation("{Service}.GetPlaceDetailsAsync({PlaceId}) - Before", GetType().Name, placeId);
 
             var fieldMask = "location,displayName,formattedAddress";
 
-            var request = new HttpRequestMessage(HttpMethod.Get,
-                $"https://places.googleapis.com/v1/places/{placeId}");
-            request.Headers.Add("X-Goog-Api-Key", _apiKey);
-            request.Headers.Add("X-Goog-FieldMask", fieldMask);
+            using var response = await SendWithRetryAsync(() =>
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get,
+                    $"https://places.googleapis.com/v1/places/{Uri.EscapeDataString(placeId)}");
+                request.Headers.Add("X-Goog-Api-Key", _apiKey);
+                request.Headers.Add("X-Goog-FieldMask", fieldMask);
+                return request;
+            }, cancellationToken);
 
-            var response = await _httpClient.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-
-            var place = await response.Content.ReadFromJsonAsync<PlaceDetailsResponse>();
+            var place = await response.Content.ReadFromJsonAsync<PlaceDetailsResponse>(cancellationToken);
 
             if (place == null)
             {
@@ -92,19 +95,18 @@ namespace Arzly.Api.Helpers.GoogleMap
             };
         }
 
-        public async Task<PlaceDetailsResult> ReverseGeocodeAsync(double lat, double lng)
+        public async Task<PlaceDetailsResult> ReverseGeocodeAsync(double lat, double lng, CancellationToken cancellationToken = default)
         {
             _logger.LogInformation("{Service}.ReverseGeocodeAsync({Lat}, {Lng}) - Before", GetType().Name, lat, lng);
 
-            var request = new HttpRequestMessage(HttpMethod.Get,
-                $"https://maps.googleapis.com/maps/api/geocode/json" +
-                $"?latlng={lat},{lng}&key={_apiKey}");
-
-            var response = await _httpClient.SendAsync(request);
-            response.EnsureSuccessStatusCode();
+            var coordinates = FormattableString.Invariant($"{lat},{lng}");
+            using var response = await SendWithRetryAsync(() => new HttpRequestMessage(
+                HttpMethod.Get,
+                $"https://maps.googleapis.com/maps/api/geocode/json?latlng={coordinates}&key={Uri.EscapeDataString(_apiKey)}"),
+                cancellationToken);
 
             var geocodeResult = await response.Content
-                .ReadFromJsonAsync<GeocodingApiResponse>();
+                .ReadFromJsonAsync<GeocodingApiResponse>(cancellationToken);
 
             var result = geocodeResult?.Results?.FirstOrDefault();
             if (result == null)
@@ -153,6 +155,44 @@ namespace Arzly.Api.Helpers.GoogleMap
 
             return locality ?? adminArea ?? country ?? "Unknown Location";
         }
+
+        private async Task<HttpResponseMessage> SendWithRetryAsync(
+            Func<HttpRequestMessage> requestFactory,
+            CancellationToken cancellationToken)
+        {
+            const int maximumAttempts = 3;
+            for (var attempt = 1; ; attempt++)
+            {
+                using var request = requestFactory();
+                try
+                {
+                    var response = await _httpClient.SendAsync(request, cancellationToken);
+                    if (!IsTransient(response.StatusCode) || attempt == maximumAttempts)
+                    {
+                        response.EnsureSuccessStatusCode();
+                        return response;
+                    }
+
+                    response.Dispose();
+                    _logger.LogWarning(
+                        "Google Maps returned transient status {StatusCode}; retrying attempt {NextAttempt}",
+                        (int)response.StatusCode,
+                        attempt + 1);
+                }
+                catch (HttpRequestException exception) when (
+                    attempt < maximumAttempts && exception.StatusCode is null)
+                {
+                    _logger.LogWarning(exception,
+                        "Google Maps request failed transiently; retrying attempt {NextAttempt}", attempt + 1);
+                }
+
+                await Task.Delay(TimeSpan.FromMilliseconds(200 * attempt), cancellationToken);
+            }
+        }
+
+        private static bool IsTransient(System.Net.HttpStatusCode statusCode) =>
+            statusCode is System.Net.HttpStatusCode.RequestTimeout or
+                System.Net.HttpStatusCode.TooManyRequests || (int)statusCode >= 500;
     }
 
 

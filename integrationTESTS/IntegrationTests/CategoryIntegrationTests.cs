@@ -11,6 +11,7 @@ public class CategoryIntegrationTests : IClassFixture<CustomWebApplicationFactor
 {
     private readonly CustomWebApplicationFactory _factory;
     private readonly HttpClient _client;
+    private readonly HttpClient _adminClient;
     private readonly ITestOutputHelper _output;
 
     public CategoryIntegrationTests(CustomWebApplicationFactory factory, ITestOutputHelper output)
@@ -19,6 +20,8 @@ public class CategoryIntegrationTests : IClassFixture<CustomWebApplicationFactor
         _output = output;
         _factory.ResetDatabase();
         _client = factory.CreateClient();
+        _adminClient = factory.CreateClient();
+        _adminClient.DefaultRequestHeaders.Add(TestAuthHandler.RoleHeader, "admin");
     }
 
     [Fact]
@@ -45,7 +48,7 @@ public class CategoryIntegrationTests : IClassFixture<CustomWebApplicationFactor
         };
 
         _output.WriteLine($"POST /arzly/v1.0/Category/Create Name={request.Name}");
-        var createResponse = await _client.PostAsJsonAsync("/arzly/v1.0/Category/Create", request);
+        var createResponse = await _adminClient.PostAsJsonAsync("/arzly/v1.0/Category/Create", request);
         _output.WriteLine($"Create Response: {(int)createResponse.StatusCode} {createResponse.StatusCode}");
         Assert.Equal(HttpStatusCode.Created, createResponse.StatusCode);
 
@@ -74,7 +77,7 @@ public class CategoryIntegrationTests : IClassFixture<CustomWebApplicationFactor
         var request = new CategoryAddRequest { Name = "Minimal Category" };
 
         _output.WriteLine($"POST /arzly/v1.0/Category/Create Name={request.Name}");
-        var response = await _client.PostAsJsonAsync("/arzly/v1.0/Category/Create", request);
+        var response = await _adminClient.PostAsJsonAsync("/arzly/v1.0/Category/Create", request);
         _output.WriteLine($"Response: {(int)response.StatusCode} {response.StatusCode}");
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
 
@@ -88,7 +91,7 @@ public class CategoryIntegrationTests : IClassFixture<CustomWebApplicationFactor
     public async Task Update_ModifiesExistingCategory()
     {
         var createRequest = new CategoryAddRequest { Name = "Original Name" };
-        var createResponse = await _client.PostAsJsonAsync("/arzly/v1.0/Category/Create", createRequest);
+        var createResponse = await _adminClient.PostAsJsonAsync("/arzly/v1.0/Category/Create", createRequest);
         var created = await createResponse.Content.ReadFromJsonAsync<CategoryResponse>();
         Assert.NotNull(created);
         _output.WriteLine($"Created category Id={created.Id}");
@@ -101,7 +104,7 @@ public class CategoryIntegrationTests : IClassFixture<CustomWebApplicationFactor
         };
 
         _output.WriteLine($"PUT /arzly/v1.0/Category/Update Name={updateRequest.Name}");
-        var updateResponse = await _client.PutAsJsonAsync("/arzly/v1.0/Category/Update", updateRequest);
+        var updateResponse = await _adminClient.PutAsJsonAsync("/arzly/v1.0/Category/Update", updateRequest);
         _output.WriteLine($"Update Response: {(int)updateResponse.StatusCode} {updateResponse.StatusCode}");
         Assert.Equal(HttpStatusCode.OK, updateResponse.StatusCode);
 
@@ -116,13 +119,13 @@ public class CategoryIntegrationTests : IClassFixture<CustomWebApplicationFactor
     public async Task Delete_RemovesCategory()
     {
         var createRequest = new CategoryAddRequest { Name = "To Delete" };
-        var createResponse = await _client.PostAsJsonAsync("/arzly/v1.0/Category/Create", createRequest);
+        var createResponse = await _adminClient.PostAsJsonAsync("/arzly/v1.0/Category/Create", createRequest);
         var created = await createResponse.Content.ReadFromJsonAsync<CategoryResponse>();
         Assert.NotNull(created);
         _output.WriteLine($"Created category Id={created.Id}");
 
         _output.WriteLine($"DELETE /arzly/v1.0/Category/{created.Id}");
-        var deleteResponse = await _client.DeleteAsync($"/arzly/v1.0/Category/{created.Id}");
+        var deleteResponse = await _adminClient.DeleteAsync($"/arzly/v1.0/Category/{created.Id}");
         _output.WriteLine($"Delete Response: {(int)deleteResponse.StatusCode} {deleteResponse.StatusCode}");
         Assert.Equal(HttpStatusCode.NoContent, deleteResponse.StatusCode);
     }
@@ -137,7 +140,7 @@ public class CategoryIntegrationTests : IClassFixture<CustomWebApplicationFactor
         };
 
         _output.WriteLine($"POST /arzly/v1.0/Category/Create Name={request.Name}, ImageUrl={request.ImageUrl}");
-        var response = await _client.PostAsJsonAsync("/arzly/v1.0/Category/Create", request);
+        var response = await _adminClient.PostAsJsonAsync("/arzly/v1.0/Category/Create", request);
         _output.WriteLine($"Response: {(int)response.StatusCode} {response.StatusCode}");
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
 

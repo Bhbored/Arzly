@@ -27,9 +27,18 @@ namespace Arzly.Api.Application.Services.Locations
         {
             _logger.LogInformation($"{GetType().Name} - GetByUserId Has been reached");
 
-            var entities = await _pickupLocationRepo.GetByUserId(userId.Value);
+            var entities = await _pickupLocationRepo.GetByUserId(userId!.Value);
 
             return entities.Select(x => MapToDto(x)).ToList();
+        }
+
+        public async Task<PickupLocationResponse?> GetByIdAsync(Guid id, Guid userId)
+        {
+            var entity = await _pickupLocationRepo.GetByIdAsync(id);
+            if (entity is null || entity.UserId != userId)
+                throw new UnauthorizedAccessException("The pickup location does not belong to the current user");
+
+            return MapToDto(entity);
         }
 
         public override async Task<PickupLocationResponse?> UpdateAsync(PickupLocationUpdateRequest? updateDto, Guid userId)
@@ -41,6 +50,10 @@ namespace Arzly.Api.Application.Services.Locations
                 _logger.LogError($"{GetType().Name} - Empty updateDto provided in CreateAsync");
                 throw new ArgumentNullException(ExceptionMessages.EmptyUpdateRequest);
             }
+
+            var existing = await _pickupLocationRepo.GetByIdAsync(updateDto.Id);
+            if (existing is null || existing.UserId != userId)
+                throw new UnauthorizedAccessException("The pickup location does not belong to the current user");
 
             var updatedrequest = MapToEntity(updateDto);
 
@@ -78,7 +91,7 @@ namespace Arzly.Api.Application.Services.Locations
             return MapToDto(entity);
         }
 
-        public async Task<bool> SoftDeleteLocation(Guid id)
+        public async Task<bool> SoftDeleteLocation(Guid id, Guid userId)
         {
             _logger.LogInformation($"{GetType().Name} - SoftDeleteLocation Has been reached");
 
@@ -94,6 +107,9 @@ namespace Arzly.Api.Application.Services.Locations
                 _logger.LogError($"{GetType().Name} - No Location founded with Id {id}", id);
                 throw new ArgumentException(ExceptionMessages.NoLocationFound);
             }
+
+            if (location.UserId != userId)
+                throw new UnauthorizedAccessException("The pickup location does not belong to the current user");
 
             return await _pickupLocationRepo.SoftDeleteLocation(id);
         }

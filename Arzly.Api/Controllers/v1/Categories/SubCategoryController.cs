@@ -5,6 +5,7 @@ using Arzly.Shared.DTOs.Request.SubCategory;
 using Arzly.Shared.DTOs.Response.SubCategory;
 using Microsoft.AspNetCore.Mvc;
 using Arzly.Shared.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Arzly.Api.Controllers.v1.Categories
 {
@@ -74,6 +75,7 @@ namespace Arzly.Api.Controllers.v1.Categories
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<SubCategoryResponse>> Create([FromBody] SubCategoryAddRequest createDto)
         {
             _logger.LogInformation("{Controller}.Create - Before",
@@ -87,6 +89,7 @@ namespace Arzly.Api.Controllers.v1.Categories
         }
 
         [HttpPut("[action]")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<SubCategoryResponse>> Update([FromBody] SubCategoryUpdateRequest updateDto)
         {
             _logger.LogInformation("{Controller}.Update({Id}) - Before",
@@ -100,6 +103,7 @@ namespace Arzly.Api.Controllers.v1.Categories
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Delete(Guid id)
         {
             _logger.LogInformation("{Controller}.Delete({Id}) - Before",

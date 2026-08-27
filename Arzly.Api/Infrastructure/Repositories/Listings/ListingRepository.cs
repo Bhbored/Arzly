@@ -28,9 +28,68 @@ namespace Arzly.Api.Infrastructure.Repositories.Listings
             _logger.LogInformation($"{GetType().Name} - GetAllListingAdmin has been reached");
 
             return await _db.Listings
+                   .IgnoreQueryFilters()
+                   .OrderByDescending(x => x.CreatedAt)
                    .Skip(currentPage * pageSize)
+                   .Take(pageSize)
                    .Include(l => l.PickupLocation)
                    .ToListAsync();
+        }
+
+        public Task<Listing?> GetByIdAdminAsync(Guid id) => _db.Listings
+            .IgnoreQueryFilters()
+            .Include(l => l.PickupLocation)
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        public async Task<Listing?> SetStatusAdminAsync(Guid id, ListingStatus status)
+        {
+            var listing = await _db.Listings.IgnoreQueryFilters().FirstOrDefaultAsync(x => x.Id == id);
+            if (listing is null)
+                return null;
+            listing.Status = status;
+            listing.RejectionReason = null;
+            listing.UpdatedAt = DateTime.UtcNow;
+            await _db.SaveChangesAsync();
+            return listing;
+        }
+
+        public async Task<Listing?> RejectAdminAsync(Guid id, string reason)
+        {
+            var listing = await _db.Listings.IgnoreQueryFilters().FirstOrDefaultAsync(x => x.Id == id);
+            if (listing is null) return null;
+            listing.Status = ListingStatus.Rejected;
+            listing.RejectionReason = reason;
+            listing.UpdatedAt = DateTime.UtcNow;
+            await _db.SaveChangesAsync();
+            return listing;
+        }
+
+        public async Task<bool> DeleteAdminAsync(Guid id)
+        {
+            var listing = await _db.Listings.IgnoreQueryFilters().FirstOrDefaultAsync(x => x.Id == id);
+            if (listing is null)
+                return false;
+            listing.IsDeleted = true;
+            listing.Status = ListingStatus.Deleted;
+            listing.RejectionReason = null;
+            listing.DeletedAt = DateTime.UtcNow;
+            listing.UpdatedAt = DateTime.UtcNow;
+            await _db.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<Listing?> RestoreAdminAsync(Guid id)
+        {
+            var listing = await _db.Listings.IgnoreQueryFilters().FirstOrDefaultAsync(x => x.Id == id);
+            if (listing is null)
+                return null;
+            listing.IsDeleted = false;
+            listing.DeletedAt = null;
+            listing.Status = ListingStatus.Pending;
+            listing.RejectionReason = null;
+            listing.UpdatedAt = DateTime.UtcNow;
+            await _db.SaveChangesAsync();
+            return listing;
         }
 
         public async Task<Listing> UpdateAdmin(Listing entity)
@@ -334,7 +393,7 @@ namespace Arzly.Api.Infrastructure.Repositories.Listings
         {
 
             entity?.IsDeleted = true;
-            entity?.DeletedAt = DateTime.Now;
+            entity?.DeletedAt = DateTime.UtcNow;
             await _db.SaveChangesAsync();
             return true;
         }

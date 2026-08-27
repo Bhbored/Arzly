@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Arzly.Api.Domain.Entities.Communications
 {
-    [NotMapped]
     public class Notification
     {
         [Key]
