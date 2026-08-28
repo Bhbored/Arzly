@@ -1,8 +1,5 @@
 using Arzly.Api.Application.Contracts.Locations;
 using Arzly.Api.Domain.Contracts.Locations;
-using Arzly.Api.Application.Contracts;
-using Arzly.Api.Domain.Contracts;
-using Arzly.Api.Domain.Entities.Listings;
 using Arzly.Api.Mappings;
 using Arzly.Shared.Constants;
 using Arzly.Shared.DTOs.Request.PickupLocation;
@@ -11,13 +8,12 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Arzly.Api.Application.Services.Locations
 {
-    public class PickupLocationService : BaseService<PickupLocation, PickupLocationResponse, PickupLocationAddRequest, PickupLocationUpdateRequest, Guid>,
-        IPickupLocationService
+    public class PickupLocationService : IPickupLocationService
     {
         private readonly IPickupLocationRepository _pickupLocationRepo;
         private readonly ILogger<PickupLocationService> _logger;
         public PickupLocationService(IPickupLocationRepository repository,
-            ILogger<PickupLocationService> logger) : base(repository)
+            ILogger<PickupLocationService> logger)
         {
             _pickupLocationRepo = repository;
             _logger = logger;
@@ -29,8 +25,11 @@ namespace Arzly.Api.Application.Services.Locations
 
             var entities = await _pickupLocationRepo.GetByUserId(userId!.Value);
 
-            return entities.Select(x => MapToDto(x)).ToList();
+            return entities.Select(x => x.ToResponse()).ToList();
         }
+
+        public async Task<List<PickupLocationResponse>> GetAllAsync() =>
+            (await _pickupLocationRepo.GetAllAsync()).Select(entity => entity.ToResponse()).ToList();
 
         public async Task<PickupLocationResponse?> GetByIdAsync(Guid id, Guid userId)
         {
@@ -38,10 +37,10 @@ namespace Arzly.Api.Application.Services.Locations
             if (entity is null || entity.UserId != userId)
                 throw new UnauthorizedAccessException("The pickup location does not belong to the current user");
 
-            return MapToDto(entity);
+            return entity.ToResponse();
         }
 
-        public override async Task<PickupLocationResponse?> UpdateAsync(PickupLocationUpdateRequest? updateDto, Guid userId)
+        public async Task<PickupLocationResponse?> UpdateAsync(PickupLocationUpdateRequest? updateDto, Guid userId)
         {
             _logger.LogInformation($"{GetType().Name} - UpadateAsync Has been reached");
 
@@ -55,12 +54,12 @@ namespace Arzly.Api.Application.Services.Locations
             if (existing is null || existing.UserId != userId)
                 throw new UnauthorizedAccessException("The pickup location does not belong to the current user");
 
-            var updatedrequest = MapToEntity(updateDto);
+            var updatedrequest = updateDto.ToEntity();
 
             return (await _pickupLocationRepo.Update(updatedrequest)).ToResponse();
 
         }
-        public override async Task<PickupLocationResponse?> CreateAsync(PickupLocationAddRequest? createDto, Guid userId)
+        public async Task<PickupLocationResponse?> CreateAsync(PickupLocationAddRequest? createDto, Guid userId)
         {
             _logger.LogInformation($"{GetType().Name} - CreateAsync Has been reached");
 
@@ -84,11 +83,11 @@ namespace Arzly.Api.Application.Services.Locations
                 throw new ArgumentException("An Identical location for the user Already saved");
             }
 
-            var entity = MapToEntity(createDto);
+            var entity = createDto.ToEntity();
             entity.Id = Guid.NewGuid();
             entity.UserId = userId;
             await _pickupLocationRepo.AddAsync(entity);
-            return MapToDto(entity);
+            return entity.ToResponse();
         }
 
         public async Task<bool> SoftDeleteLocation(Guid id, Guid userId)
@@ -113,11 +112,6 @@ namespace Arzly.Api.Application.Services.Locations
 
             return await _pickupLocationRepo.SoftDeleteLocation(id);
         }
-
-        protected override PickupLocationResponse MapToDto(PickupLocation entity) => entity.ToResponse();
-        protected override PickupLocation MapToEntity(PickupLocationAddRequest createDto) => createDto.ToEntity();
-        protected override PickupLocation MapToEntity(PickupLocationUpdateRequest updateDto) => updateDto.ToEntity();
-
 
     }
 }

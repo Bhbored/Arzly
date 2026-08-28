@@ -1,8 +1,5 @@
 using Arzly.Api.Application.Contracts.Categories;
 using Arzly.Api.Domain.Contracts.Categories;
-using Arzly.Api.Application.Contracts;
-using Arzly.Api.Domain.Contracts;
-using Arzly.Api.Domain.Entities.Listings;
 using Arzly.Api.Mappings;
 using Arzly.Shared.Constants;
 using Arzly.Shared.DTOs.Request.SubCategory;
@@ -11,14 +8,13 @@ using SerilogTimings;
 
 namespace Arzly.Api.Application.Services.Categories
 {
-    public class SubCategoryService : BaseService<SubCategory, SubCategoryResponse, SubCategoryAddRequest, SubCategoryUpdateRequest, Guid>,
-        ISubCategoryService
+    public class SubCategoryService : ISubCategoryService
     {
         private readonly ISubCategoryRepository _subCategoryRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly ILogger<SubCategoryService> _logger;
 
-        public SubCategoryService(ISubCategoryRepository repository, ICategoryRepository categoryRepository, ILogger<SubCategoryService> logger) : base(repository)
+        public SubCategoryService(ISubCategoryRepository repository, ICategoryRepository categoryRepository, ILogger<SubCategoryService> logger)
         {
             _subCategoryRepository = repository;
             _categoryRepository = categoryRepository;
@@ -44,7 +40,7 @@ namespace Arzly.Api.Application.Services.Categories
             using (Operation.Time("Time for Fetched SubCategories by category id from Database"))
             {
                 var entities = await _subCategoryRepository.GetByCategoryIdAsync(categoryId);
-                responses = entities.ConvertAll(x => MapToDto(x));
+                responses = entities.ConvertAll(x => x.ToResponse());
             }
 
             _logger.LogInformation($"{GetType().Name} - GetByCategoryIdAsync successfully returned {responses.Count} subcategories");
@@ -65,18 +61,25 @@ namespace Arzly.Api.Application.Services.Categories
             using (Operation.Time("Time for Fetched SubCategory by title from Database"))
             {
                 var entity = await _subCategoryRepository.GetByTitleAsync(title);
-                response = entity == null ? null : MapToDto(entity);
+                response = entity == null ? null : entity.ToResponse();
             }
 
             _logger.LogInformation($"{GetType().Name} - GetByTitleAsync returned {{Found}}", response != null);
             return response;
         }
 
-        protected override SubCategoryResponse MapToDto(SubCategory entity) => entity.ToResponse();
-        protected override SubCategory MapToEntity(SubCategoryAddRequest createDto) => createDto.ToEntity();
-        protected override SubCategory MapToEntity(SubCategoryUpdateRequest updateDto) => updateDto.ToEntity();
+        public async Task<List<SubCategoryResponse>> GetAllAsync() =>
+            (await _subCategoryRepository.GetAllAsync()).Select(entity => entity.ToResponse()).ToList();
 
-        public override async Task<SubCategoryResponse?> CreateAsync(SubCategoryAddRequest? createDto, Guid userId)
+        public async Task<SubCategoryResponse?> GetByIdAsync(Guid id)
+        {
+            if (id == Guid.Empty) throw new ArgumentNullException(nameof(id));
+            var entity = await _subCategoryRepository.GetByIdAsync(id)
+                ?? throw new ArgumentException($"No Object with this ID {id} Found");
+            return entity.ToResponse();
+        }
+
+        public async Task<SubCategoryResponse?> CreateAsync(SubCategoryAddRequest? createDto, Guid userId)
         {
             if (createDto is null) throw new ArgumentNullException(nameof(createDto));
             if (await _categoryRepository.GetByIdAsync(createDto.CategoryId) is null)
@@ -90,7 +93,7 @@ namespace Arzly.Api.Application.Services.Categories
             return entity.ToResponse();
         }
 
-        public override async Task<SubCategoryResponse?> UpdateAsync(SubCategoryUpdateRequest? updateDto, Guid userId)
+        public async Task<SubCategoryResponse?> UpdateAsync(SubCategoryUpdateRequest? updateDto, Guid userId)
         {
             if (updateDto is null) throw new ArgumentNullException(nameof(updateDto));
             if (await _categoryRepository.GetByIdAsync(updateDto.CategoryId) is null)
@@ -103,7 +106,7 @@ namespace Arzly.Api.Application.Services.Categories
             return (await _subCategoryRepository.Update(entity)).ToResponse();
         }
 
-        public override async Task<bool> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             if (await _subCategoryRepository.HasListingsAsync(id))
                 throw new ArgumentException("A subcategory with listings cannot be deleted");

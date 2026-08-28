@@ -4,7 +4,12 @@ using Arzly.Shared.DTOs.Response.TicketAttachment;
 
 namespace Arzly.Api.Application.Contracts.Support
 {
-    public interface ITicketAttachmentService : IBaseService<TicketAttachment, TicketAttachmentResponse, TicketAttachmentAddRequest, TicketAttachmentUpdateRequest, Guid>
+    public interface ITicketAttachmentService
     {
+        Task<List<TicketAttachmentResponse>> GetAllAsync();
+        Task<TicketAttachmentResponse?> GetByIdAsync(Guid id);
+        Task<TicketAttachmentResponse?> CreateAsync(TicketAttachmentAddRequest? request, Guid userId);
+        Task<TicketAttachmentResponse?> UpdateAsync(TicketAttachmentUpdateRequest? request, Guid userId);
+        Task<bool> DeleteAsync(Guid id);
     }
 }

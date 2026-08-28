@@ -1,28 +1,24 @@
 using Arzly.Api.Application.Contracts.Users;
 using Arzly.Api.Domain.Contracts.Users;
-using Arzly.Api.Application.Contracts;
-using Arzly.Api.Domain.Contracts;
-using Arzly.Api.Domain.Entities.Users;
 using Arzly.Api.Mappings;
 using Arzly.Shared.DTOs.Request.UserReport;
 using Arzly.Shared.DTOs.Response.UserReport;
 
 namespace Arzly.Api.Application.Services.Users
 {
-    public class UserReportService : BaseService<UserReport, UserReportResponse, UserReportAddRequest, UserReportUpdateRequest, Guid>, IUserReportService
+    public class UserReportService : IUserReportService
     {
         private readonly IUserReportRepository _reportRepository;
 
-        public UserReportService(IUserReportRepository repository) : base(repository)
+        public UserReportService(IUserReportRepository repository)
         {
             _reportRepository = repository;
         }
 
-        protected override UserReportResponse MapToDto(UserReport entity) => entity.ToResponse();
-        protected override UserReport MapToEntity(UserReportAddRequest createDto) => createDto.ToEntity();
-        protected override UserReport MapToEntity(UserReportUpdateRequest updateDto) => updateDto.ToEntity();
+        public async Task<List<UserReportResponse>> GetAllAsync() =>
+            (await _reportRepository.GetAllAsync()).Select(entity => entity.ToResponse()).ToList();
 
-        public override async Task<UserReportResponse?> CreateAsync(UserReportAddRequest? createDto, Guid userId)
+        public async Task<UserReportResponse?> CreateAsync(UserReportAddRequest? createDto, Guid userId)
         {
             if (createDto is null || userId == Guid.Empty)
                 throw new ArgumentException("A valid report request and reporter are required");
@@ -50,6 +46,13 @@ namespace Arzly.Api.Application.Services.Users
             var report = await _reportRepository.ResolveAsync(id, resolverId, isResolved)
                 ?? throw new ArgumentException("Report not found");
             return report.ToResponse();
+        }
+
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            if (id == Guid.Empty) throw new ArgumentNullException(nameof(id));
+            var report = await _reportRepository.GetByIdAsync(id);
+            return report is not null && await _reportRepository.Delete(report);
         }
     }
 }

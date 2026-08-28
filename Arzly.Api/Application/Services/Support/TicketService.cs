@@ -1,7 +1,5 @@
 using Arzly.Api.Application.Contracts.Support;
 using Arzly.Api.Domain.Contracts.Support;
-using Arzly.Api.Application.Contracts;
-using Arzly.Api.Domain.Contracts;
 using Arzly.Api.Domain.Entities.Support;
 using Arzly.Api.Mappings;
 using Arzly.Shared.DTOs.Request.Ticket;
@@ -14,7 +12,7 @@ using Arzly.Shared.Enums.Ticket;
 
 namespace Arzly.Api.Application.Services.Support
 {
-    public class TicketService : BaseService<Ticket, TicketResponse, TicketAddRequest, TicketUpdateRequest, Guid>, ITicketService
+    public class TicketService : ITicketService
     {
         private const long MaximumAttachmentSize = 10 * 1024 * 1024;
         private static readonly HashSet<string> AllowedAttachmentTypes = new(StringComparer.OrdinalIgnoreCase)
@@ -23,16 +21,12 @@ namespace Arzly.Api.Application.Services.Support
         };
         private readonly ITicketRepository _ticketRepository;
 
-        public TicketService(ITicketRepository repository) : base(repository)
+        public TicketService(ITicketRepository repository)
         {
             _ticketRepository = repository;
         }
 
-        protected override TicketResponse MapToDto(Ticket entity) => entity.ToResponse();
-        protected override Ticket MapToEntity(TicketAddRequest createDto) => createDto.ToEntity();
-        protected override Ticket MapToEntity(TicketUpdateRequest updateDto) => updateDto.ToEntity();
-
-        public override async Task<TicketResponse?> CreateAsync(TicketAddRequest? createDto, Guid userId)
+        public async Task<TicketResponse?> CreateAsync(TicketAddRequest? createDto, Guid userId)
         {
             if (createDto is null || userId == Guid.Empty)
                 throw new ArgumentException("A valid ticket request and user are required");

@@ -1,22 +1,48 @@
 using Arzly.Api.Application.Contracts.Support;
 using Arzly.Api.Domain.Contracts.Support;
-using Arzly.Api.Application.Contracts;
-using Arzly.Api.Domain.Contracts;
-using Arzly.Api.Domain.Entities.Support;
 using Arzly.Api.Mappings;
+using Arzly.Shared.Constants;
 using Arzly.Shared.DTOs.Request.TicketAttachment;
 using Arzly.Shared.DTOs.Response.TicketAttachment;
 
 namespace Arzly.Api.Application.Services.Support
 {
-    public class TicketAttachmentService : BaseService<TicketAttachment, TicketAttachmentResponse, TicketAttachmentAddRequest, TicketAttachmentUpdateRequest, Guid>, ITicketAttachmentService
+    public class TicketAttachmentService : ITicketAttachmentService
     {
-        public TicketAttachmentService(ITicketAttachmentRepository repository) : base(repository)
+        private readonly ITicketAttachmentRepository _repository;
+
+        public TicketAttachmentService(ITicketAttachmentRepository repository) => _repository = repository;
+
+        public async Task<List<TicketAttachmentResponse>> GetAllAsync() =>
+            (await _repository.GetAllAsync()).Select(entity => entity.ToResponse()).ToList();
+
+        public async Task<TicketAttachmentResponse?> GetByIdAsync(Guid id)
         {
+            if (id == Guid.Empty) throw new ArgumentNullException(nameof(id));
+            var entity = await _repository.GetByIdAsync(id)
+                ?? throw new ArgumentException($"No Object with this ID {id} Found");
+            return entity.ToResponse();
         }
 
-        protected override TicketAttachmentResponse MapToDto(TicketAttachment entity) => entity.ToResponse();
-        protected override TicketAttachment MapToEntity(TicketAttachmentAddRequest createDto) => createDto.ToEntity();
-        protected override TicketAttachment MapToEntity(TicketAttachmentUpdateRequest updateDto) => updateDto.ToEntity();
+        public async Task<TicketAttachmentResponse?> CreateAsync(TicketAttachmentAddRequest? request, Guid userId)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request), ExceptionMessages.EmptyAddRequest);
+            var entity = request.ToEntity();
+            await _repository.AddAsync(entity);
+            return entity.ToResponse();
+        }
+
+        public async Task<TicketAttachmentResponse?> UpdateAsync(TicketAttachmentUpdateRequest? request, Guid userId)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request), ExceptionMessages.EmptyUpdateRequest);
+            return (await _repository.Update(request.ToEntity())).ToResponse();
+        }
+
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            if (id == Guid.Empty) throw new ArgumentNullException(nameof(id));
+            var entity = await _repository.GetByIdAsync(id);
+            return entity is not null && await _repository.Delete(entity);
+        }
     }
 }

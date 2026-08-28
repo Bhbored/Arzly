@@ -6,8 +6,11 @@ using Arzly.Shared.Enums.Listing;
 
 namespace Arzly.Api.Application.Contracts.Listings
 {
-    public interface IListingService : IBaseService<Listing, ListingResponse, ListingAddRequest, ListingUpdateRequest, Guid>
+    public interface IListingService
     {
+        Task<ListingResponse?> GetByIdAsync(Guid id);
+        Task<ListingResponse?> CreateAsync(ListingAddRequest? request, Guid userId);
+        Task<ListingResponse?> UpdateAsync(ListingUpdateRequest? request, Guid userId);
         Task<List<ListingResponse>> GetListingBySubCategoryId(Guid subcategoryId, Guid categoryId, int pageSize, int currentPage, string? searchString,
             LocationPreset? preset, object? details, string order,string orderByPrice, double minPrice, double maxPrice);
 

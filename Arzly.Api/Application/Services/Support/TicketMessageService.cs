@@ -1,22 +1,48 @@
 using Arzly.Api.Application.Contracts.Support;
 using Arzly.Api.Domain.Contracts.Support;
-using Arzly.Api.Application.Contracts;
-using Arzly.Api.Domain.Contracts;
-using Arzly.Api.Domain.Entities.Support;
 using Arzly.Api.Mappings;
+using Arzly.Shared.Constants;
 using Arzly.Shared.DTOs.Request.TicketMessage;
 using Arzly.Shared.DTOs.Response.TicketMessage;
 
 namespace Arzly.Api.Application.Services.Support
 {
-    public class TicketMessageService : BaseService<TicketMessage, TicketMessageResponse, TicketMessageAddRequest, TicketMessageUpdateRequest, Guid>, ITicketMessageService
+    public class TicketMessageService : ITicketMessageService
     {
-        public TicketMessageService(ITicketMessageRepository repository) : base(repository)
+        private readonly ITicketMessageRepository _repository;
+
+        public TicketMessageService(ITicketMessageRepository repository) => _repository = repository;
+
+        public async Task<List<TicketMessageResponse>> GetAllAsync() =>
+            (await _repository.GetAllAsync()).Select(entity => entity.ToResponse()).ToList();
+
+        public async Task<TicketMessageResponse?> GetByIdAsync(Guid id)
         {
+            if (id == Guid.Empty) throw new ArgumentNullException(nameof(id));
+            var entity = await _repository.GetByIdAsync(id)
+                ?? throw new ArgumentException($"No Object with this ID {id} Found");
+            return entity.ToResponse();
         }
 
-        protected override TicketMessageResponse MapToDto(TicketMessage entity) => entity.ToResponse();
-        protected override TicketMessage MapToEntity(TicketMessageAddRequest createDto) => createDto.ToEntity();
-        protected override TicketMessage MapToEntity(TicketMessageUpdateRequest updateDto) => updateDto.ToEntity();
+        public async Task<TicketMessageResponse?> CreateAsync(TicketMessageAddRequest? request, Guid userId)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request), ExceptionMessages.EmptyAddRequest);
+            var entity = request.ToEntity();
+            await _repository.AddAsync(entity);
+            return entity.ToResponse();
+        }
+
+        public async Task<TicketMessageResponse?> UpdateAsync(TicketMessageUpdateRequest? request, Guid userId)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request), ExceptionMessages.EmptyUpdateRequest);
+            return (await _repository.Update(request.ToEntity())).ToResponse();
+        }
+
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            if (id == Guid.Empty) throw new ArgumentNullException(nameof(id));
+            var entity = await _repository.GetByIdAsync(id);
+            return entity is not null && await _repository.Delete(entity);
+        }
     }
 }

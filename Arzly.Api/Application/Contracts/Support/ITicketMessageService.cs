@@ -4,7 +4,12 @@ using Arzly.Shared.DTOs.Response.TicketMessage;
 
 namespace Arzly.Api.Application.Contracts.Support
 {
-    public interface ITicketMessageService : IBaseService<TicketMessage, TicketMessageResponse, TicketMessageAddRequest, TicketMessageUpdateRequest, Guid>
+    public interface ITicketMessageService
     {
+        Task<List<TicketMessageResponse>> GetAllAsync();
+        Task<TicketMessageResponse?> GetByIdAsync(Guid id);
+        Task<TicketMessageResponse?> CreateAsync(TicketMessageAddRequest? request, Guid userId);
+        Task<TicketMessageResponse?> UpdateAsync(TicketMessageUpdateRequest? request, Guid userId);
+        Task<bool> DeleteAsync(Guid id);
     }
 }

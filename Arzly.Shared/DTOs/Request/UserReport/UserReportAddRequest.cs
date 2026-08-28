@@ -13,7 +13,12 @@ namespace Arzly.Shared.DTOs.Request.UserReport
 
         public Guid? ChatId { get; set; }
 
+        public Guid? ListingId { get; set; }
+
+        public Guid? JobListingId { get; set; }
+
         [Required(ErrorMessage = "Report reason is required.")]
+        [EnumDataType(typeof(ReportReasonType), ErrorMessage = "Invalid report reason.")]
         public ReportReasonType Reason { get; set; }
 
         [MaxLength(1000, ErrorMessage = "Notes cannot exceed 1000 characters.")]

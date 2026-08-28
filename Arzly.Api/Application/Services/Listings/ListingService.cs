@@ -21,7 +21,7 @@ using Arzly.Api.Infrastructure.Storage;
 
 namespace Arzly.Api.Application.Services.Listings
 {
-    public class ListingService : BaseService<Listing, ListingResponse, ListingAddRequest, ListingUpdateRequest, Guid>, IListingService
+    public class ListingService : IListingService
     {
         private readonly IListingRepository _listingRepo;
         private readonly IPickupLocationRepository _pickupLocationRepository;
@@ -38,7 +38,6 @@ namespace Arzly.Api.Application.Services.Listings
             , IListingOwnedRepository listingOwnedRepository, ILogger<ListingService> logger, ICategoryRepository categoryRepository,
             ISubCategoryRepository subCategoryRepository, JsonSerializerOptions jsonOptions,
             IUserActivityLogRepository activityLogRepository, IImageUploader imageUploader)
-            : base(repository)
         {
             _listingRepo = repository;
             _pickupLocationRepository = pickupLocationRepository;
@@ -143,11 +142,11 @@ namespace Arzly.Api.Application.Services.Listings
             if (updateDto == null)
                 throw new ArgumentNullException(ExceptionMessages.EmptyUpdateRequest);
 
-            var entity = MapToEntity(updateDto);
+            var entity = updateDto.ToEntity();
             var updatedEntity = await _listingRepo
                 .UpdateAdmin(entity);
 
-            return MapToDto(updatedEntity);
+            return updatedEntity.ToResponse();
         }
 
         public async Task<ListingResponse> GetByIdAdminAsync(Guid id)
@@ -226,7 +225,7 @@ namespace Arzly.Api.Application.Services.Listings
 
         #region user 
 
-        public override async Task<ListingResponse?> GetByIdAsync(Guid id)
+        public async Task<ListingResponse?> GetByIdAsync(Guid id)
         {
             _logger.LogInformation($"{GetType().Name} - GetByIdAsync Has been reached");
 
@@ -244,7 +243,7 @@ namespace Arzly.Api.Application.Services.Listings
                     throw new ArgumentException($"{ExceptionMessages.NoObjectWithId} - {id}");
                 }
 
-                return await AssignOneLocation_Details_Page(entity, MapToDto(entity));
+                return await AssignOneLocation_Details_Page(entity, entity.ToResponse());
             }
 
         }
@@ -439,7 +438,7 @@ namespace Arzly.Api.Application.Services.Listings
 
 
 
-        public override async Task<ListingResponse?> CreateAsync(ListingAddRequest? createDto, Guid userId)
+        public async Task<ListingResponse?> CreateAsync(ListingAddRequest? createDto, Guid userId)
         {
             _logger.LogInformation($"{GetType().Name} - CreateAsync Has been reached");
 
@@ -494,7 +493,7 @@ namespace Arzly.Api.Application.Services.Listings
 
 
 
-        public async override Task<ListingResponse?> UpdateAsync(ListingUpdateRequest? updateDto, Guid userId)
+        public async Task<ListingResponse?> UpdateAsync(ListingUpdateRequest? updateDto, Guid userId)
         {
             _logger.LogInformation($"{GetType().Name} - UpdateAsync Has been reached");
 
@@ -557,18 +556,6 @@ namespace Arzly.Api.Application.Services.Listings
             return entity.ToResponse();
         }
 
-        public async override Task<bool> DeleteAsync(Guid id)
-        {
-            if (id is Guid guid && guid == Guid.Empty)
-            {
-                throw new ArgumentNullException(ExceptionMessages.MissingId);
-            }
-            var entity = await _listingRepo.GetByIdAsync(id);
-            if (entity == null) return false;
-
-            return await _listingRepo.Delete(entity);
-        }
-
         public async Task<bool> DeleteAsync(Guid id, Guid userId)
         {
             if (id == Guid.Empty)
@@ -588,14 +575,6 @@ namespace Arzly.Api.Application.Services.Listings
 
 
         #region Mapping
-        protected override ListingResponse MapToDto(Listing entity) =>
-            entity.ToResponse();
-
-        protected override Listing MapToEntity(ListingAddRequest createDto) =>
-            createDto.ToEntity();
-
-        protected override Listing MapToEntity(ListingUpdateRequest updateDto) => updateDto.ToEntity();
-
         private static HashSet<string> GetImageUrls(Listing listing)
         {
             var urls = new HashSet<string>(StringComparer.Ordinal);

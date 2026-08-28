@@ -4,8 +4,9 @@ using Arzly.Shared.DTOs.Response.Ticket;
 
 namespace Arzly.Api.Application.Contracts.Support
 {
-    public interface ITicketService : IBaseService<Ticket, TicketResponse, TicketAddRequest, TicketUpdateRequest, Guid>
+    public interface ITicketService
     {
+        Task<TicketResponse?> CreateAsync(TicketAddRequest? request, Guid userId);
         Task<List<TicketResponse>> GetUserTicketsAsync(Guid userId, int pageSize, int currentPage);
         Task<List<TicketResponse>> GetQueueAsync(int pageSize, int currentPage);
         Task<TicketConversationResponse> GetConversationAsync(Guid id, Guid userId, bool isStaff);

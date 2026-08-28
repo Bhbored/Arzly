@@ -5,7 +5,12 @@ using Arzly.Shared.DTOs.Response.SearchQuery;
 
 namespace Arzly.Api.Application.Contracts.Listings
 {
-    public interface ISearchQueryService : IBaseService<SearchQuery, SearchQueryResponse, SearchQueryAddRequest, SearchQueryUpdateRequest, Guid>
+    public interface ISearchQueryService
     {
+        Task<List<SearchQueryResponse>> GetAllAsync();
+        Task<SearchQueryResponse?> GetByIdAsync(Guid id);
+        Task<SearchQueryResponse?> CreateAsync(SearchQueryAddRequest? request, Guid userId);
+        Task<SearchQueryResponse?> UpdateAsync(SearchQueryUpdateRequest? request, Guid userId);
+        Task<bool> DeleteAsync(Guid id);
     }
 }
