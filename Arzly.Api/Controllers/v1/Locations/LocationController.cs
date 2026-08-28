@@ -2,9 +2,11 @@
 using Arzly.Api.Helpers.GoogleMap;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Arzly.Api.Controllers.v1.Locations
 {
+    [EnableRateLimiting("maps")]
     public class LocationController : CustomeControllerBase
     {
         private readonly GoogleMapsService _googleMaps;

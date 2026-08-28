@@ -10,6 +10,7 @@ using Arzly.Shared.Enums.Ticket;
 using Arzly.Shared.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Arzly.Api.Controllers.v1.Support;
 
@@ -23,6 +24,7 @@ public class TicketController : CustomeControllerBase
     }
 
     [HttpPost]
+    [EnableRateLimiting("support")]
     public async Task<ActionResult<TicketResponse>> Create([FromBody] TicketAddRequest request)
     {
         var result = await _service.CreateAsync(request, User.GetUserId());
@@ -48,10 +50,12 @@ public class TicketController : CustomeControllerBase
 
     [HttpPut("{id:guid}/status")]
     [Authorize(Roles = "admin,support")]
+    [EnableRateLimiting("support")]
     public async Task<ActionResult<TicketResponse>> SetStatus(Guid id, [FromBody] TicketStatus status) =>
         Ok(await _service.SetStatusAsync(id, User.GetUserId(), status));
 
     [HttpPost("{id:guid}/messages")]
+    [EnableRateLimiting("support")]
     public async Task<ActionResult<TicketMessageResponse>> AddMessage(
         Guid id,
         [FromBody] TicketMessageAddRequest request)
@@ -63,6 +67,7 @@ public class TicketController : CustomeControllerBase
     }
 
     [HttpPost("{id:guid}/attachments")]
+    [EnableRateLimiting("support")]
     public async Task<ActionResult<TicketAttachmentResponse>> AddAttachment(
         Guid id,
         [FromBody] TicketAttachmentAddRequest request)

@@ -86,6 +86,7 @@ namespace Arzly.Api.Controllers.v1.Communications
         }
 
         [HttpPut("[action]/{id:guid}")]
+        [EnableRateLimiting("messaging")]
         public async Task<ActionResult<ChatResponse>> ToggleArchive(Guid id)
         {
             _logger.LogInformation("{Controller}.ToggleArchive({Id}) - Before",
@@ -99,6 +100,7 @@ namespace Arzly.Api.Controllers.v1.Communications
         }
 
         [HttpPut("[action]/{id:guid}")]
+        [EnableRateLimiting("messaging")]
         public async Task<ActionResult<ChatResponse>> MarkDiscontinued(Guid id)
         {
             _logger.LogInformation("{Controller}.MarkDiscontinued({Id}) - Before",
@@ -112,6 +114,7 @@ namespace Arzly.Api.Controllers.v1.Communications
         }
 
         [HttpDelete("{id:guid}")]
+        [EnableRateLimiting("messaging")]
         public async Task<ActionResult> Delete(Guid id)
         {
             _logger.LogInformation("{Controller}.Delete({Id}) - Before",
@@ -139,6 +142,7 @@ namespace Arzly.Api.Controllers.v1.Communications
         }
 
         [HttpPut("[action]")]
+        [EnableRateLimiting("messaging")]
         public async Task<ActionResult> MarkMessageAsRead([FromBody] MarkMessageAsReadRequest readDto)
         {
             _logger.LogInformation("{Controller}.MarkMessageAsRead({MessageId}) - Before",

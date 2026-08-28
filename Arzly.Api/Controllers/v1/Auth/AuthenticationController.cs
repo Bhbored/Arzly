@@ -84,6 +84,7 @@ namespace Arzly.Api.Controllers.v1.Auth
 
         [HttpGet("logout")]
         [Authorize]
+        [EnableRateLimiting("writes")]
         public async Task<IActionResult> Logout()
         {
             await _authService.LogoutAsync(User.GetUserId());
@@ -110,6 +111,7 @@ namespace Arzly.Api.Controllers.v1.Auth
 
         [HttpPost("change-password")]
         [Authorize]
+        [EnableRateLimiting("credentials")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
         {
             var userid = User.GetUserId();

@@ -34,9 +34,10 @@ builder.Services.AddHsts(options =>
 });
 var app = builder.Build();
 
-
+app.UseForwardedHeaders();
 
 app.UseMiddleware<CorrelationIdMiddleware>();
+app.UseMiddleware<HandleExceptionMiddleware>();
 app.UseSerilogRequestLogging();
 
 if (app.Environment.IsDevelopment())

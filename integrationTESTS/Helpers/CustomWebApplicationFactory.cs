@@ -23,6 +23,8 @@ namespace Arzly.Tests.Helpers
             builder.UseSetting("AllowedOrigins:0", "https://admin.arzly.test");
             builder.UseSetting("RateLimits:Auth:PermitLimit", "5");
             builder.UseSetting("RateLimits:Auth:WindowSeconds", "60");
+            builder.UseSetting("ReverseProxy:KnownProxies:0", "10.0.0.10");
+            builder.UseSetting("ReverseProxy:KnownIPNetworks:0", "192.0.2.0/24");
             builder.UseSetting("CloudflareR2:AccessKey", "test-access-key");
             builder.UseSetting("CloudflareR2:SecretKey", "test-secret-key");
             builder.UseSetting("CloudflareR2:ServiceURL", "https://r2.arzly.test");

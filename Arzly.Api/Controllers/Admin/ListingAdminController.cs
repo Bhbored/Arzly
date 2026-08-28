@@ -8,6 +8,7 @@ using Arzly.Shared.Enums.Listing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Arzly.Shared.Extensions;
 using Arzly.Shared.DTOs.Response.UserActivityLog;
 using Arzly.Api.Application.Contracts.Admin;
@@ -18,6 +19,7 @@ namespace Arzly.Api.Controllers.Admin
     [Route("arzly/v{version:apiVersion}/admin/[controller]")]
     [ApiController]
     [Authorize(Roles = "admin")]
+    [EnableRateLimiting("writes")]
     public class ListingAdminController : ControllerBase
     {
         private readonly ILogger<ListingAdminController> _logger;

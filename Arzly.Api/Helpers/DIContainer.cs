@@ -20,7 +20,6 @@ using Arzly.Api.Domain.Contracts.Listings;
 using Arzly.Api.Domain.Contracts.Locations;
 using Arzly.Api.Domain.Contracts.Support;
 using Arzly.Api.Domain.Contracts.Users;
-using Arzly.Api.Filters.ExceptionFilters;
 using Arzly.Api.Filters.HubFilters;
 using Arzly.Api.Filters.ResultFilters;
 using Arzly.Api.Helpers.GoogleMap;
@@ -41,6 +40,7 @@ using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -48,6 +48,8 @@ using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Net;
+using System.Security.Claims;
 using System.Threading.RateLimiting;
 using System.Text;
 using System.Text.Json;
@@ -131,12 +133,57 @@ namespace Arzly.Api.Helpers
             services.AddRateLimiter(options =>
             {
                 options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+                options.OnRejected = (context, _) =>
+                {
+                    if (context.Lease.TryGetMetadata(MetadataName.RetryAfter, out var retryAfter))
+                    {
+                        context.HttpContext.Response.Headers.RetryAfter =
+                            Math.Max(1, (int)Math.Ceiling(retryAfter.TotalSeconds)).ToString();
+                    }
+
+                    return ValueTask.CompletedTask;
+                };
                 AddFixedWindowPolicy(options, configuration, "auth", "Auth", 10, TimeSpan.FromMinutes(1));
                 AddFixedWindowPolicy(options, configuration, "uploads", "Uploads", 20, TimeSpan.FromMinutes(1));
                 AddFixedWindowPolicy(options, configuration, "messaging", "Messaging", 60, TimeSpan.FromMinutes(1));
                 AddFixedWindowPolicy(options, configuration, "reports", "Reports", 10, TimeSpan.FromMinutes(5));
                 AddFixedWindowPolicy(options, configuration, "broadcasts", "Broadcasts", 10, TimeSpan.FromMinutes(1));
+                AddFixedWindowPolicy(options, configuration, "email-delivery", "EmailDelivery", 3, TimeSpan.FromMinutes(10));
+                AddFixedWindowPolicy(options, configuration, "credentials", "Credentials", 10, TimeSpan.FromMinutes(10));
+                AddFixedWindowPolicy(options, configuration, "maps", "Maps", 60, TimeSpan.FromMinutes(1));
+                AddFixedWindowPolicy(options, configuration, "support", "Support", 20, TimeSpan.FromMinutes(5));
+                AddFixedWindowPolicy(options, configuration, "writes", "Writes", 30, TimeSpan.FromMinutes(1), mutationsOnly: true);
             });
+            return services;
+        }
+
+        public static IServiceCollection RegisterForwardedHeaders(
+            this IServiceCollection services,
+            IConfiguration configuration)
+        {
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders =
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                options.ForwardLimit = Math.Max(
+                    1,
+                    configuration.GetValue<int?>("ReverseProxy:ForwardLimit") ?? 1);
+
+                foreach (var value in configuration.GetSection("ReverseProxy:KnownProxies").Get<string[]>() ?? [])
+                {
+                    if (!IPAddress.TryParse(value, out var address))
+                        throw new InvalidOperationException($"Invalid trusted proxy IP address: {value}");
+                    options.KnownProxies.Add(address);
+                }
+
+                foreach (var value in configuration.GetSection("ReverseProxy:KnownIPNetworks").Get<string[]>() ?? [])
+                {
+                    if (!System.Net.IPNetwork.TryParse(value, out var network))
+                        throw new InvalidOperationException($"Invalid trusted proxy CIDR: {value}");
+                    options.KnownIPNetworks.Add(network);
+                }
+            });
+
             return services;
         }
 
@@ -146,21 +193,43 @@ namespace Arzly.Api.Helpers
             string policyName,
             string configurationName,
             int defaultLimit,
-            TimeSpan defaultWindow)
+            TimeSpan defaultWindow,
+            bool mutationsOnly = false)
         {
             var permitLimit = configuration.GetValue<int?>(
                 $"RateLimits:{configurationName}:PermitLimit") ?? defaultLimit;
             var windowSeconds = configuration.GetValue<int?>(
                 $"RateLimits:{configurationName}:WindowSeconds") ?? (int)defaultWindow.TotalSeconds;
-            options.AddPolicy(policyName, context => RateLimitPartition.GetFixedWindowLimiter(
-                context.User.Identity?.Name ?? context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
-                _ => new FixedWindowRateLimiterOptions
+            options.AddPolicy(policyName, context =>
+            {
+                if (mutationsOnly &&
+                    (HttpMethods.IsGet(context.Request.Method) ||
+                     HttpMethods.IsHead(context.Request.Method) ||
+                     HttpMethods.IsOptions(context.Request.Method)))
                 {
-                    PermitLimit = Math.Max(1, permitLimit),
-                    Window = TimeSpan.FromSeconds(Math.Max(1, windowSeconds)),
-                    QueueLimit = 0,
-                    AutoReplenishment = true
-                }));
+                    return RateLimitPartition.GetNoLimiter(GetRateLimitPartitionKey(context));
+                }
+
+                return RateLimitPartition.GetFixedWindowLimiter(
+                    GetRateLimitPartitionKey(context),
+                    _ => new FixedWindowRateLimiterOptions
+                    {
+                        PermitLimit = Math.Max(1, permitLimit),
+                        Window = TimeSpan.FromSeconds(Math.Max(1, windowSeconds)),
+                        QueueLimit = 0,
+                        AutoReplenishment = true
+                    });
+            });
+        }
+
+        internal static string GetRateLimitPartitionKey(HttpContext context)
+        {
+            var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!string.IsNullOrWhiteSpace(userId))
+                return $"user:{userId}";
+
+            var address = context.Connection.RemoteIpAddress;
+            return address is null ? "ip:unknown" : $"ip:{address.MapToIPv6()}";
         }
 
         public static IServiceCollection RegisterIdentity(this IServiceCollection services)
@@ -226,7 +295,6 @@ namespace Arzly.Api.Helpers
             services.AddControllers(controller =>
             {
 
-                controller.Filters.Add<HandleExceptionFilter>();
                 controller.Filters.Add<ConditionalJsonResultFilter>();
 
                 var policy = new AuthorizationPolicyBuilder()
@@ -364,6 +432,7 @@ namespace Arzly.Api.Helpers
         {
             return services.RegisterGoogleAuthClient(configuration, environment)
                 .RegisterCors(configuration, environment)
+                            .RegisterForwardedHeaders(configuration)
                             .RegisterApiVersioning()
                             .RegisterHealthAndRateLimiting(configuration)
                             .RegisterIdentity()

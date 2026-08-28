@@ -4,12 +4,14 @@ using Arzly.Shared.DTOs.Response.UserModeration;
 using Arzly.Shared.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Arzly.Api.Controllers.Admin;
 
 [Route("arzly/v{version:apiVersion}/admin/users")]
 [ApiController]
 [Authorize(Roles = "admin,support")]
+[EnableRateLimiting("writes")]
 public class UserAdminController : ControllerBase
 {
     private readonly IUserModerationService _service;

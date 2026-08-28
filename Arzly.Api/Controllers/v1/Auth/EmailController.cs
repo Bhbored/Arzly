@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using MimeKit;
 using System.Security.Claims;
 
@@ -24,6 +25,7 @@ namespace Arzly.Api.Controllers.v1.Auth
 
         [HttpPost("send-verification")]
         [Authorize(Roles ="user")]
+        [EnableRateLimiting("email-delivery")]
         public async Task<IActionResult> SendVerificationEmail()
         {
             var userId = User.GetUserId();
@@ -36,6 +38,7 @@ namespace Arzly.Api.Controllers.v1.Auth
 
         [HttpPost("verify-email")]
         [Authorize(Roles = "user")]
+        [EnableRateLimiting("credentials")]
         public async Task<IActionResult> VerifyEmail([FromBody] VerifyEmailRequest request)
         {
             var userId = User.GetUserId();
@@ -52,6 +55,7 @@ namespace Arzly.Api.Controllers.v1.Auth
 
         [HttpPost("forgot-password")]
         [AllowAnonymous]
+        [EnableRateLimiting("email-delivery")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
         {
             await _emailService.SendPasswordResetAsync(request.Email, HttpContext.RequestAborted);
@@ -60,6 +64,7 @@ namespace Arzly.Api.Controllers.v1.Auth
 
         [HttpPost("reset-password")]
         [AllowAnonymous]
+        [EnableRateLimiting("credentials")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
         {
             var result = await _emailService.ResetPasswordAsync(
